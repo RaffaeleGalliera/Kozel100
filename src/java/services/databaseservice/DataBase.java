@@ -1,11 +1,10 @@
-package services.databaseservice;
+package java.services.databaseservice;
 
 import java.io.*;
 import java.util.*;
 import java.sql.*;
 
-import services.databaseservice.exception.*;
-import util.Debug;
+import java.services.databaseservice.exception.*;
 
 public class DataBase{ //Contenitore della Connessione + lo Statement derivato dalla connessione, utilizzata dai Bean per comunicare col DB
     //per rendere più snello il codice lato BFlow. E' un wrapper sui metodi del JDBC, che si mantiene la connessione internamente.

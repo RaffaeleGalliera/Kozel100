@@ -1,10 +1,9 @@
-package services.errorservice;
+package java.services.errorservice;
 
 import java.util.*;
 import java.io.*;
 
-import global.*;
-import services.logservice.*;
+import java.services.logservice.*;
 
 
 public class EService {

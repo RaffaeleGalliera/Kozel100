@@ -1,10 +1,7 @@
-package services.databaseservice.exception;
+package java.services.databaseservice.exception;
 
-import services.errorservice.*;
-import services.databaseservice.*;
-import services.logservice.*;
-
-import java.io.*;
+import java.services.errorservice.*;
+import java.services.databaseservice.*;
 
 public class ResultSetDBException extends DBException implements GeneralError {
 

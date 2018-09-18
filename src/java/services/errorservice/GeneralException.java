@@ -4,7 +4,7 @@
  * Created on May 5, 2000, 2:57 PM
  */
 
-package services.errorservice;
+package java.services.errorservice;
 
 /**
  * Interfaccia che definisce il tipo di errore General Exception.
