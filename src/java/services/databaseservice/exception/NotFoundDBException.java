@@ -1,9 +1,9 @@
-package java.services.databaseservice.exception;
+package services.databaseservice.exception;
 
 import java.io.*;
 
-import java.services.errorservice.*;
-import java.services.databaseservice.*;
+import services.errorservice.*;
+import services.databaseservice.*;
 
 public class NotFoundDBException extends DBException implements FatalError {
 

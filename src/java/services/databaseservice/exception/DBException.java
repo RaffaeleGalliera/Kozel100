@@ -1,7 +1,7 @@
-package java.services.databaseservice.exception;
+package services.databaseservice.exception;
 
-import java.services.databaseservice.*;
-import java.services.logservice.*;
+import services.databaseservice.*;
+import services.logservice.*;
 
 public class DBException extends Exception {
 

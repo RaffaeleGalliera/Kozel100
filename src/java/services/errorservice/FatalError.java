@@ -4,7 +4,7 @@
  * Created on May 5, 2000, 2:57 PM
  */
 
-package java.services.errorservice;
+package services.errorservice;
 
 
 /**

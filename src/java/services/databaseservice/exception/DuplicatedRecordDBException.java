@@ -1,6 +1,6 @@
-package java.services.databaseservice.exception;
+package services.databaseservice.exception;
 
-import java.services.errorservice.*;
+import services.errorservice.*;
 
 public class DuplicatedRecordDBException extends DBException implements Warning {
 

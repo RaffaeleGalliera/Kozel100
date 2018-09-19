@@ -6,7 +6,7 @@
 
 package util;
 
-import java.global.*;
+import global.*;
 
 /**
  * Sostituisce la System.out per il Debug.

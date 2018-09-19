@@ -4,9 +4,9 @@
  * Created on May 8, 2000, 3:22 PM
  */
 
-package java.services.logservice;
+package services.logservice;
 
-import java.global.*;
+import global.*;
 
 /**
  * Permette di astrarre, per le eccezioni dell'applicazione,
@@ -96,8 +96,8 @@ public class ErrorLog {
      * @param logMessage Messaggio di errore da scrivere sul log file
      *
      * @see LService
-     * @see java.services.databaseservice
-     * @see java.services.databaseservice.exception
+     * @see services.databaseservice
+     * @see services.databaseservice.exception
      *
      */
 
@@ -112,8 +112,9 @@ public class ErrorLog {
      * @param logMessage Messaggio di errore da scrivere sul log file
      *
      * @see LService
-     * @see blogics.suppliermanager
-     * @see blogics.suppliermanager.exception
+     * TODO : Cosa fanno questi sotto
+     //* @see blogics.suppliermanager
+   //  * @see blogics.suppliermanager.exception
      *
      */
 

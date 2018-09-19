@@ -1,8 +1,8 @@
-package java.services.databaseservice;
+package services.databaseservice;
 
 import java.sql.*;
-import java.global.*;
-import java.services.databaseservice.exception.*;
+import global.*;
+import services.databaseservice.exception.*;
 
 public class DBService{
 

@@ -1,4 +1,4 @@
-package java.global;
+package global;
 
 public class Constants {
 

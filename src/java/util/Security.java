@@ -1,4 +1,4 @@
-package java.util;
+package util;
 
 public class Security {
 }

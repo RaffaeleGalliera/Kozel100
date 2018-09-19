@@ -4,10 +4,10 @@
  * Created on May 8, 2000, 3:29 PM
  */
 
-package java.services.logservice;
+package services.logservice;
 
 import java.io.*;
-import java.util.*;
+import util.*;
 
 /**
  * Contiene un solo metodo statico (sicronizzato) per scrivere un messaggio

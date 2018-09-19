@@ -3,7 +3,7 @@
  *
  */
 
-package java.util;
+package util;
 
 //import global.*;
 import java.util.*;
