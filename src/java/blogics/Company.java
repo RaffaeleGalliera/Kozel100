@@ -26,9 +26,8 @@ public class Company {
         try {email=result.getString("email");} catch(SQLException sqle) {}
     }
 
-    public Company(Integer companyId, String name, String vat, String address, String city, String email){
+    public Company(String name, String vat, String address, String city, String email){
 
-        this.companyId=companyId;
         this.name=name;
         this.vat=vat;
         this.address=address;
@@ -46,7 +45,7 @@ public class Company {
         //Check unicita
 
         query="INSERT INTO companies(company_id, name, vat, address, city, email)" +
-              "VALUES("+companyId+",?,?,?,?,?)";
+              "VALUES(?,?,?,?,?)";
 
         parameters.add(name);
         parameters.add(vat);

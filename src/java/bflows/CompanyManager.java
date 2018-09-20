@@ -7,7 +7,7 @@ import services.errorservice.*;
 
 public class CompanyManager implements java.io.Serializable {
 
-    private Integer companyId;
+    private int companyId;
     private String name;
     private String vat;
     private String address;
@@ -21,20 +21,21 @@ public class CompanyManager implements java.io.Serializable {
         try{
 
             database=DBService.getDataBase();
-            Company company = new Company(companyId,name,vat,address,city,email);
+
+            Company company = new Company(name,vat,address,city,email);
             company.insert(database);
             database.commit();
 
         }
 
         catch (NotFoundDBException ex) {
-
+            EService.logAndRecover(ex);
         }
         catch (ResultSetDBException ex) {
-
+            EService.logAndRecover(ex);
         }
         catch(DuplicatedRecordDBException ex){
-
+            EService.logAndRecover(ex);
         }
         finally {
             try { database.close(); }

@@ -13,7 +13,7 @@ public class DBService{
   public static synchronized DataBase getDataBase() throws NotFoundDBException {
 
      try{
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("org.mariadb.jdbc.Driver");
         Connection connection = DriverManager.getConnection(Constants.DB_CONNECTION_STRING);
         return new DataBase(connection);
       } 

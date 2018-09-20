@@ -12,10 +12,6 @@
         <table>
 
             <tr>
-                <td>ID</td> <td><input type="text" name="companyId" size="30"/></td>
-            </tr>
-
-            <tr>
                 <td>Name</td> <td><input type="text" name="name" size="30"/></td>
             </tr>
 
@@ -40,6 +36,15 @@
         </table>
 
     </form>
+
+    Dati nel bean: <br><br><br>
+    Name: <%=companyManager.getName()%><br><br>
+    Vat: <%=companyManager.getVat()%><br><br>
+    Address: <%=companyManager.getAddress()%><br><br>
+    City: <%=companyManager.getCity()%><br><br>
+    Email: <%=companyManager.getEmail()%><br><br>
+
+    <%companyManager.insertCompany();%>
 
 </html>
 
