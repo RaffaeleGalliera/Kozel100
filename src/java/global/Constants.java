@@ -13,7 +13,7 @@ public class Constants {
 
   /* Constants for log files*/
   //public final static String LOG_DIR = "/home/pi/log";
-  public static final String LOG_DIR = "/tmp/Kozel100";
+  public static final String LOG_DIR = "/tmp/Kozel100/";
   public static final String FRONTEND_ERROR_LOG_FILE = LOG_DIR + "frontenderror.log";
   public static final String FATAL_LOG_FILE = LOG_DIR + "fatalerror.log";
   public static final String GENERAL_LOG_FILE = LOG_DIR + "generalerror.log";  
