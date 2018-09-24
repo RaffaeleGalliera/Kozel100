@@ -34,6 +34,8 @@ public class ContactPerson {
 
     public void insert(DataBase database) throws NotFoundDBException,DuplicatedRecordDBException,ResultSetDBException {
 
+        //test TODO:Resolve this
+        companyId = 1;
         String query;
         ArrayList<String> parameters=new ArrayList();
         ResultSet result;

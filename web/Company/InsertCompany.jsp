@@ -1,4 +1,4 @@
-<%@ page info="Inserimento nuovo Menù" %>
+<%@ page info="Inserimento nuova Compagnia" %>
 <%@ page session="false"%>
 <%@ page buffer="30kb" %>
 

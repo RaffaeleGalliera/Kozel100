@@ -44,8 +44,8 @@ public class Company {
 
         //Check unicita
 
-        query="INSERT INTO companies(company_id, name, vat, address, city, email)" +
-              "VALUES(?,?,?,?,?)";
+        query="INSERT INTO company(company_id, name, vat, address, city, email)" +
+              "VALUES("+companyId+",?,?,?,?,?)";
 
         parameters.add(name);
         parameters.add(vat);
