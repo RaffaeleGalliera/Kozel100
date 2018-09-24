@@ -6,7 +6,7 @@ import services.databaseservice.exception.*;
 import services.errorservice.*;
 
 public class ContactPersonManager implements java.io.Serializable {
-
+    //TODO: Come fare con chiave esterna
     private int contactPersonId;
     private int companyId;
     private String firstName;
