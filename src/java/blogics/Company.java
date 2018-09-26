@@ -47,6 +47,7 @@ public class Company {
         query="INSERT INTO company(company_id, name, vat, address, city, email)" +
               "VALUES("+companyId+",?,?,?,?,?)";
 
+
         parameters.add(name);
         parameters.add(vat);
         parameters.add(address);
