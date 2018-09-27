@@ -15,41 +15,50 @@
 
 
 <html>
+    <head>
+        <title>Kozel100</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-<form name="contactPersonManager" action="" method="post">
+    </head>
 
-    <table>
+    <form class="form-horizontal justify-content-center" name="contactPersonManager" action="" method="post">
+        <fieldset>
+            <legend>Contact Person</legend>
+            <!-- Text input-->
+            <div class="row">
+                <div class="col">
+                        <input id="firstName" name="firstName" type="text" class="form-control input-md">
+                 </div>
+                <div class="col">
+                            <input id="lastName" name="lastName" type="text" class="form-control input-md">
+                </div>
+            </div>
+            <div class="form-group">
+                        <label class="col-md-4 control-label" for="email">Email</label>
+                        <div class="col-md-4">
+                            <input id="email" name="email" type="text" class="form-control input-md">
+                        </div>
+            </div>
 
-        <tr>
-            <td>First Name</td> <td><input type="text" name="firstName" size="30"/></td>
-        </tr>
+            <div class="form-group">
+                        <label class="col-md-4 control-label" for="phoneNumber">Phone Number</label>
+                        <div class="col-md-4">
+                            <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Prefix Must Be Added" class="form-control input-md">
+                        </div>
+            </div>
 
-        <tr>
-            <td>Last_name</td> <td><input type="text" name="lastName" size="30"/></td>
-        </tr>
+            <!-- Button -->
+            <div class="form-group">
+                <div class="col-md-4">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary" value="inserisci" onclick="insert(this.form)">Inserisci</button>
+                </div>
+            </div>
 
-        <tr>
-            <td>Phone_number</td> <td><input type="text" name="phoneNumber" size="30"/></td>
-        </tr>
-
-        <tr>
-            <td>Email</td> <td><input type="text" name="email" size="30"/></td>
-        </tr>
-
-        <input type="button" value="Inserisci" onClick="insert(this.form)"/>
-
-    </table>
-
-</form>
-
-Dati nel bean: <br><br><br>
-first name: <%=contactPersonManager.getFirstName()%><br><br>
-last name: <%=contactPersonManager.getLastName()%><br><br>
-email: <%=contactPersonManager.getEmail()%><br><br>
-phone number: <%=contactPersonManager.getPhoneNumber()%><br><br>
-
-<%contactPersonManager.insertContactPerson();%>
-
+        </fieldset>
+    </form>
 </html>
 
 
