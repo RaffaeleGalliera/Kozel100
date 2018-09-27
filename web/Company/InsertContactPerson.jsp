@@ -24,7 +24,7 @@
 
     </head>
 
-    <form class="form-horizontal justify-content-center" name="contactPersonManager" action="" method="post">
+    <form class="form-horizontal" name="contactPersonManager" action="" method="post">
         <fieldset>
             <legend>Contact Person</legend>
             <!-- Text input-->
@@ -61,6 +61,7 @@
     </form>
 </html>
 
+<%contactPersonManager.insertContactPerson();%>
 
 <script>
 
