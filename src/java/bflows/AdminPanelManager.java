@@ -1,11 +1,19 @@
 package bflows;
 
 import blogics.*;
-import services.databaseservice.*;
 import services.databaseservice.exception.*;
+import services.databaseservice.*;
 import services.errorservice.*;
 
+import java.time.LocalTime;
+import javax.servlet.http.Cookie;
+//import services.sessionservice.Session;
+
 public class AdminPanelManager implements java.io.Serializable {
+    private Position[] positions;
+    private WorkField[] workFields;
+    private ClientType[] clientTypes;
+
     private int positionId;
     private String positionName;
 
@@ -14,100 +22,127 @@ public class AdminPanelManager implements java.io.Serializable {
 
     private int clientTypeId;
     private String clientTypeName;
-    
 
-    public void insertPosition(){
+    public AdminPanelManager() {
 
-        DataBase database=null;
+    }
 
-        try{
+    public void adminView() {
 
-            database=DBService.getDataBase();
+        DataBase db = null;
+
+        try {
+
+            db = DBService.getDataBase();
+
+            positions = PositionDAO.getAllPositions(db);
+            workFields = WorkFieldDAO.getAllWorkFields(db);
+            //   clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            db.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            //#TODO SetResult
+            //setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            //  setResult(EService.UNRECOVERABLE_ERROR);
+        } finally {
+            try {
+                db.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+    }
+
+    public void insertPosition() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
 
             Position position = new Position(positionName);
             position.insert(database);
             database.commit();
 
-        }
-
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch (ResultSetDBException ex) {
+        } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch(DuplicatedRecordDBException ex){
+        } catch (DuplicatedRecordDBException ex) {
             EService.logAndRecover(ex);
-        }
-        finally {
-            try { database.close(); }
-            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
         }
 
 
     }
 
-    public void insertWorkField(){
+    public void insertWorkField() {
 
-        DataBase database=null;
+        DataBase database = null;
 
-        try{
+        try {
 
-            database=DBService.getDataBase();
+            database = DBService.getDataBase();
 
-            WorkField workfield= new WorkField(workFieldName);
+            WorkField workfield = new WorkField(workFieldName);
             workfield.insert(database);
             database.commit();
 
-        }
-
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch (ResultSetDBException ex) {
+        } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch(DuplicatedRecordDBException ex){
+        } catch (DuplicatedRecordDBException ex) {
             EService.logAndRecover(ex);
-        }
-        finally {
-            try { database.close(); }
-            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
         }
 
 
     }
 
-     public void insertClientType(){
+    public void insertClientType() {
 
-            DataBase database=null;
+        DataBase database = null;
 
-            try{
+        try {
 
-                database=DBService.getDataBase();
+            database = DBService.getDataBase();
 
-                ClientType clientType = new ClientType(clientTypeName);
-                clientType.insert(database);
-                database.commit();
+            ClientType clientType = new ClientType(clientTypeName);
+            clientType.insert(database);
+            database.commit();
 
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+        } catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
             }
-
-            catch (NotFoundDBException ex) {
-                EService.logAndRecover(ex);
-            }
-            catch (ResultSetDBException ex) {
-                EService.logAndRecover(ex);
-            }
-            catch(DuplicatedRecordDBException ex){
-                EService.logAndRecover(ex);
-            }
-            finally {
-                try { database.close(); }
-                catch (NotFoundDBException e) { EService.logAndRecover(e); }
-            }
+        }
 
 
-     }
+    }
 
     public Integer getPositionId() {
         return positionId;
@@ -130,7 +165,7 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
     public void setClientTypeId(Integer clientTypeId) {
-        this.clientTypeId= clientTypeId;
+        this.clientTypeId = clientTypeId;
     }
 
     public String getWorkFieldName() {
@@ -149,11 +184,36 @@ public class AdminPanelManager implements java.io.Serializable {
         return positionName;
     }
 
-    public void setClientTypeName (String clientTypeName) {
-        this.clientTypeName= clientTypeName;
+    public void setClientTypeName(String clientTypeName) {
+        this.clientTypeName = clientTypeName;
     }
 
     public String getClientTypeName() {
         return clientTypeName;
     }
+
+    public Position[] getPositions() {
+        return positions;
+    }
+
+    public Position getPosition(int index) {
+        return positions[index];
+    }
+
+    public WorkField[] getWorkFields() {
+        return workFields;
+    }
+
+    public WorkField getWorkField(int index) {
+        return workFields[index];
+    }
+
+    public ClientType[] getClientTypes() {
+        return clientTypes;
+    }
+
+    public ClientType getClientType(int index) {
+        return clientTypes[index];
+    }
+
 }
