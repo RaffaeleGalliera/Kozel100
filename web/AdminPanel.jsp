@@ -9,9 +9,15 @@
 <%@ page info="Inserimento nuovo Contatto" %>
 <%@ page session="false"%>
 <%@ page buffer="30kb" %>
+<%@ page import="services.sessionservice.*" %>
 
 <jsp:useBean id="adminPanelManager" scope="page" class="bflows.AdminPanelManager"/>
 <jsp:setProperty name="adminPanelManager" property="*"/>
+
+<%
+    String status;
+    status = request.getParameter("status");
+%>
 <html>
 <head>
     <title>Title</title>
@@ -34,9 +40,9 @@
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1default" data-toggle="tab">Default 1</a></li>
-                        <li><a href="#tab2default" data-toggle="tab">Default 2</a></li>
-                        <li><a href="#tab3default" data-toggle="tab">Default 3</a></li>
+                        <li class="active"><a href="#tab1default" data-toggle="tab">Position</a></li>
+                        <li><a href="#tab2default" data-toggle="tab">Work Field</a></li>
+                        <li><a href="#tab3default" data-toggle="tab">Client Type</a></li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -49,25 +55,63 @@
                 <div class="panel-body">
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab1default">
-                            <form class="form-horizontal" name="adminPanel" action="" method="post">
+                            <form class="form-horizontal" name="adminPanelManager" action="" method="post">
                                 <fieldset>
                                     <legend>Position</legend>
                                     <!-- Text input-->
 
-                                            <input id="name" name="name" type="text" placeholder="Insert Position Name" class="form-control input-md">
+                                            <input id="positionName" name="positionName" type="text" placeholder="Insert Position Name" class="form-control input-md">
 
                                     <!-- Button -->
                                     <div class="form-group">
                                         <div class="col-md-4">
-                                            <button id="singlebutton" name="singlebutton" class="btn btn-primary" value="inserisci" onclick="insert(this.form)">Inserisci</button>
+                                            <br>
+                                            <button id="positionButton" name="singlebutton" class="btn btn-primary" value="inserisci" onclick="insertPosition(this.form)">Inserisci</button>
                                         </div>
                                     </div>
 
                                 </fieldset>
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="tab2default">Default 2</div>
-                        <div class="tab-pane fade" id="tab3default">Default 3</div>
+                        <div class="tab-pane fade" id="tab2default">
+                            <form class="form-horizontal" name="adminPanel" action="" method="post">
+                                <fieldset>
+                                    <legend>Work Field</legend>
+                                    <!-- Text input-->
+
+                                    <input id="workFieldName" name="workFieldName" type="text" placeholder="Insert WorkField Name" class="form-control input-md">
+
+                                    <!-- Button -->
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <br>
+                                            <button id="workFieldButton" name="singlebutton" class="btn btn-primary" value="inserisci" onclick="insertWorkField(this.form)">Inserisci</button>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab3default">
+                            <form class="form-horizontal" name="adminPanel" action="" method="post">
+                                <fieldset>
+                                    <legend>Client Type</legend>
+                                    <!-- Text input-->
+
+                                    <input id="clientTypeName" name="clientTypeName" type="text" placeholder="Insert Client Type Name" class="form-control input-md">
+
+                                    <!-- Button -->
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <br>
+                                            <button id="clientTypeButton" name="singlebutton" class="btn btn-primary" value="inserisci" onclick="insertClientType(this.form)">Inserisci</button>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                        </div>
                         <div class="tab-pane fade" id="tab4default">Default 4</div>
                         <div class="tab-pane fade" id="tab5default">Default 5</div>
                     </div>
@@ -78,14 +122,37 @@
 </html>
 
 Dati nel bean: <br><br><br>
-Name: <%=adminPanelManager.getName()%><br><br>
+Name: <%=adminPanelManager.getPositionName()%><br><br>
 
 
 <%adminPanelManager.insertPosition();%>
 
+Dati nel bean: <br><br><br>
+Name: <%=adminPanelManager.getWorkFieldName()%><br><br>
+
+
+<%adminPanelManager.insertWorkField();%>
+
+Dati nel bean: <br><br><br>
+Name: <%=adminPanelManager.getClientTypeName()%><br><br>
+
+
+<%adminPanelManager.insertClientType();%>
+
 <script>
 
-    function insert(form){
+    function insertPosition(form){
+
+        form.action="AdminPanel.jsp";
+        form.submit();
+    }
+    function insertWorkField(form){
+
+        form.action="AdminPanel.jsp";
+        form.submit();
+    }
+
+    function insertClientType(form){
 
         form.action="AdminPanel.jsp";
         form.submit();

@@ -7,18 +7,18 @@ import services.databaseservice.exception.*;
 
 
 
-public class Position {
+public class ClientType {
 
-    public int positionId;
+    public int clientTypeId;
     public String name;
 
-//    public Position(ResultSet result){
+//    public ClientType(ResultSet result){
 //
-//        try {positionId=result.getInt("position_id");} catch(SQLException sqle) {}
+//        try {clientTypeId=result.getInt("clientType_id");} catch(SQLException sqle) {}
 //        try {name=result.getString("name");} catch(SQLException sqle) {}
 //    }
 
-    public Position(String name){
+    public ClientType(String name){
         this.name=name;
     }
 
@@ -31,8 +31,8 @@ public class Position {
 
         //Check unicita
 
-        query="INSERT INTO work_position(position_id, name)" +
-                "VALUES("+positionId+",?)";
+        query="INSERT INTO client_type(client_type_id, name)" +
+                "VALUES("+clientTypeId+",?)";
 
         parameters.add(name);
 

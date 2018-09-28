@@ -7,18 +7,18 @@ import services.databaseservice.exception.*;
 
 
 
-public class Position {
+public class WorkField {
 
-    public int positionId;
+    public int workFieldId;
     public String name;
 
-//    public Position(ResultSet result){
+//    public WorkField(ResultSet result){
 //
-//        try {positionId=result.getInt("position_id");} catch(SQLException sqle) {}
+//        try {workFieldId=result.getInt("workField_id");} catch(SQLException sqle) {}
 //        try {name=result.getString("name");} catch(SQLException sqle) {}
 //    }
 
-    public Position(String name){
+    public WorkField(String name){
         this.name=name;
     }
 
@@ -28,13 +28,11 @@ public class Position {
         ArrayList<String> parameters=new ArrayList();
         ResultSet result;
         boolean exists;
-
+        parameters.add(name);
         //Check unicita
 
-        query="INSERT INTO work_position(position_id, name)" +
-                "VALUES("+positionId+",?)";
-
-        parameters.add(name);
+        query="INSERT INTO work_field(work_field_id, name)" +
+                "VALUES("+workFieldId+",?)";
 
         database.modify(query,parameters);
     }
