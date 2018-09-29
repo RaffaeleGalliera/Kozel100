@@ -26,8 +26,8 @@ public class Company {
         try {email=result.getString("email");} catch(SQLException sqle) {}
     }
 
-    public Company(String name, String vat, String address, String city, String email){
-
+    public Company(Integer companyId, String name, String vat, String address, String city, String email){
+        this.companyId=companyId;
         this.name=name;
         this.vat=vat;
         this.address=address;

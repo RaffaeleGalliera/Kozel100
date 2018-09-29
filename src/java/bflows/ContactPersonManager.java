@@ -22,6 +22,7 @@ public class ContactPersonManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
+
             ContactPerson contactPerson = new ContactPerson(firstName, lastName, phoneNumber, email);
             contactPerson.insert(database);
             database.commit();

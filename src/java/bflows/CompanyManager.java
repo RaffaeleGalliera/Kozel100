@@ -7,7 +7,12 @@ import services.errorservice.*;
 
 public class CompanyManager implements java.io.Serializable {
 
+    private int contactPersonId;
     private int companyId;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+
     private String name;
     private String vat;
     private String address;
@@ -21,9 +26,16 @@ public class CompanyManager implements java.io.Serializable {
         try{
 
             database=DBService.getDataBase();
+            //Insert Company
+            this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(name,vat,address,city,email);
+            Company company = new Company(companyId,name,vat,address,city,email);
             company.insert(database);
+            //Insert Contact_Person
+            ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, email);
+            contactPerson.insert(database);
+
+
             database.commit();
 
         }

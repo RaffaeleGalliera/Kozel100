@@ -25,7 +25,8 @@ public class ContactPerson {
         try {phoneNumber=result.getString("phone_number");} catch(SQLException sqle) {}
     }
 
-    public ContactPerson(String firstName, String lastName, String phoneNumber, String email){
+    public ContactPerson(Integer companyId, String firstName, String lastName, String phoneNumber, String email){
+        this.companyId = companyId;
         this.firstName=firstName;
         this.lastName=lastName;
         this.email=email;
