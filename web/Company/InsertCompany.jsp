@@ -19,76 +19,84 @@
           href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Kozel100</title>
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .spacer {
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        .block {
+            min-height: 160px;
+            padding-top: 15px;
+        }
+
+        .center {
+            position: absolute;
+            /*  top: 0;
+              bottom: 0; */
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
-<div class="col-sm-10 form-group-lg">
-<form>
-
-    <div class="form-group">
-        <label for="name" class="bmd-label-floating">Name</label>
-        <input type="text" name="name" class="form-control" id="name">
-        <span class="bmd-help">We'll never share your email with anyone else.</span>
+<div class="container col-lg-12 spacer"> </div>
+    <div class="container col-lg-12">
+    <div class="col-sm-10 form-group-lg block center">
+        <h1>New Company</h1>
+        <form name="companyManager" action="" method="post">
+            <div class="form-group">
+                <label for="name" class="bmd-label-floating">Name</label>
+                <input type="text" name="name" class="form-control" id="name">
+                <span class="bmd-help">We'll never share your email with anyone else.</span>
+            </div>
+            <div class="form-group">
+                <label for="vat" class="bmd-label-floating">VAT</label>
+                <input type="text" name="vat" class="form-control" id="vat">
+            </div>
+            <div class="form-group">
+                <label for="address" class="bmd-label-floating">Address</label>
+                <input type="text" name="address" class="form-control" id="address">
+            </div>
+            <div class="form-group">
+                <label for="city" class="bmd-label-floating">City</label>
+                <input type="text" name="city" class="form-control" id="city">
+            </div>
+            <div class="form-group">
+                <label for="companyEmail" class="bmd-label-floating">Email</label>
+                <input type="email" name="companyEmail" class="form-control" id="companyEmail">
+            </div>
+            <div class="jumbotron">
+                <h1>Contact Reference</h1>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="firstName" class="bmd-label-floating">First Name</label>
+                        <input type="text" name="firstName" class="form-control" id="firstName">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lastName" class="bmd-label-floating">Last Name</label>
+                        <input type="text" name="lastName" class="form-control" id="lastName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
+                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail" class="bmd-label-floating">Email</label>
+                    <input type="email" name="contactEmail" class="form-control" id="contactEmail">
+                </div>
+            </div>
+            <button class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="vat" class="bmd-label-floating">VAT</label>
-        <input type="text" name="vat" class="form-control" id="vat">
-    </div>
-    <div class="form-group">
-        <label for="address" class="bmd-label-floating">Address</label>
-        <input type="text" name="address" class="form-control" id="address">
-    </div>
-    <div class="form-group">
-        <label for="city" class="bmd-label-floating">City</label>
-        <input type="text" name="city" class="form-control" id="city">
-    </div>
-    <div class="form-group">
-        <label for="email" class="bmd-label-floating">Email</label>
-        <input type="email" name="email" class="form-control" id="email">
-    </div>
-    <div class="form-row">
-        <div class="col">
-            <label for="first_name" class="bmd-label-floating">First Name</label>
-            <input type="text" name="first_name" class="form-control" id="first_name">
-        </div>
-        <div class="col">
-            <label for="last_name" class="bmd-label-floating">Last Name</label>
-            <input type="text" name="last_name" class="form-control" id="last_name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="phone_number" class="bmd-label-floating">Phone Number</label>
-        <input type="phone_number" name="phone_number" class="form-control" id="phone_number">
-    </div>
-    <%--<div class="form-group">--%>
-        <%--<label for="email" class="bmd-label-floating">Email</label>--%>
-        <%--<input type="email" name="email" class="form-control" id="email">--%>
-    <%--</div>--%>
-
-    <%--<div class="form-group">--%>
-        <%--<label for="exampleSelect1" class="bmd-label-floating">Example select</label>--%>
-        <%--<select class="form-control" id="exampleSelect1">--%>
-            <%--<option>1</option>--%>
-            <%--<option>2</option>--%>
-            <%--<option>3</option>--%>
-            <%--<option>4</option>--%>
-            <%--<option>5</option>--%>
-        <%--</select>--%>
-    <%--</div>--%>
-    <%--<div class="form-group">--%>
-        <%--<label for="exampleSelect2" class="bmd-label-floating">Example multiple select</label>--%>
-        <%--<select multiple class="form-control" id="exampleSelect2">--%>
-            <%--<option>1</option>--%>
-            <%--<option>2</option>--%>
-            <%--<option>3</option>--%>
-            <%--<option>4</option>--%>
-            <%--<option>5</option>--%>
-        <%--</select>--%>
-    <%--</div>--%>
-
-    <button class="btn btn-default">Cancel</button>
-    <button type="submit" class="btn btn-primary btn-raised">Submit</button>
-</form>
 </div>
 </body>
 <!-- Optional JavaScript -->
@@ -106,12 +114,11 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
+<%companyManager.insertCompany();%>
 
 <script>
 
-
     function insert(form) {
-
 
         form.action = "InsertCompany.jsp";
         form.submit();

@@ -17,41 +17,40 @@ public class CompanyManager implements java.io.Serializable {
     private String vat;
     private String address;
     private String city;
-    private String email;
+    private String companyEmail;
+    private String contactEmail;
 
-    public void insertCompany(){
+    public void insertCompany() {
 
-        DataBase database=null;
+        DataBase database = null;
 
-        try{
+        try {
 
-            database=DBService.getDataBase();
+            database = DBService.getDataBase();
             //Insert Company
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId,name,vat,address,city,email);
+            Company company = new Company(companyId, name, vat, address, city, companyEmail);
             company.insert(database);
             //Insert Contact_Person
-            ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, email);
+            ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);
 
 
             database.commit();
 
-        }
-
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch (ResultSetDBException ex) {
+        } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch(DuplicatedRecordDBException ex){
+        } catch (DuplicatedRecordDBException ex) {
             EService.logAndRecover(ex);
-        }
-        finally {
-            try { database.close(); }
-            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
         }
 
 
@@ -97,11 +96,51 @@ public class CompanyManager implements java.io.Serializable {
         this.city = city;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCompanyEmail() {
+        return companyEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCompanyEmail(String companyEmail) {
+        this.companyEmail = companyEmail;
+    }
+
+    public String getcontactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public Integer getContactPersonId() {
+        return contactPersonId;
+    }
+
+    public void setContactPersonId(Integer contactPersonId) {
+        this.contactPersonId = contactPersonId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setfirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setlastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setphoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
