@@ -1,60 +1,121 @@
 <%@ page info="Inserimento nuova Compagnia" %>
-<%@ page session="false"%>
+<%@ page session="false" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<html>
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
-    <form name="companyManager" action="" method="post">
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
-        <table>
+    <title>Hello, world!</title>
+</head>
+<body>
+<div class="col-sm-10 form-group-lg">
+<form>
 
-            <tr>
-                <td>Name</td> <td><input type="text" name="name" size="30"/></td>
-            </tr>
-
-            <tr>
-                <td>Vat</td> <td><input type="text" name="vat" size="30"/></td>
-            </tr>
-
-            <tr>
-                <td>Address</td> <td><input type="text" name="address" size="30"/></td>
-            </tr>
-
-            <tr>
-                <td>City</td> <td><input type="text" name="city" size="30"/></td>
-            </tr>
-
-            <tr>
-                <td>Email</td> <td><input type="text" name="email" size="30"/></td>
-            </tr>
-
-            <input type="button" value="Inserisci" onClick="insert(this.form)"/>
-
-        </table>
-
-    </form>
-
-    Dati nel bean: <br><br><br>
-    Name: <%=companyManager.getName()%><br><br>
-    Vat: <%=companyManager.getVat()%><br><br>
-    Address: <%=companyManager.getAddress()%><br><br>
-    City: <%=companyManager.getCity()%><br><br>
-    Email: <%=companyManager.getEmail()%><br><br>
-
-    <%companyManager.insertCompany();%>
-
+    <div class="form-group">
+        <label for="exampleInputEmail1" class="bmd-label-floating">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1">
+        <span class="bmd-help">We'll never share your email with anyone else.</span>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1" class="bmd-label-floating">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="form-group">
+        <label for="exampleSelect1" class="bmd-label-floating">Example select</label>
+        <select class="form-control" id="exampleSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleSelect2" class="bmd-label-floating">Example multiple select</label>
+        <select multiple class="form-control" id="exampleSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleTextarea" class="bmd-label-floating">Example textarea</label>
+        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputFile" class="bmd-label-floating">File input</label>
+        <input type="file" class="form-control-file" id="exampleInputFile">
+        <small class="text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter
+            and easily wraps to a new line.
+        </small>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+            Option one is this and that&mdash;be sure to include why it's great
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+            Option two can be something else and selecting it will deselect option one
+        </label>
+    </div>
+    <div class="radio disabled">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+            Option three is disabled
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox"> Check me out
+        </label>
+    </div>
+    <button class="btn btn-default">Cancel</button>
+    <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+</form>
+</div>
+</body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+    $('body').bootstrapMaterialDesign();
+});</script>
 </html>
 
 <script>
 
 
-    function insert(form){
+    function insert(form) {
 
 
-        form.action="InsertCompany.jsp";
+        form.action = "InsertCompany.jsp";
         form.submit();
     }
 
