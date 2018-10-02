@@ -35,7 +35,7 @@ public class CompanyDAO {
             rs.close();
         }
         catch(SQLException ex){
-            throw new ResultSetDBException("CompanyDAO.getAllCompaniess(): Errore nel ResultSet: "+ex.getMessage(),db);
+            throw new ResultSetDBException("CompanyDAO.getAllCompanies(): Errore nel ResultSet: "+ex.getMessage(),db);
         }
 
         return companies;

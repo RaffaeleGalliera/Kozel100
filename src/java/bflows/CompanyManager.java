@@ -56,7 +56,7 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
-    public void getCompanies(int offset, int recordsPerPagina){
+    public void companiesView(){
 
         DataBase db=null;
 

@@ -9,6 +9,8 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
+
+<%companyManager.companiesView();%>
 <!doctype html>
 <html>
 <head>
@@ -124,4 +126,4 @@
 </div>
 </body>
 </html>
-<%companyManager.();%>
+
