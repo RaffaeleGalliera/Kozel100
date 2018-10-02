@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
+<jsp:setProperty name="companyManager" property="*"/>
+<!doctype html>
 <html>
 <head>
     <title>Title</title>
@@ -91,14 +95,21 @@
             <thead>
             <tr>
                 <th>Name</th>
+                <th>VAT</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
+            <%for (int k = 0; k < companyManager.getCompanies().length; k++) {%>
             <tr>
-                <td><%=adminPanelManager.getPosition(k).name%>
-                </td>
+                <td><%=companyManager.getCompany(k).name%></td>
+                <td><%=companyManager.getCompany(k).vat%></td>
+                <td><%=companyManager.getCompany(k).address%></td>
+                <td><%=companyManager.getCompany(k).city%></td>
+                <td><%=companyManager.getCompany(k).email%></td>
                 <td>
                     <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                     <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -113,3 +124,4 @@
 </div>
 </body>
 </html>
+<%companyManager.();%>

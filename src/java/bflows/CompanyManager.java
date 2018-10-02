@@ -65,17 +65,17 @@ public class CompanyManager implements java.io.Serializable {
 
             companies=CompanyDAO.getAllCompanies(db);
 
-            totalRecords=OrdineDAO.getRicevutiTotalRecords();
+//            totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
             db.commit();
         }
         catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+//            setResult(EService.UNRECOVERABLE_ERROR);
         }
         catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+//            setResult(EService.UNRECOVERABLE_ERROR);
         }
         finally {
             try { db.close(); }
@@ -170,5 +170,13 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setphoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Company[] getCompanies() {
+        return companies;
+    }
+
+    public Company getCompany(int index) {
+        return companies[index];
     }
 }

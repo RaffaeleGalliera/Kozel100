@@ -17,7 +17,7 @@ public class CompanyDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM Company";
+        sql="SELECT * FROM company";
 
         rs=db.select(sql);
 
