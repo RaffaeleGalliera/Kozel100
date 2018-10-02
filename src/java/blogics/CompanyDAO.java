@@ -9,6 +9,39 @@ public class CompanyDAO {
     public CompanyDAO(){
 
     }
+
+    public static Company[] getAllCompanies(DataBase db) throws NotFoundDBException,ResultSetDBException{
+
+        Company[] companies=null;
+        String sql;
+        ResultSet rs;
+        int i=0;
+
+        sql="SELECT * FROM Company";
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                rs.last();
+                companies= new Company[rs.getRow()];
+                rs.beforeFirst();
+
+                while(rs.next()){
+                    companies[i]=new Company(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("CompanyDAO.getAllCompaniess(): Errore nel ResultSet: "+ex.getMessage(),db);
+        }
+
+        return companies;
+
+    }
+    
     public static Integer getNewID(DataBase db) throws NotFoundDBException, ResultSetDBException{
 
         String sql;

@@ -20,6 +20,8 @@ public class CompanyManager implements java.io.Serializable {
     private String companyEmail;
     private String contactEmail;
 
+    private Company[] companies;
+
     public void insertCompany() {
 
         DataBase database = null;
@@ -52,7 +54,33 @@ public class CompanyManager implements java.io.Serializable {
                 EService.logAndRecover(e);
             }
         }
+    }
 
+    public void getCompanies(int offset, int recordsPerPagina){
+
+        DataBase db=null;
+
+        try{
+            db=DBService.getDataBase();
+
+            companies=CompanyDAO.getAllCompanies(db);
+
+            totalRecords=OrdineDAO.getRicevutiTotalRecords();
+
+            db.commit();
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        finally {
+            try { db.close(); }
+            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        }
 
     }
 
