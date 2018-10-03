@@ -49,7 +49,7 @@ public class LService{
       log.flush();
       
     } catch (FileNotFoundException ex) {
-//      util.Debug.println("LService: logPrintln(): Impossibile trovare il File di Log degli Errori : "+logFile);
+      util.Debug.println("LService: logPrintln(): Impossibile trovare il File di Log degli Errori : "+logFile);
       ex.printStackTrace();
     }      
                
