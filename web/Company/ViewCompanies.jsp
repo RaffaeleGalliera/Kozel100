@@ -18,7 +18,7 @@
     <head>
         <title>Kozel100</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/css/admin_panel.css">
+        <link rel="stylesheet" type="text/css" href="/css/view_companies.css">
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
