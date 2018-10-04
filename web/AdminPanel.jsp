@@ -94,13 +94,14 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1default" data-toggle="tab">Welcome</a></li>
-                <li><a href="#tab2default" data-toggle="tab">Work Field</a></li>
-                <li><a href="#tab3default" data-toggle="tab">Position</a></li>
+                <li><a href="#tab2default" data-toggle="tab">Work Fields</a></li>
+                <li><a href="#tab3default" data-toggle="tab">Positions</a></li>
+                <li><a href="#tab4default" data-toggle="tab">Product Categories</a></li>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#tab4default" data-toggle="tab">Default 4</a></li>
-                        <li><a href="#tab5default" data-toggle="tab">Default 5</a></li>
+                        <li><a href="#tab5default" data-toggle="tab">Default 4</a></li>
+                        <li><a href="#tab6default" data-toggle="tab">Default 5</a></li>
                     </ul>
                 </li>
             </ul>
@@ -196,7 +197,44 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tab4default">Default 4</div>
+                <div class="tab-pane fade" id="tab4default">
+                        <div class="container">
+                            <div class="table-wrapper">
+                                <div class="table-title">
+                                    <div class="row">
+                                        <div class="col-sm-8"><h2>Product Categories</h2></div>
+                                        <div class="col-sm-4">
+                                            <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>
+                                                Add New
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
+                                    <tr>
+                                        <td><%=adminPanelManager.getProductCategory(k).name%>
+                                        </td>
+                                        <td>
+                                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE872;</i></a>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
                 <div class="tab-pane fade" id="tab5default">Default 5</div>
             </div>
         </div>

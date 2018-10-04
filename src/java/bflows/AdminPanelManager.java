@@ -13,6 +13,7 @@ public class AdminPanelManager implements java.io.Serializable {
     private Position[] positions;
     private WorkField[] workFields;
     private ClientType[] clientTypes;
+    private ProductCategory[] productCategories;
 
     private int positionId;
     private String positionName;
@@ -37,7 +38,9 @@ public class AdminPanelManager implements java.io.Serializable {
 
             positions = PositionDAO.getAllPositions(db);
             workFields = WorkFieldDAO.getAllWorkFields(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             //   clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            //#TODO Una sola commit? O tre diverse?
             db.commit();
 
         } catch (NotFoundDBException ex) {
@@ -206,6 +209,15 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public WorkField getWorkField(int index) {
         return workFields[index];
+    }
+
+
+    public ProductCategory[] getProductCategories() {
+        return productCategories;
+    }
+
+    public ProductCategory getProductCategory(int index) {
+        return productCategories[index];
     }
 
     public ClientType[] getClientTypes() {

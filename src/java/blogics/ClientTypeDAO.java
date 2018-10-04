@@ -35,7 +35,7 @@ public class ClientTypeDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            throw new ResultSetDBException("ClientTypeDAO.getAllClientTypess(): Errore nel ResultSet: " + ex.getMessage(), db);
+            throw new ResultSetDBException("ClientTypeDAO.getAllClientTypes(): Errore nel ResultSet: " + ex.getMessage(), db);
         }
 
         return clientTypes;
