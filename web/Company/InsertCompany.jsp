@@ -49,7 +49,15 @@
 <div class="container col-lg-12 spacer"> </div>
     <div class="container col-lg-12">
     <div class="col-sm-10 form-group-lg block center">
-        <h1>New Company</h1>
+        <h1 class="text-center">
+            New Company
+        </h1>
+        <form action="ViewCompanies.jsp">
+                <button style="float:right" type="submit" value="InsertCompany" class="btn btn-default">
+                    Back To List
+                </button>
+            </h1>
+        </form>
         <form name="companyManager" action="" method="post">
             <div class="form-group">
                 <label for="name" class="bmd-label-floating">Name</label>

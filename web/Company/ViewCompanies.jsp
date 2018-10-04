@@ -24,9 +24,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center">
-                Companies
-            </h1>
+            <form action="InsertCompany.jsp">
+                <h1 class="text-center">
+                    Companies
+                    <button type="submit" value="InsertCompany" class="btn btn-info add-new"><i class="fa fa-plus"></i>
+                        Add New
+                    </button>
+                </h1>
+            </form>
         </div>
         <div id="no-more-tables">
             <table class="col-md-12 table-bordered table-striped table-condensed cf">
@@ -44,11 +49,16 @@
                 <tbody>
                 <%for (int k = 0; k < companyManager.getCompanies().length; k++) {%>
                 <tr>
-                    <td><%=companyManager.getCompany(k).name%></td>
-                    <td><%=companyManager.getCompany(k).vat%></td>
-                    <td><%=companyManager.getCompany(k).address%></td>
-                    <td><%=companyManager.getCompany(k).city%></td>
-                    <td><%=companyManager.getCompany(k).email%></td>
+                    <td><%=companyManager.getCompany(k).name%>
+                    </td>
+                    <td><%=companyManager.getCompany(k).vat%>
+                    </td>
+                    <td><%=companyManager.getCompany(k).address%>
+                    </td>
+                    <td><%=companyManager.getCompany(k).city%>
+                    </td>
+                    <td><%=companyManager.getCompany(k).email%>
+                    </td>
                     <td>
                         <%for (int c = 0; c < companyManager.getContactPeople(companyManager.getCompany(k).companyId).length; c++) {%>
                         <%=companyManager.getContactPeople(companyManager.getCompany(k).companyId)[c].fullName()%>
