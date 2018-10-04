@@ -21,6 +21,7 @@ public class CompanyManager implements java.io.Serializable {
     private String contactEmail;
 
     private Company[] companies;
+    private ContactPerson[] contacts;
 
     public void insertCompany() {
 
@@ -83,6 +84,7 @@ public class CompanyManager implements java.io.Serializable {
         }
 
     }
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -179,4 +181,32 @@ public class CompanyManager implements java.io.Serializable {
     public Company getCompany(int index) {
         return companies[index];
     }
+
+    public ContactPerson[] getContactPeople(int companyId) {
+
+        DataBase db=null;
+
+        try{
+            db=DBService.getDataBase();
+
+            contacts = ContactPersonDAO.getContactPeople(db, companyId);
+
+            db.commit();
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+//            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+//            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        finally {
+            try { db.close(); }
+            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        }
+        return contacts;
+    }
+
+
 }

@@ -41,7 +41,6 @@ public class ContactPersonManager implements java.io.Serializable {
             }
         }
 
-
     }
 
     public Integer getContactPersonId() {
