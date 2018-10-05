@@ -53,7 +53,7 @@
     </style>
 </head>
 <body>
-<div class="container col-lg-12 spacer"> </div>
+<div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12">
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
@@ -61,14 +61,14 @@
         </h1>
         <form action="../AdminPanel.jsp">
             <button style="float:right" type="submit" value="InsertClientType" class="btn btn-default">
-                Back To List
+                Back To Panel
             </button>
             </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="name" class="bmd-label-floating">Name</label>
-                <input type="text" name="name" class="form-control" id="name">
+                <label for="clientTypeName" class="bmd-label-floating">Name</label>
+                <input type="text" name="clientTypeName" class="form-control" id="clientTypeName">
                 <span class="bmd-help">Insert a new Client Type</span>
             </div>
             <button class="btn btn-default">Cancel</button>
@@ -98,7 +98,7 @@
 
     function insert(form) {
 
-        form.action = "../adminPanel.jsp";
+        form.action = "InsertClientType.jsp";
         form.submit();
     }
 

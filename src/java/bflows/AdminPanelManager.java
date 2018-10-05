@@ -200,7 +200,7 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
     public void setProductCategoryId(Integer productCategoryId) {
-        this.productCategoryId= productCategoryId;
+        this.productCategoryId = productCategoryId;
     }
 
     public Integer getProductCategoryId() {

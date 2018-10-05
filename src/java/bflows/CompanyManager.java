@@ -14,32 +14,30 @@ public class CompanyManager implements java.io.Serializable {
     private String city;
     private String email;
 
-    public void insertCompany(){
+    public void insertCompany() {
 
-        DataBase database=null;
+        DataBase database = null;
 
-        try{
+        try {
 
-            database=DBService.getDataBase();
+            database = DBService.getDataBase();
 
-            Company company = new Company(name,vat,address,city,email);
+            Company company = new Company(name, vat, address, city, email);
             company.insert(database);
             database.commit();
 
-        }
-
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch (ResultSetDBException ex) {
+        } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        }
-        catch(DuplicatedRecordDBException ex){
+        } catch (DuplicatedRecordDBException ex) {
             EService.logAndRecover(ex);
-        }
-        finally {
-            try { database.close(); }
-            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
         }
 
 

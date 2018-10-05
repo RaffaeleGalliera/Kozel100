@@ -124,17 +124,16 @@
                 <div class="tab-pane fade" id="tab2default">
                     <div class="container">
                         <div class="table-wrapper">
-                            <div class="table-title">
-                                <div class="row">
-                                    <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertWorkField.jsp">
                                         <h2>Work Fields
-                                        <form action="Setup/InsertWorkField.jsp">
-                                            <button style="float:right" type="submit" value="InsertWorkField" class="btn btn-default">
+                                            <button style="float:right" type="submit" value="InsertWorkField"
+                                                    class="btn btn-default">
                                                 +
                                             </button>
-                                        </form>
                                         </h2>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                             <table class="table table-bordered">
@@ -166,16 +165,16 @@
                 <div class="tab-pane fade" id="tab3default">
                     <div class="container">
                         <div class="table-wrapper">
-                            <div class="table-title">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <h2>Positions</h2>
-                                        <form action="Setup/InsertPosition.jsp">
-                                            <button style="float:right" type="submit" value="InsertPosition" class="btn btn-default">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertPosition.jsp">
+                                        <h2>Positions
+                                            <button style="float:right" type="submit" value="InsertPosition"
+                                                    class="btn btn-default">
                                                 +
                                             </button>
-                                        </form>
-                                    </div>
+                                        </h2>
+                                    </form>
                                 </div>
                             </div>
                             <table class="table table-bordered">
@@ -204,83 +203,85 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="tab4default">
-                        <div class="container">
-                            <div class="table-wrapper">
-                                <div class="table-title">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2>Product Categories</h2>
-                                            <form action="Setup/InsertProductCategory.jsp">
-                                                <button style="float:right" type="submit" value="InsertProductCategory" class="btn btn-default">
-                                                    +
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
-                                    <tr>
-                                        <td><%=adminPanelManager.getProductCategory(k).name%>
-                                        </td>
-                                        <td>
-                                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                            <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE872;</i></a>
-                                        </td>
-                                    </tr>
-                                    <%}%>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                </div>
-                <div class="tab-pane fade" id="tab5default"> <div class="container">
-                    <div class="table-wrapper">
-                        <div class="table-title">
+                    <div class="container">
+                        <div class="table-wrapper">
                             <div class="row">
-                                <div class="col-sm-8">
-                                    <h2>Client Types</h2>
-                                    <form action="Setup/InsertClientType.jsp">
-                                        <button style="float:right" type="submit" value="InsertClientType" class="btn btn-default">
-                                            +
-                                        </button>
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertProductCategory.jsp">
+                                        <h2>Product Categories
+                                            <button style="float:right" type="submit" value="InsertProductCategory"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
                                     </form>
                                 </div>
                             </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
+                                <tr>
+                                    <td><%=adminPanelManager.getProductCategory(k).name%>
+                                    </td>
+                                    <td>
+                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < adminPanelManager.getClientTypes().length; k++) {%>
-                            <tr>
-                                <td><%=adminPanelManager.getClientType(k).name%>
-                                </td>
-                                <td>
-                                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
                     </div>
-                </div></div>
+                </div>
+                <div class="tab-pane fade" id="tab5default">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertClientType.jsp">
+                                        <h2>Client Types
+                                            <button style="float:right" type="submit" value="InsertClientType"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getClientTypes().length; k++) {%>
+                                <tr>
+                                    <td><%=adminPanelManager.getClientType(k).name%>
+                                    </td>
+                                    <td>
+                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -327,4 +328,3 @@
     }
 
 </script>
-
