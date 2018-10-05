@@ -34,6 +34,7 @@ public class CompanyManager implements java.io.Serializable {
             this.companyId = CompanyDAO.getNewID(database);
 
             Company company = new Company(companyId, name, vat, address, city, companyEmail);
+          
             company.insert(database);
             //Insert Contact_Person
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
