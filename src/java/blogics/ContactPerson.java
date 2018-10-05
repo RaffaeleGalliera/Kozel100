@@ -25,17 +25,20 @@ public class ContactPerson {
         try {phoneNumber=result.getString("phone_number");} catch(SQLException sqle) {}
     }
 
-    public ContactPerson(String firstName, String lastName, String phoneNumber, String email){
+    public ContactPerson(Integer companyId, String firstName, String lastName, String phoneNumber, String email){
+        this.companyId = companyId;
         this.firstName=firstName;
         this.lastName=lastName;
         this.email=email;
         this.phoneNumber=phoneNumber;
     }
 
+    public String fullName(){
+        return firstName + " " + lastName;
+    }
+
     public void insert(DataBase database) throws NotFoundDBException,DuplicatedRecordDBException,ResultSetDBException {
 
-        //test TODO:Resolve this
-        companyId = 1;
         String query;
         ArrayList<String> parameters=new ArrayList();
         ResultSet result;
