@@ -24,6 +24,9 @@ public class AdminPanelManager implements java.io.Serializable {
     private int clientTypeId;
     private String clientTypeName;
 
+    private int productCategoryId;
+    private String productCategoryName;
+
     public AdminPanelManager() {
 
     }
@@ -39,7 +42,7 @@ public class AdminPanelManager implements java.io.Serializable {
             positions = PositionDAO.getAllPositions(db);
             workFields = WorkFieldDAO.getAllWorkFields(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
-            //   clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
             //#TODO Una sola commit? O tre diverse?
             db.commit();
 
@@ -147,6 +150,35 @@ public class AdminPanelManager implements java.io.Serializable {
 
     }
 
+    public void insertProductCategory() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            ProductCategory productCategory = new ProductCategory(productCategoryName);
+            productCategory.insert(database);
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+        } catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
     public Integer getPositionId() {
         return positionId;
     }
@@ -165,6 +197,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public Integer getClientTypeId() {
         return clientTypeId;
+    }
+
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId= productCategoryId;
+    }
+
+    public Integer getProductCategoryId() {
+        return productCategoryId;
     }
 
     public void setClientTypeId(Integer clientTypeId) {
@@ -193,6 +233,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public String getClientTypeName() {
         return clientTypeName;
+    }
+
+    public void setProductCategoryName(String productCategoryName) {
+        this.productCategoryName = productCategoryName;
+    }
+
+    public String getProductCategoryName() {
+        return productCategoryName;
     }
 
     public Position[] getPositions() {
