@@ -8,13 +8,17 @@ import services.databaseservice.exception.NotFoundDBException;
 import services.databaseservice.exception.ResultSetDBException;
 import services.errorservice.EService;
 import services.logservice.LService;
+import util.Debug;
+import util.Security;
 
 import javax.ejb.Local;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class SignupManager implements java.io.Serializable {
 
@@ -23,11 +27,12 @@ public class SignupManager implements java.io.Serializable {
     private String password;
     private String firstName;
     private String lastName;
-    private LocalDate recruitmentDate;
-    private LocalDate endWorking;
+    private String recruitmentDate;
+    private Date endWorking;
     private String phoneNumber;
     private int positionId;
     private int workFieldId;
+    private int result;
 
     public void insertUser(){
 
@@ -37,7 +42,7 @@ public class SignupManager implements java.io.Serializable {
 
             database= DBService.getDataBase();
 
-            User user = new User(userId,email,password,firstName,lastName,recruitmentDate,endWorking,phoneNumber,positionId,workFieldId);
+            User user = new User(userId,email,Security.encrypt(password),firstName,lastName,recruitmentDate,endWorking,phoneNumber,positionId,workFieldId);
             user.insert(database);
             database.commit();
 
@@ -51,6 +56,9 @@ public class SignupManager implements java.io.Serializable {
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
+        }
+        catch(Exception ex){
+            Debug.println(ex);
         }
         finally {
             try { database.close(); }
@@ -72,6 +80,7 @@ public class SignupManager implements java.io.Serializable {
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
@@ -99,24 +108,32 @@ public class SignupManager implements java.io.Serializable {
         this.lastName = lastName;
     }
 
-    public LocalDate getRecruitmentDate() {
+    public String getRecruitmentDate() {
         return recruitmentDate;
     }
 
     public void setRecruitmentDate(String recruitmentDate) {
 
-        this.recruitmentDate=LocalDate.parse(recruitmentDate);
-        LService.logPrintln("/tmp/Kozel100/loggin.txt",LocalDate.parse(recruitmentDate).toString());
+        Debug.println("porcoddue");
+
+        this.recruitmentDate=recruitmentDate;
+
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        try {
+//            this.recruitmentDate = formatter.parse(recruitmentDate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
-    public LocalDate getEndWorking() {
+    public Date getEndWorking() {
         return endWorking;
     }
 
-    public void setEndWorking(String endWorking) {
+    public void setEndWorking(Date endWorking) {
 
-        this.endWorking = LocalDate.parse(endWorking);
+        this.endWorking = endWorking;
 
     }
 
@@ -142,6 +159,14 @@ public class SignupManager implements java.io.Serializable {
 
     public void setWorkFieldId(int workFieldId) {
         this.workFieldId = workFieldId;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
     }
 
 }

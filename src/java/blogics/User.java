@@ -5,11 +5,11 @@ import services.databaseservice.exception.DuplicatedRecordDBException;
 import services.databaseservice.exception.NotFoundDBException;
 import services.databaseservice.exception.ResultSetDBException;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User{
 
@@ -18,8 +18,8 @@ public class User{
     public String password;
     public String firstName;
     public String lastName;
-    public LocalDate recruitmentDate;
-    public LocalDate endWorking;
+    public String recruitmentDate;
+    public Date endWorking;
     public String phoneNumber;
     public int positionId;
     public int workFieldId;
@@ -48,11 +48,11 @@ public class User{
         } catch (SQLException sqle) {
         }
         try {
-            recruitmentDate = result.getDate("recruitment_date").toLocalDate();
+            recruitmentDate = result.getString("recruitment_date");
         } catch (SQLException sqle) {
         }
         try {
-            endWorking = result.getDate("end_working").toLocalDate();
+            endWorking = result.getDate("end_working");
         } catch (SQLException sqle) {
         }
         try {
@@ -70,7 +70,7 @@ public class User{
 
     }
 
-    public User(int userId, String email, String password, String firstName, String lastName, LocalDate recruitmentDate, LocalDate endWorking, String phoneNumber, int positionId, int workFieldId) {
+    public User(int userId, String email, String password, String firstName, String lastName, String recruitmentDate, Date endWorking, String phoneNumber, int positionId, int workFieldId) {
 
         this.userId = userId;
         this.email = email;

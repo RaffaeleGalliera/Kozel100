@@ -28,7 +28,7 @@
 
 <div class="container">
     <h1>New User :)</h1>
-    <form action="/action_page.php">
+    <form>
         <div class="form-group">
             <label for="email">Email address:</label>
             <input type="email" class="form-control" id="email" name="email">
@@ -44,10 +44,6 @@
         <div class="form-group">
             <label for="lName">Last Name:</label>
             <input type="text" class="form-control" id="lName" name="lastName">
-        </div>
-        <div class="form-group">
-            <label for="recDate">Date of Recruitment:</label>
-            <input type="date" class="form-control" id="recDate" name="recruitmentDate">
         </div>
         <div class="form-group">
             <label for="position">Position:</label>
