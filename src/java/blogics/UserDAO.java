@@ -13,16 +13,16 @@ public class UserDAO{
 
     public UserDAO(){}
 
-    public static User getUser(DataBase db, String mail) throws NotFoundDBException, ResultSetDBException {
+    public static User getUser(DataBase db, String email) throws NotFoundDBException, ResultSetDBException {
 
         User user=null;
         String sql;
         ArrayList<String> parameters = new ArrayList();
         ResultSet rs;
 
-        sql="SELECT * FROM Attivita WHERE Mail=?";
+        sql="SELECT * FROM user WHERE email=?";
 
-        parameters.add(mail);
+        parameters.add(email);
 
         rs=db.select(sql, parameters);
 

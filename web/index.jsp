@@ -4,7 +4,7 @@
 <%@ page import="services.sessionservice.*" %>
 <%@ page import="global.*" %>
 <%@ page import="util.*" %>
-<%@ page errorPage="ErrorPage.jsp"%>
+<%--<%@ page errorPage="ErrorPage.jsp"%>--%>
 
 <jsp:useBean id="loginManager" scope="page" class="bflows.LoginManager" />
 <jsp:setProperty name="loginManager" property="*" />
