@@ -15,7 +15,7 @@ public class ClientType {
     public ClientType(ResultSet result) {
 
         try {
-            clientTypeId = result.getInt("clientType_id");
+            clientTypeId = result.getInt("client_type_id");
         } catch (SQLException sqle) {
         }
         try {

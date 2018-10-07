@@ -9,6 +9,7 @@ public class CompanyManager implements java.io.Serializable {
 
     private int contactPersonId;
     private int companyId;
+    private int clientTypeId;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -22,6 +23,7 @@ public class CompanyManager implements java.io.Serializable {
 
     private Company[] companies;
     private ContactPerson[] contacts;
+    private ClientType[] clientTypes;
 
     public void insertCompany() {
 
@@ -30,15 +32,21 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
+
+            //TODO: DA cambiare assolutamente quando capisci come si usa Status
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+
+
             //Insert Company
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId, name, vat, address, city, companyEmail);
+            Company company = new Company(companyId, clientTypeId, name, vat, address, city, companyEmail);
           
             company.insert(database);
             //Insert Contact_Person
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);
+
 
 
             database.commit();
@@ -93,6 +101,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getClientTypeId() {
+        return clientTypeId;
+    }
+
+    public void setClientTypeId(Integer clientTypeId) {
+        this.clientTypeId= clientTypeId;
     }
 
     public String getName() {
@@ -174,6 +190,15 @@ public class CompanyManager implements java.io.Serializable {
     public void setphoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public ClientType[] getClientTypes() {
+        return clientTypes;
+    }
+
+    public ClientType getClientType(int index) {
+        return clientTypes[index];
+    }
+
 
     public Company[] getCompanies() {
         return companies;

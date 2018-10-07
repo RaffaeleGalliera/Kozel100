@@ -4,6 +4,7 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
+<%companyManager.insertCompany();%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -80,6 +81,14 @@
                 <label for="companyEmail" class="bmd-label-floating">Email</label>
                 <input type="email" name="companyEmail" class="form-control" id="companyEmail">
             </div>
+            <div class="form-group">
+                <label for="clientTypeId" class="bmd-label-floating">Client Type</label>
+                    <select class="form-control" id="clientTypeId" name="clientTypeId">
+                        <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
+                        <option value="<%=companyManager.getClientType(k).clientTypeId%>"><%=companyManager.getClientType(k).name%></option>
+                        <% } %>
+                    </select>
+            </div>
             <div class="jumbotron">
                 <h1>Contact Reference</h1>
                 <div class="form-row">
@@ -122,7 +131,7 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
-<%companyManager.insertCompany();%>
+
 
 <script>
 
