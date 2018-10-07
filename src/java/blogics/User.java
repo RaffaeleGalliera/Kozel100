@@ -36,7 +36,7 @@ public class User{
         } catch (SQLException sqle) {
         }
         try {
-            password = result.getString("vat");
+            password = result.getString("password");
         } catch (SQLException sqle) {
         }
         try {
