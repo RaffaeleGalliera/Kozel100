@@ -47,6 +47,7 @@ public class Company {
 
         //Check unicita
 
+
         query="INSERT INTO company(company_id, client_type_id, name, vat, address, city, email)" +
               "VALUES("+companyId+","+clientTypeId+",?,?,?,?,?)";
 
