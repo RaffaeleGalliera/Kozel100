@@ -1,2 +1,2 @@
 # Kozel100
-Project for Software Engineering Curriculum in Cento
+Project for UNIFE Software Engineering Curriculum in Cento
