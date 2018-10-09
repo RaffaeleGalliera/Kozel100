@@ -91,17 +91,15 @@
                                     </form>
                                 </div>
                             </div>
+
                             <table class="col-md-12 table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
                                 <tbody>
                                 <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
                                 <tr>
