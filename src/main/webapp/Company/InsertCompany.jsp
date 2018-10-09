@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
+
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
@@ -22,10 +23,12 @@
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
     <title>Kozel100</title>
+
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
+
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New Company
@@ -34,6 +37,7 @@
             <button style="float:right" type="submit" value="InsertCompany" class="btn btn-default">
                 Back To List
             </button>
+
             </h1>
         </form>
         <form name="companyManager" action="" method="post">

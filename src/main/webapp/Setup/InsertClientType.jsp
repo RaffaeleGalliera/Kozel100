@@ -37,7 +37,8 @@
         <h1 class="text-center">
             New Client Type
         </h1>
-        <form action="../OldAdminPanel.jsp">
+        <form action="../AdminPanel.jsp">
+
             <button style="float:right" type="submit" value="InsertClientType" class="btn btn-default">
                 Back To Panel
             </button>

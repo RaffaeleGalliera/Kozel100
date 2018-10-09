@@ -64,7 +64,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,7 +76,6 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <title>Kozel100 CRM</title>
-
     <%if(isLogged){%>
         <meta http-equiv="refresh" content="0; url=Dashboard.jsp">
     <%}%>
@@ -119,7 +117,6 @@
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
-
     <div class="container">
         <h1>Pronto a loggarti baby? :D</h1>
         <form name="loginForm" action="index.jsp" method="post">

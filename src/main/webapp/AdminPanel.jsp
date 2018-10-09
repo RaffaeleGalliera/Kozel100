@@ -18,7 +18,6 @@
 
 <html>
 <head>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,6 +76,7 @@
         <div class="col">
             <div class="collapse multi-collapse" id="workFieldsCard">
                 <div class="card card-body">
+
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
@@ -95,6 +95,9 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
                                     <th>Name</th>
                                     <th>Actions</th>
                                 </tr>
