@@ -15,40 +15,50 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/css/view_companies.css">
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+
+    <title>Kozel100 CRM</title
 </head>
 <body>
+<jsp:include page="/Common/Navbar.jsp"/>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <form action="InsertCompany.jsp">
                 <h1 class="text-center">
                     Companies
-                    <button type="submit" value="InsertCompany" class="btn btn-info add-new"><i class="fa fa-plus"></i>
+                    <button type="submit" value="InsertCompany" class="btn btn-raised btn-secondary"><i class="fa fa-plus"></i>
                         Add New
                     </button>
                 </h1>
             </form>
         </div>
-        <div id="no-more-tables">
-            <table class="col-md-12 table-bordered table-striped table-condensed cf">
+            <table class="col-md-12 table table-striped">
                 <thead class="cf">
                 <tr>
-                    <th>Name</th>
-                    <th>VAT</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Email</th>
-                    <th>Contact Reference</th>
-                    <th>Actions</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">VAT</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Contact Reference</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%for (int k = 0; k < companyManager.getCompanies().length; k++) {%>
                 <tr>
+                    <th scope="row"> <%= k %> </th>
                     <td><%=companyManager.getCompany(k).name%>
                     </td>
                     <td><%=companyManager.getCompany(k).vat%>
@@ -77,6 +87,11 @@
         </div>
     </div>
 
-</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
+
 </html>

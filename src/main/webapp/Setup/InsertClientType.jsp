@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 05/10/18
-  Time: 11.23
+  Time: 11.24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page info="Inserimento nuova Compagnia" %>
@@ -27,49 +27,27 @@
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
     <title>Kozel100</title>
-    <style>
-        body {
-            padding-top: 50px;
-        }
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
 
-        .spacer {
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
-
-        .block {
-            min-height: 160px;
-            padding-top: 15px;
-        }
-
-        .center {
-            position: absolute;
-            /*  top: 0;
-              bottom: 0; */
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
-    </style>
 </head>
 <body>
-<div class="container col-lg-12 spacer"></div>
+<jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
-            New Work Field
+            New Client Type
         </h1>
-        <form action="../AdminPanel.jsp">
-            <button style="float:right" type="submit" value="InsertWorkField" class="btn btn-default">
+        <form action="../OldAdminPanel.jsp">
+            <button style="float:right" type="submit" value="InsertClientType" class="btn btn-default">
                 Back To Panel
             </button>
             </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="workFieldName" class="bmd-label-floating">Name</label>
-                <input type="text" name="workFieldName" class="form-control" id="workFieldName">
-                <span class="bmd-help">Insert a new Work Field</span>
+                <label for="clientTypeName" class="bmd-label-floating">Name</label>
+                <input type="text" name="clientTypeName" class="form-control" id="clientTypeName">
+                <span class="bmd-help">Insert a new Client Type</span>
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
@@ -92,14 +70,13 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
-
-<%adminPanelManager.insertWorkField();%>
+<%adminPanelManager.insertClientType();%>
 
 <script>
 
     function insert(form) {
 
-        form.action = "InsertWorkField.jsp"
+        form.action = "InsertClientType.jsp";
         form.submit();
     }
 
