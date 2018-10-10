@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 07, 2018 at 12:47 PM
+-- Generation Time: Oct 10, 2018 at 01:58 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -41,7 +41,8 @@ CREATE TABLE `client_type` (
 
 INSERT INTO `client_type` (`client_type_id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'sssss', '2018-09-27 16:06:14', '0000-00-00 00:00:00'),
-(2, 'sdfsdfsdf', '2018-10-07 10:09:27', '0000-00-00 00:00:00');
+(2, 'sdfsdfsdf', '2018-10-07 10:09:27', '0000-00-00 00:00:00'),
+(3, 'Nuovo', '2018-10-07 13:53:37', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,9 @@ INSERT INTO `company` (`company_id`, `name`, `client_type_id`, `vat`, `address`,
 (4, 'Sydnee Cannon', 1, '32424', 'ddd', 'ddddd', 'zyzyxukem@mailinator.net', '2018-10-07 10:26:13', '2018-10-07 10:43:06'),
 (5, 'Abra Peters', 1, '1111', 'ddd', 'dddd', 'binelofumo@mailinator.com', '2018-10-07 10:29:00', '2018-10-07 10:43:13'),
 (6, 'Adele Hancock', 1, '2222222', 'dfsddsd', 'sdfsdfsd', 'pelipyryze@mailinator.net', '2018-10-07 10:35:01', '2018-10-07 10:43:18'),
-(7, 'ZXsxszczd', 1, 'cxczcxxc', 'aaaaa', 'aaaaaa', 'pelipyryze@mailinator.net', '2018-10-07 10:41:19', '2018-10-07 10:41:19');
+(7, 'ZXsxszczd', 1, 'cxczcxxc', 'aaaaa', 'aaaaaa', 'pelipyryze@mailinator.net', '2018-10-07 10:41:19', '2018-10-07 10:41:19'),
+(8, 'Prova', 3, '2222', 'Nuoivo', 'fdlk', 'raf@gkjg.com', '2018-10-07 13:54:23', '2018-10-07 13:54:23'),
+(9, 'DeMaio', 3, '3333', '33333', 'dfdsfds', 'mykif@mailinator.com', '2018-10-09 10:19:54', '2018-10-09 10:19:54');
 
 -- --------------------------------------------------------
 
@@ -102,7 +105,9 @@ INSERT INTO `contact_person` (`contact_person_id`, `first_name`, `last_name`, `e
 (18, 'Lilah', 'Oconnor', 'xugamynek@mailinator.com', '7932496', 4, '2018-10-07 10:26:13', '2018-10-07 10:26:13'),
 (19, 'Dara', 'Jimenez', 'hohizylu@mailinator.com', '555555', 5, '2018-10-07 10:29:00', '2018-10-07 10:29:00'),
 (20, 'Samuel', 'Norton', 'mysas@mailinator.com', '222222', 6, '2018-10-07 10:35:01', '2018-10-07 10:35:01'),
-(21, 'cccc', 'fdfd', 'fuck@gmail.com', '3333', 7, '2018-10-07 10:41:19', '2018-10-07 10:41:19');
+(21, 'cccc', 'fdfd', 'fuck@gmail.com', '3333', 7, '2018-10-07 10:41:19', '2018-10-07 10:41:19'),
+(22, 'ddfsfs', 'sdffsdf', 'rafffff@raff.it', '3333333', 8, '2018-10-07 13:54:23', '2018-10-07 13:54:23'),
+(23, 'Dominic', 'Fowler', 'tose@mailinator.net', '4444444', 9, '2018-10-09 10:19:54', '2018-10-09 10:19:54');
 
 -- --------------------------------------------------------
 
@@ -154,7 +159,9 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `first_name`, `last_name`, `
 (2, 'silepifoqe@mailinator.com', 'Pa$$w0rd!', 'Abra', 'Rodriguez', NULL, NULL, NULL, 1, 1, '2018-10-03 13:47:42', '2018-10-03 13:47:42'),
 (3, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, '2018-10-03 13:48:15', '2018-10-03 13:48:15'),
 (4, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, '2018-10-03 13:50:39', '2018-10-03 13:50:39'),
-(5, 'micobaga@mailinator.com', 'Pa$$w0rd!', 'Lev', 'Ayala', NULL, NULL, NULL, 1, 1, '2018-10-03 13:55:44', '2018-10-03 13:55:44');
+(5, 'micobaga@mailinator.com', 'Pa$$w0rd!', 'Lev', 'Ayala', NULL, NULL, NULL, 1, 1, '2018-10-03 13:55:44', '2018-10-03 13:55:44'),
+(6, 'rafforx@gmail.com', 'mW/OE3Yu+KcHvJoVCh0Gpw==', 'Raffae;e', 'Galliera', NULL, NULL, NULL, 1, 1, '2018-10-07 20:17:49', '2018-10-07 20:17:49'),
+(10, 'wumazajy@mailinator.net', '6RjA0YeAQRaiZANru36n0Q==', 'Veda', 'Waters', NULL, NULL, NULL, 17, 5, '2018-10-10 11:56:00', '2018-10-10 11:56:00');
 
 -- --------------------------------------------------------
 
@@ -200,15 +207,8 @@ CREATE TABLE `work_position` (
 INSERT INTO `work_position` (`position_id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'gggggg', '2018-09-27 15:57:20', '2018-09-27 15:57:20'),
 (3, 'asdafg', '2018-09-27 15:57:20', '2018-09-27 15:57:20'),
-(5, NULL, '2018-09-27 15:57:20', '2018-09-27 15:57:20'),
-(6, NULL, '2018-09-27 15:57:20', '2018-09-27 15:57:20'),
-(7, NULL, '2018-09-27 16:04:21', '2018-09-27 16:04:21'),
-(8, NULL, '2018-09-27 16:04:51', '2018-09-27 16:04:51'),
-(9, NULL, '2018-09-27 16:05:55', '2018-09-27 16:05:55'),
-(10, NULL, '2018-09-27 16:06:14', '2018-09-27 16:06:14'),
-(11, NULL, '2018-09-29 10:11:30', '2018-09-29 10:11:30'),
-(12, NULL, '2018-09-29 10:11:38', '2018-09-29 10:11:38'),
-(13, NULL, '2018-09-29 10:11:43', '2018-09-29 10:11:43');
+(5, 'sdasd', '2018-10-10 11:45:21', '2018-10-10 11:45:21'),
+(17, 'aaaaffff', '2018-10-09 10:41:58', '2018-10-09 10:41:58');
 
 --
 -- Indexes for dumped tables
@@ -245,7 +245,9 @@ ALTER TABLE `product_category`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `work_field_id` (`work_field_id`),
+  ADD KEY `position_id` (`position_id`);
 
 --
 -- Indexes for table `work_field`
@@ -267,13 +269,13 @@ ALTER TABLE `work_position`
 -- AUTO_INCREMENT for table `client_type`
 --
 ALTER TABLE `client_type`
-  MODIFY `client_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `client_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `product_category`
@@ -285,7 +287,7 @@ ALTER TABLE `product_category`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `work_field`
@@ -297,7 +299,7 @@ ALTER TABLE `work_field`
 -- AUTO_INCREMENT for table `work_position`
 --
 ALTER TABLE `work_position`
-  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -314,6 +316,13 @@ ALTER TABLE `company`
 --
 ALTER TABLE `contact_person`
   ADD CONSTRAINT `contact_person_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`);
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`work_field_id`) REFERENCES `work_field` (`work_field_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`position_id`) REFERENCES `work_position` (`position_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
