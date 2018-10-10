@@ -15,7 +15,7 @@ public class WorkField {
     public WorkField(ResultSet result) {
 
         try {
-            workFieldId = result.getInt("workField_id");
+            workFieldId = result.getInt("work_field_id");
         } catch (SQLException sqle) {
         }
         try {

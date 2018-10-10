@@ -97,7 +97,15 @@
         </form>
     </div>
 </div>
-</body>
+<script>
+
+    function insert(form) {
+
+        form.action = "InsertCompany.jsp";
+        form.submit();
+    }
+
+</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -112,15 +120,6 @@
 <script>$(document).ready(function () {
     $('body').bootstrapMaterialDesign();
 });</script>
+</body>
 </html>
 
-
-<script>
-
-    function insert(form) {
-
-        form.action = "InsertCompany.jsp";
-        form.submit();
-    }
-
-</script>

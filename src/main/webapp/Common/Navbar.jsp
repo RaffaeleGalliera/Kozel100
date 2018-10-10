@@ -37,6 +37,8 @@
                     Insert Setup
                 </a>
                 <div class="dropdown-menu" aria-labelledby="setupDropdown">
+                    <a class="dropdown-item" href="/Setup/InsertUser.jsp">User</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Setup/InsertClientType.jsp">Client Type</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Setup/InsertPosition.jsp">Position</a>
