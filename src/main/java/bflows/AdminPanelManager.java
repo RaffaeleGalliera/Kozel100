@@ -84,6 +84,10 @@ public class AdminPanelManager implements java.io.Serializable {
         try{
 
             database= DBService.getDataBase();
+            //TODO: DA cambiare assolutamente quando capisci come si usa Status
+            positions = PositionDAO.getAllPositions(database);
+            workFields = WorkFieldDAO.getAllWorkFields(database);
+
 
             User user = new User(userId,email, Security.encrypt(password),firstName,lastName,recruitmentDate,endWorking,phoneNumber,positionId,workFieldId);
             user.insert(database);
@@ -405,10 +409,6 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public void setWorkFieldId(int workFieldId) {
-        this.workFieldId = workFieldId;
     }
 
     public int getResult() {

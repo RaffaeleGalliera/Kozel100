@@ -35,7 +35,7 @@ public class WorkFieldDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            throw new ResultSetDBException("WorkFieldDAO.getAllWorkFieldss(): Errore nel ResultSet: " + ex.getMessage(), db);
+            throw new ResultSetDBException("WorkFieldDAO.getAllWorkFields(): Errore nel ResultSet: " + ex.getMessage(), db);
         }
 
         return workFields;
