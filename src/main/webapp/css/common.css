@@ -65,12 +65,6 @@ table.table td i {
     font-size: 19px;
 }
 
-table.table td a.add i {
-    font-size: 24px;
-    margin-right: -1px;
-    position: relative;
-    top: 3px;
-}
 
 table.table .form-control {
     height: 32px;

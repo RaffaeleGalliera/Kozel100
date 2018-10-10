@@ -52,6 +52,9 @@
     </div>
     <p>
     <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link" href="#usersCard" data-toggle="collapse"
+                            data-target="#usersCard"
+                            aria-expanded="false" aria-controls="usersCard">Users</a></li>
         <li class="nav-item"><a class="nav-link" href="#workFieldsCard" data-toggle="collapse"
                                 data-target="#workFieldsCard"
                                 aria-expanded="false" aria-controls="workFieldsCard">Work Fields</a></li>
@@ -74,9 +77,54 @@
 
     <div class="row">
         <div class="col">
+            <div class="collapse multi-collapse" id="usersCard">
+                <div class="card card-body">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertUser.jsp">
+                                        <h2>Users
+                                            <button style="float:right" type="submit" value="InsertUser"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <table class="col-md-12 table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getUsers().length; k++) {%>
+                                <tr>
+                                    <td><%= k +1 %></td>
+                                    <td><%=adminPanelManager.getUser(k).fullName()%></td>
+                                    <td><%=adminPanelManager.getUser(k).email%></td>
+                                    <td>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="collapse multi-collapse" id="workFieldsCard">
                 <div class="card card-body">
-
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">

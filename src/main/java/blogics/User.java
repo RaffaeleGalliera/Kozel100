@@ -85,6 +85,10 @@ public class User{
 
     }
 
+    public String fullName(){
+        return firstName + " " + lastName;
+    }
+
     public void insert(DataBase database) throws NotFoundDBException, DuplicatedRecordDBException, ResultSetDBException {
 
         String query;
