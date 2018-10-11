@@ -83,6 +83,16 @@ public class Debug{
     if (Constants.DEBUG)
       System.out.println(s);    
   }
+
+  public static void println(byte[] s) {
+
+    for (int i=0;i<s.length;i++){
+
+        System.out.print(s[i]);
+
+    }
+
+  }
   
   /*
    * Stampa un oggetto sullo standard output.
