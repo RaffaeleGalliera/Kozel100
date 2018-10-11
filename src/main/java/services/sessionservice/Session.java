@@ -12,6 +12,7 @@ import java.util.*;
 import javax.servlet.http.*;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
+import services.tokenservice.JWTService;
 
 
 public class Session {
@@ -25,7 +26,10 @@ public class Session {
 
     User user=UserDAO.getUser(db, mail);
 
-    cookies[0]=new Cookie("IDAttivita",user.lastName);
+    String token = JWTService.createJWT("ciao","Kozel100","negra",-1);
+    cookies[0]=new Cookie("jwt_auth_token",token);
+
+
     try{cookies[1]=new Cookie("Nome",URLEncoder.encode(user.email,"utf-8"));} catch(Exception ex){};
 
       for (Cookie cookie : cookies) {

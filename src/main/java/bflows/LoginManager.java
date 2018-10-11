@@ -1,5 +1,6 @@
 package bflows;
 
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import services.databaseservice.*;
@@ -11,6 +12,9 @@ import blogics.*;
 //import javax.jms.Session;
 import javax.crypto.SecretKey;
 import javax.servlet.http.*;
+import javax.xml.bind.DatatypeConverter;
+
+import services.tokenservice.JWTService;
 import util.Debug;
 import util.Security;
 
@@ -50,8 +54,10 @@ public class LoginManager implements java.io.Serializable{
                 }
                 else{ //loggato
                     cookies=Session.createUserCookies(db,user.email);
-                    Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-                    byte[] keyBytes = key.getEncoded();
+
+                    String token = JWTService.createJWT("ciao","capra","negra",-1);
+                    JWTService.parseAndVerifyJWT(token);
+
                 }
 
 

@@ -4,7 +4,7 @@
 <%@ page import="services.sessionservice.*" %>
 <%@ page import="global.*" %>
 <%@ page import="util.*" %>
-<%--<%@ page errorPage="ErrorPage.jsp"%>--%>
+<%@ page errorPage="ErrorPage.jsp"%>
 
 <jsp:useBean id="loginManager" scope="page" class="bflows.LoginManager" />
 <jsp:setProperty name="loginManager" property="*" />
@@ -155,7 +155,7 @@
 </head>
 <body>
 
-    <div class="title-container">
+    <div class="container title-container">
 
         <h1>Kozel 100 CRM</h1>
 
@@ -176,7 +176,7 @@
         </form>
     </div>
 
-    <div class="footer-container">
+    <div class="container footer-container">
 
         <h4>Made with <font color=#83b441>&hearts;</font> by Rafu and Teu</h4>
 
