@@ -56,7 +56,7 @@
             <%--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--%>
             <%--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
         <%--</form>--%>
-        <form class="form-inline my-2 my-lg-0" action="index.jsp" method="post">
+        <form class="form-inline my-2 my-lg-0" action="/index.jsp" method="post">
             <input type="hidden" name="status" value="logout"/>
             <button class="btn btn-outline-danger my-2 my-sm-0" onclick="logout()">Logout</button>
         </form>
