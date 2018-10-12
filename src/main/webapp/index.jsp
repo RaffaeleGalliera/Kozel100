@@ -4,7 +4,7 @@
 <%@ page import="services.sessionservice.*" %>
 <%@ page import="global.*" %>
 <%@ page import="util.*" %>
-<%--<%@ page errorPage="ErrorPage.jsp"%>--%>
+<%@ page errorPage="ErrorPage.jsp"%>
 
 <jsp:useBean id="loginManager" scope="page" class="bflows.LoginManager" />
 <jsp:setProperty name="loginManager" property="*" />
@@ -71,11 +71,50 @@
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
+    <style>
+
+        .form-container{
+
+            background-color: white;
+            box-shadow: 7px 7px 9px #bababa;
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 3%;
+            border-radius: 7px;
+            padding-bottom: 1%;
+
+
+        }
+
+        .title-container{
+
+            width: 60%;
+            text-align: center;
+            font-family: 'Shadows Into Light Two', cursive;
+            margin: 0 auto;
+            padding: 3%;
+
+        }
+
+        .footer-container{
+
+            width: 60%;
+            text-align: center;
+            font-family: 'Shadows Into Light Two', cursive;
+            margin: 0 auto;
+            padding: 3%;
+
+        }
+
+    </style>
+
+
     <!-- Material Design for Bootstrap CSS -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <title>Kozel100 CRM</title>
+
     <%if(isLogged){%>
         <meta http-equiv="refresh" content="0; url=Dashboard.jsp">
     <%}%>
@@ -114,30 +153,69 @@
         }
 
     </script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet">
+
+    <title>Kozel100 CRM</title>
+
+</head>
+<body>
+
+    <div class="container title-container">
+
+        <h1>Kozel 100 CRM</h1>
+
+    </div>
+
+    <div class="form-container">
+
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
     <div class="container">
-        <h1>Pronto a loggarti baby? :D</h1>
         <form name="loginForm" action="index.jsp" method="post">
             <div class="form-group">
-                <label for="email">Email address:</label>
+                <label for="email" class="bmd-label-floating">Email</label>
                 <input type="email" class="form-control" id="email" name="email">
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password" class="bmd-label-floating">Password:</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
             <input type="hidden" name="status" value="login"/>
-            <button type="submit" class="btn btn-default" onclick="login()">Submit</button>
+            <button type="submit" class="btn btn-success btn-raised" onclick="login()">Submit</button>
         </form>
     </div>
 
+    <div class="container footer-container">
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <h4>Made with <font color=#83b441>&hearts;</font> by Rafu and Teu</h4>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+            integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+            integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+            crossorigin="anonymous"></script>
+    <script>$(document).ready(function () {
+        $('body').bootstrapMaterialDesign();
+    });</script>
+
+
+
 </body>
 </html>

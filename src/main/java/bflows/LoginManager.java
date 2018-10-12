@@ -1,5 +1,8 @@
 package bflows;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
@@ -7,9 +10,18 @@ import services.sessionservice.*;
 import blogics.*;
 
 //import javax.jms.Session;
+import javax.crypto.SecretKey;
 import javax.servlet.http.*;
+import javax.xml.bind.DatatypeConverter;
+
+import services.tokenservice.JWTService;
 import util.Debug;
 import util.Security;
+
+import java.security.Key;
+import java.util.Base64;
+
+import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 
 
 public class LoginManager implements java.io.Serializable{
@@ -40,8 +52,12 @@ public class LoginManager implements java.io.Serializable{
                 setResult(EService.RECOVERABLE_ERROR);
                 setErrorMessage("Mail o password errate");
                 }
-                else{ //E' un Cliente
+                else{ //loggato
                     cookies=Session.createUserCookies(db,user.email);
+
+                    String token = JWTService.createJWT("ciao","capra","negra",-1);
+                    JWTService.parseAndVerifyJWT(token);
+
                 }
 
 
