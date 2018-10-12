@@ -82,6 +82,12 @@
                     <% } %>
                 </select>
             </div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="isAdmin" class="form-control" id="isAdmin">
+                    Administrator
+                </label>
+            </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
         </form>
