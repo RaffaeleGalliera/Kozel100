@@ -4,6 +4,24 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
+<%--<%--%>
+    <%--//    Cookie[] cookies=request.getCookies();--%>
+
+    <%--String status = request.getParameter("status");--%>
+
+    <%--if (status == null) status = "view";--%>
+
+    <%--if (status.equals("insertCompany")) {--%>
+
+<%--//        basketManagement.setCookies(cookies);--%>
+        <%--companyManager.insertCompany();--%>
+<%--//        cookies=basketManagement.getCookies();--%>
+<%--//        for (int i = 0; i < cookies.length; i++) {--%>
+<%--//            response.addCookie(cookies[i]); //Li aggiungo alla response--%>
+<%--//        }--%>
+    <%--}--%>
+
+<%--%>--%>
 <%companyManager.insertCompany();%>
 <!doctype html>
 <html lang="en">
