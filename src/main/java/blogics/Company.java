@@ -20,7 +20,7 @@ public class Company {
     public Company(ResultSet result){
 
         try {companyId=result.getInt("company_id");} catch(SQLException sqle) {}
-        try {companyId=result.getInt("client_type_id");} catch(SQLException sqle) {}
+        try {clientTypeId=result.getInt("client_type_id");} catch(SQLException sqle) {}
         try {name=result.getString("name");} catch(SQLException sqle) {}
         try {vat=result.getString("vat");} catch(SQLException sqle) {}
         try {address=result.getString("address");} catch(SQLException sqle) {}

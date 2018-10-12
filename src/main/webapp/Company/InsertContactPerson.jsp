@@ -10,68 +10,97 @@
 <%@ page session="false"%>
 <%@ page buffer="30kb" %>
 
-<jsp:useBean id="contactPersonManager" scope="page" class="bflows.ContactPersonManager"/>
-<jsp:setProperty name="contactPersonManager" property="*"/>
+<jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
+<jsp:setProperty name="companyManager" property="*"/>
+
+<%companyManager.insertContactPerson();%>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
 
 
-<html>
-    <head>
-        <title>Kozel100</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
-        <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
+    <title>Kozel100</title>
 
-    </head>
+</head>
+<body>
+<jsp:include page="/Common/Navbar.jsp"/>
+<div class="container col-lg-12">
 
-    <form class="form-horizontal" name="contactPersonManager" action="" method="post">
-        <fieldset>
-            <legend>Contact Person</legend>
-            <!-- Text input-->
-            <div class="row">
-                <div class="col">
-                        <input id="firstName" name="firstName" type="text" class="form-control input-md">
-                 </div>
-                <div class="col">
-                            <input id="lastName" name="lastName" type="text" class="form-control input-md">
-                </div>
+    <div class="col-sm-10 form-group-lg block center">
+        <h1 class="text-center">
+            New Contact Person
+        </h1>
+        <form action="ViewCompanies.jsp">
+            <button style="float:right" type="submit" value="InsertContactPerson" class="btn btn-default">
+                Back To List
+            </button>
+
+            </h1>
+        </form>
+        <form name="companyManager" action="InsertContactPerson.jsp" method="post">
+            <div class="form-group">
+                <label for="firstName" class="bmd-label-floating">First Name</label>
+                <input type="text" name="firstName" class="form-control" id="firstName">
             </div>
             <div class="form-group">
-                        <label class="col-md-4 control-label" for="email">Email</label>
-                        <div class="col-md-4">
-                            <input id="email" name="email" type="text" class="form-control input-md">
-                        </div>
+                <label for="lastName" class="bmd-label-floating">Last Name</label>
+                <input type="text" name="lastName" class="form-control" id="lastName">
             </div>
-
             <div class="form-group">
-                        <label class="col-md-4 control-label" for="phoneNumber">Phone Number</label>
-                        <div class="col-md-4">
-                            <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Prefix Must Be Added" class="form-control input-md">
-                        </div>
+                <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
+                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
             </div>
-
-            <!-- Button -->
             <div class="form-group">
-                <div class="col-md-4">
-                    <button id="singlebutton" name="singlebutton" class="btn btn-primary" value="inserisci" onclick="insert(this.form)">Inserisci</button>
-                </div>
+                <label for="contactEmail" class="bmd-label-floating">Email</label>
+                <input type="email" name="contactEmail" class="form-control" id="contactEmail">
             </div>
-
-        </fieldset>
-    </form>
-</html>
-
-<%contactPersonManager.insertContactPerson();%>
-
+            <div class="form-group">
+                <label for="companyId" class="bmd-label-floating">Company</label>
+                <select class="form-control" id="companyId" name="companyId">
+                    <%for (int k = 0; k < companyManager.getCompanies().length; k++) {%>
+                    <option value="<%=companyManager.getCompany(k).companyId%>"><%=companyManager.getCompany(k).name%>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
+            <button class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+        </form>
+    </div>
+</div>
 <script>
 
-    function insert(form){
+    function insert(form) {
 
-        form.action="InsertContactPerson.jsp";
+        form.action = "InsertContactPerson.jsp";
         form.submit();
     }
 
 </script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+    $('body').bootstrapMaterialDesign();
+});</script>

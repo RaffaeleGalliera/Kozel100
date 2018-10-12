@@ -94,6 +94,37 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public void insertContactPerson() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            //TODO: DA cambiare assolutamente quando capisci come si usa Status
+            companies = CompanyDAO.getAllCompanies(database);
+
+            ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
+            contactPerson.insert(database);
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+        } catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+    }
+
 
     public Integer getCompanyId() {
         return companyId;
