@@ -11,6 +11,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+
 
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
@@ -21,42 +23,21 @@
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
     <title>Kozel100</title>
-    <style>
-        body {
-            padding-top: 50px;
-        }
 
-        .spacer {
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
-
-        .block {
-            min-height: 160px;
-            padding-top: 15px;
-        }
-
-        .center {
-            position: absolute;
-            /*  top: 0;
-              bottom: 0; */
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
-    </style>
 </head>
 <body>
-<div class="container col-lg-12 spacer"> </div>
-    <div class="container col-lg-12">
+<jsp:include page="/Common/Navbar.jsp"/>
+<div class="container col-lg-12">
+
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New Company
         </h1>
         <form action="ViewCompanies.jsp">
-                <button style="float:right" type="submit" value="InsertCompany" class="btn btn-default">
-                    Back To List
-                </button>
+            <button style="float:right" type="submit" value="InsertCompany" class="btn btn-default">
+                Back To List
+            </button>
+
             </h1>
         </form>
         <form name="companyManager" action="" method="post">
@@ -83,11 +64,12 @@
             </div>
             <div class="form-group">
                 <label for="clientTypeId" class="bmd-label-floating">Client Type</label>
-                    <select class="form-control" id="clientTypeId" name="clientTypeId">
-                        <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                        <option value="<%=companyManager.getClientType(k).clientTypeId%>"><%=companyManager.getClientType(k).name%></option>
-                        <% } %>
-                    </select>
+                <select class="form-control" id="clientTypeId" name="clientTypeId">
+                    <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
+                    <option value="<%=companyManager.getClientType(k).clientTypeId%>"><%=companyManager.getClientType(k).name%>
+                    </option>
+                    <% } %>
+                </select>
             </div>
             <div class="jumbotron">
                 <h1>Contact Reference</h1>
@@ -115,7 +97,15 @@
         </form>
     </div>
 </div>
-</body>
+<script>
+
+    function insert(form) {
+
+        form.action = "InsertCompany.jsp";
+        form.submit();
+    }
+
+</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -130,15 +120,6 @@
 <script>$(document).ready(function () {
     $('body').bootstrapMaterialDesign();
 });</script>
+</body>
 </html>
 
-
-<script>
-
-    function insert(form) {
-
-        form.action = "InsertCompany.jsp";
-        form.submit();
-    }
-
-</script>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: raffaele
-  Date: 27/09/18
-  Time: 11.39
+  Date: 09/10/18
+  Time: 11.17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,110 +18,113 @@
 
 <html>
 <head>
-    <title>Title</title>
-    <head>
-        <title>Kozel100</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/css/admin_panel.css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-                var actions = $("table td:last-child").html();
-                // Append table with add row form on add new button click
-                $(".add-new").click(function () {
-                    $(this).attr("disabled", "disabled");
-                    var index = $("table tbody tr:last-child").index();
-                    var row = '<tr>' +
-                        '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-                        '<td>' + actions + '</td>' +
-                        '</tr>';
-                    $("table").append(row);
-                    $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-                    $('[data-toggle="tooltip"]').tooltip();
-                });
-                // Add row on add button click
-                $(document).on("click", ".add", function () {
-                    var empty = false;
-                    var input = $(this).parents("tr").find('input[type="text"]');
-                    input.each(function () {
-                        if (!$(this).val()) {
-                            $(this).addClass("error");
-                            empty = true;
-                        } else {
-                            $(this).removeClass("error");
-                        }
-                    });
-                    $(this).parents("tr").find(".error").first().focus();
-                    if (!empty) {
-                        input.each(function () {
-                            $(this).parent("td").html($(this).val());
-                        });
-                        $(this).parents("tr").find(".add, .edit").toggle();
-                        $(".add-new").removeAttr("disabled");
-                    }
-                });
-                // Edit row on edit button click
-                $(document).on("click", ".edit", function () {
-                    $(this).parents("tr").find("td:not(:last-child)").each(function () {
-                        $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-                    });
-                    $(this).parents("tr").find(".add, .edit").toggle();
-                    $(".add-new").attr("disabled", "disabled");
-                });
-                // Delete row on delete button click
-                $(document).on("click", ".delete", function () {
-                    $(this).parents("tr").remove();
-                    $(".add-new").removeAttr("disabled");
-                });
-            });
-        </script>
-    </head>
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
+
+    <title>Kozel100 CRM</title>
 </head>
 <body>
+<jsp:include page="/Common/Navbar.jsp"/>
+
 <div class="container">
     <div class="page-header">
-        <h1>Admin Panel<span class="pull-right label label-default">:)</span></h1>
-    </div>
-    <div class="panel with-nav-tabs panel-default">
-        <div class="panel-heading">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab1default" data-toggle="tab">Welcome</a></li>
-                <li><a href="#tab2default" data-toggle="tab">Work Fields</a></li>
-                <li><a href="#tab3default" data-toggle="tab">Positions</a></li>
-                <li><a href="#tab4default" data-toggle="tab">Product Categories</a></li>
-                <li><a href="#tab5default" data-toggle="tab">Client Types</a></li>
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#tab6default" data-toggle="tab">Default 4</a></li>
-                        <li><a href="#tab7default" data-toggle="tab">Default 5</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome</h1>
+            <p class="lead">This is your administration panel. Here you can add new User, new positions and
+                other useless stuff</p>
+            <hr class="my-4">
+            <p>In case of troubles contact the Webmaster.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Contact That Motherfucker</a>
+            </p>
         </div>
-        <div class="panel-body">
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="tab1default">
-                    <div class="jumbotron">
-                        <h1 class="display-4">Welcome</h1>
-                        <p class="lead">This is your administration panel. Here you can add new User, new position and
-                            other useless stuff</p>
-                        <hr class="my-4">
-                        <p>In case of troubles contact the Webmaster.</p>
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="#" role="button">Contact That Motherfucker</a>
-                        </p>
+    </div>
+    <p>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link" href="#usersCard" data-toggle="collapse"
+                            data-target="#usersCard"
+                            aria-expanded="false" aria-controls="usersCard">Users</a></li>
+        <li class="nav-item"><a class="nav-link" href="#workFieldsCard" data-toggle="collapse"
+                                data-target="#workFieldsCard"
+                                aria-expanded="false" aria-controls="workFieldsCard">Work Fields</a></li>
+        <li class="nav-item"><a class="nav-link" href="#positionCard" data-toggle="collapse" data-target="#positionCard"
+                                aria-expanded="false" aria-controls="positionCard">Position</a></li>
+        <li class="nav-item"><a class="nav-link" href="#productCategoriesCard" data-toggle="collapse"
+                                data-target="#productCategoriesCard"
+                                aria-expanded="false" aria-controls="productCategoriesCard">Product Categories</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="#clientTypesCard" data-toggle="collapse"
+                                data-target="#clientTypesCard"
+                                aria-expanded="false" aria-controls="clientTypesCard">Client Types</a></li>
+
+        <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
+                                <%--aria-expanded="false"--%>
+                                <%--aria-controls="workFieldsCard positionCard productCategoriesCard clientTypesCard">Show--%>
+            <%--All</a></li>--%>
+    </ul>
+    </p>
+
+    <div class="row">
+        <div class="col">
+            <div class="collapse multi-collapse" id="usersCard">
+                <div class="card card-body">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertUser.jsp">
+                                        <h2>Users
+                                            <button style="float:right" type="submit" value="InsertUser"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <table class="col-md-12 table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getUsers().length; k++) {%>
+                                <tr>
+                                    <td><%= k +1 %></td>
+                                    <td><%=adminPanelManager.getUser(k).fullName()%></td>
+                                    <td><%=adminPanelManager.getUser(k).email%></td>
+                                    <td>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tab2default">
+            </div>
+            <div class="collapse multi-collapse" id="workFieldsCard">
+                <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
@@ -136,21 +139,23 @@
                                     </form>
                                 </div>
                             </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
+
+                            <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
                                 <tbody>
                                 <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
                                 <tr>
-                                    <td><%=adminPanelManager.getWorkField(k).name%>
-                                    </td>
+                                    <td><%= k +1 %></td>
+                                    <td><%=adminPanelManager.getWorkField(k).name%></td>
                                     <td>
-                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
                                         <a class="delete" title="Delete" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE872;</i></a>
                                     </td>
@@ -161,48 +166,9 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="tab3default">
-                    <div class="container">
-                        <div class="table-wrapper">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form action="Setup/InsertPosition.jsp">
-                                        <h2>Positions
-                                            <button style="float:right" type="submit" value="InsertPosition"
-                                                    class="btn btn-default">
-                                                +
-                                            </button>
-                                        </h2>
-                                    </form>
-                                </div>
-                            </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
-                                <tr>
-                                    <td><%=adminPanelManager.getPosition(k).name%>
-                                    </td>
-                                    <td>
-                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                        <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE872;</i></a>
-                                    </td>
-                                </tr>
-                                <%}%>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="tab4default">
+            </div>
+            <div class="collapse multi-collapse" id="productCategoriesCard">
+                <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
@@ -217,9 +183,10 @@
                                     </form>
                                 </div>
                             </div>
-                            <table class="table table-bordered">
+                            <table class="col-md-12 table table-striped">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Actions</th>
                                 </tr>
@@ -227,11 +194,11 @@
                                 <tbody>
                                 <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
                                 <tr>
-                                    <td><%=adminPanelManager.getProductCategory(k).name%>
-                                    </td>
+                                    <td><%= k + 1 %></td>
+                                    <td><%=adminPanelManager.getProductCategory(k).name%></td>
                                     <td>
-                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
                                         <a class="delete" title="Delete" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE872;</i></a>
                                     </td>
@@ -242,7 +209,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tab5default">
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse" id="positionCard">
+                <div class="card card-body">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertPosition.jsp">
+                                        <h2>Positions
+                                            <button style="float:right" type="submit" value="InsertPosition"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="col-md-12 table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
+                                <tr>
+                                    <td><%= k +1 %></td>
+                                    <td><%=adminPanelManager.getPosition(k).name%></td>
+                                    <td>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse multi-collapse" id="clientTypesCard">
+                <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
@@ -257,9 +271,10 @@
                                     </form>
                                 </div>
                             </div>
-                            <table class="table table-bordered">
+                            <table class="col-md-12 table table-striped">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Actions</th>
                                 </tr>
@@ -267,11 +282,11 @@
                                 <tbody>
                                 <%for (int k = 0; k < adminPanelManager.getClientTypes().length; k++) {%>
                                 <tr>
-                                    <td><%=adminPanelManager.getClientType(k).name%>
-                                    </td>
+                                    <td><%= k +1 %></td>
+                                    <td><%=adminPanelManager.getClientType(k).name%></td>
                                     <td>
-                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
                                         <a class="delete" title="Delete" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE872;</i></a>
                                     </td>
@@ -286,45 +301,16 @@
         </div>
     </div>
 </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
 </html>
-
-<%--Dati nel bean: <br><br><br>--%>
-<%--Name: <%=adminPanelManager.getPositionName()%><br><br>--%>
-
-
-<%--<%adminPanelManager.insertPosition();%>--%>
-
-<%--Dati nel bean: <br><br><br>--%>
-<%--Name: <%=adminPanelManager.getWorkFieldName()%><br><br>--%>
-
-
-<%--<%adminPanelManager.insertWorkField();%>--%>
-
-<%--Dati nel bean: <br><br><br>--%>
-<%--Name: <%=adminPanelManager.getClientTypeName()%><br><br>--%>
-
-
-<%--<%adminPanelManager.insertClientType();%>--%>
-
-<script>
-
-    function insertPosition(form) {
-
-        form.action = "AdminPanel.jsp";
-        form.submit();
-    }
-
-    function insertWorkField(form) {
-
-        form.action = "AdminPanel.jsp";
-        form.submit();
-    }
-
-    function insertClientType(form) {
-
-        form.action = "AdminPanel.jsp";
-        form.submit();
-    }
-
-</script>

@@ -13,6 +13,38 @@ public class UserDAO{
 
     public UserDAO(){}
 
+
+    public static User[] getAllUsers(DataBase db) throws NotFoundDBException, ResultSetDBException {
+
+        User[] users = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT * FROM user";
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                rs.last();
+                users = new User[rs.getRow()];
+                rs.beforeFirst();
+
+                while (rs.next()) {
+                    users[i] = new User(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("UserDAO.getAllUsers(): Errore nel ResultSet: " + ex.getMessage(), db);
+        }
+
+        return users;
+
+    }
+
     public static User getUser(DataBase db, String email) throws NotFoundDBException, ResultSetDBException {
 
         User user=null;
