@@ -77,14 +77,40 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
-    public void companiesView(){
+    public void companiesView() {
+
+        DataBase db = null;
+
+        try {
+            db = DBService.getDataBase();
+
+            companies = CompanyDAO.getAllCompanies(db);
+
+//            totalRecords=OrdineDAO.getRicevutiTotalRecords();
+
+            db.commit();
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } finally {
+            try {
+                db.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
+    public void clientTypeList(){
 
         DataBase db=null;
 
         try{
             db=DBService.getDataBase();
 
-            companies=CompanyDAO.getAllCompanies(db);
+            clientTypes=ClientTypeDAO.getAllClientTypes(db);
 
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
@@ -112,9 +138,6 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
-
-            //TODO: DA cambiare assolutamente quando capisci come si usa Status
-            companies = CompanyDAO.getAllCompanies(database);
 
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);
