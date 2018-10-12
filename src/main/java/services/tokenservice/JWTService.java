@@ -18,7 +18,7 @@ public class JWTService {
 
 
     //This method is used to create a JWT Token everytime that a user logs in
-    public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
+    public static String createJWT(String id, String issuer, String subject,String email, long ttlMillis) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
@@ -36,6 +36,7 @@ public class JWTService {
                 .setIssuedAt(now)
                 .setSubject(subject)
                 .setIssuer(issuer)
+                .claim("email",email)
                 .signWith(apiKey);
 
         //if it has been specified, let's add the expiration
