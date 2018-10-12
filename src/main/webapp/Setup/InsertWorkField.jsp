@@ -11,6 +11,32 @@
 
 <jsp:useBean id="adminPanelManager" scope="page" class="bflows.AdminPanelManager"/>
 <jsp:setProperty name="adminPanelManager" property="*"/>
+<%
+
+    String status = null;
+    String message = null;
+    boolean complete = false;
+
+    status = request.getParameter("status");
+
+    if (status == null) {
+        status = "view";
+    }
+
+    if (status.equals("insertWorkField")) {
+        adminPanelManager.insertWorkField();
+
+        if (adminPanelManager.getResult() == 0) {
+            complete = true;
+        } else {
+            status = "view";
+        }
+    }
+
+    if (adminPanelManager.getResult() == -2) {
+        message = adminPanelManager.getErrorMessage();
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,6 +59,11 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
+    <%if (complete){%>
+    <div class="jumbotron">
+        <h2>Position successfully added!</h2>
+    </div>
+    <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New Work Field
@@ -51,6 +82,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <input type="hidden" name="status" value="insertWorkField"/>
         </form>
     </div>
 </div>
@@ -70,9 +102,6 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
-
-<%adminPanelManager.insertWorkField();%>
-
 <script>
 
     function insert(form) {

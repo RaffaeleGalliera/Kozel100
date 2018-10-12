@@ -36,7 +36,6 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            //TODO: DA cambiare assolutamente quando capisci come si usa Status
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
 
 
@@ -138,6 +137,7 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
+            companies = CompanyDAO.getAllCompanies(database);
 
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);

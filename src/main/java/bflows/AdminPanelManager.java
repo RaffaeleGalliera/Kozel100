@@ -79,6 +79,33 @@ public class AdminPanelManager implements java.io.Serializable {
         }
 
     }
+    public void getPositionWorkFieldList() {
+
+            DataBase db = null;
+
+            try {
+
+                db = DBService.getDataBase();
+
+                positions = PositionDAO.getAllPositions(db);
+                workFields = WorkFieldDAO.getAllWorkFields(db);
+                db.commit();
+
+            } catch (NotFoundDBException ex) {
+                EService.logAndRecover(ex);
+                setResult(EService.UNRECOVERABLE_ERROR);
+            } catch (ResultSetDBException ex) {
+                EService.logAndRecover(ex);
+                setResult(EService.UNRECOVERABLE_ERROR);
+            } finally {
+                try {
+                    db.close();
+                } catch (NotFoundDBException e) {
+                    EService.logAndRecover(e);
+                }
+            }
+
+        }
 
     public void insertUser(){
 
