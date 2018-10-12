@@ -4,25 +4,33 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
-<%--<%--%>
-    <%--//    Cookie[] cookies=request.getCookies();--%>
+<%
 
-    <%--String status = request.getParameter("status");--%>
+    String status = null;
+    String message = null;
+    boolean complete = false;
 
-    <%--if (status == null) status = "view";--%>
+    status = request.getParameter("status");
 
-    <%--if (status.equals("insertCompany")) {--%>
+    if (status == null) {
+        status = "view";
+        companyManager.clientTypeList();
+    }
 
-<%--//        basketManagement.setCookies(cookies);--%>
-        <%--companyManager.insertCompany();--%>
-<%--//        cookies=basketManagement.getCookies();--%>
-<%--//        for (int i = 0; i < cookies.length; i++) {--%>
-<%--//            response.addCookie(cookies[i]); //Li aggiungo alla response--%>
-<%--//        }--%>
-    <%--}--%>
+    if (status.equals("insertCompany")) {
+         companyManager.insertCompany();
 
-<%--%>--%>
-<%companyManager.insertCompany();%>
+        if (companyManager.getResult() == 0) {
+            complete = true;
+        } else {
+            status = "view";
+        }
+    }
+
+    if (companyManager.getResult() == -2) {
+        message = companyManager.getErrorMessage();
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -46,7 +54,11 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
-
+    <%if (complete){%>
+    <div class="jumbotron">
+        <h1>Company successfully added!</h1>
+    </div>
+    <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New Company
@@ -112,6 +124,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <input type="hidden" name="status" value="insertCompany"/>
         </form>
     </div>
 </div>
