@@ -314,6 +314,7 @@ public class CompanyManager implements java.io.Serializable {
     }
 
     public String getErrorMessage() {
+
         return errorMessage;
     }
 
