@@ -71,7 +71,7 @@
         //If the user isn't providing a valid token i'll send him back to login page
         if(!authorized){
 
-            String redirectURL = "index.jsp";
+            String redirectURL = "/index.jsp";
             response.sendRedirect(redirectURL);
 
         }

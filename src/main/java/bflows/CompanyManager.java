@@ -10,6 +10,8 @@ public class CompanyManager implements java.io.Serializable {
     private int contactPersonId;
     private int companyId;
     private int clientTypeId;
+    private int userId;
+    private int productCategoryId;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -24,6 +26,8 @@ public class CompanyManager implements java.io.Serializable {
     private Company[] companies;
     private ContactPerson[] contacts;
     private ClientType[] clientTypes;
+    private ProductCategory[] productCategories;
+    private User[] users;
 
     public void insertCompany() {
 
@@ -74,8 +78,43 @@ public class CompanyManager implements java.io.Serializable {
             db=DBService.getDataBase();
 
             companies=CompanyDAO.getAllCompanies(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+            users = UserDAO.getAllUsers(db);
+
 
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
+
+            db.commit();
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+//            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+//            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        finally {
+            try { db.close(); }
+            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        }
+
+    }
+
+    public void getFilteredCompanies(int clientTypeId, int userId, int productCategoryId){
+
+        DataBase db=null;
+
+        try{
+            db=DBService.getDataBase();
+
+            companies=CompanyDAO.getAllCompanies(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+            users = UserDAO.getAllUsers(db);
+
+
 
             db.commit();
         }
@@ -238,6 +277,19 @@ public class CompanyManager implements java.io.Serializable {
     public Company getCompany(int index) {
         return companies[index];
     }
+
+    public ProductCategory[] getProductCategories() { return productCategories; }
+
+    public ProductCategory getProductCategory(int index){ return productCategories[index];}
+
+    public void setProductCategories(ProductCategory[] productCategories) { this.productCategories = productCategories; }
+
+    public User[] getUsers() { return users; }
+
+    public User getUser(int index){ return users[index];}
+
+
+    public void setUsers(User[] users) { this.users = users; }
 
     public ContactPerson[] getContactPeople(int companyId) {
 

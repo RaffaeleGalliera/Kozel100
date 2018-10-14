@@ -62,7 +62,6 @@
             <div class="form-group">
                 <label for="name" class="bmd-label-floating">Name</label>
                 <input type="text" name="name" class="form-control" id="name">
-                <span class="bmd-help">We'll never share your email with anyone else.</span>
             </div>
             <div class="form-group">
                 <label for="vat" class="bmd-label-floating">VAT</label>

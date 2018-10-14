@@ -77,7 +77,7 @@ public class JWTService {
 
         }catch (Exception ex){
 
-            Debug.println("Token not verified");
+            Debug.println("Token not verified: " + ex.getMessage());
             return false;
 
         }
