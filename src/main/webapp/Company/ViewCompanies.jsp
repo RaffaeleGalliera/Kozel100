@@ -13,8 +13,6 @@
 <%companyManager.companiesView();%>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/view_companies.css">
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,11 +71,13 @@
                     </td>
                     <td>
                         <%for (int c = 0; c < companyManager.getContactPeople(companyManager.getCompany(k).companyId).length; c++) {%>
+                            <%if (c>0) {%>
+                                ,
+                            <%}%>
                         <%=companyManager.getContactPeople(companyManager.getCompany(k).companyId)[c].fullName()%>
                         <%}%>
                     </td>
                     <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete" title="Delete" data-toggle="tooltip"><i
                                 class="material-icons">&#xE872;</i></a>
