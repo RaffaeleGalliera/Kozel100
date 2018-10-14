@@ -5,6 +5,8 @@ import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
+import java.util.Map;
+
 public class CompanyManager implements java.io.Serializable {
 
     private int contactPersonId;
@@ -102,7 +104,7 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
-    public void getFilteredCompanies(int clientTypeId, int userId, int productCategoryId){
+    public void getFilteredCompanies(Map<String,Integer> filters){
 
         DataBase db=null;
 

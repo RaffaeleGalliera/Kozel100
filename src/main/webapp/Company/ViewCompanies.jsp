@@ -10,6 +10,10 @@
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
 <%@ page import="services.tokenservice.JWTService" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 
 
 <%
@@ -42,19 +46,46 @@
 
     if (status==null) status="view"; //
 
-    if (status=="view"){
+    if (status.equals("view")){
 
         companyManager.companiesView();
 
     }
 
-    if (status=="filter"){
+    if (status.equals("filter")){
 
-        request.getParameter("filterByUser");
+        Map<String,Integer> filters = new HashMap<String, Integer>();
 
-        //TODO Determine the kind of filtering requested by the user, decide how to deal with getFilteredCompanies parameters and implement the Queries
+        Boolean filterByUser = Boolean.parseBoolean(request.getParameter("filterByUser"));
+        String userId = request.getParameter("userId");
 
-        companyManager.getFilteredCompanies(1,1,1);
+        if (filterByUser){
+
+            filters.put("userId",Integer.parseInt(userId));
+
+        }
+
+        Boolean filterByType = Boolean.parseBoolean(request.getParameter("filterByType"));
+        String clientTypeId = request.getParameter("clientTypeId");
+
+        if (filterByType){
+
+            filters.put("clientTypeId",Integer.parseInt(clientTypeId));
+
+        }
+
+        Boolean filterByProduct = Boolean.parseBoolean(request.getParameter("filterByProduct"));
+        String productCategoryId = request.getParameter("productCategoryId");
+
+        if (filterByProduct){
+
+            filters.put("productCategoryId",Integer.parseInt(productCategoryId));
+
+        }
+
+        //I used an HashMap so it's easier to deal with parameters sent to the bean
+
+        companyManager.getFilteredCompanies(filters);
 
     }
 
@@ -86,13 +117,19 @@
             border-radius: 7px;
             padding-bottom: 1%;
             margin-bottom: 3%;
-            
+
         }
         
         .filterGroup{
 
             display: none;
-            
+
+        }
+
+        div.filter{
+
+            display: none;
+
         }
 
     </style>
@@ -122,7 +159,7 @@
     function toggle() {
 
 			var x = document.getElementById("filter");
-			if (x.style.display === "none") {
+			if (x.style.display === "none" || x.style.display === "") {
 				x.style.display = "block";
 			} else {
 				x.style.display = "none";
@@ -147,7 +184,7 @@
 
             }else{
 
-            	alert("Cazzo filtri?!");
+            	alert("No fields selected xD LOL!");
 
             }
 
@@ -226,7 +263,7 @@
 
         <div class="container filter" id="filter">
 
-            <form id="filterForm" action="ViewCompanies.jsp">
+            <form id="filterForm" action="ViewCompanies.jsp" method="post">
 
                 <div class="switch">
                     <label>
