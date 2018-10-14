@@ -15,6 +15,7 @@ public class User{
 
     public int userId;
     public String email;
+    public Boolean isAdmin;
     public String password;
     public String firstName;
     public String lastName;
@@ -33,6 +34,9 @@ public class User{
         }
         try {
             email = result.getString("email");
+        } catch (SQLException sqle) {
+        }try {
+            isAdmin = result.getBoolean("is_admin");
         } catch (SQLException sqle) {
         }
         try {
@@ -70,10 +74,11 @@ public class User{
 
     }
 
-    public User(int userId, String email, String password, String firstName, String lastName, String recruitmentDate, Date endWorking, String phoneNumber, int positionId, int workFieldId) {
+    public User(int userId, String email, Boolean isAdmin, String password, String firstName, String lastName, String recruitmentDate, Date endWorking, String phoneNumber, int positionId, int workFieldId) {
 
         this.userId = userId;
         this.email = email;
+        this.isAdmin = isAdmin;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -98,8 +103,8 @@ public class User{
 
         //Check unicita
 
-        query = "INSERT INTO user(user_id,email,password,first_name,last_name,recruitment_date,end_working,phone_number,position_id,work_field_id)" +
-                "VALUES("+userId+",?,?,?,?,"+recruitmentDate+","+endWorking+",?,"+positionId+","+workFieldId+")";
+        query = "INSERT INTO user(user_id,email,is_admin,password,first_name,last_name,recruitment_date,end_working,phone_number,position_id,work_field_id)" +
+                "VALUES("+userId+",?,"+isAdmin+",?,?,?,"+recruitmentDate+","+endWorking+",?,"+positionId+","+workFieldId+")";
 
 
         parameters.add(email);
