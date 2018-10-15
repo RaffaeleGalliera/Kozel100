@@ -42,10 +42,29 @@ public class Company {
 
         String query;
         ArrayList<String> parameters=new ArrayList();
-        ResultSet result;
-        boolean exists;
+        ResultSet rs;
+        boolean exist;
 
         //Check unicita
+        query="SELECT name FROM company WHERE name=?";
+
+        parameters.add(name);
+
+        rs=database.select(query,parameters);
+
+        try {
+            exist=rs.next(); //Perchè ResultSet restituisce il puntatore all'elemento prima della 1^riga
+            rs.close();
+        }
+        catch (SQLException e) {
+            throw new ResultSetDBException("Company.insert(): Errore sul ResultSet.");
+        }
+
+        if (exist) {
+            //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
+            //sarà poi il Bean che decide come gestire questa situazione.
+            throw new DuplicatedRecordDBException("Company.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
+        }
 
 
         query="INSERT INTO company(company_id, client_type_id, name, vat, address, city, email)" +

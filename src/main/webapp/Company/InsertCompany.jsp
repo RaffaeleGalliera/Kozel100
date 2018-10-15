@@ -73,8 +73,11 @@
         <form name="companyManager" action="" method="post">
             <div class="form-group">
                 <label for="name" class="bmd-label-floating">Name</label>
-                <input type="text" name="name" class="form-control" id="name" <%if (message != null)%> class="is-invalid" value="<%=companyManager.getName()%>">
+                <%if(message==null) {%>
+                <input type="text" name="name" class="form-control" id="name">
+                <%}%>
                 <%if(message!=null) {%>
+                <input type="text" name="name" class="form-control is-invalid" id="name" value="<%=companyManager.getName()%>">
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
