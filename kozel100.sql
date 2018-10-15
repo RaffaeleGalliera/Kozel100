@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 15, 2018 at 01:56 PM
+-- Generation Time: Oct 15, 2018 at 02:37 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -169,6 +169,7 @@ CREATE TABLE `user` (
   `phone_number` varchar(10) DEFAULT NULL,
   `position_id` int(11) DEFAULT NULL,
   `work_field_id` int(11) DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -177,17 +178,17 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `email`, `password`, `first_name`, `last_name`, `recruitment_date`, `end_working`, `phone_number`, `position_id`, `work_field_id`, `created_at`, `updated_at`) VALUES
-(1, 'cewug@mailinator.net', 'Pa$$w0rd!', 'Ahmed', 'Guzman', NULL, NULL, NULL, 1, 1, '2018-10-03 13:47:32', '2018-10-03 13:47:32'),
-(2, 'silepifoqe@mailinator.com', 'Pa$$w0rd!', 'Abra', 'Rodriguez', NULL, NULL, NULL, 1, 1, '2018-10-03 13:47:42', '2018-10-03 13:47:42'),
-(3, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, '2018-10-03 13:48:15', '2018-10-03 13:48:15'),
-(4, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, '2018-10-03 13:50:39', '2018-10-03 13:50:39'),
-(5, 'micobaga@mailinator.com', 'Pa$$w0rd!', 'Lev', 'Ayala', NULL, NULL, NULL, 1, 1, '2018-10-03 13:55:44', '2018-10-03 13:55:44'),
-(6, 'rafforx@gmail.com', 'mW/OE3Yu+KcHvJoVCh0Gpw==', 'Raffae;e', 'Galliera', NULL, NULL, NULL, 1, 1, '2018-10-07 20:17:49', '2018-10-07 20:17:49'),
-(10, 'wumazajy@mailinator.net', '6RjA0YeAQRaiZANru36n0Q==', 'Veda', 'Waters', NULL, NULL, NULL, 17, 5, '2018-10-10 11:56:00', '2018-10-10 11:56:00'),
-(11, 'cappun@me.com', 'egXzw2hDiTqHGeIXHQkcpQ==', 'Matteo', 'Cappon', NULL, NULL, NULL, 1, 1, '2018-10-11 15:58:47', '2018-10-11 15:58:47'),
-(12, 'muigi@gov.5s', 'IyDBZt1kNEmzKp51YWKYSQ==', 'Luigi', 'Di Maio', NULL, NULL, NULL, 22, 6, '2018-10-12 07:13:04', '2018-10-12 07:13:04'),
-(13, 'cappun@me.com', '2IUr3i1lOo8KDJZ+ytmUlA==', 'awef', 'awef', NULL, NULL, NULL, 1, 1, '2018-10-15 10:29:48', '2018-10-15 10:29:48');
+INSERT INTO `user` (`user_id`, `email`, `password`, `first_name`, `last_name`, `recruitment_date`, `end_working`, `phone_number`, `position_id`, `work_field_id`, `is_admin`, `created_at`, `updated_at`) VALUES
+(1, 'cewug@mailinator.net', 'Pa$$w0rd!', 'Ahmed', 'Guzman', NULL, NULL, NULL, 1, 1, 0, '2018-10-03 13:47:32', '2018-10-03 13:47:32'),
+(2, 'silepifoqe@mailinator.com', 'Pa$$w0rd!', 'Abra', 'Rodriguez', NULL, NULL, NULL, 1, 1, 0, '2018-10-03 13:47:42', '2018-10-03 13:47:42'),
+(3, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, 0, '2018-10-03 13:48:15', '2018-10-03 13:48:15'),
+(4, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, 0, '2018-10-03 13:50:39', '2018-10-03 13:50:39'),
+(5, 'micobaga@mailinator.com', 'Pa$$w0rd!', 'Lev', 'Ayala', NULL, NULL, NULL, 1, 1, 0, '2018-10-03 13:55:44', '2018-10-03 13:55:44'),
+(6, 'rafforx@gmail.com', 'mW/OE3Yu+KcHvJoVCh0Gpw==', 'Raffae;e', 'Galliera', NULL, NULL, NULL, 1, 1, 0, '2018-10-07 20:17:49', '2018-10-07 20:17:49'),
+(10, 'wumazajy@mailinator.net', '6RjA0YeAQRaiZANru36n0Q==', 'Veda', 'Waters', NULL, NULL, NULL, 17, 5, 0, '2018-10-10 11:56:00', '2018-10-10 11:56:00'),
+(11, 'cappun@me.com', 'egXzw2hDiTqHGeIXHQkcpQ==', 'Matteo', 'Cappon', NULL, NULL, NULL, 1, 1, 0, '2018-10-11 15:58:47', '2018-10-11 15:58:47'),
+(12, 'muigi@gov.5s', 'IyDBZt1kNEmzKp51YWKYSQ==', 'Luigi', 'Di Maio', NULL, NULL, NULL, 22, 6, 0, '2018-10-12 07:13:04', '2018-10-12 07:13:04'),
+(13, 'cappun@me.com', '2IUr3i1lOo8KDJZ+ytmUlA==', 'awef', 'awef', NULL, NULL, NULL, 1, 1, 0, '2018-10-15 10:29:48', '2018-10-15 10:29:48');
 
 -- --------------------------------------------------------
 
