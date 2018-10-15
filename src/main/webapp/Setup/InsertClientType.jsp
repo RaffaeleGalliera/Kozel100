@@ -1,4 +1,4 @@
-<%--
+<%@ page import="bflows.AdminPanelManager" %><%--
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 05/10/18
@@ -77,9 +77,16 @@
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="clientTypeName" class="bmd-label-floating">Name</label>
-                <input type="text" name="clientTypeName" class="form-control" id="clientTypeName">
-                <span class="bmd-help">Insert a new Client Type</span>
+            <label for="clientTypeName" class="bmd-label-floating">Name</label>
+                <%if(message==null) {%>
+                    <input type="text" name="clientTypeName" class="form-control" id="clientTypeName">
+                    <%}%>
+                <%if(message!=null) {%>
+                    <input type="text" name="clientTypeName" class="form-control is-invalid" id="clientTypeName" value="<%=adminPanelManager.getClientTypeName()%>">
+                    <div class="invalid-feedback">
+                    <%=message%>
+                    </div>
+                <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>

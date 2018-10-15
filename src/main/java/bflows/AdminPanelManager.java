@@ -135,7 +135,7 @@ public class AdminPanelManager implements java.io.Serializable {
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Email already taken by another User");
         }
         catch(Exception ex){
@@ -171,7 +171,7 @@ public class AdminPanelManager implements java.io.Serializable {
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Position already exist");
         } finally {
             try {
@@ -207,7 +207,7 @@ public class AdminPanelManager implements java.io.Serializable {
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Work Field already exist");
         }finally {
             try {
@@ -242,7 +242,7 @@ public class AdminPanelManager implements java.io.Serializable {
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Client Type already exist");
         } finally {
             try {
@@ -278,7 +278,7 @@ public class AdminPanelManager implements java.io.Serializable {
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Product Category already exist");
         } finally {
             try {

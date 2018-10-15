@@ -101,10 +101,18 @@
             </div>
             <div class="form-group">
                 <label for="clientTypeId" class="bmd-label-floating">Client Type</label>
-                <select class="form-control" id="clientTypeId" name="clientTypeId" <%if (message != null)%> class="is-invalid" value="<%=companyManager.getClientTypeId()%>">
+                <select class="form-control" id="clientTypeId" name="clientTypeId">
                     <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                    <option value="<%=companyManager.getClientType(k).clientTypeId%>"><%=companyManager.getClientType(k).name%>
-                    </option>
+                        <%if ((message!=null)&&(companyManager.getClientType(k).clientTypeId==companyManager.getClientTypeId())) {%>
+                          <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
+                          <%=companyManager.getClientType(k).name%>
+                          </option>
+                        <% } %>
+                        <%if (companyManager.getClientType(k).clientTypeId!=companyManager.getClientTypeId()) {%>
+                          <option value="<%=companyManager.getClientType(k).clientTypeId%>">
+                              <%=companyManager.getClientType(k).name%>
+                          </option>
+                        <% } %>
                     <% } %>
                 </select>
             </div>

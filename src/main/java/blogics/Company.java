@@ -71,7 +71,6 @@ public class Company {
               "VALUES("+companyId+","+clientTypeId+",?,?,?,?,?)";
 
 
-        parameters.add(name);
         parameters.add(vat);
         parameters.add(address);
         parameters.add(city);

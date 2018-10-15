@@ -76,9 +76,16 @@
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="positionName" class="bmd-label-floating">Name</label>
-                <input type="text" name="positionName" class="form-control" id="positionName">
-                <span class="bmd-help">Insert a new Position</span>
+                <label for="name" class="bmd-label-floating">Name</label>
+                <%if(message==null) {%>
+                <input type="text" name="name" class="form-control" id="name">
+                <%}%>
+                <%if(message!=null) {%>
+                <input type="text" name="name" class="form-control is-invalid" id="name" value="<%=adminPanelManager.getPositionName()%>">
+                <div class="invalid-feedback">
+                    <%=message%>
+                </div>
+                <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>

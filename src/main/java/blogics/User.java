@@ -93,16 +93,34 @@ public class User{
 
         String query;
         ArrayList<String> parameters = new ArrayList();
-        ResultSet result;
-        boolean exists;
+        ResultSet rs;
+        boolean exist;
 
         //Check unicita
+        query="SELECT email FROM user WHERE name=?";
+
+        parameters.add(email);
+
+        rs=database.select(query,parameters);
+
+        try {
+            exist=rs.next(); //Perchè ResultSet restituisce il puntatore all'elemento prima della 1^riga
+            rs.close();
+        }
+        catch (SQLException e) {
+            throw new ResultSetDBException("User.insert(): Errore sul ResultSet.");
+        }
+
+        if (exist) {
+            //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
+            //sarà poi il Bean che decide come gestire questa situazione.
+            throw new DuplicatedRecordDBException("User.insert(): Tentativo di inserimento di un email gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
+        }
 
         query = "INSERT INTO user(user_id,email,password,first_name,last_name,recruitment_date,end_working,phone_number,position_id,work_field_id)" +
                 "VALUES("+userId+",?,?,?,?,"+recruitmentDate+","+endWorking+",?,"+positionId+","+workFieldId+")";
 
 
-        parameters.add(email);
         parameters.add(password);
         parameters.add(firstName);
         parameters.add(lastName);
