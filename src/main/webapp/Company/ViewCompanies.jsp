@@ -85,7 +85,7 @@
 
         //I used an HashMap so it's easier to deal with parameters sent to the bean
 
-        companyManager.getFilteredCompanies(filters);
+        companyManager.filterCompanies(filters);
 
     }
 

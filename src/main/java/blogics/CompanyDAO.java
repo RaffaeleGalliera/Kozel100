@@ -3,7 +3,10 @@ package blogics;
 import java.sql.*;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
+import util.Debug;
+
 import java.util.*;
+
 public class CompanyDAO {
 
     public CompanyDAO(){
@@ -41,6 +44,71 @@ public class CompanyDAO {
         return companies;
 
     }
+
+    public static Company[] getFilteredCompanies (DataBase db,Map<String,Integer> filters) throws NotFoundDBException,ResultSetDBException{
+
+        Company[] companies=null;
+        String sql;
+        ResultSet rs;
+        ArrayList<String> parameters=new ArrayList();
+        int i=0;
+
+        sql="SELECT * FROM company";
+
+        //filters.forEach((key,value) -> Debug.println(key + ":"+ value)); Lambda Way
+
+        if(filters.containsKey("productCategoryId")){
+
+            sql=sql + " JOIN company_product ON company.company_id=company_product.company_id AND product_category_id=?";
+            parameters.add(filters.get("productCategoryId").toString());
+
+        }
+
+        if (filters.containsKey("userId") && filters.containsKey("clientTypeId")) {
+
+            sql = sql + " WHERE user_id=? AND client_type_id=?";
+            parameters.add(filters.get("userId").toString());
+            parameters.add(filters.get("clientTypeId").toString());
+
+        }
+
+        if (filters.containsKey("userId") && !filters.containsKey("clientTypeId")) {
+
+            sql = sql + " WHERE user_id=?";
+            parameters.add(filters.get("userId").toString());
+
+        }
+
+        if (!filters.containsKey("userId") && filters.containsKey("clientTypeId")) {
+
+            sql = sql + " WHERE client_type_id=?";
+            parameters.add(filters.get("clientTypeId").toString());
+
+        }
+
+        rs=db.select(sql,parameters);
+
+            try{
+                if(rs.next()){
+                    rs.last();
+                    companies= new Company[rs.getRow()];
+                    rs.beforeFirst();
+
+                    while(rs.next()){
+                        companies[i]=new Company(rs);
+                        i++;
+                    }
+                }
+                rs.close();
+            }
+            catch(SQLException ex){
+                throw new ResultSetDBException("CompanyDAO.getAllCompanies(): Errore nel ResultSet: "+ex.getMessage(),db);
+            }
+
+
+        return companies;
+
+    }
     
     public static Integer getNewID(DataBase db) throws NotFoundDBException, ResultSetDBException{
 
@@ -49,6 +117,8 @@ public class CompanyDAO {
         Integer companyId;
 
         sql="SELECT MAX(company_id) AS N FROM company FOR UPDATE";
+
+
 
         try {
             rs=db.select(sql);

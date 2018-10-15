@@ -5,6 +5,7 @@ import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CompanyManager implements java.io.Serializable {
@@ -104,14 +105,14 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
-    public void getFilteredCompanies(Map<String,Integer> filters){
+    public void filterCompanies(Map<String,Integer> filters){
 
         DataBase db=null;
 
         try{
             db=DBService.getDataBase();
 
-            companies=CompanyDAO.getAllCompanies(db);
+            companies=CompanyDAO.getFilteredCompanies(db,filters);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
