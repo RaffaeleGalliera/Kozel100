@@ -118,7 +118,7 @@
 
     <%
 
-        //If the user isn't providing a valid token i'll send him back to login page
+        //If login successful, sends the user to his dashboard
         if(isLogged){
 
             String redirectURL = "Dashboard.jsp";
