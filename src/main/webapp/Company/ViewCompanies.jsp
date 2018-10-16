@@ -9,12 +9,90 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
+<%@ page import="services.tokenservice.JWTService" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 
-<%companyManager.companiesView();%>
+
+<%
+
+    Cookie[] cookies = request.getCookies();
+    String status = request.getParameter("status");
+    boolean authorized=false;
+
+    //Ciclo di verifica --> se token non presente o non verificato setto a false authorized
+
+    //TODO Is this the best way to verify a User?
+
+    if(cookies!=null) {
+
+        for (int i = 0; i < cookies.length; i++) {
+
+            if (JWTService.parseAndVerifyJWT(cookies[i].getValue()) && cookies[i].getName().equals("jwt_auth_token")) {
+
+                authorized = true;
+                break;
+
+            } else {
+
+                authorized = false;
+
+            }
+
+        }
+    }
+
+    if (status==null) status="view"; //
+
+    if (status.equals("view")){
+
+        companyManager.companiesView();
+
+    }
+
+    if (status.equals("filter")){
+
+        Map<String,Integer> filters = new HashMap<String, Integer>();
+
+        Boolean filterByUser = Boolean.parseBoolean(request.getParameter("filterByUser"));
+        String userId = request.getParameter("userId");
+
+        if (filterByUser){
+
+            filters.put("userId",Integer.parseInt(userId));
+
+        }
+
+        Boolean filterByType = Boolean.parseBoolean(request.getParameter("filterByType"));
+        String clientTypeId = request.getParameter("clientTypeId");
+
+        if (filterByType){
+
+            filters.put("clientTypeId",Integer.parseInt(clientTypeId));
+
+        }
+
+        Boolean filterByProduct = Boolean.parseBoolean(request.getParameter("filterByProduct"));
+        String productCategoryId = request.getParameter("productCategoryId");
+
+        if (filterByProduct){
+
+            filters.put("productCategoryId",Integer.parseInt(productCategoryId));
+
+        }
+
+        //I used an HashMap so it's easier to deal with parameters sent to the bean
+
+        companyManager.filterCompanies(filters);
+
+    }
+
+%>
+
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/view_companies.css">
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,24 +104,220 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
+    <style>
+
+        .filter{
+
+            background-color: whitesmoke;
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 3%;
+            border-radius: 7px;
+            padding-bottom: 1%;
+            margin-bottom: 3%;
+
+        }
+        
+        .filterGroup{
+
+            display: none;
+
+        }
+
+        div.filter{
+
+            display: none;
+
+        }
+
+    </style>
+
+
     <title>Kozel100 CRM</title
+
+    <%
+
+        //If the user isn't providing a valid token i'll send him back to login page
+        if(!authorized){
+
+            String redirectURL = "/index.jsp";
+            response.sendRedirect(redirectURL);
+
+        }
+
+    %>
+
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
+
+
+<script>
+
+    function toggle() {
+
+			var x = document.getElementById("filter");
+			if (x.style.display === "none" || x.style.display === "") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+
+		}
+
+    function redirect() {
+
+			window.location.replace("/Company/InsertCompany.jsp");
+
+            }
+
+    function getFiltered() {
+
+
+            f=document.getElementById("filterForm");
+
+            if(f.filterByType.checked || f.filterByUser.checked || f.filterByProduct.checked){
+
+                f.submit();
+
+            }else{
+
+            	alert("No fields selected xD LOL!");
+
+            }
+
+
+		}
+
+    function track(checkbox){
+
+
+        if(checkbox.id == "filterByType"){
+
+
+            if(!checkbox.checked){
+
+              checkbox.value="false";
+              document.getElementById("filterClientTypeGroup").style.display = "none";
+
+            }else {
+
+              checkbox.value="true";
+              document.getElementById("filterClientTypeGroup").style.display = "block";
+
+            }
+
+        }
+
+        if(checkbox.id == "filterByUser"){
+
+
+            if(!checkbox.checked){
+
+              checkbox.value="false";
+              document.getElementById("filterUserGroup").style.display = "none";
+
+            }else {
+
+              checkbox.value="true";
+              document.getElementById("filterUserGroup").style.display = "block";
+
+            }
+
+        }
+
+			if(checkbox.id == "filterByProduct"){
+
+
+				if(!checkbox.checked){
+
+                    checkbox.value="false";
+					document.getElementById("filterProductGroup").style.display = "none";
+
+				}else {
+
+                    checkbox.value="true";
+					document.getElementById("filterProductGroup").style.display = "block";
+
+				}
+
+			}
+
+
+    }
+
+</script>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="InsertCompany.jsp">
                 <h1 class="text-center">
                     Companies
-                    <button type="submit" value="InsertCompany" class="btn btn-raised btn-secondary"><i class="fa fa-plus"></i>
-
-                        Add New
-                    </button>
+                    <button class="btn btn-raised btn-primary" onclick="redirect()"><i class="fa fa-plus"></i>Add New</button>
+                    <button class="btn btn-raised btn-primary" onclick="toggle()"><i class="fa fa-plus"></i>Filter</button>
                 </h1>
-            </form>
         </div>
-            <table class="col-md-12 table table-striped">
+
+        <div class="container filter" id="filter">
+
+            <form id="filterForm" action="ViewCompanies.jsp" method="post">
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByType" name="filterByType" value="false" onchange="track(this)">
+                        Tipo Cliente
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterClientTypeGroup">
+                    <select class="form-control" id="clientTypeId" name="clientTypeId">
+                        <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
+                        <option value="<%=companyManager.getClientType(k).clientTypeId%>"><%=companyManager.getClientType(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByUser" name="filterByUser" value="false" onchange="track(this)">
+                        Utente
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterUserGroup">
+                    <select class="form-control" id="userId" name="userId">
+                        <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
+                        <option value="<%=companyManager.getUser(k).userId%>"><%=companyManager.getUser(k).lastName%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByProduct" name="filterByProduct" value="false" onchange="track(this)">
+                        Categoria Merceologica
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterProductGroup">
+                    <select class="form-control" id="productCategoryId" name="productCategoryId">
+                        <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
+                        <option value="<%=companyManager.getProductCategory(k).productCategoryId%>"><%=companyManager.getProductCategory(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <input type="hidden" name="status" value="filter"/>
+                <button type="button" class="btn btn-primary btn-raised" onclick="getFiltered()">Submit</button>
+
+            </form>
+
+        </div>
+
+
+
+            <table class="col-md-12 table table-bordered">
                 <thead class="cf">
                 <tr>
                     <th scope="col">#</th>
@@ -73,11 +347,13 @@
                     </td>
                     <td>
                         <%for (int c = 0; c < companyManager.getContactPeople(companyManager.getCompany(k).companyId).length; c++) {%>
+                            <%if (c>0) {%>
+                                ,
+                            <%}%>
                         <%=companyManager.getContactPeople(companyManager.getCompany(k).companyId)[c].fullName()%>
                         <%}%>
                     </td>
                     <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete" title="Delete" data-toggle="tooltip"><i
                                 class="material-icons">&#xE872;</i></a>
@@ -90,8 +366,18 @@
     </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+	$('body').bootstrapMaterialDesign();
+});</script>
+
 </body>
 </html>

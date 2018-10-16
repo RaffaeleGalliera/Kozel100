@@ -115,9 +115,18 @@
 
     <title>Kozel100 CRM</title>
 
-    <%if(isLogged){%>
-        <meta http-equiv="refresh" content="0; url=Dashboard.jsp">
-    <%}%>
+
+    <%
+
+        //If login successful, sends the user to his dashboard
+        if(isLogged){
+
+            String redirectURL = "Dashboard.jsp";
+            response.sendRedirect(redirectURL);
+
+        }
+
+    %>
 
     <script language="javascript">
 
@@ -175,11 +184,6 @@
     </div>
 
     <div class="form-container">
-
-</head>
-<body>
-<jsp:include page="/Common/Navbar.jsp"/>
-    <div class="container">
         <form name="loginForm" action="index.jsp" method="post">
             <div class="form-group">
                 <label for="email" class="bmd-label-floating">Email</label>

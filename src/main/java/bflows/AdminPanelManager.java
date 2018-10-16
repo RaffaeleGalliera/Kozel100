@@ -33,6 +33,7 @@ public class AdminPanelManager implements java.io.Serializable {
 
     private int userId;
     private String email;
+    private Boolean isAdmin;
     private String password;
     private String firstName;
     private String lastName;
@@ -119,7 +120,7 @@ public class AdminPanelManager implements java.io.Serializable {
             workFields = WorkFieldDAO.getAllWorkFields(database);
 
 
-            User user = new User(userId,email, Security.encrypt(password),firstName,lastName,recruitmentDate,endWorking,phoneNumber,positionId,workFieldId);
+            User user = new User(userId, email, isAdmin, Security.encrypt(password),firstName,lastName,recruitmentDate,endWorking,phoneNumber,positionId,workFieldId);
             user.insert(database);
             database.commit();
 
@@ -402,6 +403,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin= isAdmin;
     }
 
     public String getEmail() {

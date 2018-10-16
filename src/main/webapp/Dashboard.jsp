@@ -17,19 +17,22 @@
 
     //TODO Is this the best way to verify a User?
 
-    for(int i=0;i<cookies.length;i++){
+    if(cookies!=null) {
 
-        if(JWTService.parseAndVerifyJWT(cookies[i].getValue()) && cookies[i].getName().equals("jwt_auth_token")) {
+        for (int i = 0; i < cookies.length; i++) {
 
-            authorized = true;
-            break;
+            if (JWTService.parseAndVerifyJWT(cookies[i].getValue()) && cookies[i].getName().equals("jwt_auth_token")) {
 
-        }else{
+                authorized = true;
+                break;
 
-            authorized=false;
+            } else {
+
+                authorized = false;
+
+            }
 
         }
-
     }
 
 
@@ -68,7 +71,7 @@
         //If the user isn't providing a valid token i'll send him back to login page
         if(!authorized){
 
-            String redirectURL = "index.jsp";
+            String redirectURL = "/index.jsp";
             response.sendRedirect(redirectURL);
 
         }

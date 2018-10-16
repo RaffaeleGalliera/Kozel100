@@ -54,10 +54,6 @@ public class LoginManager implements java.io.Serializable{
                 }
                 else{ //loggato
                     cookies=Session.createUserCookies(db,user.email);
-
-                    String token = JWTService.createJWT("ciao","capra","negra",-1);
-                    JWTService.parseAndVerifyJWT(token);
-
                 }
 
 
