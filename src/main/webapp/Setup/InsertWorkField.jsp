@@ -61,7 +61,7 @@
 <div class="container col-lg-12">
     <%if (complete){%>
     <div class="jumbotron">
-        <h2>Position successfully added!</h2>
+        <h2>Work Field successfully added!</h2>
     </div>
     <%}%>
     <div class="col-sm-10 form-group-lg block center">
@@ -76,9 +76,15 @@
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="workFieldName" class="bmd-label-floating">Name</label>
+                <%if(message==null) {%>
                 <input type="text" name="workFieldName" class="form-control" id="workFieldName">
-                <span class="bmd-help">Insert a new Work Field</span>
+                <%}%>
+                <%if(message!=null) {%>
+                <input type="text" name="workFieldName" class="form-control is-invalid" id="workFieldName" value="<%=adminPanelManager.getWorkFieldName()%>">
+                <div class="invalid-feedback">
+                    <%=message%>
+                </div>
+                <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>

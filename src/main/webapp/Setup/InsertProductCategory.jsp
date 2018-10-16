@@ -76,12 +76,12 @@
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="name" class="bmd-label-floating">Name</label>
+                <label for="productCategoryName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="name" class="form-control" id="name">
+                <input type="text" name="productCategoryName" class="form-control" id="productCategoryName">
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="name" class="form-control is-invalid" id="name" value="<%=adminPanelManager.getProductCategoryName()%>">
+                <input type="text" name="productCategoryName" class="form-control is-invalid" id="productCategoryName" value="<%=adminPanelManager.getProductCategoryName()%>">
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>

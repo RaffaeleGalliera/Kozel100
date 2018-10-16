@@ -97,7 +97,7 @@ public class User{
         boolean exist;
 
         //Check unicita
-        query="SELECT email FROM user WHERE name=?";
+        query="SELECT email FROM user WHERE email=?";
 
         parameters.add(email);
 

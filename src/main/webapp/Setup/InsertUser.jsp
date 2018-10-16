@@ -61,7 +61,7 @@
 <div class="container col-lg-12">
     <%if (complete) {%>
     <div class="jumbotron">
-        <h2>Company successfully added!</h2>
+        <h2>User successfully added!</h2>
     </div>
     <%}%>
     <div class="col-sm-10 form-group-lg block center">

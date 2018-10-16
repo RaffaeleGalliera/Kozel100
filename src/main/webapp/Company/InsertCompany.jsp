@@ -8,8 +8,8 @@
 
     String status = null;
     String message = null;
+    String contactMessage = null;
     boolean complete = false;
-
     status = request.getParameter("status");
 
     if (status == null) {
