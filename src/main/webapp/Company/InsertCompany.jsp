@@ -4,25 +4,33 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
-<%--<%--%>
-    <%--//    Cookie[] cookies=request.getCookies();--%>
+<%
 
-    <%--String status = request.getParameter("status");--%>
+    String status = null;
+    String message = null;
+    String contactMessage = null;
+    boolean complete = false;
+    status = request.getParameter("status");
 
-    <%--if (status == null) status = "view";--%>
+    if (status == null) {
+        status = "view";
+        companyManager.clientTypeList();
+    }
 
-    <%--if (status.equals("insertCompany")) {--%>
+    if (status.equals("insertCompany")) {
+         companyManager.insertCompany();
 
-<%--//        basketManagement.setCookies(cookies);--%>
-        <%--companyManager.insertCompany();--%>
-<%--//        cookies=basketManagement.getCookies();--%>
-<%--//        for (int i = 0; i < cookies.length; i++) {--%>
-<%--//            response.addCookie(cookies[i]); //Li aggiungo alla response--%>
-<%--//        }--%>
-    <%--}--%>
+        if (companyManager.getResult() == 0) {
+            complete = true;
+        } else {
+            status = "view";
+        }
+    }
 
-<%--%>--%>
-<%companyManager.insertCompany();%>
+    if (companyManager.getResult() == -2) {
+        message = companyManager.getErrorMessage();
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -46,7 +54,11 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
-
+    <%if (complete){%>
+    <div class="jumbotron">
+        <h2>Company successfully added!</h2>
+    </div>
+    <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New Company
@@ -61,30 +73,46 @@
         <form name="companyManager" action="" method="post">
             <div class="form-group">
                 <label for="name" class="bmd-label-floating">Name</label>
+                <%if(message==null) {%>
                 <input type="text" name="name" class="form-control" id="name">
+                <%}%>
+                <%if(message!=null) {%>
+                <input type="text" name="name" class="form-control is-invalid" id="name" value="<%=companyManager.getName()%>">
+                <div class="invalid-feedback">
+                    <%=message%>
+                </div>
+                <%}%>
             </div>
             <div class="form-group">
                 <label for="vat" class="bmd-label-floating">VAT</label>
-                <input type="text" name="vat" class="form-control" id="vat">
+                <input type="text" name="vat" class="form-control" id="vat" <%if (message != null)%>value="<%=companyManager.getVat()%>">
             </div>
             <div class="form-group">
                 <label for="address" class="bmd-label-floating">Address</label>
-                <input type="text" name="address" class="form-control" id="address">
+                <input type="text" name="address" class="form-control" id="address" <%if (message != null)%>value="<%=companyManager.getAddress()%>">
             </div>
             <div class="form-group">
                 <label for="city" class="bmd-label-floating">City</label>
-                <input type="text" name="city" class="form-control" id="city">
+                <input type="text" name="city" class="form-control" id="city" <%if (message != null)%>value="<%=companyManager.getCity()%>">
             </div>
             <div class="form-group">
                 <label for="companyEmail" class="bmd-label-floating">Email</label>
-                <input type="email" name="companyEmail" class="form-control" id="companyEmail">
+                <input type="email" name="companyEmail" class="form-control" id="companyEmail" <%if (message != null)%>value="<%=companyManager.getCompanyEmail()%>">
             </div>
             <div class="form-group">
                 <label for="clientTypeId" class="bmd-label-floating">Client Type</label>
                 <select class="form-control" id="clientTypeId" name="clientTypeId">
                     <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                    <option value="<%=companyManager.getClientType(k).clientTypeId%>"><%=companyManager.getClientType(k).name%>
-                    </option>
+                        <%if ((message!=null)&&(companyManager.getClientType(k).clientTypeId==companyManager.getClientTypeId())) {%>
+                          <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
+                          <%=companyManager.getClientType(k).name%>
+                          </option>
+                        <% } %>
+                        <%if (companyManager.getClientType(k).clientTypeId!=companyManager.getClientTypeId()) {%>
+                          <option value="<%=companyManager.getClientType(k).clientTypeId%>">
+                              <%=companyManager.getClientType(k).name%>
+                          </option>
+                        <% } %>
                     <% } %>
                 </select>
             </div>
@@ -93,24 +121,25 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="firstName" class="bmd-label-floating">First Name</label>
-                        <input type="text" name="firstName" class="form-control" id="firstName">
+                        <input type="text" name="firstName" class="form-control" id="firstName" <%if (message != null)%>value="<%=companyManager.getFirstName()%>">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="lastName" class="bmd-label-floating">Last Name</label>
-                        <input type="text" name="lastName" class="form-control" id="lastName">
+                        <input type="text" name="lastName" class="form-control" id="lastName" <%if (message != null)%>value="<%=companyManager.getLastName()%>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
-                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
+                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>" >
                 </div>
                 <div class="form-group">
                     <label for="contactEmail" class="bmd-label-floating">Email</label>
-                    <input type="email" name="contactEmail" class="form-control" id="contactEmail">
+                    <input type="email" name="contactEmail" class="form-control" id="contactEmail" <%if (message != null)%>value="<%=companyManager.getcontactEmail()%>">
                 </div>
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <input type="hidden" name="status" value="insertCompany"/>
         </form>
     </div>
 </div>

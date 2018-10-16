@@ -40,7 +40,10 @@ public class AdminPanelManager implements java.io.Serializable {
     private String recruitmentDate;
     private Date endWorking;
     private String phoneNumber;
+    
     private int result;
+    private String errorMessage;
+
 
 
     public AdminPanelManager() {
@@ -77,6 +80,33 @@ public class AdminPanelManager implements java.io.Serializable {
         }
 
     }
+    public void getPositionWorkFieldList() {
+
+            DataBase db = null;
+
+            try {
+
+                db = DBService.getDataBase();
+
+                positions = PositionDAO.getAllPositions(db);
+                workFields = WorkFieldDAO.getAllWorkFields(db);
+                db.commit();
+
+            } catch (NotFoundDBException ex) {
+                EService.logAndRecover(ex);
+                setResult(EService.UNRECOVERABLE_ERROR);
+            } catch (ResultSetDBException ex) {
+                EService.logAndRecover(ex);
+                setResult(EService.UNRECOVERABLE_ERROR);
+            } finally {
+                try {
+                    db.close();
+                } catch (NotFoundDBException e) {
+                    EService.logAndRecover(e);
+                }
+            }
+
+        }
 
     public void insertUser(){
 
@@ -98,12 +128,16 @@ public class AdminPanelManager implements java.io.Serializable {
 
         catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
         }
         catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
         }
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Email already taken by another User");
         }
         catch(Exception ex){
             Debug.println(ex);
@@ -127,12 +161,19 @@ public class AdminPanelManager implements java.io.Serializable {
             position.insert(database);
             database.commit();
 
-        } catch (NotFoundDBException ex) {
+        }
+        catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        } catch (ResultSetDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        } catch (DuplicatedRecordDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Position already exist");
         } finally {
             try {
                 database.close();
@@ -156,13 +197,20 @@ public class AdminPanelManager implements java.io.Serializable {
             workfield.insert(database);
             database.commit();
 
-        } catch (NotFoundDBException ex) {
+        }
+        catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        } catch (ResultSetDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        } catch (DuplicatedRecordDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-        } finally {
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Work Field already exist");
+        }finally {
             try {
                 database.close();
             } catch (NotFoundDBException e) {
@@ -185,12 +233,18 @@ public class AdminPanelManager implements java.io.Serializable {
             clientType.insert(database);
             database.commit();
 
-        } catch (NotFoundDBException ex) {
+        }catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        } catch (ResultSetDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        } catch (DuplicatedRecordDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Client Type already exist");
         } finally {
             try {
                 database.close();
@@ -214,12 +268,19 @@ public class AdminPanelManager implements java.io.Serializable {
             productCategory.insert(database);
             database.commit();
 
-        } catch (NotFoundDBException ex) {
+        }
+        catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        } catch (ResultSetDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        } catch (DuplicatedRecordDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Product Category already exist");
         } finally {
             try {
                 database.close();
@@ -426,6 +487,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public void setResult(int result) {
         this.result = result;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
 }

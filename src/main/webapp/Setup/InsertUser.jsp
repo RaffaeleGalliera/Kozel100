@@ -1,17 +1,41 @@
 <%@ page info="Pagina iniziale della WebApp" %>
-<%@ page session="false" %> <!--App Stateless -->
+<%@ page session="false" %>
+<!--App Stateless -->
 <%@ page buffer="30kb" %>
 <%@ page import="services.sessionservice.*" %>
 <%@ page import="global.*" %>
 <%@ page import="util.*" %>
 <%--<%@ page errorPage="ErrorPage.jsp"%>--%>
 
-<jsp:useBean id="adminPanelManager" scope="page" class="bflows.AdminPanelManager" />
-<jsp:setProperty name="adminPanelManager" property="*" />
+<jsp:useBean id="adminPanelManager" scope="page" class="bflows.AdminPanelManager"/>
+<jsp:setProperty name="adminPanelManager" property="*"/>
+<%
 
-<%adminPanelManager.insertUser();%>
+    String status = null;
+    String message = null;
+    boolean complete = false;
 
+    status = request.getParameter("status");
 
+    if (status == null) {
+        status = "view";
+        adminPanelManager.getPositionWorkFieldList();
+    }
+
+    if (status.equals("insertUser")) {
+        adminPanelManager.insertUser();
+
+        if (adminPanelManager.getResult() == 0) {
+            complete = true;
+        } else {
+            status = "view";
+        }
+    }
+
+    if (adminPanelManager.getResult() == -2) {
+        message = adminPanelManager.getErrorMessage();
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -35,13 +59,17 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
-
+    <%if (complete) {%>
+    <div class="jumbotron">
+        <h2>User successfully added!</h2>
+    </div>
+    <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New User
         </h1>
         <form action="../AdminPanel.jsp">
-            <button style="float:right" type="submit" value="InsertCompany" class="btn btn-default">
+            <button style="float:right" type="submit" value="InsertUser" class="btn btn-default">
                 Back To List
             </button>
 
@@ -50,15 +78,26 @@
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
                 <label for="firstName" class="bmd-label-floating">First Name</label>
-                <input type="text" name="firstName" class="form-control" id="firstName">
+                <input type="text" name="firstName" class="form-control" id="firstName"
+                       <%if (message != null)%>value="<%=adminPanelManager.getFirstName()%>">
             </div>
             <div class="form-group">
                 <label for="lastName" class="bmd-label-floating">Last Name</label>
-                <input type="text" name="lastName" class="form-control" id="lastName">
+                <input type="text" name="lastName" class="form-control" id="lastName"
+                       <%if (message != null)%>value="<%=adminPanelManager.getLastName()%>">
             </div>
             <div class="form-group">
                 <label for="email" class="bmd-label-floating">Email</label>
-                <input type="text" name="email" class="form-control" id="email">
+                <%if (message == null) {%>
+                <input type="email" name="email" class="form-control" id="email">
+                <%}%>
+                <%if (message != null) {%>
+                <input type="email" name="email" class="form-control is-invalid" id="email"
+                       value="<%=adminPanelManager.getEmail()%>">
+                <div class="invalid-feedback">
+                    <%=message%>
+                </div>
+                <%}%>
             </div>
             <div class="form-group">
                 <label for="password" class="bmd-label-floating">Password</label>
@@ -68,8 +107,16 @@
                 <label for="positionId" class="bmd-label-floating">Position</label>
                 <select class="form-control" id="positionId" name="positionId">
                     <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
-                    <option value="<%=adminPanelManager.getPosition(k).positionId%>"><%=adminPanelManager.getPosition(k).name%>
-                    </option>
+                        <%if ((message!=null)&&(adminPanelManager.getPosition(k).positionId==adminPanelManager.getPositionId())) {%>
+                            <option value="<%=adminPanelManager.getPosition(k).positionId%>" selected>
+                                <%=adminPanelManager.getPosition(k).name%>
+                            </option>
+                        <% } %>
+                        <%if (adminPanelManager.getPosition(k).positionId!=adminPanelManager.getPositionId()) {%>
+                            <option value="<%=adminPanelManager.getPosition(k).positionId%>">
+                             <%=adminPanelManager.getPosition(k).name%>
+                            </option>
+                        <% } %>
                     <% } %>
                 </select>
             </div>
@@ -77,8 +124,16 @@
                 <label for="workFieldId" class="bmd-label-floating">Work Field</label>
                 <select class="form-control" id="workFieldId" name="workFieldId">
                     <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
-                    <option value="<%=adminPanelManager.getWorkField(k).workFieldId%>"><%=adminPanelManager.getWorkField(k).name%>
-                    </option>
+                        <%if ((message != null) && (adminPanelManager.getWorkField(k).workFieldId == adminPanelManager.getWorkFieldId())) {%>
+                            <option value="<%=adminPanelManager.getWorkField(k).workFieldId%>" selected>
+                                <%=adminPanelManager.getWorkField(k).name%>
+                            </option>
+                        <% } %>
+                        <%if (adminPanelManager.getWorkField(k).workFieldId != adminPanelManager.getWorkFieldId()) {%>
+                            <option value="<%=adminPanelManager.getWorkField(k).workFieldId%>">
+                                <%=adminPanelManager.getWorkField(k).name%>
+                            </option>
+                        <% } %>
                     <% } %>
                 </select>
             </div>
@@ -90,6 +145,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <input type="hidden" name="status" value="insertUser"/>
         </form>
     </div>
 </div>
@@ -98,10 +154,10 @@
 <script>
 
 
-    function insert(form){
+    function insert(form) {
 
 
-        form.action="InsertUser.jsp";
+        form.action = "InsertUser.jsp";
         form.submit();
     }
 

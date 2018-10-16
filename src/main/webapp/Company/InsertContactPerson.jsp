@@ -12,9 +12,33 @@
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
 <jsp:setProperty name="companyManager" property="*"/>
+<%
 
-<%companyManager.insertContactPerson();%>
+    String status = null;
+    String message = null;
+    boolean complete = false;
 
+    status = request.getParameter("status");
+
+    if (status == null) {
+        status = "view";
+        companyManager.companiesView();
+    }
+
+    if (status.equals("insertContactPerson")) {
+        companyManager.insertContactPerson();
+
+        if (companyManager.getResult() == 0) {
+            complete = true;
+        } else {
+            status = "view";
+        }
+    }
+
+    if (companyManager.getResult() == -2) {
+        message = companyManager.getErrorMessage();
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -38,7 +62,11 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <div class="container col-lg-12">
-
+    <%if (complete){%>
+    <div class="jumbotron">
+        <h2>Contact Person successfully added!</h2>
+    </div>
+    <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
             New Contact Person
@@ -78,6 +106,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <input type="hidden" name="status" value="insertContactPerson"/>
         </form>
     </div>
 </div>

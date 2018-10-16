@@ -32,6 +32,9 @@ public class CompanyManager implements java.io.Serializable {
     private ProductCategory[] productCategories;
     private User[] users;
 
+    private int result;
+    private String errorMessage;
+
     public void insertCompany() {
 
         DataBase database = null;
@@ -40,7 +43,6 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            //TODO: DA cambiare assolutamente quando capisci come si usa Status
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
 
 
@@ -58,13 +60,21 @@ public class CompanyManager implements java.io.Serializable {
 
             database.commit();
 
-        } catch (NotFoundDBException ex) {
+        }
+        catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        } catch (ResultSetDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        } catch (DuplicatedRecordDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-        } finally {
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Company already exist");
+        }
+        finally {
             try {
                 database.close();
             } catch (NotFoundDBException e) {
@@ -73,30 +83,50 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
-    public void companiesView(){
+    public void companiesView() {
+
+        DataBase db = null;
+
+        try {
+            db = DBService.getDataBase();
+
+            companies = CompanyDAO.getAllCompanies(db);
+
+//            totalRecords=OrdineDAO.getRicevutiTotalRecords();
+
+            db.commit();
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } finally {
+            try {
+                db.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
+    public void clientTypeList(){
 
         DataBase db=null;
 
         try{
             db=DBService.getDataBase();
-
-            companies=CompanyDAO.getAllCompanies(db);
-            clientTypes = ClientTypeDAO.getAllClientTypes(db);
-            productCategories = ProductCategoryDAO.getAllProductCategories(db);
-            users = UserDAO.getAllUsers(db);
-
-
+            clientTypes=ClientTypeDAO.getAllClientTypes(db);
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
             db.commit();
         }
         catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.UNRECOVERABLE_ERROR);
         }
         catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
+            setResult(EService.UNRECOVERABLE_ERROR);
         }
         finally {
             try { db.close(); }
@@ -143,8 +173,6 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
-
-            //TODO: DA cambiare assolutamente quando capisci come si usa Status
             companies = CompanyDAO.getAllCompanies(database);
 
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
@@ -153,11 +181,18 @@ public class CompanyManager implements java.io.Serializable {
 
         } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
-        } catch (ResultSetDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
-        } catch (DuplicatedRecordDBException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
-        } finally {
+            setResult((EService.RECOVERABLE_ERROR));
+            setErrorMessage("Email already taken by another Contact");
+        }
+        finally {
             try {
                 database.close();
             } catch (NotFoundDBException e) {
@@ -319,6 +354,20 @@ public class CompanyManager implements java.io.Serializable {
         }
         return contacts;
     }
+    public int getResult() {
+        return result;
+    }
 
+    public void setResult(int result) {
+        this.result = result;
+    }
 
+    public String getErrorMessage() {
+
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 }
