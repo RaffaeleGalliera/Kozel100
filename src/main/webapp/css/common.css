@@ -1,6 +1,6 @@
 
 /*body {*/
-    /*padding-top: 50px;*/
+/*padding-top: 50px;*/
 /*}*/
 
 .spacer {
@@ -25,7 +25,7 @@
 /*prove*/
 
 /*table.table {*/
-    /*table-layout: fixed;*/
+/*table-layout: fixed;*/
 /*}*/
 
 table.table tr th, table.table tr td {
@@ -64,4 +64,3 @@ table.table .form-control {
 table.table .form-control.error {
     border-color: #f50000;
 }
-
