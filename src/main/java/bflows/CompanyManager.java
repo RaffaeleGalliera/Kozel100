@@ -91,6 +91,9 @@ public class CompanyManager implements java.io.Serializable {
             db = DBService.getDataBase();
 
             companies = CompanyDAO.getAllCompanies(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+            users = UserDAO.getAllUsers(db);
 
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
