@@ -20,7 +20,7 @@ public class CompanyDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM company";
+        sql="SELECT * FROM company WHERE active_fl=1";
 
         rs=db.select(sql);
 
@@ -58,7 +58,7 @@ public class CompanyDAO {
         //filters.forEach((key,value) -> Debug.println(key + ":"+ value)); Lambda Way
 
         if(filters.containsKey("productCategoryId")){
-
+            //TODO Find Out if we can query 'active_fl=1' even here
             sql=sql + " JOIN company_product ON company.company_id=company_product.company_id AND product_category_id=?";
             parameters.add(filters.get("productCategoryId").toString());
 
@@ -66,7 +66,7 @@ public class CompanyDAO {
 
         if (filters.containsKey("userId") && filters.containsKey("clientTypeId")) {
 
-            sql = sql + " WHERE user_id=? AND client_type_id=?";
+            sql = sql + " WHERE user_id=? AND client_type_id=? AND active_fl=1";
             parameters.add(filters.get("userId").toString());
             parameters.add(filters.get("clientTypeId").toString());
 
@@ -74,14 +74,14 @@ public class CompanyDAO {
 
         if (filters.containsKey("userId") && !filters.containsKey("clientTypeId")) {
 
-            sql = sql + " WHERE user_id=?";
+            sql = sql + " WHERE user_id=? AND active_fl=1";
             parameters.add(filters.get("userId").toString());
 
         }
 
         if (!filters.containsKey("userId") && filters.containsKey("clientTypeId")) {
 
-            sql = sql + " WHERE client_type_id=?";
+            sql = sql + " WHERE client_type_id=? AND active_fl=1";
             parameters.add(filters.get("clientTypeId").toString());
 
         }
@@ -135,6 +135,18 @@ public class CompanyDAO {
         catch (SQLException e) {
             throw new ResultSetDBException("COmpanyDAO.getNewID(): Errore sul ResultSet --> impossibile calcolare CompanyId.");
         }
+
+    }
+
+    public static void deleteCompany(DataBase db, Integer companyId) throws NotFoundDBException{
+
+        String sql="UPDATE contact_person SET active_fl=0 WHERE company_id="+companyId;
+
+        db.modify(sql);
+
+        sql="UPDATE company SET active_fl=0 WHERE company_id="+companyId;
+
+        db.modify(sql);
 
     }
 }

@@ -205,6 +205,29 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public void deleteCompany(int companyId){
+
+        DataBase db=null;
+
+        try{
+
+            db=DBService.getDataBase();
+
+            CompanyDAO.deleteCompany(db, companyId);
+
+            db.commit();
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        finally {
+            try { db.close(); }
+            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        }
+
+    }
+
 
     public Integer getCompanyId() {
         return companyId;

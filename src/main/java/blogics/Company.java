@@ -79,9 +79,4 @@ public class Company {
         database.modify(query,parameters);
 
     }
-
-
-
-
-
 }
