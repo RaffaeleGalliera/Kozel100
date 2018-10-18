@@ -52,6 +52,13 @@
 
     }
 
+
+    if(status.equals("deleteCompany")){
+        companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
+        companyManager.companiesView();
+    }
+
+
     if (status.equals("filter")){
 
         Map<String,Integer> filters = new HashMap<String, Integer>();
@@ -152,7 +159,7 @@
 <jsp:include page="/Common/Navbar.jsp"/>
 
 
-<script>
+<script language="JavaScript">
 
     function toggle() {
 
@@ -188,6 +195,26 @@
 
 
 		}
+
+    function deleteCompany(id, name){
+
+        r=confirm("Are you sure to delete : "+name+"? Even all its contacts will be Deleted");
+
+        if(r===true){
+            document.deleteCompanyForm.companyId.value=id;
+
+            document.deleteCompanyForm.submit();
+        }
+        else{
+            return;
+        }
+
+    }
+
+    function updateCompany(id){
+        document.updateCompanyForm.companyId.value=id;
+        document.updateCompanyForm.submit();
+        }
 
     function track(checkbox){
 
@@ -317,7 +344,7 @@
 
 
 
-            <table class="col-md-12 table table-bordered">
+            <table class="col-md-12 table table-striped">
                 <thead class="cf">
                 <tr>
                     <th scope="col">#</th>
@@ -354,15 +381,24 @@
                         <%}%>
                     </td>
                     <td>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                        <a class="edit" title="Edit" data-toggle="tooltip" href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>');"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip" href="JavaScript:deleteCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>');"><i
                                 class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
                 <%}%>
                 </tbody>
             </table>
-        </div>
+            <form name="deleteCompanyForm" action="ViewCompanies.jsp" method="post">
+                <input type="hidden" name="companyId" value=""/>
+                <input type="hidden" name="status" value="deleteCompany"/>
+            </form>
+            <form name="updateCompanyForm" action="UpdateCompany.jsp" method="post">
+                <input type="hidden" name="companyId" value=""/>
+                <input type="hidden" name="status" value="view"/>
+            </form>
+
+    </div>
     </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

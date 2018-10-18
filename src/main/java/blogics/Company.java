@@ -77,11 +77,53 @@ public class Company {
         parameters.add(email);
 
         database.modify(query,parameters);
-
     }
 
+    public void update(DataBase db) throws NotFoundDBException,ResultSetDBException,DuplicatedRecordDBException{
 
+        String sql;
+        ArrayList<String> parameters=new ArrayList();
+        ResultSet rs;
+        boolean exist;
 
+        /*Controllo che il nome aggiornato che sto per inserire non sia già presente*/
+        sql="SELECT company_id FROM company WHERE company_id<>"+companyId+" AND name=? AND active_fl=1";
 
+        parameters.add(name);
 
+        rs=db.select(sql, parameters);
+
+        try{
+            exist=rs.next();
+            rs.close();
+        }
+        catch (SQLException e){
+            throw new ResultSetDBException("Company.update(): Errore sul ResultSet.");
+        }
+
+        if (exist){
+            throw new DuplicatedRecordDBException("company.update(): Tentativo di inserimento di una compagnia già esistente.");
+        }
+
+        sql=" UPDATE company "
+                +" SET name=?, client_type_id="+clientTypeId+", vat=?, address=?, city=?, email=?"
+                +" WHERE company_id="+companyId;
+
+        parameters.add(vat);
+        parameters.add(address);
+        parameters.add(city);
+        parameters.add(email);
+
+        db.modify(sql,parameters);
+    }
+
+    public void delete(DataBase db) throws NotFoundDBException,ResultSetDBException {
+
+        String sql;
+
+        sql=" UPDATE company SET FL_Attivo=0 WHERE company_id="+companyId;
+
+        db.modify(sql);
+    }
 }
+
