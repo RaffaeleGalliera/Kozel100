@@ -138,6 +138,31 @@ public class CompanyDAO {
 
     }
 
+    public static Company getCompany(DataBase db, Integer companyId) throws NotFoundDBException,ResultSetDBException{
+
+        Company company=null;
+        String sql;
+        ResultSet rs;
+
+        sql="SELECT * FROM company WHERE company_id ="+companyId+" AND active_fl=1";
+
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                company= new Company(rs);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("CompanyDAO.getCompany(): ResultSetDBException: "+ex.getMessage(), db);
+        }
+
+        return company;
+
+    }
+
     public static void deleteCompany(DataBase db, Integer companyId) throws NotFoundDBException{
 
         String sql="UPDATE contact_person SET active_fl=0 WHERE company_id="+companyId;

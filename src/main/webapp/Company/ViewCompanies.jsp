@@ -52,10 +52,10 @@
 
     }
 
+
     if(status.equals("deleteCompany")){
         companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
         companyManager.companiesView();
-
     }
 
 
@@ -210,6 +210,11 @@
         }
 
     }
+
+    function updateCompany(id){
+        document.updateCompanyForm.companyId.value=id;
+        document.updateCompanyForm.submit();
+        }
 
     function track(checkbox){
 
@@ -376,7 +381,7 @@
                         <%}%>
                     </td>
                     <td>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip" href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>');"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete" title="Delete" data-toggle="tooltip" href="JavaScript:deleteCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>');"><i
                                 class="material-icons">&#xE872;</i></a>
                     </td>
@@ -385,9 +390,14 @@
                 </tbody>
             </table>
             <form name="deleteCompanyForm" action="ViewCompanies.jsp" method="post">
-            <input type="hidden" name="companyId" value=""/>
-            <input type="hidden" name="status" value="deleteCompany"/>
-        </form>
+                <input type="hidden" name="companyId" value=""/>
+                <input type="hidden" name="status" value="deleteCompany"/>
+            </form>
+            <form name="updateCompanyForm" action="UpdateCompany.jsp" method="post">
+                <input type="hidden" name="companyId" value=""/>
+                <input type="hidden" name="status" value="view"/>
+            </form>
+
     </div>
     </div>
 <!-- Optional JavaScript -->
