@@ -344,7 +344,7 @@
 
 
 
-            <table class="col-md-12 table table-bordered">
+            <table class="col-md-12 table table-striped">
                 <thead class="cf">
                 <tr>
                     <th scope="col">#</th>
