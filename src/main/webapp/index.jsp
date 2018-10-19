@@ -40,7 +40,7 @@
         }
     }
 
-    if (status.equals("logout")){
+    if (status.equals("logout") && cookies!=null){
 
         loginManager.setCookies(cookies); //Setto i cookie letti dalla chiamata http all'interno del bean
         loginManager.logout(); //Li elimino
@@ -51,6 +51,10 @@
             isLogged=false;
             status="view";
         }
+
+    }else{
+
+        status="view";
 
     }
 
