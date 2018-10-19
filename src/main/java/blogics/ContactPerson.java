@@ -66,7 +66,7 @@ public class ContactPerson {
         }
 
         query="INSERT INTO contact_person(email, contact_person_id, company_id, first_name, last_name, phone_number)" +
-                "VALUES("+contactPersonId+","+companyId+",?,?,?)";
+                "VALUES(?,"+contactPersonId+","+companyId+",?,?,?)";
 
         parameters.add(firstName);
         parameters.add(lastName);
