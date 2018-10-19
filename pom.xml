@@ -17,6 +17,18 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+
+                <configuration>
+                    <configFile>src/main/resources/db/config/flyway.properties</configFile>
+                </configuration>
+
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>5.2.0</version>
+            </plugin>
+
         </plugins>
     </build>
     <packaging>war</packaging>

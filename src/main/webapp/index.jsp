@@ -73,6 +73,13 @@
 
     <style>
 
+        img {
+            display: block;
+            max-width: 40%;
+            height: auto;
+            margin: 0 auto;
+        }
+
         .form-container{
 
             background-color: white;
@@ -179,7 +186,7 @@
 
     <div class="container title-container">
 
-        <h1>Kozel 100 CRM</h1>
+        <img src="resources/logo.png" class="img-responsive">
 
     </div>
 

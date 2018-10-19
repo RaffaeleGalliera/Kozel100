@@ -17,24 +17,25 @@
 
     //TODO Is this the best way to verify a User?
 
-    if(cookies!=null) {
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("jwt_auth_token")) {
+                //do something
+                //value can be retrieved using #cookie.getValue()
+                if (JWTService.parseAndVerifyJWT(cookie.getValue())){
 
-        for (int i = 0; i < cookies.length; i++) {
+                    authorized = true;
+                    break;
 
-            if (JWTService.parseAndVerifyJWT(cookies[i].getValue()) && cookies[i].getName().equals("jwt_auth_token")) {
+                } else {
 
-                authorized = true;
-                break;
+                    authorized = false;
 
-            } else {
-
-                authorized = false;
+                }
 
             }
-
         }
     }
-
 
 %>
 
