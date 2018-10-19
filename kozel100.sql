@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 18, 2018 at 04:25 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.7
+-- Generation Time: Oct 19, 2018 at 02:38 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -70,15 +70,19 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `name`, `client_type_id`, `vat`, `address`, `city`, `email`, `created_at`, `updated_at`, `active_fl`, `user_id`) VALUES
-(1, 'Allegra Garcia', 1, '3323231', 'agagaa', 'sassa', 'ruzyvidufab@mailinator.com', '2018-10-04 07:05:19', '2018-10-18 14:18:34', 1, 11),
-(2, 'Martena Savage', 1, '343434', 'sdfsdf', 'fsdfsdf', 'rityluvo@mailinator.com', '2018-10-04 07:05:48', '2018-10-07 10:42:59', 1, NULL),
+(1, 'Allegra Garcia', 4, '3323231', 'agagaa', 'sassa', 'ruzyvidufab@mailinator.com', '2018-10-04 07:05:19', '2018-10-19 08:14:03', 1, 11),
+(2, 'Martena Savage', 1, '343434', 'sdfsdf', 'fsdfsdf', 'rityluvo@mailinator.com', '2018-10-04 07:05:48', '2018-10-19 08:15:14', 0, NULL),
 (3, 'Hamilton Goodman', 1, '343434', 'sadaddd', 'asdsada', 'rixujymir@mailinator.net', '2018-10-04 07:06:07', '2018-10-07 10:42:53', 1, NULL),
 (4, 'Sydnee Cannon', 1, '32424', 'ddd', 'ddddd', 'zyzyxukem@mailinator.net', '2018-10-07 10:26:13', '2018-10-07 10:43:06', 1, NULL),
 (5, 'Abra Petersa', 3, '1111', 'ddd', 'dddd', 'binelofumo@mailinator.com', '2018-10-07 10:29:00', '2018-10-18 14:18:04', 1, NULL),
 (6, 'Adele Hancock', 1, '2222222', 'dfsddsd', 'sdfsdfsd', 'pelipyryze@mailinator.net', '2018-10-07 10:35:01', '2018-10-18 14:17:49', 0, NULL),
 (7, 'ZXsxszczd', 1, 'cxczcxxc', 'aaaaa', 'aaaaaa', 'pelipyryze@mailinator.net', '2018-10-07 10:41:19', '2018-10-17 09:41:18', 0, NULL),
 (8, 'Prova', 3, '2222', 'Nuoivo', 'fdlk', 'raf@gkjg.com', '2018-10-07 13:54:23', '2018-10-17 09:39:23', 0, NULL),
-(9, 'DeMaio', 4, '3333', '33333', 'dfdsfds', 'mykif@mailinator.com', '2018-10-09 10:19:54', '2018-10-17 09:21:49', 0, 11);
+(9, 'DeMaio', 4, '3333', '33333', 'dfdsfds', 'mykif@mailinator.com', '2018-10-09 10:19:54', '2018-10-17 09:21:49', 0, 11),
+(10, 'Leah Marks', 4, '2132132', 'fddsd', 'sfsdfsd', 'sywas@mailinator.com', '2018-10-19 09:49:26', '2018-10-19 09:49:26', 1, NULL),
+(11, 'Giorgionapo', 1, '3333', 'lkjjlkj', 'lkjklj', 'rrr@ddd.com', '2018-10-19 09:55:42', '2018-10-19 09:55:42', 1, NULL),
+(12, 'Garrison Baird', 3, '3333', 'sdsasda', 'sddsdsd', 'qafesibony@mailinator.net', '2018-10-19 09:57:45', '2018-10-19 09:57:45', 1, NULL),
+(13, 'Balto', 3, '1234', 'sesso', 'palle', 'cane@senza.palle', '2018-10-19 12:50:46', '2018-10-19 12:50:46', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -99,6 +103,28 @@ CREATE TABLE `company_product` (
 INSERT INTO `company_product` (`id`, `company_id`, `product_category_id`) VALUES
 (1, 9, 2),
 (2, 5, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `consulting_service`
+--
+
+CREATE TABLE `consulting_service` (
+  `consulting_service_id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active_fl` tinyint(1) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `consulting_service`
+--
+
+INSERT INTO `consulting_service` (`consulting_service_id`, `name`, `active_fl`, `created_at`, `updated_at`) VALUES
+(1, 'Ciao', 1, '2018-10-19 13:53:28', '2018-10-19 13:53:28'),
+(2, 'Pippo', 1, '2018-10-19 13:57:33', '2018-10-19 13:57:33');
 
 -- --------------------------------------------------------
 
@@ -124,14 +150,19 @@ CREATE TABLE `contact_person` (
 
 INSERT INTO `contact_person` (`contact_person_id`, `first_name`, `last_name`, `email`, `phone_number`, `company_id`, `created_at`, `updated_at`, `active_fl`) VALUES
 (15, 'Iona', 'Daugherty', 'hudyte@mailinator.net', '8168486', 1, '2018-10-04 07:05:19', '2018-10-04 07:05:19', 1),
-(16, 'Hayes', 'Ray', 'fovagiduh@mailinator.net', '1939057', 2, '2018-10-04 07:05:48', '2018-10-04 07:05:48', 1),
+(16, 'Hayes', 'Ray', 'fovagiduh@mailinator.net', '1939057', 2, '2018-10-04 07:05:48', '2018-10-19 08:15:14', 0),
 (17, 'Jack', 'Sweet', 'hepe@mailinator.com', '8953734', 3, '2018-10-04 07:06:07', '2018-10-04 07:06:07', 1),
 (18, 'Lilah', 'Oconnor', 'xugamynek@mailinator.com', '7932496', 4, '2018-10-07 10:26:13', '2018-10-07 10:26:13', 1),
 (19, 'Dara', 'Jimenez', 'hohizylu@mailinator.com', '555555', 5, '2018-10-07 10:29:00', '2018-10-07 10:29:00', 1),
 (20, 'Samuel', 'Norton', 'mysas@mailinator.com', '222222', 6, '2018-10-07 10:35:01', '2018-10-18 14:17:49', 0),
 (21, 'cccc', 'fdfd', 'fuck@gmail.com', '3333', 7, '2018-10-07 10:41:19', '2018-10-17 09:41:18', 0),
 (22, 'ddfsfs', 'sdffsdf', 'rafffff@raff.it', '3333333', 8, '2018-10-07 13:54:23', '2018-10-17 09:39:23', 0),
-(23, 'Dominic', 'Fowler', 'tose@mailinator.net', '4444444', 9, '2018-10-09 10:19:54', '2018-10-17 09:21:49', 0);
+(23, 'Dominic', 'Fowler', 'tose@mailinator.net', '4444444', 9, '2018-10-09 10:19:54', '2018-10-17 09:21:49', 0),
+(24, 'Lisandra', 'Padilla', 'nizaky@mailinator.com', '1476444', 1, '2018-10-19 08:23:37', '2018-10-19 08:23:37', 1),
+(25, 'Gwendolyn', 'Christian', 'rekefukan@mailinator.net', '5699243', 10, '2018-10-19 09:49:26', '2018-10-19 09:49:26', 1),
+(26, 'asdsad', 'sddd', 'eddd@re.er', '33333', 11, '2018-10-19 09:55:42', '2018-10-19 09:55:42', 1),
+(27, 'Nicole', 'Simpson', 'zuhi@mailinator.com', '197375', 12, '2018-10-19 09:57:45', '2018-10-19 09:57:45', 1),
+(28, 'Balto', 'Cappon', 'matssd@gmail.cazzo', '3345678', 13, '2018-10-19 12:50:46', '2018-10-19 12:50:46', 1);
 
 -- --------------------------------------------------------
 
@@ -273,6 +304,12 @@ ALTER TABLE `company_product`
   ADD KEY `product_category_id` (`product_category_id`);
 
 --
+-- Indexes for table `consulting_service`
+--
+ALTER TABLE `consulting_service`
+  ADD PRIMARY KEY (`consulting_service_id`);
+
+--
 -- Indexes for table `contact_person`
 --
 ALTER TABLE `contact_person`
@@ -322,10 +359,16 @@ ALTER TABLE `company_product`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `consulting_service`
+--
+ALTER TABLE `consulting_service`
+  MODIFY `consulting_service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `product_category`
