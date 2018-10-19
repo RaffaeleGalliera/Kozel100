@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 
 public class AdminPanelManager implements java.io.Serializable {
     private Position[] positions;
+    private ConsultingService[] consultingServices;
     private WorkField[] workFields;
     private ClientType[] clientTypes;
     private ProductCategory[] productCategories;
@@ -21,6 +22,9 @@ public class AdminPanelManager implements java.io.Serializable {
 
     private int positionId;
     private String positionName;
+
+    private int consultingServiceId;
+    private String consultingServiceName;
 
     private int workFieldId;
     private String workFieldName;
@@ -63,6 +67,7 @@ public class AdminPanelManager implements java.io.Serializable {
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             users = UserDAO.getAllUsers(db);
+            consultingServices = ConsultingServiceDAO.getAllConsultingServices(db);
             db.commit();
 
         } catch (NotFoundDBException ex) {
@@ -221,6 +226,42 @@ public class AdminPanelManager implements java.io.Serializable {
 
     }
 
+    public void insertConsultingService() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            ConsultingService consultingService = new ConsultingService(consultingServiceName);
+            consultingService.insert(database);
+            database.commit();
+
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
+            EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Consulting Service already exist");
+        }finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
     public void insertClientType() {
 
         DataBase database = null;
@@ -300,6 +341,14 @@ public class AdminPanelManager implements java.io.Serializable {
         this.positionId = positionId;
     }
 
+    public Integer getConsultingServiceId() {
+        return consultingServiceId;
+    }
+
+    public void setConsultingServiceId(Integer consultingServiceId) {
+        this.consultingServiceId = consultingServiceId;
+    }
+
     public Integer getWorkFieldId() {
         return workFieldId;
     }
@@ -356,12 +405,28 @@ public class AdminPanelManager implements java.io.Serializable {
         return productCategoryName;
     }
 
+    public void setConsultingServiceName(String consultingServiceName) {
+        this.consultingServiceName= consultingServiceName;
+    }
+
+    public String getConsultingServiceName() {
+        return consultingServiceName;
+    }
+
     public Position[] getPositions() {
         return positions;
     }
 
     public Position getPosition(int index) {
         return positions[index];
+    }
+
+    public ConsultingService[] getConsultingServices() {
+        return consultingServices;
+    }
+
+    public ConsultingService getConsultingService(int index) {
+        return consultingServices[index];
     }
 
     public WorkField[] getWorkFields() {
