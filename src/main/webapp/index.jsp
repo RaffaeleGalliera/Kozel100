@@ -4,6 +4,7 @@
 <%@ page import="services.sessionservice.*" %>
 <%@ page import="global.*" %>
 <%@ page import="util.*" %>
+<%@ page import="services.errorservice.EService" %>
 <%@ page errorPage="ErrorPage.jsp"%>
 
 <jsp:useBean id="loginManager" scope="page" class="bflows.LoginManager" />
@@ -38,6 +39,12 @@
 
             isLogged=true;
         }
+    }
+
+    if(loginManager.getResult()==EService.RECOVERABLE_ERROR){
+
+        message = loginManager.getErrorMessage();
+
     }
 
     if (status.equals("logout") && cookies!=null){
@@ -79,19 +86,30 @@
 
         img {
             display: block;
-            max-width: 40%;
+            max-width: 30%;
             height: auto;
             margin: 0 auto;
+        }
+
+        .error{
+
+            width: 60%;
+            text-align: center;
+            color: crimson;
+            font-family: 'Shadows Into Light Two', cursive;
+            margin: 0 auto;
+            padding-top: 1%;
+
+
         }
 
         .form-container{
 
             background-color: white;
             box-shadow: 7px 7px 9px #bababa;
-            margin-left: 10%;
-            margin-right: 10%;
+            margin-left: 30%;
+            margin-right: 30%;
             padding: 3%;
-            border-radius: 7px;
             padding-bottom: 1%;
 
 
@@ -103,7 +121,7 @@
             text-align: center;
             font-family: 'Shadows Into Light Two', cursive;
             margin: 0 auto;
-            padding: 3%;
+            padding: 1%;
 
         }
 
@@ -205,9 +223,17 @@
                 <input type="password" class="form-control" id="password" name="password">
             </div>
             <input type="hidden" name="status" value="login"/>
-            <button type="submit" class="btn btn-success btn-raised" onclick="login()">Submit</button>
+            <button type="submit" class="btn btn-outline-success" onclick="login()">Submit</button>
         </form>
+
     </div>
+
+    <%if (message!=null){%>
+    <div class="error" role="alert">
+        <%=message%>
+    </div>
+    <%}%>
+
 
     <div class="container footer-container">
 
