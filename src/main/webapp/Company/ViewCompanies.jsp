@@ -403,11 +403,9 @@
                 </td>
                 <td>
                     <%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
-                        <%if ((companyManager.getContactPerson(c).companyId)==(companyManager.getCompany().companyId) ){%>
-                             <%if (c > 0) {%>
-                                ,
-                             <%}%>
-                         <%=companyManager.getContactPerson(c).fullName()%>
+                        <%if ((companyManager.getContactPerson(c).companyId)==(companyManager.getCompany(k).companyId) ){%>
+                        <%=companyManager.getContactPerson(c).fullName()%>
+                        <br>
                         <%}%>
                     <%}%>
                 </td>

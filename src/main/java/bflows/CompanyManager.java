@@ -30,7 +30,6 @@ public class CompanyManager implements java.io.Serializable {
 
     private Company[] companies;
     private Company company;
-    private ContactPerson[] contacts;
     private ClientType[] clientTypes;
     private ClientType clientType;
     private ProductCategory[] productCategories;
@@ -55,7 +54,7 @@ public class CompanyManager implements java.io.Serializable {
             this.companyId = CompanyDAO.getNewID(database);
 
             Company company = new Company(companyId, clientTypeId, name, vat, address, city, companyEmail);
-          
+
             company.insert(database);
             //Insert Contact_Person
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
@@ -149,7 +148,7 @@ public class CompanyManager implements java.io.Serializable {
 
             company = CompanyDAO.getCompany(database, companyId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
-            contacts = ContactPersonDAO.getContactPeople(database, companyId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
 
             database.commit();
 
@@ -182,7 +181,7 @@ public class CompanyManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
-            contacts = ContactPersonDAO.getAllContactPeople(db);
+            contactPeople = ContactPersonDAO.getAllContactPeople(db);
 
 
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
