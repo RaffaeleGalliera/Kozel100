@@ -1,6 +1,7 @@
 package bflows;
 
 import blogics.*;
+import com.sun.security.ntlm.Client;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
@@ -30,6 +31,7 @@ public class CompanyManager implements java.io.Serializable {
     private Company company;
     private ContactPerson[] contacts;
     private ClientType[] clientTypes;
+    private ClientType clientType;
     private ProductCategory[] productCategories;
     private User[] users;
 
@@ -139,7 +141,8 @@ public class CompanyManager implements java.io.Serializable {
             database = DBService.getDataBase();
 
             company = CompanyDAO.getCompany(database, companyId);
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            contacts = ContactPersonDAO.getContactPeople(database, companyId);
 
             database.commit();
 
@@ -337,6 +340,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setCompany(Company company) {
         this.company= company;
+    }
+
+    public ClientType getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(ClientType clientType) {
+        this.clientType = clientType;
     }
 
     public String getVat() {
