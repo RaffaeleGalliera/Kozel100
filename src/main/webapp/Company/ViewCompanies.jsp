@@ -57,12 +57,10 @@
 
     if (status.equals("deleteCompany")) {
         companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
-        companyManager.companiesView();
     }
 
     if (status.equals("insertCompany")) {
         companyManager.insertCompany();
-        companyManager.companiesView();
 
         if (companyManager.getResult() == 0) {
             complete = true;

@@ -6,6 +6,7 @@ import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +60,11 @@ public class CompanyManager implements java.io.Serializable {
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);
 
+            //GetAllInfos
+            companies = CompanyDAO.getAllCompanies(database);
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+            users = UserDAO.getAllUsers(database);
 
 
             database.commit();
@@ -295,10 +301,19 @@ public class CompanyManager implements java.io.Serializable {
             db=DBService.getDataBase();
 
             CompanyDAO.deleteCompany(db, companyId);
+            companies = CompanyDAO.getAllCompanies(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+            users = UserDAO.getAllUsers(db);
+
 
             db.commit();
         }
         catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         }
