@@ -116,7 +116,7 @@
                 <label for="clientTypeId" class="bmd-label-floating">Client Type</label>
                 <select class="form-control" id="clientTypeId" name="clientTypeId">
                     <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                    <%if (companyManager.getClientType(k).clientTypeId==companyManager.getClientTypeId()) {%>
+                    <%if (companyManager.getClientType(k).clientTypeId==companyManager.getClientType().clientTypeId) {%>
                     <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
                         <%=companyManager.getClientType(k).name%>
                     </option>

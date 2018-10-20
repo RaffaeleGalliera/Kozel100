@@ -41,4 +41,30 @@ public class ClientTypeDAO {
         return clientTypes;
 
     }
+
+    public static ClientType getClientType(DataBase db, Integer clientTypeId) throws NotFoundDBException,ResultSetDBException{
+
+        ClientType clientType=null;
+        String sql;
+        ResultSet rs;
+
+        sql="SELECT * FROM client_type WHERE client_type_id ="+clientTypeId+"";
+
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                clientType= new ClientType(rs);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("ClientTypeDAO.getClientType(): ResultSetDBException: "+ex.getMessage(), db);
+        }
+
+        return clientType;
+
+    }
+
 }

@@ -57,12 +57,10 @@
 
     if (status.equals("deleteCompany")) {
         companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
-        companyManager.companiesView();
     }
 
     if (status.equals("insertCompany")) {
         companyManager.insertCompany();
-        companyManager.companiesView();
 
         if (companyManager.getResult() == 0) {
             complete = true;
@@ -233,6 +231,11 @@
         document.updateCompanyForm.submit();
     }
 
+    function viewCompany(id) {
+        document.viewCompanyForm.companyId.value = id;
+        document.viewCompanyForm.submit();
+    }
+
     function insert(form) {
 
         form.action = "ViewCompanies.jsp";
@@ -393,8 +396,7 @@
                 <th scope="row"><%= k %>
                 </th>
 
-                <td><%=companyManager.getCompany(k).name%>
-                </td>
+                <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
                 <td><%=companyManager.getCompany(k).vat%>
                 </td>
                 <td><%=companyManager.getCompany(k).address%>
@@ -404,11 +406,11 @@
                 <td><%=companyManager.getCompany(k).email%>
                 </td>
                 <td>
-                    <%for (int c = 0; c < companyManager.getContactPeople(companyManager.getCompany(k).companyId).length; c++) {%>
-                    <%if (c > 0) {%>
-                    ,
-                    <%}%>
-                    <%=companyManager.getContactPeople(companyManager.getCompany(k).companyId)[c].fullName()%>
+                    <%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
+                        <%if ((companyManager.getContactPerson(c).companyId)==(companyManager.getCompany(k).companyId) ){%>
+                        <%=companyManager.getContactPerson(c).fullName()%>
+                        <br>
+                        <%}%>
                     <%}%>
                 </td>
                 <td>
@@ -428,6 +430,10 @@
             <input type="hidden" name="status" value="deleteCompany"/>
         </form>
         <form name="updateCompanyForm" action="UpdateCompany.jsp" method="post">
+            <input type="hidden" name="companyId" value=""/>
+            <input type="hidden" name="status" value="view"/>
+        </form>
+        <form name="viewCompanyForm" action="ViewCompany.jsp" method="post">
             <input type="hidden" name="companyId" value=""/>
             <input type="hidden" name="status" value="view"/>
         </form>
