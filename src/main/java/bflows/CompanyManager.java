@@ -310,6 +310,8 @@ public class CompanyManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
+            contactPeople = ContactPersonDAO.getAllContactPeople(db);
+
 
 
             db.commit();
