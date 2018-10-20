@@ -49,18 +49,30 @@
     <div class="page-header">
         <div class="jumbotron">
             <h1 class="display-4"><%=companyManager.getCompany().name%></h1>
-            <p class="lead"><%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
-                <%=companyManager.getContactPerson(c).fullName()%>
-                <br>
-                <%}%>
-            </p>
-            <p class="lead"><%=companyManager.getCompany().address%></p>
-            <p class="lead"><%=companyManager.getCompany().city%></p>
-            <p class="lead"><%=companyManager.getCompany().vat%></p>
             <hr class="my-4">
-            <p>In case of troubles contact the Webmaster.</p>
+            <div class="row">
+                <div class="col"><p class="lead">Contact References:<%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
+                    <br>
+                    <%=companyManager.getContactPerson(c).fullName()%>
+                    <%}%>
+                </p></div>
+                <div class="col"><p class="lead">Responsible User: </p></div>
+            </div>
+            <hr class="my-4">
+            <p class="lead">Customer Type: <%=companyManager.getClientType().name%></p>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col"><p class="lead">Address: <%=companyManager.getCompany().address%></p></div>
+                <div class="col"><p class="lead">City: <%=companyManager.getCompany().city%></p></div>
+            </div>
+            <hr class="my-4">
+            <p class="lead">VAT: <%=companyManager.getCompany().vat%></p>
+            <hr class="my-4">
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Contact That Motherfucker</a>
+                <div class="row">
+                    <div class="col"><p class="lead"><a class="btn btn-success btn-lg" href="#" role="button">Edit</a></p></div>
+                    <div class="col"><p class="lead"><a class="btn btn-danger btn-lg" href="#" role="button">Delete</a></p></div>
+                </div>
             </p>
         </div>
     </div>
@@ -71,7 +83,7 @@
                                 aria-expanded="false" aria-controls="consultingServiceCard">Consulting Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#clientNotesCard" data-toggle="collapse"
                                 data-target="#clientNotesCard"
-                                aria-expanded="false" aria-controls="clientNotesCard">Client Notes</a></li>
+                                aria-expanded="false" aria-controls="clientNotesCard">Customer Notes</a></li>
         <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
         <%--aria-expanded="false"--%>
         <%--aria-controls="clientNotesCard positionCard productCategoriesCard clientTypesCard">Show--%>
@@ -102,27 +114,23 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Full Name</th>
-                                    <th>Email</th>
+                                    <th>Service</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <%--<%for (int k = 0; k < adminPanelManager.getUsers().length; k++) {%>--%>
+                                <%--<tbody>--%>
+                                <%--<%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>--%>
                                 <%--<tr>--%>
                                     <%--<td><%= k + 1 %>--%>
                                     <%--</td>--%>
-                                    <%--<td><%=adminPanelManager.getUser(k).fullName()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td><%=adminPanelManager.getUser(k).email%>--%>
-                                    <%--</td>--%>
+                                    <%--<td><%=companyManager.getConsultingService(k).name%></td>--%>
                                     <%--<td>--%>
                                         <%--<a class="edit" title="Edit" data-toggle="tooltip"><i--%>
                                                 <%--class="material-icons">&#xE254;</i></a>--%>
                                     <%--</td>--%>
                                 <%--</tr>--%>
                                 <%--<%}%>--%>
-                                </tbody>
+                                <%--</tbody>--%>
                             </table>
                         </div>
                     </div>
@@ -174,6 +182,8 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+    <input type="hidden" name="status" value="view"/>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

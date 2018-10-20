@@ -44,4 +44,37 @@ public class ConsultingServiceDAO {
         return consultingServices;
 
     }
+
+    public static ConsultingService[] getConsultingServices(DataBase db, int companyId) throws NotFoundDBException, ResultSetDBException {
+
+        ConsultingService[] consultingService=null;
+        String sql;
+        ResultSet rs;
+        int i=0;
+
+        sql="SELECT * FROM consulting_service WHERE company_id="+companyId+"";
+
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                rs.last();
+                consultingService= new ConsultingService[rs.getRow()];
+                rs.beforeFirst();
+
+                while(rs.next()){
+                    consultingService[i]=new ConsultingService(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("ConsultingServiceDAO.getConsultingService(): Errore nel ResultSet: "+ex.getMessage(),db);
+        }
+
+        return consultingService;
+
+    }
 }
