@@ -22,15 +22,6 @@
     if (status.equals("view")) {
         companyManager.companyView();
     }
-    if (status.equals("updateCompany")) {
-        companyManager.updateCompany();
-        if (companyManager.getResult() == 0) {
-            complete = true;
-        } else {
-            status = "view";
-        }
-    }
-
 %>
 <!doctype html>
 <html>
@@ -58,17 +49,14 @@
     <div class="page-header">
         <div class="jumbotron">
             <h1 class="display-4"><%=companyManager.getCompany().name%></h1>
-            <p class="lead"><%=companyManager.getClientType().name%></p>
-            <p class="lead"><%for (int c = 0; c < companyManager.getContactPeople(companyManager.getCompany(k).companyId).length; c++) {%>
-                <%if (c > 0) {%>
-                ,
-                <%}%>
-                <%=companyManager.getContactPeople(companyManager.getCompany(k).companyId)[c].fullName()%>
+            <p class="lead"><%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
+                <%=companyManager.getContactPerson(c).fullName()%>
+                <br>
                 <%}%>
             </p>
-            <p class="lead"><%=companyManager.getCompany().name%></p>
-            <p class="lead"><%=companyManager.getCompany().name%></p>
-            <p class="lead"><%=companyManager.getCompany().name%></p>
+            <p class="lead"><%=companyManager.getCompany().address%></p>
+            <p class="lead"><%=companyManager.getCompany().city%></p>
+            <p class="lead"><%=companyManager.getCompany().vat%></p>
             <hr class="my-4">
             <p>In case of troubles contact the Webmaster.</p>
             <p class="lead">
@@ -120,20 +108,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getUsers().length; k++) {%>
-                                <tr>
-                                    <td><%= k + 1 %>
-                                    </td>
-                                    <td><%=adminPanelManager.getUser(k).fullName()%>
-                                    </td>
-                                    <td><%=adminPanelManager.getUser(k).email%>
-                                    </td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
-                                </tr>
-                                <%}%>
+                                <%--<%for (int k = 0; k < adminPanelManager.getUsers().length; k++) {%>--%>
+                                <%--<tr>--%>
+                                    <%--<td><%= k + 1 %>--%>
+                                    <%--</td>--%>
+                                    <%--<td><%=adminPanelManager.getUser(k).fullName()%>--%>
+                                    <%--</td>--%>
+                                    <%--<td><%=adminPanelManager.getUser(k).email%>--%>
+                                    <%--</td>--%>
+                                    <%--<td>--%>
+                                        <%--<a class="edit" title="Edit" data-toggle="tooltip"><i--%>
+                                                <%--class="material-icons">&#xE254;</i></a>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<%}%>--%>
                                 </tbody>
                             </table>
                         </div>
@@ -166,18 +154,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
-                                <tr>
-                                    <td><%= k + 1 %>
-                                    </td>
-                                    <td><%=adminPanelManager.getWorkField(k).name%>
-                                    </td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
-                                </tr>
-                                <%}%>
+                                <%--<%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>--%>
+                                <%--<tr>--%>
+                                    <%--<td><%= k + 1 %>--%>
+                                    <%--</td>--%>
+                                    <%--<td><%=adminPanelManager.getWorkField(k).name%>--%>
+                                    <%--</td>--%>
+                                    <%--<td>--%>
+                                        <%--<a class="edit" title="Edit" data-toggle="tooltip"><i--%>
+                                                <%--class="material-icons">&#xE254;</i></a>--%>
+                                    <%--</td>--%>
+                                <%--</tr>--%>
+                                <%--<%}%>--%>
                                 </tbody>
                             </table>
                         </div>
@@ -189,14 +177,19 @@
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
         crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+    $('body').bootstrapMaterialDesign();
+});</script>
+
 </body>
 </html>

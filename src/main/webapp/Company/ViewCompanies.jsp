@@ -231,6 +231,11 @@
         document.updateCompanyForm.submit();
     }
 
+    function viewCompany(id) {
+        document.viewCompanyForm.companyId.value = id;
+        document.viewCompanyForm.submit();
+    }
+
     function insert(form) {
 
         form.action = "ViewCompanies.jsp";
@@ -391,8 +396,7 @@
                 <th scope="row"><%= k %>
                 </th>
 
-                <td><%=companyManager.getCompany(k).name%>
-                </td>
+                <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
                 <td><%=companyManager.getCompany(k).vat%>
                 </td>
                 <td><%=companyManager.getCompany(k).address%>
@@ -426,6 +430,10 @@
             <input type="hidden" name="status" value="deleteCompany"/>
         </form>
         <form name="updateCompanyForm" action="UpdateCompany.jsp" method="post">
+            <input type="hidden" name="companyId" value=""/>
+            <input type="hidden" name="status" value="view"/>
+        </form>
+        <form name="viewCompanyForm" action="ViewCompany.jsp" method="post">
             <input type="hidden" name="companyId" value=""/>
             <input type="hidden" name="status" value="view"/>
         </form>
