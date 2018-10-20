@@ -402,11 +402,13 @@
                 <td><%=companyManager.getCompany(k).email%>
                 </td>
                 <td>
-                    <%for (int c = 0; c < companyManager.getContactPeople(companyManager.getCompany(k).companyId).length; c++) {%>
-                    <%if (c > 0) {%>
-                    ,
-                    <%}%>
-                    <%=companyManager.getContactPeople(companyManager.getCompany(k).companyId)[c].fullName()%>
+                    <%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
+                        <%if ((companyManager.getContactPerson(c).companyId)==(companyManager.getCompany().companyId) ){%>
+                             <%if (c > 0) {%>
+                                ,
+                             <%}%>
+                         <%=companyManager.getContactPerson(c).fullName()%>
+                        <%}%>
                     <%}%>
                 </td>
                 <td>

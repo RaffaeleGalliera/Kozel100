@@ -44,4 +44,37 @@ public class ContactPersonDAO {
         return contactPeople;
 
     }
+
+    public static ContactPerson[] getAllContactPeople(DataBase db) throws NotFoundDBException, ResultSetDBException {
+
+        ContactPerson[] contactPeople=null;
+        String sql;
+        ResultSet rs;
+        int i=0;
+
+        sql="SELECT * FROM contact_person";
+
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                rs.last();
+                contactPeople= new ContactPerson[rs.getRow()];
+                rs.beforeFirst();
+
+                while(rs.next()){
+                    contactPeople[i]=new ContactPerson(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("ContactPersonDAO.getAllContactPerson(): Errore nel ResultSet: "+ex.getMessage(),db);
+        }
+
+        return contactPeople;
+
+    }
 }

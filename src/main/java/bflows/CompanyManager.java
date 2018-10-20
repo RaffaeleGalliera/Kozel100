@@ -34,6 +34,7 @@ public class CompanyManager implements java.io.Serializable {
     private ClientType[] clientTypes;
     private ClientType clientType;
     private ProductCategory[] productCategories;
+    private ContactPerson[] contactPeople;
     private User[] users;
 
     private int result;
@@ -181,6 +182,8 @@ public class CompanyManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
+            contacts = ContactPersonDAO.getAllContactPeople(db);
+
 
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
@@ -467,31 +470,17 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setUsers(User[] users) { this.users = users; }
 
-    public ContactPerson[] getContactPeople(int companyId) {
-
-        DataBase db=null;
-
-        try{
-            db=DBService.getDataBase();
-
-            contacts = ContactPersonDAO.getContactPeople(db, companyId);
-
-            db.commit();
-        }
-        catch (NotFoundDBException ex) {
-            EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        catch (ResultSetDBException ex) {
-            EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        finally {
-            try { db.close(); }
-            catch (NotFoundDBException e) { EService.logAndRecover(e); }
-        }
-        return contacts;
+    public ContactPerson[] getContactPeople() {
+        return contactPeople;
     }
+
+    public void setContactPeople(ContactPerson[] contactPeople) {
+        this.contactPeople=contactPeople;
+    }
+
+    public ContactPerson getContactPerson(int index){ return contactPeople[index];}
+
+
     public int getResult() {
         return result;
     }
