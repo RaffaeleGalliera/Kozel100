@@ -82,6 +82,8 @@
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
+    <link rel="icon" href="src/main/webapp/resources/logoS.png">
+
     <style>
 
         img {

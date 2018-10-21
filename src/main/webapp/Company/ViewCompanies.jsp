@@ -14,37 +14,14 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="services.sessionservice.Session" %>
 
 
 <%
 
-    Cookie[] cookies = request.getCookies();
     String message = null;
     boolean complete = false;
     String status = request.getParameter("status");
-    boolean authorized = false;
-
-    //Ciclo di verifica --> se token non presente o non verificato setto a false authorized
-
-    //TODO Is this the best way to verify a User?
-
-    if (cookies != null) {
-
-        for (int i = 0; i < cookies.length; i++) {
-
-            if (JWTService.parseAndVerifyJWT(cookies[i].getValue()) && cookies[i].getName().equals("jwt_auth_token")) {
-
-                authorized = true;
-                break;
-
-            } else {
-
-                authorized = false;
-
-            }
-
-        }
-    }
 
     if (status == null) status = "view"; //
 
@@ -159,19 +136,7 @@
     </style>
 
 
-    <title>Kozel100 CRM</title
-
-    <%
-
-        //If the user isn't providing a valid token i'll send him back to login page
-        if (!authorized) {
-
-            String redirectURL = "/index.jsp";
-            response.sendRedirect(redirectURL);
-
-        }
-
-    %>
+    <title>Kozel100 CRM</title>
 
 </head>
 <body>

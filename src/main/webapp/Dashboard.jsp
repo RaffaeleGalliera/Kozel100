@@ -7,37 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="services.tokenservice.*" %>
+<%@ page import="services.sessionservice.Session" %>
+<%@ page import="util.Debug" %>
 
-<%
 
-    Cookie[] cookies = request.getCookies();
-    boolean authorized=false;
-
-    //Ciclo di verifica --> se token non presente o non verificato setto a false authorized
-
-    //TODO Is this the best way to verify a User?
-
-    if (cookies != null) {
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("jwt_auth_token")) {
-                //do something
-                //value can be retrieved using #cookie.getValue()
-                if (JWTService.parseAndVerifyJWT(cookie.getValue())){
-
-                    authorized = true;
-                    break;
-
-                } else {
-
-                    authorized = false;
-
-                }
-
-            }
-        }
-    }
-
-%>
 
 <style>
 
@@ -66,19 +39,6 @@
 <html>
 <head>
 
-
-    <%
-
-        //If the user isn't providing a valid token i'll send him back to login page
-        if(!authorized){
-
-            String redirectURL = "/index.jsp";
-            response.sendRedirect(redirectURL);
-
-        }
-
-    %>
-
     <title>Dashboard</title>
 
     <!-- Required meta tags -->
@@ -91,9 +51,6 @@
     <!-- Material Design for Bootstrap CSS -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
-
-    <title>Kozel100 CRM</title>
-
 
 </head>
 
@@ -132,11 +89,7 @@
         </div>
     </div>
 </div>
-<div class="container footer-container">
 
-    <h4>Authorized: <%=authorized%></h4>
-
-</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
