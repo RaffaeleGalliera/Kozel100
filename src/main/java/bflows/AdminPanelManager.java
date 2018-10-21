@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class AdminPanelManager implements java.io.Serializable {
     private Position[] positions;
-    private ProductCategory[] productCategories;
+    private Tag[] tags;
     private WorkField[] workFields;
     private ClientType[] clientTypes;
     private User[] users;
@@ -29,8 +29,8 @@ public class AdminPanelManager implements java.io.Serializable {
     private int clientTypeId;
     private String clientTypeName;
 
-    private int productCategoryId;
-    private String productCategoryName;
+    private int tagId;
+    private String tagName;
 
     private int userId;
     private String email;
@@ -61,10 +61,9 @@ public class AdminPanelManager implements java.io.Serializable {
 
             positions = PositionDAO.getAllPositions(db);
             workFields = WorkFieldDAO.getAllWorkFields(db);
-            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+            tags = TagDAO.getAllTags(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             users = UserDAO.getAllUsers(db);
-            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             db.commit();
 
         } catch (NotFoundDBException ex) {
@@ -231,8 +230,8 @@ public class AdminPanelManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            ProductCategory productCategory = new ProductCategory(consultingServiceName);
-            productCategory.insert(database);
+            Tag tag = new Tag(consultingServiceName);
+            tag.insert(database);
             database.commit();
 
         }
@@ -294,7 +293,7 @@ public class AdminPanelManager implements java.io.Serializable {
 
     }
 
-    public void insertProductCategory() {
+    public void insertTag() {
 
         DataBase database = null;
 
@@ -302,8 +301,8 @@ public class AdminPanelManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            ProductCategory productCategory = new ProductCategory(productCategoryName);
-            productCategory.insert(database);
+            Tag tag = new Tag(tagName);
+            tag.insert(database);
             database.commit();
 
         }
@@ -318,7 +317,7 @@ public class AdminPanelManager implements java.io.Serializable {
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
-            setErrorMessage("Product Category already exist");
+            setErrorMessage("Tag already exist");
         } finally {
             try {
                 database.close();
@@ -358,12 +357,12 @@ public class AdminPanelManager implements java.io.Serializable {
         return clientTypeId;
     }
 
-    public void setProductCategoryId(Integer productCategoryId) {
-        this.productCategoryId = productCategoryId;
+    public void setTagId(Integer tagId) {
+        this.tagId = tagId;
     }
 
-    public Integer getProductCategoryId() {
-        return productCategoryId;
+    public Integer getTagId() {
+        return tagId;
     }
 
     public void setClientTypeId(Integer clientTypeId) {
@@ -394,12 +393,12 @@ public class AdminPanelManager implements java.io.Serializable {
         return clientTypeName;
     }
 
-    public void setProductCategoryName(String productCategoryName) {
-        this.productCategoryName = productCategoryName;
+    public void settagName(String tagName) {
+        this.tagName = tagName;
     }
 
-    public String getProductCategoryName() {
-        return productCategoryName;
+    public String getTagName() {
+        return tagName;
     }
 
     public void setConsultingServiceName(String consultingServiceName) {
@@ -419,8 +418,8 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
 
-    public ProductCategory getConsultingService(int index) {
-        return productCategories[index];
+    public Tag getConsultingService(int index) {
+        return tags[index];
     }
 
     public WorkField[] getWorkFields() {
@@ -432,12 +431,12 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
 
-    public ProductCategory[] getProductCategories() {
-        return productCategories;
+    public Tag[] getTags() {
+        return tags;
     }
 
-    public ProductCategory getProductCategory(int index) {
-        return productCategories[index];
+    public Tag getTag(int index) {
+        return tags[index];
     }
 
     public ClientType[] getClientTypes() {

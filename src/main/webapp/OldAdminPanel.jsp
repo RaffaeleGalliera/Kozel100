@@ -214,7 +214,7 @@
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form action="Setup/InsertProductCategory.jsp">
+                            <form action="Setup/InsertTag.jsp">
                                 <h2>Product Categories
                                     <button style="float:right" type="submit" value="InsertProductCategory"
                                             class="btn btn-default">

@@ -23,12 +23,12 @@
         companyManager.companyView();
     }
 
-    if (status.equals(("addProductCategory"))){
-        companyManager.addProductCategory();
+    if (status.equals(("addTag"))){
+        companyManager.addTag();
     }
 
-    if (status.equals("deleteProductCategory")) {
-        companyManager.deleteProductCategory(Integer.parseInt(request.getParameter("productCategoryId")));
+    if (status.equals("deleteTag")) {
+        companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
 %>
 <!doctype html>
@@ -53,19 +53,19 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <script language="JavaScript">
-    function addProductCategory(form) {
+    function addTag(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
     }
 
-    function deleteProductCategory(id, name) {
+    function deleteTag(id, name) {
 
-        r = confirm("Are you sure to delete : " + name + " as  Product Category");
+        r = confirm("Are you sure to delete : " + name + " as  Tag");
 
         if (r === true) {
-            document.deleteProductCategoryForm.productCategoryId.value = id;
+            document.deleteTagForm.tagId.value = id;
 
-            document.deleteProductCategoryForm.submit();
+            document.deleteTagForm.submit();
         }
         else {
             return;
@@ -93,9 +93,9 @@
             <hr class="my-4">
             <div class="row">
                 <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%></p></div>
-                <div class="col"><p class="lead">Product Categories:<%for (int c = 0; c < companyManager.getCompanyProducts().length; c++) {%>
+                <div class="col"><p class="lead">Tags:<%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
                     <br>
-                    <%=companyManager.getCompanyProduct(c).name%>
+                    <%=companyManager.getCompanyTag(c).name%>
                     <%}%>
                 </p></div>
             </div>
@@ -117,9 +117,9 @@
     </div>
     <p>
     <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link" href="#productCategoryCard" data-toggle="collapse"
-                                data-target="#productCategoryCard"
-                                aria-expanded="false" aria-controls="productCategoryCard">Product Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tagCard" data-toggle="collapse"
+                                data-target="#tagCard"
+                                aria-expanded="false" aria-controls="tagCard">Tags</a></li>
         <li class="nav-item"><a class="nav-link" href="#clientNotesCard" data-toggle="collapse"
                                 data-target="#clientNotesCard"
                                 aria-expanded="false" aria-controls="clientNotesCard">Customer Notes</a></li>
@@ -132,15 +132,15 @@
 
     <div class="row">
         <div class="col">
-            <div class="collapse multi-collapse" id="productCategoryCard">
+            <div class="collapse multi-collapse" id="tagCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <form action="Setup/InsertUser.jsp">
-                                        <h2>Product Categories
-                                                <button style="float: right" type="button" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#addProductCategory">Add Product Category</button>
+                                        <h2>Tags
+                                                <button style="float: right" type="button" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#addTag">Add Tag</button>
                                         </h2>
                                     </form>
                                 </div>
@@ -150,29 +150,29 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Service</th>
+                                    <th>Tag</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < companyManager.getCompanyProducts().length; k++) {%>
+                                <%for (int k = 0; k < companyManager.getCompanyTags().length; k++) {%>
                                 <tr>
                                     <td><%= k + 1 %>
                                     </td>
-                                    <td><%=companyManager.getCompanyProduct(k).name%></td>
+                                    <td><%=companyManager.getCompanyTag(k).name%></td>
                                     <td>
                                         <a class="delete" title="Delete" data-toggle="tooltip"
-                                           href="JavaScript:deleteProductCategory('<%=companyManager.getCompanyProduct(k).productCategoryId%>','<%=companyManager.getCompanyProduct(k).name%>');"><i
+                                           href="JavaScript:deleteTag('<%=companyManager.getCompanyTag(k).tagId%>','<%=companyManager.getCompanyTag(k).name%>');"><i
                                                 class="material-icons">&#xE872;</i></a>
                                     </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
                             </table>
-                            <form name="deleteProductCategoryForm" action="ViewCompany.jsp" method="post">
+                            <form name="deleteTagForm" action="ViewCompany.jsp" method="post">
                                 <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-                                <input type="hidden" name="productCategoryId" value=""/>
-                                <input type="hidden" name="status" value="deleteProductCategory"/>
+                                <input type="hidden" name="tagId" value=""/>
+                                <input type="hidden" name="status" value="deleteTag"/>
                             </form>
                         </div>
                     </div>
@@ -228,11 +228,11 @@
     <input type="hidden" name="status" value="view"/>
 
     <!-- Modal -->
-    <div class="modal fade" id="addProductCategory" tabindex="-1" role="dialog" aria-labelledby="addProductCategoryLabel" aria-hidden="true">
+    <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addProductCategoryLabel">Add Service</h5>
+                    <h5 class="modal-title" id="addTagLabel">Add Tag</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -240,21 +240,21 @@
                 <div class="modal-body">
                     <form name="companyManager" action="" method="post">
                     <div class="form-group">
-                        <label for="productCategoryId" class="bmd-label-floating">Consulting Services</label>
-                        <select class="form-control" id="productCategoryId" name="productCategoryId">
-                            <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
-                            <option value="<%=companyManager.getProductCategory(k).productCategoryId%>">
-                                <%=companyManager.getProductCategory(k).name%>
+                        <label for="tagId" class="bmd-label-floating">Tags</label>
+                        <select class="form-control" id="tagId" name="tagId">
+                            <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                            <option value="<%=companyManager.getTag(k).tagId%>">
+                                <%=companyManager.getTag(k).name%>
                             </option>
                             <% } %>
                         </select>
                     </div>
                         <div class="modal-footer">
                             <button class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-primary btn-raised" onclick="addProductCategory(this.form)">
+                            <button type="submit" class="btn btn-primary btn-raised" onclick="addTag(this.form)">
                                 Submit
                             </button>
-                            <input type="hidden" name="status" value="addProductCategory"/>
+                            <input type="hidden" name="status" value="addTag"/>
                             <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
                         </div>
                     </form>

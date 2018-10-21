@@ -57,10 +57,10 @@ public class CompanyDAO {
 
         //filters.forEach((key,value) -> Debug.println(key + ":"+ value)); Lambda Way
 
-        if(filters.containsKey("productCategoryId")){
+        if(filters.containsKey("tagId")){
             //TODO Find Out if we can query 'active_fl=1' even here
             sql=sql + " JOIN company_product ON company.company_id=company_product.company_id AND product_category_id=?";
-            parameters.add(filters.get("productCategoryId").toString());
+            parameters.add(filters.get("tagId").toString());
 
         }
 
@@ -175,12 +175,12 @@ public class CompanyDAO {
 
     }
 
-    public static void deleteProductCategory(DataBase db, Integer companyId, Integer productCategoryId) throws NotFoundDBException{
+    public static void deleteTag(DataBase db, Integer companyId, Integer tagId) throws NotFoundDBException{
 
         String sql;
 
-        sql="DELETE FROM company_product"
-                + " WHERE company_id="+companyId+" AND product_category_id="+productCategoryId;
+        sql="DELETE FROM company_tag"
+                + " WHERE company_id="+companyId+" AND tag_id="+tagId;
 
         db.modify(sql);
     }

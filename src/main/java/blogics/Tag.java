@@ -7,15 +7,15 @@ import services.databaseservice.*;
 import services.databaseservice.exception.*;
 
 
-public class ProductCategory {
+public class Tag {
 
-    public int productCategoryId;
+    public int tagId;
     public String name;
 
-    public ProductCategory(ResultSet result) {
+    public Tag(ResultSet result) {
 
         try {
-            productCategoryId = result.getInt("product_category_id");
+            tagId = result.getInt("tag_id");
         } catch (SQLException sqle) {
         }
         try {
@@ -24,7 +24,7 @@ public class ProductCategory {
         }
     }
 
-    public ProductCategory(String name) {
+    public Tag(String name) {
         this.name = name;
     }
 
@@ -36,7 +36,7 @@ public class ProductCategory {
         boolean exist;
 
         //Check unicita
-        query="SELECT name FROM product_category WHERE name=?";
+        query="SELECT name FROM tag WHERE name=?";
 
         parameters.add(name);
 
@@ -47,17 +47,17 @@ public class ProductCategory {
             rs.close();
         }
         catch (SQLException e) {
-            throw new ResultSetDBException("ProductCategory.insert(): Errore sul ResultSet.");
+            throw new ResultSetDBException("Tag.insert(): Errore sul ResultSet.");
         }
 
         if (exist) {
             //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
             //sarà poi il Bean che decide come gestire questa situazione.
-            throw new DuplicatedRecordDBException("ProductCategory.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
+            throw new DuplicatedRecordDBException("Tag.insert(): Tentativo di inserimento di un tag gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
-        query = "INSERT INTO product_category(product_category_id, name)" +
-                "VALUES(" + productCategoryId + ",?)";
+        query = "INSERT INTO tag(tag_id, name)" +
+                "VALUES(" + tagId + ",?)";
 
         database.modify(query, parameters);
     }

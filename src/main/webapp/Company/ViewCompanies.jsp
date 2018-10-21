@@ -97,11 +97,11 @@
         }
 
         Boolean filterByProduct = Boolean.parseBoolean(request.getParameter("filterByProduct"));
-        String productCategoryId = request.getParameter("productCategoryId");
+        String tagId = request.getParameter("tagId");
 
         if (filterByProduct) {
 
-            filters.put("productCategoryId", Integer.parseInt(productCategoryId));
+            filters.put("tagId", Integer.parseInt(tagId));
 
         }
 
@@ -361,9 +361,9 @@
                     </label>
                 </div>
                 <div class="form-group filterGroup" id="filterProductGroup">
-                    <select class="form-control" id="productCategoryId" name="productCategoryId">
-                        <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
-                        <option value="<%=companyManager.getProductCategory(k).productCategoryId%>"><%=companyManager.getProductCategory(k).name%>
+                    <select class="form-control" id="tagId" name="tagId">
+                        <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                        <option value="<%=companyManager.getTag(k).tagId%>"><%=companyManager.getTag(k).name%>
                         </option>
                         <% } %>
                     </select>
@@ -500,6 +500,26 @@
                                     <% } %>
                                 </select>
                             </div>
+                            <%--<div class="form-group">--%>
+                                <%--<div class="checkbox">--%>
+                                            <%--<%for (int k = 0; k < companyManager.getTags().length; k++) { int c=0; %>--%>
+                                                <%--<%if ((message != null) && (companyManager.getTag(k) == companyManager.getCompanyTag(c).tagId)) {%>--%>
+                                                 <%--<label>--%>
+                                                   <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>" checked>--%>
+                                                       <%--<%=companyManager.getClientType(k).name%>--%>
+                                                       <%--<% c++;%>--%>
+                                                 <%--</label>--%>
+                                                <%--<% } %>--%>
+                                                <%--<%if (companyManager.getTag(k).tagId!= companyManager.getCompanyTag(c).tagId) {%>--%>
+                                                <%--<label>--%>
+                                                    <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>">--%>
+                                                    <%--<%=companyManager.getClientType(k).name%>--%>
+                                                    <%--<% c++;%>--%>
+                                                <%--</label>--%>
+                                                <%--<% } %>--%>
+                                            <%--<% } %>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                             <div class="jumbotron">
                                 <h1>Contact Reference</h1>
                                 <div class="form-row">

@@ -45,7 +45,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Setup/InsertWorkField.jsp">Work Field</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Setup/InsertProductCategory.jsp">Product Category</a>
+                    <a class="dropdown-item" href="/Setup/InsertTag.jsp">Tag</a>
                 </div>
             </li>
             <li class="nav-item">
