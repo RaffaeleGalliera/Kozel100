@@ -1,13 +1,10 @@
 package bflows;
 
 import blogics.*;
-import com.sun.security.ntlm.Client;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
-import javax.xml.crypto.Data;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CompanyManager implements java.io.Serializable {
@@ -33,7 +30,7 @@ public class CompanyManager implements java.io.Serializable {
     private ClientType[] clientTypes;
     private ClientType clientType;
     private ProductCategory[] productCategories;
-    private ConsultingService[] consultingServices;
+    private ProductCategory[] companyProducts;
     private ContactPerson[] contactPeople;
     private User[] users;
 
@@ -60,6 +57,10 @@ public class CompanyManager implements java.io.Serializable {
             //Insert Contact_Person
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);
+
+            //Insert product categories
+            CompanyProduct companyProduct= new CompanyProduct(companyId, productCategoryId);
+            companyProduct.insert(database);
 
             //GetAllInfos
             companies = CompanyDAO.getAllCompanies(database);
@@ -113,6 +114,14 @@ public class CompanyManager implements java.io.Serializable {
             company.vat=vat;
             company.clientTypeId=clientTypeId;
 
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            companyProducts = ProductCategoryDAO.getProductCategories(database, companyId);
+
             company.update(database);
             database.commit();
 
@@ -146,12 +155,14 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
+            //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
 
             company = CompanyDAO.getCompany(database, companyId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
-            consultingServices = ConsultingServiceDAO.getConsultingServices(database, companyId);
+            companyProducts = ProductCategoryDAO.getProductCategories(database, companyId);
 
             database.commit();
 
@@ -173,23 +184,68 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
+    public void addProductCategory(){
+        DataBase database = null;
+
+
+        try {
+
+            database = DBService.getDataBase();
+            CompanyProduct CompanyProduct= new CompanyProduct(companyId, productCategoryId);
+            CompanyProduct.insert(database);
+
+            //Get all infos
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            companyProducts = ProductCategoryDAO.getProductCategories(database, companyId);
+
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
+            EService.logAndRecover(ex);
+            setResult((EService.RECOVERABLE_ERROR));
+//            setErrorMessage("Email already taken by another Contact");
+        }
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
+
     public void companiesView() {
 
         DataBase db = null;
 
         try {
-            db = DBService.getDataBase();
+           db = DBService.getDataBase();
 
-            companies = CompanyDAO.getAllCompanies(db);
-            clientTypes = ClientTypeDAO.getAllClientTypes(db);
-            productCategories = ProductCategoryDAO.getAllProductCategories(db);
-            users = UserDAO.getAllUsers(db);
-            contactPeople = ContactPersonDAO.getAllContactPeople(db);
+           companies = CompanyDAO.getAllCompanies(db);
+           clientTypes = ClientTypeDAO.getAllClientTypes(db);
+           productCategories = ProductCategoryDAO.getAllProductCategories(db);
+           users = UserDAO.getAllUsers(db);
+           contactPeople = ContactPersonDAO.getAllContactPeople(db);
 
 
-//            totalRecords=OrdineDAO.getRicevutiTotalRecords();
+//           totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
-            db.commit();
+           db.commit();
         } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
@@ -268,10 +324,11 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
-            companies = CompanyDAO.getAllCompanies(database);
-
             ContactPerson contactPerson = new ContactPerson(companyId, firstName, lastName, phoneNumber, contactEmail);
             contactPerson.insert(database);
+            companies = CompanyDAO.getAllCompanies(database);
+
+
             database.commit();
 
         } catch (NotFoundDBException ex) {
@@ -304,13 +361,16 @@ public class CompanyManager implements java.io.Serializable {
         try{
 
             db=DBService.getDataBase();
-
             CompanyDAO.deleteCompany(db, companyId);
+
+            //GetAll infos
             companies = CompanyDAO.getAllCompanies(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
             contactPeople = ContactPersonDAO.getAllContactPeople(db);
+
+
 
 
 
@@ -330,6 +390,45 @@ public class CompanyManager implements java.io.Serializable {
         }
 
     }
+
+    public void deleteProductCategory(Integer productCategoryId){
+
+        DataBase database=null;
+
+        try{
+
+            database=DBService.getDataBase();
+            CompanyDAO.deleteProductCategory(database, companyId, productCategoryId);
+
+            //Get all infos
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            companyProducts = ProductCategoryDAO.getProductCategories(database, companyId);
+
+
+
+
+            database.commit();
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        finally {
+            try { database.close(); }
+            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        }
+
+    }
+
 
 
     public Integer getCompanyId() {
@@ -461,11 +560,6 @@ public class CompanyManager implements java.io.Serializable {
         return companies[index];
     }
 
-    public ProductCategory[] getProductCategories() { return productCategories; }
-
-    public ProductCategory getProductCategory(int index){ return productCategories[index];}
-
-    public void setProductCategories(ProductCategory[] productCategories) { this.productCategories = productCategories; }
 
     public User[] getUsers() { return users; }
 
@@ -482,15 +576,35 @@ public class CompanyManager implements java.io.Serializable {
         this.contactPeople=contactPeople;
     }
 
-    public ConsultingService[] getConsultingServices() {
-        return consultingServices;
+    public ProductCategory[] getProductCategories() {
+        return productCategories;
     }
 
-    public void setConsultingServices(ConsultingService[] consultingServices) {
-        this.consultingServices=consultingServices;
+    public void setProductCategories(ProductCategory[] productCategories) {
+        this.productCategories = productCategories;
     }
 
-    public ConsultingService getConsultingService(int index){ return consultingServices[index];}
+    public ProductCategory[] getCompanyProducts() {
+        return companyProducts;
+    }
+
+    public ProductCategory getCompanyProduct(int index) {
+        return companyProducts[index];
+    }
+
+    public void setCompanyProducts(ProductCategory[] companyProducts) {
+        this.companyProducts=companyProducts;
+    }
+
+    public int getProductCategoryId() {
+        return productCategoryId;
+    }
+
+    public void setProductCategoryId(int productCategoryId) {
+        this.productCategoryId=productCategoryId;
+    }
+
+    public ProductCategory getProductCategory(int index){ return productCategories[index];}
 
     public ContactPerson getContactPerson(int index){ return contactPeople[index];}
 

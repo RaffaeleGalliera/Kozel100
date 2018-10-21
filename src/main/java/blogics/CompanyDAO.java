@@ -174,4 +174,14 @@ public class CompanyDAO {
         db.modify(sql);
 
     }
+
+    public static void deleteProductCategory(DataBase db, Integer companyId, Integer productCategoryId) throws NotFoundDBException{
+
+        String sql;
+
+        sql="DELETE FROM company_product"
+                + " WHERE company_id="+companyId+" AND product_category_id="+productCategoryId;
+
+        db.modify(sql);
+    }
 }

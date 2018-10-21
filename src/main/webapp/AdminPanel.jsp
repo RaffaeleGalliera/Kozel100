@@ -317,7 +317,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getConsultingServices().length; k++) {%>
+                                <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getConsultingService(k).name%></td>

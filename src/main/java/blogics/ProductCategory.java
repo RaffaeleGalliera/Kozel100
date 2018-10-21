@@ -59,10 +59,9 @@ public class ProductCategory {
         query = "INSERT INTO product_category(product_category_id, name)" +
                 "VALUES(" + productCategoryId + ",?)";
 
-        parameters.add(name);
-
         database.modify(query, parameters);
     }
+
 
 
 }

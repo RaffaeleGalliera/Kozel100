@@ -7,17 +7,14 @@ import services.errorservice.*;
 import util.Debug;
 import util.Security;
 
-import java.time.LocalTime;
 import java.util.Date;
-import javax.servlet.http.Cookie;
 //import services.sessionservice.Session;
 
 public class AdminPanelManager implements java.io.Serializable {
     private Position[] positions;
-    private ConsultingService[] consultingServices;
+    private ProductCategory[] productCategories;
     private WorkField[] workFields;
     private ClientType[] clientTypes;
-    private ProductCategory[] productCategories;
     private User[] users;
 
     private int positionId;
@@ -67,7 +64,7 @@ public class AdminPanelManager implements java.io.Serializable {
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             users = UserDAO.getAllUsers(db);
-            consultingServices = ConsultingServiceDAO.getAllConsultingServices(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             db.commit();
 
         } catch (NotFoundDBException ex) {
@@ -234,8 +231,8 @@ public class AdminPanelManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            ConsultingService consultingService = new ConsultingService(consultingServiceName);
-            consultingService.insert(database);
+            ProductCategory productCategory = new ProductCategory(consultingServiceName);
+            productCategory.insert(database);
             database.commit();
 
         }
@@ -421,12 +418,9 @@ public class AdminPanelManager implements java.io.Serializable {
         return positions[index];
     }
 
-    public ConsultingService[] getConsultingServices() {
-        return consultingServices;
-    }
 
-    public ConsultingService getConsultingService(int index) {
-        return consultingServices[index];
+    public ProductCategory getConsultingService(int index) {
+        return productCategories[index];
     }
 
     public WorkField[] getWorkFields() {
