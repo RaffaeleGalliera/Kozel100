@@ -17,14 +17,14 @@ import javax.servlet.http.HttpSession;
  /*ServletContext logs are used to log filter initialization and user actions.
  These logs can be viewed from %TOMCAT_HOME/logs/localhost.$(date).log file.*/
 
-public class AuthFilter implements Filter {
+public class AdminFilter implements Filter {
 
     private ServletContext context;
 
     public void init(FilterConfig fConfig) throws ServletException {
 
         this.context = fConfig.getServletContext();
-        this.context.log("AuthFilter initialized");
+        this.context.log("AdminFilter initialized");
 
     }
 
@@ -34,30 +34,23 @@ public class AuthFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         Cookie[] cookies = req.getCookies();
-        boolean authorized=false;
         boolean isAdmin=false;
 
-        String path = ((HttpServletRequest) request).getRequestURI();
-        if (path.startsWith("/index.jsp")) {
-            chain.doFilter(request, response); // Just continue chain.
-        } else {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("jwt_auth_token") && Session.isAdmin(cookie)) {
 
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("jwt_auth_token") && Session.isAuthorized(cookie)) {
+                    isAdmin = true;
 
-                        authorized = true;
-                        isAdmin = Session.isAdmin(cookie);
-
-                    }
                 }
             }
+        }
 
             //If the user isn't providing a valid token i'll send him back to login page
-            if(!authorized){
+            if(!isAdmin){
 
-                String redirectURL = "/index.jsp";
-                this.context.log("Unauthorized access request");
+                String redirectURL = "/Dashboard.jsp";
+                this.context.log("Non admin user tried to access forbidden content");
                 res.sendRedirect(redirectURL);
 
             }else{
@@ -65,7 +58,7 @@ public class AuthFilter implements Filter {
                 chain.doFilter(request, response);
 
             }
-        }
+
 
 
 

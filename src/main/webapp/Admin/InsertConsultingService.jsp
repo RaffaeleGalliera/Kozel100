@@ -1,8 +1,8 @@
-<%--
+<%@ page import="bflows.AdminPanelManager" %><%--
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 05/10/18
-  Time: 11.25
+  Time: 11.24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page info="Inserimento nuova Compagnia" %>
@@ -23,8 +23,8 @@
         status = "view";
     }
 
-    if (status.equals("insertProductCategory")) {
-        adminPanelManager.insertProductCategory();
+    if (status.equals("insertConsultingService")) {
+        adminPanelManager.insertConsultingService();
 
         if (adminPanelManager.getResult() == 0) {
             complete = true;
@@ -61,27 +61,28 @@
 <div class="container col-lg-12">
     <%if (complete){%>
     <div class="jumbotron">
-        <h2>Product Category successfully added!</h2>
+        <h2>Consulting Service successfully added!</h2>
     </div>
     <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
-            New Product Category
+            New Consulting Service
         </h1>
-        <form action="../AdminPanel.jsp">
-            <button style="float:right" type="submit" value="InsertProductCategory" class="btn btn-default">
+        <form action="AdminPanel.jsp">
+
+            <button style="float:right" type="submit" value="InsertConsultingService" class="btn btn-default">
                 Back To Panel
             </button>
             </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="productCategoryName" class="bmd-label-floating">Name</label>
+                <label for="consultingServiceName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="productCategoryName" class="form-control" id="productCategoryName">
+                <input type="text" name="consultingServiceName" class="form-control" id="consultingServiceName">
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="productCategoryName" class="form-control is-invalid" id="productCategoryName" value="<%=adminPanelManager.getProductCategoryName()%>">
+                <input type="text" name="consultingServiceName" class="form-control is-invalid" id="consultingServiceName" value="<%=adminPanelManager.getConsultingServiceName()%>">
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
@@ -89,7 +90,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
-            <input type="hidden" name="status" value="insertProductCategory"/>
+            <input type="hidden" name="status" value="insertConsultingService"/>
         </form>
     </div>
 </div>
@@ -113,7 +114,7 @@
 
     function insert(form) {
 
-        form.action = "InsertProductCategory.jsp";
+        form.action = "InsertConsultingService.jsp";
         form.submit();
     }
 

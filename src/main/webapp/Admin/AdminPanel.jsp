@@ -86,7 +86,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertUser.jsp">
+                                    <form action="InsertUser.jsp">
                                         <h2>Users
                                             <button style="float:right" type="submit" value="InsertUser"
                                                     class="btn btn-default">
@@ -130,7 +130,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertWorkField.jsp">
+                                    <form action="InsertWorkField.jsp">
                                         <h2>Work Fields
                                             <button style="float:right" type="submit" value="InsertWorkField"
                                                     class="btn btn-default">
@@ -172,7 +172,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertProductCategory.jsp">
+                                    <form action="InsertProductCategory.jsp">
                                         <h2>Product Categories
                                             <button style="float:right" type="submit" value="InsertProductCategory"
                                                     class="btn btn-default">
@@ -215,7 +215,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertPosition.jsp">
+                                    <form action="InsertPosition.jsp">
                                         <h2>Positions
                                             <button style="float:right" type="submit" value="InsertPosition"
                                                     class="btn btn-default">
@@ -256,7 +256,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertClientType.jsp">
+                                    <form action="InsertClientType.jsp">
                                         <h2>Client Types
                                             <button style="float:right" type="submit" value="InsertClientType"
                                                     class="btn btn-default">
@@ -297,7 +297,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertConsultingService.jsp">
+                                    <form action="InsertConsultingService.jsp">
                                         <h2>Consulting Services
                                             <button style="float:right" type="submit" value="ConsultingService"
                                                     class="btn btn-default">

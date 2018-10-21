@@ -12,6 +12,24 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+
+    Cookie[] cookies = request.getCookies();
+    Boolean isAdmin = false;
+
+    for(Cookie cookie : cookies){
+
+        if(cookie.getName().equals("jwt_auth_token") && Session.isAdmin(cookie)){
+
+            isAdmin = true;
+
+        }
+
+    }
+
+
+%>
+
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-color: #27C46B;">
     <a class="navbar-brand" href="#">Kozel100</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,27 +53,27 @@
                     <a class="dropdown-item" href="/Company/InsertContactPerson.jsp">Insert Contact Person</a>
                 </div>
             </li>
-
+            <%if(isAdmin){%>
                 <li class="nav-item">
-                    <a class="nav-link" href="/AdminPanel.jsp">Admin Panel</a>
+                    <a class="nav-link" href="/Admin/AdminPanel.jsp">Admin Panel</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Insert Setup
                     </a>
                     <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                        <a class="dropdown-item" href="/Setup/InsertUser.jsp">User</a>
+                        <a class="dropdown-item" href="/Admin/InsertUser.jsp">User</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Setup/InsertClientType.jsp">Client Type</a>
+                        <a class="dropdown-item" href="/Admin/InsertClientType.jsp">Client Type</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Setup/InsertPosition.jsp">Position</a>
+                        <a class="dropdown-item" href="/Admin/InsertPosition.jsp">Position</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Setup/InsertWorkField.jsp">Work Field</a>
+                        <a class="dropdown-item" href="/Admin/InsertWorkField.jsp">Work Field</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Setup/InsertProductCategory.jsp">Product Category</a>
+                        <a class="dropdown-item" href="/Admin/InsertProductCategory.jsp">Product Category</a>
                     </div>
                 </li>
-
+            <%}%>
 
         </ul>
         <%--<form class="form-inline my-2 my-lg-0">--%>
