@@ -80,6 +80,13 @@
                 <div class="col">
                     <h1 class="display-4"><%=companyManager.getCompany().name%></h1>
                 </div>
+                <div class="col"><p class="lead">Tags:<%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
+                    <% if (c>0) {%>
+                    ,
+                    <% } %>
+                    <%=companyManager.getCompanyTag(c).name%>
+                    <%}%>
+                </p></div>
             </div>
             <hr class="my-4">
             <div class="row">
@@ -93,11 +100,7 @@
             <hr class="my-4">
             <div class="row">
                 <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%></p></div>
-                <div class="col"><p class="lead">Tags:<%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
-                    <br>
-                    <%=companyManager.getCompanyTag(c).name%>
-                    <%}%>
-                </p></div>
+
             </div>
             <hr class="my-4">
             <div class="row">
