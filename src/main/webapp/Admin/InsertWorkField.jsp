@@ -1,8 +1,8 @@
-<%@ page import="bflows.AdminPanelManager" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 05/10/18
-  Time: 11.24
+  Time: 11.23
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page info="Inserimento nuova Compagnia" %>
@@ -23,8 +23,8 @@
         status = "view";
     }
 
-    if (status.equals("insertConsultingService")) {
-        adminPanelManager.insertConsultingService();
+    if (status.equals("insertWorkField")) {
+        adminPanelManager.insertWorkField();
 
         if (adminPanelManager.getResult() == 0) {
             complete = true;
@@ -61,28 +61,26 @@
 <div class="container col-lg-12">
     <%if (complete){%>
     <div class="jumbotron">
-        <h2>Consulting Service successfully added!</h2>
+        <h2>Work Field successfully added!</h2>
     </div>
     <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
-            New Consulting Service
+            New Work Field
         </h1>
-        <form action="../AdminPanel.jsp">
-
-            <button style="float:right" type="submit" value="InsertConsultingService" class="btn btn-default">
+        <form action="AdminPanel.jsp">
+            <button style="float:right" type="submit" value="InsertWorkField" class="btn btn-default">
                 Back To Panel
             </button>
             </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="consultingServiceName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="consultingServiceName" class="form-control" id="consultingServiceName">
+                <input type="text" name="workFieldName" class="form-control" id="workFieldName">
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="consultingServiceName" class="form-control is-invalid" id="consultingServiceName" value="<%=adminPanelManager.getConsultingServiceName()%>">
+                <input type="text" name="workFieldName" class="form-control is-invalid" id="workFieldName" value="<%=adminPanelManager.getWorkFieldName()%>">
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
@@ -90,7 +88,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
-            <input type="hidden" name="status" value="insertConsultingService"/>
+            <input type="hidden" name="status" value="insertWorkField"/>
         </form>
     </div>
 </div>
@@ -114,7 +112,7 @@
 
     function insert(form) {
 
-        form.action = "InsertConsultingService.jsp";
+        form.action = "InsertWorkField.jsp"
         form.submit();
     }
 

@@ -18,7 +18,7 @@ public class JWTService {
 
 
     //This method is used to create a JWT Token everytime that a user logs in
-    public static String createJWT(String id, String issuer, String subject,String email, long ttlMillis) {
+    public static String createJWT(String id, String issuer, String subject,String email,boolean isAdmin, long ttlMillis) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
@@ -37,6 +37,7 @@ public class JWTService {
                 .setSubject(subject)
                 .setIssuer(issuer)
                 .claim("email",email)
+                .claim("isAdmin",isAdmin)
                 .signWith(apiKey);
 
         //if it has been specified, let's add the expiration
@@ -52,7 +53,7 @@ public class JWTService {
 
 
     //Sample method to validate and read the JWT
-    public static boolean parseAndVerifyJWT(String jwt) {
+    public static Claims verifyAndParseJWT(String jwt) {
 
         //TODO Verify the time to live - ttl - of the token -> if expired then the user must login again
 
@@ -71,17 +72,18 @@ public class JWTService {
 //        Debug.println("Issuer: " + claims.getIssuer());
 //        Debug.println("Expiration: " + claims.getExpiration());
 
-        return true;
+        return claims;
 
         //TODO Find out the type of exception thrown
 
         }catch (Exception ex){
 
             Debug.println("Token not verified: " + ex.getMessage());
-            return false;
+            return null;
 
         }
     }
+
 
 }
 

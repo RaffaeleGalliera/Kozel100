@@ -47,10 +47,9 @@ public class LoginManager implements java.io.Serializable{
             User user=UserDAO.getUser(db, email);
 
             if ( user==null || !Security.decrypt(user.password).equals(password)){ //Se utente non presente o sbaglia password
-                //Se non è neanche un Cliente o sbaglia password
                 cookies=null;
                 setResult(EService.RECOVERABLE_ERROR);
-                setErrorMessage("Mail o password errate");
+                setErrorMessage("Wrong email or password");
                 }
                 else{ //loggato
                     cookies=Session.createUserCookies(db,user.email);
