@@ -34,6 +34,24 @@
 
     }
 
+    h1{
+
+
+        width: 60%;
+        text-align: center;
+        margin: 0 auto;
+        padding: 3%;
+
+    }
+
+    #lol{
+
+        width: 70%;
+        margin: 0 auto;
+
+
+    }
+
 </style>
 
 <html>
@@ -57,39 +75,29 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 
+<div class="jumbotron" id="lol">
+    <h1>Dashboard ╭∩╮(-_-)╭∩╮</h1>
+</div>
 
 <div class="container title-container">
 
-    <h1>Dashboard ╭∩╮(-_-)╭∩╮</h1>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad atque beatae consectetur deleniti dolorem error
+        est eum illo laboriosam molestias neque nihil nostrum, praesentium quasi repellendus suscipit voluptas,
+        voluptate.
+    </h2>
+    <h3>Aliquid dolorem hic ipsa mollitia tempora. Architecto cum dolores eius ex temporibus. Aperiam assumenda
+        deleniti, dolores dolorum eos et exercitationem inventore molestiae nostrum perspiciatis possimus quibusdam
+        tempora vitae. Aperiam, fugit!
+    </h3>
+    <h4>Ab accusantium autem consequatur cum debitis deleniti dolorem facere, facilis fugit numquam obcaecati odit
+        officia quidem repellendus sit sunt veritatis voluptatum? At ducimus itaque nihil nobis possimus repellat
+        repellendus similique!
+    </h4>
+    <h5>Blanditiis dicta dolorum est magni maiores nam nostrum officia, quos sit velit vero voluptate. Ab accusamus,
+        adipisci corporis culpa cumque dolores doloribus dolorum eos facilis incidunt placeat possimus quisquam sunt!
+    </h5>
 
 </div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Ciao
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

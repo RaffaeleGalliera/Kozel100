@@ -115,11 +115,14 @@
         .form-container{
 
             background-color: white;
-            box-shadow: 7px 7px 9px #bababa;
-            margin-left: 30%;
-            margin-right: 30%;
-            padding: 3%;
+            box-shadow: -1px 18px 26px 1px rgba(173,168,173,1);
+            border-radius: 4px;
+            margin-left: 35%;
+            margin-right: 35%;
+            padding-right: 3%;
+            padding-left: 3%;
             padding-bottom: 1%;
+            padding-top: 1%;
 
 
         }
