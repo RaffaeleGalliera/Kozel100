@@ -69,6 +69,15 @@
         message=loginManager.getErrorMessage();
     }
 
+    //If login successful, sends the user to his dashboard
+    if(isLogged){
+
+        String redirectURL = "Dashboard.jsp";
+        response.sendRedirect(redirectURL);
+
+    }
+
+
 %>
 
 
@@ -81,8 +90,6 @@
 
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-
-    <link rel="icon" href="src/main/webapp/resources/logoS.png">
 
     <style>
 
@@ -145,19 +152,6 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <title>Kozel100 CRM</title>
-
-
-    <%
-
-        //If login successful, sends the user to his dashboard
-        if(isLogged){
-
-            String redirectURL = "Dashboard.jsp";
-            response.sendRedirect(redirectURL);
-
-        }
-
-    %>
 
     <script language="javascript">
 

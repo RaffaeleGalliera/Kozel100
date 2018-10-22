@@ -35,10 +35,9 @@ public class AuthFilter implements Filter {
 
         Cookie[] cookies = req.getCookies();
         boolean authorized=false;
-        boolean isAdmin=false;
 
         String path = ((HttpServletRequest) request).getRequestURI();
-        if (path.startsWith("/index.jsp")) {
+        if (path.startsWith("/index.jsp") || path.equals("/")) {
             chain.doFilter(request, response); // Just continue chain.
         } else {
 
@@ -47,7 +46,6 @@ public class AuthFilter implements Filter {
                     if (cookie.getName().equals("jwt_auth_token") && Session.isAuthorized(cookie)) {
 
                         authorized = true;
-                        isAdmin = Session.isAdmin(cookie);
 
                     }
                 }
@@ -62,7 +60,7 @@ public class AuthFilter implements Filter {
 
             }else{
 
-                chain.doFilter(request, response);
+                chain.doFilter(request, response); // Just continue chain.
 
             }
         }
