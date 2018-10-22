@@ -121,11 +121,45 @@
                         <%=companyManager.getClientType(k).name%>
                     </option>
                     <% } %>
-                    <%if (companyManager.getClientType(k).clientTypeId!=companyManager.getClientTypeId()) {%>
+                    <%if (companyManager.getClientType(k).clientTypeId!=companyManager.getClientType().clientTypeId) {%>
                     <option value="<%=companyManager.getClientType(k).clientTypeId%>">
                         <%=companyManager.getClientType(k).name%>
                     </option>
                     <% } %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productCategoryId" class="bmd-label-floating">Product Category</label>
+                <select class="form-control" id="productCategoryId" name="productCategoryId">
+                    <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
+                    <%if  (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId()) {%>
+                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>" selected>
+                        <%=companyManager.getProductCategory(x).name%>
+                    </option>
+                    <% } %>
+                    <%if (companyManager.getProductCategory(x).productCategoryId != companyManager.getProductCategoryId()) {%>
+                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>">
+                        <%=companyManager.getProductCategory(x).name%>
+                    </option>
+                    <% } %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="userId" class="bmd-label-floating">User</label>
+                <select class="form-control" id="userId" name="userId">
+                    <%for (int x = 0; x < companyManager.getUsers().length; x++) {%>
+                        <%if  (companyManager.getUser(x).userId == companyManager.getUserId()) {%>
+                        <option value="<%=companyManager.getUser(x).userId%>" selected>
+                            <%=companyManager.getUser(x).fullName()%>
+                        </option>
+                        <% } %>
+                        <%if (companyManager.getUser(x).userId != companyManager.getUser().userId) {%>
+                        <option value="<%=companyManager.getUser(x).userId%>">
+                            <%=companyManager.getUser(x).fullName()%>
+                        </option>
+                        <% } %>
                     <% } %>
                 </select>
             </div>

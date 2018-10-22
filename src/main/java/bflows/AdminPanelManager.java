@@ -7,14 +7,12 @@ import services.errorservice.*;
 import util.Debug;
 import util.Security;
 
-import java.time.LocalTime;
 import java.util.Date;
-import javax.servlet.http.Cookie;
 //import services.sessionservice.Session;
 
 public class AdminPanelManager implements java.io.Serializable {
     private Position[] positions;
-    private ConsultingService[] consultingServices;
+    private Tag[] tags;
     private WorkField[] workFields;
     private ClientType[] clientTypes;
     private ProductCategory[] productCategories;
@@ -26,14 +24,17 @@ public class AdminPanelManager implements java.io.Serializable {
     private int consultingServiceId;
     private String consultingServiceName;
 
+    private int productCategoryId;
+    private String productCategoryName;
+
     private int workFieldId;
     private String workFieldName;
 
     private int clientTypeId;
     private String clientTypeName;
 
-    private int productCategoryId;
-    private String productCategoryName;
+    private int tagId;
+    private String tagName;
 
     private int userId;
     private String email;
@@ -64,10 +65,10 @@ public class AdminPanelManager implements java.io.Serializable {
 
             positions = PositionDAO.getAllPositions(db);
             workFields = WorkFieldDAO.getAllWorkFields(db);
-            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+            tags = TagDAO.getAllTags(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
-            consultingServices = ConsultingServiceDAO.getAllConsultingServices(db);
             db.commit();
 
         } catch (NotFoundDBException ex) {
@@ -120,7 +121,7 @@ public class AdminPanelManager implements java.io.Serializable {
         try{
 
             database= DBService.getDataBase();
-            //TODO: DA cambiare assolutamente quando capisci come si usa Status
+
             positions = PositionDAO.getAllPositions(database);
             workFields = WorkFieldDAO.getAllWorkFields(database);
 
@@ -234,8 +235,8 @@ public class AdminPanelManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            ConsultingService consultingService = new ConsultingService(consultingServiceName);
-            consultingService.insert(database);
+            Tag tag = new Tag(consultingServiceName);
+            tag.insert(database);
             database.commit();
 
         }
@@ -251,6 +252,42 @@ public class AdminPanelManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Consulting Service already exist");
+        }finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
+    public void insertProductCategory() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            ProductCategory productCategory = new ProductCategory(productCategoryName);
+            productCategory.insert(database);
+            database.commit();
+
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
+            EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Product Category already exist");
         }finally {
             try {
                 database.close();
@@ -297,7 +334,7 @@ public class AdminPanelManager implements java.io.Serializable {
 
     }
 
-    public void insertProductCategory() {
+    public void insertTag() {
 
         DataBase database = null;
 
@@ -305,8 +342,8 @@ public class AdminPanelManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            ProductCategory productCategory = new ProductCategory(productCategoryName);
-            productCategory.insert(database);
+            Tag tag = new Tag(tagName);
+            tag.insert(database);
             database.commit();
 
         }
@@ -321,7 +358,7 @@ public class AdminPanelManager implements java.io.Serializable {
         catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
-            setErrorMessage("Product Category already exist");
+            setErrorMessage("Tag already exist");
         } finally {
             try {
                 database.close();
@@ -339,6 +376,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
+    }
+
+    public Integer getProductCategoryId() {
+        return productCategoryId;
+    }
+
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     public Integer getConsultingServiceId() {
@@ -361,12 +406,12 @@ public class AdminPanelManager implements java.io.Serializable {
         return clientTypeId;
     }
 
-    public void setProductCategoryId(Integer productCategoryId) {
-        this.productCategoryId = productCategoryId;
+    public void setTagId(Integer tagId) {
+        this.tagId = tagId;
     }
 
-    public Integer getProductCategoryId() {
-        return productCategoryId;
+    public Integer getTagId() {
+        return tagId;
     }
 
     public void setClientTypeId(Integer clientTypeId) {
@@ -397,12 +442,12 @@ public class AdminPanelManager implements java.io.Serializable {
         return clientTypeName;
     }
 
-    public void setProductCategoryName(String productCategoryName) {
-        this.productCategoryName = productCategoryName;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
-    public String getProductCategoryName() {
-        return productCategoryName;
+    public String getTagName() {
+        return tagName;
     }
 
     public void setConsultingServiceName(String consultingServiceName) {
@@ -413,6 +458,14 @@ public class AdminPanelManager implements java.io.Serializable {
         return consultingServiceName;
     }
 
+    public void setProductCategoryName(String productCategoryName) {
+        this.productCategoryName= productCategoryName;
+    }
+
+    public String getProductCategoryName() {
+        return productCategoryName;
+    }
+
     public Position[] getPositions() {
         return positions;
     }
@@ -421,12 +474,9 @@ public class AdminPanelManager implements java.io.Serializable {
         return positions[index];
     }
 
-    public ConsultingService[] getConsultingServices() {
-        return consultingServices;
-    }
 
-    public ConsultingService getConsultingService(int index) {
-        return consultingServices[index];
+    public Tag getConsultingService(int index) {
+        return tags[index];
     }
 
     public WorkField[] getWorkFields() {
@@ -438,12 +488,12 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
 
-    public ProductCategory[] getProductCategories() {
-        return productCategories;
+    public Tag[] getTags() {
+        return tags;
     }
 
-    public ProductCategory getProductCategory(int index) {
-        return productCategories[index];
+    public Tag getTag(int index) {
+        return tags[index];
     }
 
     public ClientType[] getClientTypes() {
@@ -452,6 +502,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public ClientType getClientType(int index) {
         return clientTypes[index];
+    }
+
+    public ProductCategory[] getProductCategories() {
+        return productCategories;
+    }
+
+    public ProductCategory getProductCategory(int index) {
+        return productCategories[index];
     }
 
     public User[] getUsers() {

@@ -7,15 +7,15 @@ import services.databaseservice.*;
 import services.databaseservice.exception.*;
 
 
-public class ConsultingService {
+public class Tag {
 
-    public int consultingServiceId;
+    public int tagId;
     public String name;
 
-    public ConsultingService(ResultSet result) {
+    public Tag(ResultSet result) {
 
         try {
-            consultingServiceId = result.getInt("consulting_service_id");
+            tagId = result.getInt("tag_id");
         } catch (SQLException sqle) {
         }
         try {
@@ -24,7 +24,7 @@ public class ConsultingService {
         }
     }
 
-    public ConsultingService(String name) {
+    public Tag(String name) {
         this.name = name;
     }
 
@@ -36,7 +36,7 @@ public class ConsultingService {
         boolean exist;
 
         //Check unicita
-        query="SELECT name FROM consulting_service WHERE name=?";
+        query="SELECT name FROM tag WHERE name=?";
 
         parameters.add(name);
 
@@ -47,20 +47,21 @@ public class ConsultingService {
             rs.close();
         }
         catch (SQLException e) {
-            throw new ResultSetDBException("ConsultingService.insert(): Errore sul ResultSet.");
+            throw new ResultSetDBException("Tag.insert(): Errore sul ResultSet.");
         }
 
         if (exist) {
             //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
             //sarà poi il Bean che decide come gestire questa situazione.
-            throw new DuplicatedRecordDBException("ConsultingService.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
+            throw new DuplicatedRecordDBException("Tag.insert(): Tentativo di inserimento di un tag gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
-        query = "INSERT INTO consulting_service(consulting_service_id, name)" +
-                "VALUES(" + consultingServiceId + ",?)";
+        query = "INSERT INTO tag(tag_id, name)" +
+                "VALUES(" + tagId + ",?)";
 
         database.modify(query, parameters);
     }
+
 
 
 }

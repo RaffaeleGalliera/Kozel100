@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: raffaele
-  Date: 22/10/18
-  Time: 15.34
+  Date: 05/10/18
+  Time: 11.25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page info="Inserimento nuova Compagnia" %>
@@ -23,8 +23,8 @@
         status = "view";
     }
 
-    if (status.equals("insertProductCategory")) {
-        adminPanelManager.insertProductCategory();
+    if (status.equals("insertTag")) {
+        adminPanelManager.insertTag();
 
         if (adminPanelManager.getResult() == 0) {
             complete = true;
@@ -61,27 +61,27 @@
 <div class="container col-lg-12">
     <%if (complete){%>
     <div class="jumbotron">
-        <h2>Product Category successfully added!</h2>
+        <h2>Tag successfully added!</h2>
     </div>
     <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
-            New Product Category
+            New Tag
         </h1>
-        <form action="AdminPanel.jsp">
-            <button style="float:right" type="submit" value="InsertProductCategory" class="btn btn-default">
+        <form action="../AdminPanel.jsp">
+            <button style="float:right" type="submit" value="InsertTag" class="btn btn-default">
                 Back To Panel
             </button>
             </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
-                <label for="productCategoryName" class="bmd-label-floating">Name</label>
+                <label for="tagName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="productCategoryName" class="form-control" id="productCategoryName">
+                <input type="text" name="tagName" class="form-control" id="tagName">
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="productCategoryName" class="form-control is-invalid" id="productCategoryName" value="<%=adminPanelManager.getProductCategoryName()%>">
+                <input type="text" name="tagName" class="form-control is-invalid" id="tagName" value="<%=adminPanelManager.getTagName()%>">
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
@@ -89,7 +89,7 @@
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
-            <input type="hidden" name="status" value="insertProductCategory"/>
+            <input type="hidden" name="status" value="insertTag"/>
         </form>
     </div>
 </div>
@@ -113,7 +113,7 @@
 
     function insert(form) {
 
-        form.action = "InsertProductCategory.jsp";
+        form.action = "InsertTag.jsp";
         form.submit();
     }
 
