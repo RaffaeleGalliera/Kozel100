@@ -37,7 +37,7 @@ public class AuthFilter implements Filter {
         boolean authorized=false;
 
         String path = ((HttpServletRequest) request).getRequestURI();
-        if (path.startsWith("/index.jsp") || path.equals("/")) {
+        if (path.startsWith("/index.jsp") || path.equals("/") || path.startsWith("/Common") || path.startsWith("/css") || path.startsWith("/resources")) {
             chain.doFilter(request, response); // Just continue chain.
         } else {
 
