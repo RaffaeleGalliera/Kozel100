@@ -1,8 +1,8 @@
-<%--
+<%@ page import="bflows.AdminPanelManager" %><%--
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 05/10/18
-  Time: 11.23
+  Time: 11.24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page info="Inserimento nuova Compagnia" %>
@@ -23,8 +23,8 @@
         status = "view";
     }
 
-    if (status.equals("insertWorkField")) {
-        adminPanelManager.insertWorkField();
+    if (status.equals("insertClientType")) {
+        adminPanelManager.insertClientType();
 
         if (adminPanelManager.getResult() == 0) {
             complete = true;
@@ -61,34 +61,36 @@
 <div class="container col-lg-12">
     <%if (complete){%>
     <div class="jumbotron">
-        <h2>Work Field successfully added!</h2>
+        <h2>Client Type successfully added!</h2>
     </div>
     <%}%>
     <div class="col-sm-10 form-group-lg block center">
         <h1 class="text-center">
-            New Work Field
+            New Client Type
         </h1>
-        <form action="../AdminPanel.jsp">
-            <button style="float:right" type="submit" value="InsertWorkField" class="btn btn-default">
+        <form action="AdminPanel.jsp">
+
+            <button style="float:right" type="submit" value="InsertClientType" class="btn btn-default">
                 Back To Panel
             </button>
             </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
+            <label for="clientTypeName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="workFieldName" class="form-control" id="workFieldName">
-                <%}%>
+                    <input type="text" name="clientTypeName" class="form-control" id="clientTypeName">
+                    <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="workFieldName" class="form-control is-invalid" id="workFieldName" value="<%=adminPanelManager.getWorkFieldName()%>">
-                <div class="invalid-feedback">
+                    <input type="text" name="clientTypeName" class="form-control is-invalid" id="clientTypeName" value="<%=adminPanelManager.getClientTypeName()%>">
+                    <div class="invalid-feedback">
                     <%=message%>
-                </div>
+                    </div>
                 <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
-            <input type="hidden" name="status" value="insertWorkField"/>
+            <input type="hidden" name="status" value="insertClientType"/>
         </form>
     </div>
 </div>
@@ -112,7 +114,7 @@
 
     function insert(form) {
 
-        form.action = "InsertWorkField.jsp"
+        form.action = "InsertClientType.jsp";
         form.submit();
     }
 

@@ -68,7 +68,7 @@
         <h1 class="text-center">
             New Product Category
         </h1>
-        <form action="../AdminPanel.jsp">
+        <form action="AdminPanel.jsp">
             <button style="float:right" type="submit" value="InsertProductCategory" class="btn btn-default">
                 Back To Panel
             </button>

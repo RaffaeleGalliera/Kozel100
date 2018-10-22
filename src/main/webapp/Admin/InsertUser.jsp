@@ -68,7 +68,7 @@
         <h1 class="text-center">
             New User
         </h1>
-        <form action="../AdminPanel.jsp">
+        <form action="AdminPanel.jsp">
             <button style="float:right" type="submit" value="InsertUser" class="btn btn-default">
                 Back To List
             </button>
