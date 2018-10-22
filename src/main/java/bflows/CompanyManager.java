@@ -9,11 +9,12 @@ import java.util.Map;
 
 public class CompanyManager implements java.io.Serializable {
 
-    private int contactPersonId;
-    private Integer companyId;
-    private int clientTypeId;
-    private int userId;
-    private int tagId;
+    private int contactPersonId=-1;
+    private Integer companyId=-1;
+    private int clientTypeId=-1;
+    private int productCategoryId=-1;
+    private int userId=-1;
+    private int tagId=-1;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -29,6 +30,8 @@ public class CompanyManager implements java.io.Serializable {
     private Company company;
     private ClientType[] clientTypes;
     private ClientType clientType;
+    private ProductCategory[] productCategories;
+    private ProductCategory productCategory;
     private Tag[] tags;
     private Tag[] companyTags;
     private ContactPerson[] contactPeople;
@@ -45,13 +48,10 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-
-
             //Insert Company
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId, clientTypeId, name, vat, address, city, companyEmail);
+            Company company = new Company(companyId, clientTypeId, productCategoryId, name, vat, address, city, companyEmail);
 
             company.insert(database);
             //Insert Contact_Person
@@ -65,6 +65,7 @@ public class CompanyManager implements java.io.Serializable {
             //GetAllInfos
             companies = CompanyDAO.getAllCompanies(database);
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
             users = UserDAO.getAllUsers(database);
 
@@ -102,9 +103,6 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-
-
             company = CompanyDAO.getCompany(database, companyId);
 
             company.name=name;
@@ -117,8 +115,11 @@ public class CompanyManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
             tags = TagDAO.getAllTags(database);
 
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
             company = CompanyDAO.getCompany(database, companyId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
 
@@ -157,10 +158,12 @@ public class CompanyManager implements java.io.Serializable {
             database = DBService.getDataBase();
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
 
             company = CompanyDAO.getCompany(database, companyId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
 
@@ -196,10 +199,12 @@ public class CompanyManager implements java.io.Serializable {
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
 
             company = CompanyDAO.getCompany(database, companyId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             this.companyTags = TagDAO.getTags(database, companyId);
 
@@ -237,7 +242,8 @@ public class CompanyManager implements java.io.Serializable {
            db = DBService.getDataBase();
 
            companies = CompanyDAO.getAllCompanies(db);
-           clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
            tags = TagDAO.getAllTags(db);
            users = UserDAO.getAllUsers(db);
            contactPeople = ContactPersonDAO.getAllContactPeople(db);
@@ -266,7 +272,8 @@ public class CompanyManager implements java.io.Serializable {
 
         try{
             db=DBService.getDataBase();
-            clientTypes=ClientTypeDAO.getAllClientTypes(db);
+            clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
 //            totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
             db.commit();
@@ -295,6 +302,7 @@ public class CompanyManager implements java.io.Serializable {
 
             companies=CompanyDAO.getFilteredCompanies(db,filters);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             tags = TagDAO.getAllTags(db);
             users = UserDAO.getAllUsers(db);
 
@@ -402,10 +410,12 @@ public class CompanyManager implements java.io.Serializable {
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
 
             company = CompanyDAO.getCompany(database, companyId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
 
@@ -447,6 +457,14 @@ public class CompanyManager implements java.io.Serializable {
         this.clientTypeId= clientTypeId;
     }
 
+    public Integer getProductCategoryId() {
+        return productCategoryId;
+    }
+
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId= productCategoryId;
+    }
+
     public String getName() {
         return name;
     }
@@ -469,6 +487,17 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setClientType(ClientType clientType) {
         this.clientType = clientType;
+    }
+
+    public ProductCategory getProductCategory(int index) {
+        return productCategories[index];
+    }
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getVat() {
@@ -551,6 +580,13 @@ public class CompanyManager implements java.io.Serializable {
         return clientTypes[index];
     }
 
+    public ProductCategory[] getProductCategories() {
+        return productCategories;
+    }
+
+    public void setProductCategories(ProductCategory[] productCategories) {
+        this.productCategories = productCategories;
+    }
 
     public Company[] getCompanies() {
         return companies;

@@ -15,6 +15,7 @@ public class AdminPanelManager implements java.io.Serializable {
     private Tag[] tags;
     private WorkField[] workFields;
     private ClientType[] clientTypes;
+    private ProductCategory[] productCategories;
     private User[] users;
 
     private int positionId;
@@ -22,6 +23,9 @@ public class AdminPanelManager implements java.io.Serializable {
 
     private int consultingServiceId;
     private String consultingServiceName;
+
+    private int productCategoryId;
+    private String productCategoryName;
 
     private int workFieldId;
     private String workFieldName;
@@ -63,6 +67,7 @@ public class AdminPanelManager implements java.io.Serializable {
             workFields = WorkFieldDAO.getAllWorkFields(db);
             tags = TagDAO.getAllTags(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
             db.commit();
 
@@ -116,7 +121,7 @@ public class AdminPanelManager implements java.io.Serializable {
         try{
 
             database= DBService.getDataBase();
-            //TODO: DA cambiare assolutamente quando capisci come si usa Status
+
             positions = PositionDAO.getAllPositions(database);
             workFields = WorkFieldDAO.getAllWorkFields(database);
 
@@ -258,6 +263,42 @@ public class AdminPanelManager implements java.io.Serializable {
 
     }
 
+    public void insertProductCategory() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            ProductCategory productCategory = new ProductCategory(productCategoryName);
+            productCategory.insert(database);
+            database.commit();
+
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
+            EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Product Category already exist");
+        }finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
     public void insertClientType() {
 
         DataBase database = null;
@@ -337,6 +378,14 @@ public class AdminPanelManager implements java.io.Serializable {
         this.positionId = positionId;
     }
 
+    public Integer getProductCategoryId() {
+        return productCategoryId;
+    }
+
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId = productCategoryId;
+    }
+
     public Integer getConsultingServiceId() {
         return consultingServiceId;
     }
@@ -393,7 +442,7 @@ public class AdminPanelManager implements java.io.Serializable {
         return clientTypeName;
     }
 
-    public void settagName(String tagName) {
+    public void setTagName(String tagName) {
         this.tagName = tagName;
     }
 
@@ -407,6 +456,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public String getConsultingServiceName() {
         return consultingServiceName;
+    }
+
+    public void setProductCategoryName(String productCategoryName) {
+        this.productCategoryName= productCategoryName;
+    }
+
+    public String getProductCategoryName() {
+        return productCategoryName;
     }
 
     public Position[] getPositions() {
@@ -445,6 +502,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public ClientType getClientType(int index) {
         return clientTypes[index];
+    }
+
+    public ProductCategory[] getProductCategories() {
+        return productCategories;
+    }
+
+    public ProductCategory getProductCategory(int index) {
+        return productCategories[index];
     }
 
     public User[] getUsers() {

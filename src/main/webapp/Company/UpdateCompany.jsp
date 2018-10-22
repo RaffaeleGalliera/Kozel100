@@ -129,6 +129,23 @@
                     <% } %>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="productCategoryId" class="bmd-label-floating">Product Category</label>
+                <select class="form-control" id="productCategoryId" name="productCategoryId">
+                    <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
+                    <%if ((message != null) && (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId())) {%>
+                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>" selected>
+                        <%=companyManager.getProductCategory(x).name%>
+                    </option>
+                    <% } %>
+                    <%if (companyManager.getProductCategory(x).productCategoryId != companyManager.getProductCategoryId()) {%>
+                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>">
+                        <%=companyManager.getProductCategory(x).name%>
+                    </option>
+                    <% } %>
+                    <% } %>
+                </select>
+            </div>
             <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
             <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>

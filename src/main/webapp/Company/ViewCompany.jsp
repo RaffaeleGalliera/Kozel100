@@ -100,7 +100,7 @@
             <hr class="my-4">
             <div class="row">
                 <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%></p></div>
-
+                <div class="col"><p class="lead">Product Category: <%=companyManager.getProductCategory().name%></p></div>
             </div>
             <hr class="my-4">
             <div class="row">
