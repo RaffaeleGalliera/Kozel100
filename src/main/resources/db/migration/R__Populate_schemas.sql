@@ -36,10 +36,6 @@ INSERT INTO `company` (`company_id`, `name`, `client_type_id`, `vat`, `address`,
 (11, 'Giorgionapo', 1, '3333', 'lkjjlkj', 'lkjklj', 'rrr@ddd.com', '2018-10-19 09:55:42', '2018-10-19 09:55:42', 1, NULL),
 (12, 'Garrison Baird', 3, '3333', 'sdsasda', 'sddsdsd', 'qafesibony@mailinator.net', '2018-10-19 09:57:45', '2018-10-19 09:57:45', 1, NULL);
 
-INSERT INTO `company_product` (`id`, `company_id`, `product_category_id`) VALUES
-(1, 9, 2),
-(2, 5, 2);
-
 INSERT INTO `consulting_service` (`consulting_service_id`, `name`, `active_fl`, `created_at`, `updated_at`) VALUES
 (1, 'Ciao', 1, '2018-10-19 13:53:28', '2018-10-19 13:53:28'),
 (2, 'Pippo', 1, '2018-10-19 13:57:33', '2018-10-19 13:57:33');
