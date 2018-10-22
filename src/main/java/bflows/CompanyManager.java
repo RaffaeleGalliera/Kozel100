@@ -374,23 +374,16 @@ public class CompanyManager implements java.io.Serializable {
         DataBase db=null;
 
         try{
-
             db=DBService.getDataBase();
             CompanyDAO.deleteCompany(db, companyId);
 
             //GetAll infos
             companies = CompanyDAO.getAllCompanies(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
-            users=UserDAO.getAllUsers(db);
-            productCategory = ProductCategoryDAO.getProductCategory(db, company.productCategoryId);
+            productCategories = ProductCategoryDAO.getAllProductCategories(db);
             tags = TagDAO.getAllTags(db);
             users = UserDAO.getAllUsers(db);
             contactPeople = ContactPersonDAO.getAllContactPeople(db);
-
-
-
-
-
             db.commit();
         }
         catch (NotFoundDBException ex) {
