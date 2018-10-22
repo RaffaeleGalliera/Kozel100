@@ -41,4 +41,30 @@ public class ProductCategoryDAO {
         return productCategories;
 
     }
+
+    public static ProductCategory getProductCategory(DataBase db, Integer productCategoryId) throws NotFoundDBException,ResultSetDBException{
+
+        ProductCategory productCategory=null;
+        String sql;
+        ResultSet rs;
+
+        sql="SELECT * FROM product_category WHERE product_category_id ="+productCategoryId+"";
+
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                productCategory= new ProductCategory(rs);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("ProductCategoryDAO.getProductCategory(): ResultSetDBException: "+ex.getMessage(), db);
+        }
+
+        return productCategory;
+
+    }
+
 }

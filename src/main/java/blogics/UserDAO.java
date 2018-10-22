@@ -73,6 +73,31 @@ public class UserDAO{
 
     }
 
+    public static User getUser(DataBase db, Integer userId) throws NotFoundDBException, ResultSetDBException {
+
+        User user=null;
+        String sql;
+        ResultSet rs;
+
+        sql="SELECT * FROM user WHERE user_id="+userId+"";
+
+        rs=db.select(sql);
+
+        try{
+            if(rs.next()){
+                user= new User(rs);
+            }
+
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("AttivitaDAO.getAttivita(): ResultSetDBException: "+ex.getMessage(), db);
+        }
+
+        return user;
+
+    }
+
 
 
 }

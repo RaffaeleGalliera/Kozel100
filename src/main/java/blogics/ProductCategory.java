@@ -47,19 +47,18 @@ public class ProductCategory {
             rs.close();
         }
         catch (SQLException e) {
-            throw new ResultSetDBException("ProductCategory.insert(): Errore sul ResultSet.");
+            throw new ResultSetDBException("Product Category.insert(): Errore sul ResultSet.");
         }
 
         if (exist) {
             //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
             //sarà poi il Bean che decide come gestire questa situazione.
-            throw new DuplicatedRecordDBException("ProductCategory.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
+            throw new DuplicatedRecordDBException("Product Category.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
         query = "INSERT INTO product_category(product_category_id, name)" +
                 "VALUES(" + productCategoryId + ",?)";
 
-        parameters.add(name);
 
         database.modify(query, parameters);
     }

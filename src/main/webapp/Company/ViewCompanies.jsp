@@ -74,11 +74,11 @@
         }
 
         Boolean filterByProduct = Boolean.parseBoolean(request.getParameter("filterByProduct"));
-        String productCategoryId = request.getParameter("productCategoryId");
+        String tagId = request.getParameter("tagId");
 
         if (filterByProduct) {
 
-            filters.put("productCategoryId", Integer.parseInt(productCategoryId));
+            filters.put("tagId", Integer.parseInt(tagId));
 
         }
 
@@ -326,9 +326,9 @@
                     </label>
                 </div>
                 <div class="form-group filterGroup" id="filterProductGroup">
-                    <select class="form-control" id="productCategoryId" name="productCategoryId">
-                        <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
-                        <option value="<%=companyManager.getProductCategory(k).productCategoryId%>"><%=companyManager.getProductCategory(k).name%>
+                    <select class="form-control" id="tagId" name="tagId">
+                        <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                        <option value="<%=companyManager.getTag(k).tagId%>"><%=companyManager.getTag(k).name%>
                         </option>
                         <% } %>
                     </select>
@@ -465,6 +465,61 @@
                                     <% } %>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="productCategoryId" class="bmd-label-floating">Product Category</label>
+                                <select class="form-control" id="productCategoryId" name="productCategoryId">
+                                    <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
+                                    <%if ((message != null) && (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId())) {%>
+                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>" selected>
+                                        <%=companyManager.getProductCategory(x).name%>
+                                    </option>
+                                    <% } %>
+                                    <%if (companyManager.getProductCategory(x).productCategoryId != companyManager.getProductCategoryId()) {%>
+                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>">
+                                        <%=companyManager.getProductCategory(x).name%>
+                                    </option>
+                                    <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userId2" class="bmd-label-floating">Responsible User</label>
+                                <select class="form-control" id="userId2" name="userId">
+                                    <%for (int x = 0; x < companyManager.getUsers().length; x++) {%>
+                                    <%if ((message != null) && (companyManager.getUser(x).userId == companyManager.getUserId())) {%>
+                                    <option value="<%=companyManager.getUser(x).userId%>" selected>
+                                        <%=companyManager.getUser(x).fullName()%>
+                                    </option>
+                                    <% } %>
+                                    <%if (companyManager.getUser(x).userId != companyManager.getUserId()) {%>
+                                    <option value="<%=companyManager.getUser(x).userId%>">
+                                        <%=companyManager.getUser(x).fullName()%>
+                                    </option>
+                                    <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<div class="checkbox">--%>
+                                            <%--<%for (int k = 0; k < companyManager.getTags().length; k++) { int c=0; %>--%>
+                                                <%--<%if ((message != null) && (companyManager.getTag(k) == companyManager.getCompanyTag(c).tagId)) {%>--%>
+                                                 <%--<label>--%>
+                                                   <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>" checked>--%>
+                                                       <%--<%=companyManager.getClientType(k).name%>--%>
+                                                       <%--<% c++;%>--%>
+                                                 <%--</label>--%>
+                                                <%--<% } %>--%>
+                                                <%--<%if (companyManager.getTag(k).tagId!= companyManager.getCompanyTag(c).tagId) {%>--%>
+                                                <%--<label>--%>
+                                                    <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>">--%>
+                                                    <%--<%=companyManager.getClientType(k).name%>--%>
+                                                    <%--<% c++;%>--%>
+                                                <%--</label>--%>
+                                                <%--<% } %>--%>
+                                            <%--<% } %>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                             <div class="jumbotron">
                                 <h1>Contact Reference</h1>
                                 <div class="form-row">

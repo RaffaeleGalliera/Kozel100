@@ -60,20 +60,20 @@
                                 aria-expanded="false" aria-controls="workFieldsCard">Work Fields</a></li>
         <li class="nav-item"><a class="nav-link" href="#positionCard" data-toggle="collapse" data-target="#positionCard"
                                 aria-expanded="false" aria-controls="positionCard">Position</a></li>
-        <li class="nav-item"><a class="nav-link" href="#productCategoriesCard" data-toggle="collapse"
-                                data-target="#productCategoriesCard"
-                                aria-expanded="false" aria-controls="productCategoriesCard">Product Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tagsCard" data-toggle="collapse"
+                                data-target="#tagsCard"
+                                aria-expanded="false" aria-controls="tagsCard">Tag</a></li>
 
         <li class="nav-item"><a class="nav-link" href="#clientTypesCard" data-toggle="collapse"
                                 data-target="#clientTypesCard"
-                                aria-expanded="false" aria-controls="clientTypesCard">Client Types</a></li>
-        <li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"
-                                data-target="#consultingServicesCard"
-                                aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a></li>
+                                aria-expanded="false" aria-controls="clientTypesCard">Customer Types</a></li>
+        <li class="nav-item"><a class="nav-link" href="#productCategoryCard" data-toggle="collapse"
+                                data-target="#productCategoryCard"
+                                aria-expanded="false" aria-controls="productCategoryCard">Product Categories</a></li>
 
         <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
                                 <%--aria-expanded="false"--%>
-                                <%--aria-controls="workFieldsCard positionCard productCategoriesCard clientTypesCard">Show--%>
+                                <%--aria-controls="workFieldsCard positionCard tagsCard clientTypesCard">Show--%>
             <%--All</a></li>--%>
     </ul>
     </p>
@@ -166,15 +166,15 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="productCategoriesCard">
+            <div class="collapse multi-collapse" id="tagsCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="InsertProductCategory.jsp">
-                                        <h2>Product Categories
-                                            <button style="float:right" type="submit" value="InsertProductCategory"
+                                    <form action="Setup/InsertTag.jsp">
+                                        <h2>Tags
+                                            <button style="float:right" type="submit" value="InsertTag"
                                                     class="btn btn-default">
                                                 +
                                             </button>
@@ -191,10 +191,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
+                                <%for (int k = 0; k < adminPanelManager.getTags().length; k++) {%>
                                 <tr>
                                     <td><%= k + 1 %></td>
-                                    <td><%=adminPanelManager.getProductCategory(k).name%></td>
+                                    <td><%=adminPanelManager.getTag(k).name%></td>
                                     <td>
                                         <a class="edit" title="Edit" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE254;</i></a>
@@ -257,7 +257,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <form action="InsertClientType.jsp">
-                                        <h2>Client Types
+                                        <h2>Customer Types
                                             <button style="float:right" type="submit" value="InsertClientType"
                                                     class="btn btn-default">
                                                 +
@@ -291,15 +291,15 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="consultingServicesCard">
+            <div class="collapse multi-collapse" id="productCategoryCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="InsertConsultingService.jsp">
-                                        <h2>Consulting Services
-                                            <button style="float:right" type="submit" value="ConsultingService"
+                                    <form action="InsertProductCategory.jsp">
+                                        <h2>Product Categories
+                                            <button style="float:right" type="submit" value="Tag"
                                                     class="btn btn-default">
                                                 +
                                             </button>
@@ -317,10 +317,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getConsultingServices().length; k++) {%>
+                                <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
-                                    <td><%=adminPanelManager.getConsultingService(k).name%></td>
+                                    <td><%=adminPanelManager.getProductCategory(k).name%></td>
                                     <td>
                                         <a class="edit" title="Edit" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE254;</i></a>
