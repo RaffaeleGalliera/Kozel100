@@ -80,7 +80,8 @@
                 <div class="col">
                     <h1 class="display-4"><%=companyManager.getCompany().name%></h1>
                 </div>
-                <div class="col"><p class="lead">Tags:<%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
+                <div class="col"><p class="lead"><button  type="button" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#addTag">Tag</button>
+                    <%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
                     <% if (c>0) {%>
                     ,
                     <% } %>
@@ -95,7 +96,7 @@
                     <%=companyManager.getContactPerson(c).fullName()%>
                     <%}%>
                 </p></div>
-                <div class="col"><p class="lead">Responsible User: </p></div>
+                <div class="col"><p class="lead">Responsible User:  <%=companyManager.getUser().fullName()%></p></div>
             </div>
             <hr class="my-4">
             <div class="row">
@@ -141,11 +142,9 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertUser.jsp">
                                         <h2>Tags
                                                 <button style="float: right" type="button" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#addTag">Add Tag</button>
                                         </h2>
-                                    </form>
                                 </div>
                             </div>
 

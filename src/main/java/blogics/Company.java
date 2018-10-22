@@ -5,6 +5,7 @@ import java.util.*;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 
 
 public class Company {
@@ -17,12 +18,14 @@ public class Company {
     public String email;
     public int clientTypeId;
     public int productCategoryId;
+    public int userId;
 
     public Company(ResultSet result){
 
         try {companyId=result.getInt("company_id");} catch(SQLException sqle) {}
         try {clientTypeId=result.getInt("client_type_id");} catch(SQLException sqle) {}
         try {productCategoryId=result.getInt("product_category_id");} catch(SQLException sqle) {}
+        try {userId=result.getInt("user_id");} catch(SQLException sqle) {}
         try {name=result.getString("name");} catch(SQLException sqle) {}
         try {vat=result.getString("vat");} catch(SQLException sqle) {}
         try {address=result.getString("address");} catch(SQLException sqle) {}
@@ -30,10 +33,11 @@ public class Company {
         try {email=result.getString("email");} catch(SQLException sqle) {}
     }
 
-    public Company(Integer companyId, Integer clientTypeId, Integer productCategoryId, String name, String vat, String address, String city, String email){
+    public Company(Integer companyId, Integer clientTypeId, Integer productCategoryId, Integer userId, String name, String vat, String address, String city, String email){
         this.companyId=companyId;
         this.clientTypeId=clientTypeId;
         this.productCategoryId=productCategoryId;
+        this.userId=userId;
         this.name=name;
         this.vat=vat;
         this.address=address;
@@ -70,8 +74,8 @@ public class Company {
         }
 
 
-        query="INSERT INTO company(company_id, client_type_id, product_category_id, name, vat, address, city, email)" +
-              "VALUES("+companyId+","+clientTypeId+","+productCategoryId+",?,?,?,?,?)";
+        query="INSERT INTO company(company_id, client_type_id, product_category_id, user_id, name, vat, address, city, email)" +
+              "VALUES("+companyId+","+clientTypeId+","+productCategoryId+","+userId+",?,?,?,?,?)";
 
 
         parameters.add(vat);
@@ -109,7 +113,7 @@ public class Company {
         }
 
         sql=" UPDATE company "
-                +" SET name=?, client_type_id="+clientTypeId+", product_category_id="+productCategoryId+", vat=?, address=?, city=?, email=?"
+                +" SET name=?, client_type_id="+clientTypeId+", product_category_id="+productCategoryId+", user_id="+userId+", vat=?, address=?, city=?, email=?"
                 +" WHERE company_id="+companyId;
 
         parameters.add(vat);

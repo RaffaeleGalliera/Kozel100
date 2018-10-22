@@ -517,6 +517,24 @@
                                     <% } %>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="userId2" class="bmd-label-floating">Responsible User</label>
+                                <select class="form-control" id="userId2" name="userId">
+                                    <%for (int x = 0; x < companyManager.getUsers().length; x++) {%>
+                                    <%if ((message != null) && (companyManager.getUser(x).userId == companyManager.getUserId())) {%>
+                                    <option value="<%=companyManager.getUser(x).userId%>" selected>
+                                        <%=companyManager.getUser(x).fullName()%>
+                                    </option>
+                                    <% } %>
+                                    <%if (companyManager.getUser(x).userId != companyManager.getUserId()) {%>
+                                    <option value="<%=companyManager.getUser(x).userId%>">
+                                        <%=companyManager.getUser(x).fullName()%>
+                                    </option>
+                                    <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
                             <%--<div class="form-group">--%>
                                 <%--<div class="checkbox">--%>
                                             <%--<%for (int k = 0; k < companyManager.getTags().length; k++) { int c=0; %>--%>
