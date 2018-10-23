@@ -85,9 +85,10 @@ public class ConversationNoteDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title " +
+        sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at " +
                 "FROM conversation_note AS CN JOIN conversation AS C on CN.conversation_id = C.conversation_id " +
-                "WHERE company_id="+companyId;
+                "WHERE company_id=" + companyId + " " +
+                "ORDER BY CN.created_at DESC";
 
 
         rs=db.select(sql);

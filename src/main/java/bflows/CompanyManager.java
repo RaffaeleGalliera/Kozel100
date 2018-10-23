@@ -192,6 +192,8 @@ public class CompanyManager implements java.io.Serializable {
             companyTags = TagDAO.getTags(database, companyId);
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
 
+            database.commit();
+
         }
         catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
@@ -232,6 +234,7 @@ public class CompanyManager implements java.io.Serializable {
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             conversations = ConversationDAO.getConversations(database, companyId);
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             this.companyTags = TagDAO.getTags(database, companyId);
 
 
@@ -285,6 +288,7 @@ public class CompanyManager implements java.io.Serializable {
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
 
 
             database.commit();
@@ -336,6 +340,7 @@ public class CompanyManager implements java.io.Serializable {
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
 
 
             database.commit();
@@ -534,13 +539,16 @@ public class CompanyManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
             productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
+            users = UserDAO.getAllUsers(database);
 
             company = CompanyDAO.getCompany(database, companyId);
+            user = UserDAO.getUser(database, company.userId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            user=UserDAO.getUser(database, company.userId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
 
 
 

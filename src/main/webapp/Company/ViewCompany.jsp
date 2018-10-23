@@ -268,7 +268,6 @@
                                 <th>Reason</th>
                                 <th>Date</th>
                                 <th>User</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -282,19 +281,11 @@
                                 </td>
                                 <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%></td>
                                 <td>
-                                    <%--<a class="delete" title="Delete" data-toggle="tooltip"--%>
-                                    <%--href="JavaScript:deleteTag('<%=companyManager.getConversation(k).conversationId%>','<%=companyManager.getCompanyTag(k).name%>');"><i--%>
-                                    <%--class="material-icons">&#xE872;</i></a>--%>
                                 </td>
                             </tr>
                             <%}%>
                             </tbody>
                         </table>
-                        <%--<form name="deleteTagForm" action="ViewCompany.jsp" method="post">--%>
-                        <%--<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>--%>
-                        <%--<input type="hidden" name="tagId" value=""/>--%>
-                        <%--<input type="hidden" name="status" value="deleteTag"/>--%>
-                        <%--</form>--%>
                     </div>
                 </div>
             </div>
@@ -325,7 +316,7 @@
                                 <th>Title</th>
                                 <th>Note</th>
                                 <th>Author</th>
-                                <th>Actions</th>
+                                <th>Posted at</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -338,20 +329,14 @@
                                 <td><%=companyManager.getCompanyNote(k).note%>
                                 </td>
                                 <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>
+                                <td><%=companyManager.getCompanyNote(k).timestamp%>
+                                </td>
                                 <td>
-                                    <%--<a class="delete" title="Delete" data-toggle="tooltip"--%>
-                                    <%--href="JavaScript:deleteTag('<%=companyManager.getConversation(k).conversationId%>','<%=companyManager.getCompanyTag(k).name%>');"><i--%>
-                                    <%--class="material-icons">&#xE872;</i></a>--%>
                                 </td>
                             </tr>
                             <%}%>
                             </tbody>
                         </table>
-                        <%--<form name="deleteTagForm" action="ViewCompany.jsp" method="post">--%>
-                        <%--<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>--%>
-                        <%--<input type="hidden" name="tagId" value=""/>--%>
-                        <%--<input type="hidden" name="status" value="deleteTag"/>--%>
-                        <%--</form>--%>
                     </div>
                 </div>
             </div>
