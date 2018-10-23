@@ -37,6 +37,7 @@ public class CompanyManager implements java.io.Serializable {
     private ContactPerson[] contactPeople;
     private User[] users;
     private User user;
+    private ConsultingService[] consultingServices;
 
     private int result;
     private String errorMessage;
@@ -172,6 +173,7 @@ public class CompanyManager implements java.io.Serializable {
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
+            consultingServices = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
 
             database.commit();
 
@@ -442,6 +444,17 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public ConsultingService[] getConsultingServices() {
+        return consultingServices;
+    }
+
+    public ConsultingService getConsultingServices(int index) {
+        return consultingServices[index];
+    }
+
+    public void setConsultingServices(ConsultingService[] consultingServices) {
+        this.consultingServices = consultingServices;
+    }
 
 
     public Integer getCompanyId() {

@@ -21,3 +21,4 @@ ALTER TABLE `purchase`
 
 ALTER TABLE `purchase`
   ADD FOREIGN KEY (`consulting_service_id`) REFERENCES `consulting_service`(`consulting_service_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
