@@ -1,5 +1,6 @@
 package blogics;
 
+import global.Status;
 import services.databaseservice.DataBase;
 import services.databaseservice.exception.DuplicatedRecordDBException;
 import services.databaseservice.exception.NotFoundDBException;
@@ -8,13 +9,15 @@ import services.databaseservice.exception.ResultSetDBException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommercialProposal {
 
     public int commercial_proposal_id;
     public String name;
     public String description;
-    public String status;
+    public Status status;
     public int company_id;
 
     public CommercialProposal(ResultSet result){
@@ -24,14 +27,29 @@ public class CommercialProposal {
         try {description=result.getString("description");} catch(SQLException sqle) {}
         try {company_id=result.getInt("company_id");} catch(SQLException sqle) {}
 
+        try {
+
+            Map<String, Status> map = new HashMap<String, Status>();
+
+            for (Status status : Status.values()) {
+                map.put(status.name(), status);
+            }
+
+
+            status=map.get(result.getString("status"));
+
+
+        } catch(SQLException sqle) {}
+
 
     }
 
-    public CommercialProposal(int commercial_proposal_id, String name, String description, int company_id){
+    public CommercialProposal(int commercial_proposal_id, String name, String description, Status status, int company_id){
 
         this.commercial_proposal_id=commercial_proposal_id;
         this.name=name;
         this.description=description;
+        this.status=status;
         this.company_id=company_id;
 
     }
@@ -64,12 +82,13 @@ public class CommercialProposal {
             throw new DuplicatedRecordDBException("CommercialProposal.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
-        query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description, company_id)" +
-                "VALUES("+commercial_proposal_id+",?,?,"+company_id+")";
+        query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description,status, company_id)" +
+                "VALUES("+commercial_proposal_id+",?,?,?,"+company_id+")";
 
 
         parameters.add(name);
         parameters.add(description);
+        parameters.add(status.name()); // the name() method returns the name of the enum value as a String
 
 
         database.modify(query,parameters);
@@ -103,11 +122,12 @@ public class CommercialProposal {
         }
 
         sql=" UPDATE commercial_proposal "
-                +" SET name=?, description=?"
+                +" SET name=?, description=?, status+?"
                 +" WHERE commercial_proposal_id="+commercial_proposal_id;
 
         parameters.add(name);
         parameters.add(description);
+        parameters.add(status.name()); // the name() method returns the name of the enum value as a String
 
         db.modify(sql,parameters);
     }
