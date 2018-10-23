@@ -243,6 +243,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
     <%--Conversations Card--%>
     <div class="col">
         <div class="collapse multi-collapse" id="conversationCard">
@@ -301,6 +303,7 @@
 </div>
 <%--Customer Notes Card--%>
     <div class="row">
+        <div class="col">
         <div class="collapse multi-collapse" id="customerNoteCard">
             <div class="card card-body">
                 <div class="container">
@@ -353,6 +356,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 </div>
