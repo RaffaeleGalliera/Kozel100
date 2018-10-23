@@ -19,7 +19,8 @@ public class ConversationDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM conversation WHERE company_id="+companyId+"";
+        sql="SELECT * FROM conversation WHERE company_id="+companyId+" "
+                +"ORDER BY date DESC";
 
 
         rs=db.select(sql);

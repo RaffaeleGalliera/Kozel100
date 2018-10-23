@@ -18,6 +18,8 @@ public class CompanyManager implements java.io.Serializable {
     private int clientTypeId=-1;
     private int productCategoryId=-1;
     private int userId=-1;
+    private int conversationUserId=-1;
+    private int conversationNoteUserId=-1;
     private int tagId=-1;
     private String firstName;
     private String lastName;
@@ -30,13 +32,19 @@ public class CompanyManager implements java.io.Serializable {
     private String companyEmail;
     private String contactEmail;
 
-    public String reason;
-    public String conversationDate="10/24/2018";
+    private String reason;
+    private String conversationDate;
+
+    private String title;
+    private String note;
+    private Integer conversationId;
 
     private Company[] companies;
     private Conversation[] conversations;
+    private User conversationUser;
     private Company company;
     private Conversation conversation;
+    private ConversationNote[] companyNotes;
     private ClientType[] clientTypes;
     private ClientType clientType;
     private ProductCategory[] productCategories;
@@ -180,9 +188,9 @@ public class CompanyManager implements java.io.Serializable {
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
-
-            database.commit();
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
 
         }
         catch (NotFoundDBException ex) {
@@ -216,12 +224,14 @@ public class CompanyManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
             productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
+            users = UserDAO.getAllUsers(database);
 
             company = CompanyDAO.getCompany(database, companyId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             user=UserDAO.getUser(database, company.userId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
             this.companyTags = TagDAO.getTags(database, companyId);
 
 
@@ -259,20 +269,22 @@ public class CompanyManager implements java.io.Serializable {
             database = DBService.getDataBase();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(conversationDate);
-            Conversation conversation = new Conversation(companyId, userId, reason, parsed);
+            Conversation conversation = new Conversation(companyId, conversationUserId, reason, parsed);
             conversation.insert(database);
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
             productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
+            users = UserDAO.getAllUsers(database);
 
             company = CompanyDAO.getCompany(database, companyId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             user=UserDAO.getUser(database, company.userId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);;
-            this.companyTags = TagDAO.getTags(database, companyId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
+            companyTags = TagDAO.getTags(database, companyId);
 
 
             database.commit();
@@ -286,6 +298,53 @@ public class CompanyManager implements java.io.Serializable {
 //            EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+    }
+
+    public void addConversationNote() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            ConversationNote conversationNote= new ConversationNote(conversationId, conversationNoteUserId, title, note );
+            conversationNote.insert(database);
+
+            //Get all infos
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+            tags = TagDAO.getAllTags(database);
+            users = UserDAO.getAllUsers(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            user=UserDAO.getUser(database, company.userId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
+            companyTags = TagDAO.getTags(database, companyId);
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+
         catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
@@ -502,6 +561,16 @@ public class CompanyManager implements java.io.Serializable {
         }
 
     }
+
+    public String getConversationUserName(Integer userId){
+        String user="";
+        for(int k = 0; k<(users.length); k++){
+            if (users[k].userId == userId){
+                user = users[k].fullName();
+            }
+        }
+        return  user;
+    }
     public Integer getCompanyId() {
         return companyId;
     }
@@ -516,6 +585,20 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+    public Integer getConversationUserId() {
+        return conversationUserId;
+    }
+
+    public void setConversationUserId(Integer conversationUserId) {
+        this.conversationUserId = conversationUserId;
+    }
+    public Integer getConversationNoteUserId() {
+        return conversationNoteUserId;
+    }
+
+    public void setConversationNoteUserId(Integer conversationNoteUserId) {
+        this.conversationNoteUserId = conversationNoteUserId;
     }
 
     public Integer getClientTypeId() {
@@ -702,6 +785,21 @@ public class CompanyManager implements java.io.Serializable {
         return companyTags[index];
     }
 
+    public Conversation[] getConversations() {
+        return conversations;
+    }
+
+    public Conversation getConversation(int index) {
+        return conversations[index];
+    }
+    public ConversationNote[] getCompanyNotes() {
+        return companyNotes;
+    }
+
+    public ConversationNote getCompanyNote(int index) {
+        return companyNotes[index];
+    }
+
     public void setcompanyTags(Tag[] companyTags) {
         this.companyTags=companyTags;
     }
@@ -712,6 +810,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setTagId(int tagId) {
         this.tagId=tagId;
+    }
+
+    public int getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(int conversationId) {
+        this.conversationId=conversationId;
     }
 
     public Tag getTag(int index){ return tags[index];}
@@ -742,6 +848,22 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setReason(String reason) {
         this.reason= reason;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title= title;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getConversationDate() {
