@@ -118,6 +118,32 @@ public class DataBase{ //Contenitore della Connessione + lo Statement derivato d
         return recordsNumber;
     
   }
+
+  public int modify(String sql, ArrayList<String> parameters, java.sql.Date sqlDate) throws NotFoundDBException{
+
+    int recordsNumber,k,c;
+    c=0;
+
+    try {
+       //recordsNumber=statement.executeUpdate(sql);
+         statement=connection.prepareStatement(sql);
+
+            for(k=0;k<parameters.size();k++){
+                statement.setString(k+1, parameters.get(k));
+                c++;
+            }
+         statement.setDate(c+1, sqlDate);
+
+                recordsNumber=statement.executeUpdate(); //executeUpdate ritorna il numero di record modificati, usato per (INSERT,UPDATE,DELETE)
+    }
+    catch (SQLException ex){
+      throw new NotFoundDBException("DataBase: modify(): Impossibile eseguire la update sul DB. Eccezione: "+ex+ "\n " + sql,this);
+
+    }
+
+        return recordsNumber;
+
+  }
   
   public void commit() throws NotFoundDBException { //Gestisce il ciclo di vita della Connessione stessa
     
