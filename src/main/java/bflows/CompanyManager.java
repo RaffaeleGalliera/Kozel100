@@ -5,6 +5,10 @@ import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.util.Map;
 
 public class CompanyManager implements java.io.Serializable {
@@ -26,8 +30,13 @@ public class CompanyManager implements java.io.Serializable {
     private String companyEmail;
     private String contactEmail;
 
+    public String reason;
+    public String conversationDate="10/24/2018";
+
     private Company[] companies;
+    private Conversation[] conversations;
     private Company company;
+    private Conversation conversation;
     private ClientType[] clientTypes;
     private ClientType clientType;
     private ProductCategory[] productCategories;
@@ -241,6 +250,57 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
+    public void addConversation() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed = format.parse(conversationDate);
+            Conversation conversation = new Conversation(companyId, userId, reason, parsed);
+            conversation.insert(database);
+
+            //Get all infos
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+            tags = TagDAO.getAllTags(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            user=UserDAO.getUser(database, company.userId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);;
+            this.companyTags = TagDAO.getTags(database, companyId);
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+
+        catch (ParseException ex) {
+//            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+    }
+
     public void companiesView() {
 
         DataBase db = null;
@@ -401,6 +461,7 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+
     public void deleteTag(Integer tagId){
 
         DataBase database=null;
@@ -441,9 +502,6 @@ public class CompanyManager implements java.io.Serializable {
         }
 
     }
-
-
-
     public Integer getCompanyId() {
         return companyId;
     }
@@ -507,6 +565,7 @@ public class CompanyManager implements java.io.Serializable {
     public ProductCategory getProductCategory(int index) {
         return productCategories[index];
     }
+
     public ProductCategory getProductCategory() {
         return productCategory;
     }
@@ -675,5 +734,21 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason= reason;
+    }
+
+    public String getConversationDate() {
+        return conversationDate;
+    }
+
+    public void setConversationDate(String conversationDate) {
+        this.conversationDate= conversationDate;
     }
 }

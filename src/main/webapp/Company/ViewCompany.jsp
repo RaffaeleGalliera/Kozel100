@@ -5,8 +5,9 @@
   Time: 4:31 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page info="Inserimento nuova Compagnia" %>
-<%@ page session="false" %>
+<%@ page import="services.tokenservice.JWTService" %>
+<%@ page import="services.sessionservice.Session" %>
+<%@ page import="util.Debug" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
@@ -15,9 +16,21 @@
 
     String status = null;
     String message = null;
+    int userId = 0;
     boolean complete = false;
+    Cookie[] cookies = request.getCookies();
     status = request.getParameter("status");
     companyManager.setCompanyId(Integer.parseInt(request.getParameter("companyId")));
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("jwt_auth_token") && Session.isAuthorized(cookie)) {
+
+                userId = Session.getUserID(cookie);
+
+            }
+        }
+    }
 
     if (status.equals("view")) {
         companyManager.companyView();
@@ -25,6 +38,10 @@
 
     if (status.equals(("addTag"))){
         companyManager.addTag();
+    }
+
+    if (status.equals(("addConversation"))){
+        companyManager.addConversation();
     }
 
     if (status.equals("deleteTag")) {
@@ -54,6 +71,11 @@
 <jsp:include page="/Common/Navbar.jsp"/>
 <script language="JavaScript">
     function addTag(form) {
+        form.action = "ViewCompany.jsp";
+        form.submit();
+    }
+
+    function addConversation(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
     }
@@ -88,6 +110,13 @@
                     <%=companyManager.getCompanyTag(c).name%>
                     <%}%>
                 </p></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button  type="button" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#addConversation">Add Conversation</button>
+                </div>
+                <div class="col"><p class="lead"><button  type="button" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#addTag">Tag</button>
+                </div>
             </div>
             <hr class="my-4">
             <div class="row">
@@ -229,7 +258,7 @@
     <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
     <input type="hidden" name="status" value="view"/>
 
-    <!-- Modal -->
+    <!-- Tag Modal -->
     <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -258,6 +287,40 @@
                             </button>
                             <input type="hidden" name="status" value="addTag"/>
                             <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Conversation Modal -->
+    <div class="modal fade" id="addConversation" tabindex="-1" role="dialog" aria-labelledby="addConversationLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addConversationLabel">Add Conversation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="companyManager" action="" method="post">
+                        <div class="form-group">
+                            <label for="reason" class="bmd-label-floating">Reason</label>
+                            <input type="text" name="reason" class="form-control" id="reason">
+                        </div>
+                        <div class="form-group">
+                            <label for="conversationDate" class="bmd-label-floating">Date</label>
+                            <input type="date" name="conversationDate" class="form-control" id="conversationDate">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-raised" onclick="addConversation(this.form)">
+                                Submit
+                            </button>
+                            <input type="hidden" name="status" value="addConversation"/>
+                            <input type="hidden" name="companyId" id = "companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                            <input type="hidden" name="userId" id="userId" value="<%= userId %>"/>
                         </div>
                     </form>
                 </div>
