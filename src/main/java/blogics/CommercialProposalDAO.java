@@ -9,7 +9,9 @@ import java.sql.SQLException;
 
 public class CommercialProposalDAO {
 
-    public CommercialProposal[] getProposalsByCompanyId(DataBase database, Integer companyId)throws NotFoundDBException, ResultSetDBException {
+    public CommercialProposalDAO(){}
+
+    public static CommercialProposal[] getProposalsByCompanyId(DataBase database, Integer companyId)throws NotFoundDBException, ResultSetDBException {
 
         CommercialProposal[] proposals=null;
         String sql;
@@ -17,7 +19,7 @@ public class CommercialProposalDAO {
         int i=0;
 
         sql="SELECT * FROM commercial_proposal AS P " +
-                "WHERE P.company_id="+companyId+" AND active_fl=1";
+                "WHERE P.company_id="+companyId;
 
         rs=database.select(sql);
 

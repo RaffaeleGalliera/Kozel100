@@ -1,4 +1,5 @@
-<%--
+<%@ page import="blogics.ConsultingService" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 10/19/18
@@ -265,7 +266,7 @@
                         <tr>
                         <td><%= k + 1 %>
                         </td>
-                        <td><%=companyManager.getConsultingServices(k).name%>
+                        <td><%=companyManager.getConsultingService(k).name%>
                         </td>
                         <td>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i
@@ -302,21 +303,50 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Description</th>
+                            <th>Services</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>
+                        <%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>
+
                         <tr>
-                            <td><%= k + 1 %>
+                            <td><%= k + 1 %></td>
+
+                            <td><%=companyManager.getCommercialProposal(k).name%></td>
+
+                            <td><%=companyManager.getCommercialProposal(k).description%></td>
+
+                            <%for (int i = 0; i < companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).size();i++){
+
+
+                                ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);
+
+
+                            %>
+
+                            <td>
+
+                                    <%for(ConsultingService s : services){%>
+
+                                        <%=s.name%>
+
+                                    <%}%>
+
                             </td>
-                            <td><%=companyManager.getConsultingServices(k).name%>
-                            </td>
+
+
+
+                            <%}%>
+
                             <td>
                                 <a class="edit" title="Edit" data-toggle="tooltip"><i
                                         class="material-icons">&#xE254;</i></a>
                             </td>
+
                         </tr>
+
                         <%}%>
                         </tbody>
                     </table>

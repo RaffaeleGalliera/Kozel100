@@ -53,7 +53,7 @@ public class ConsultingServiceDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM commercial_proposal AS CP " +
+        sql="SELECT CS.* FROM commercial_proposal AS CP " +
                 "JOIN proposal_service AS PS " +
                 "ON CP.commercial_proposal_id = PS.commercial_proposal_id " +
                 "JOIN consulting_service AS CS " +
