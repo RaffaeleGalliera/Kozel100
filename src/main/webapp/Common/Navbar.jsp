@@ -71,6 +71,8 @@
                         <a class="dropdown-item" href="/Admin/InsertWorkField.jsp">Work Field</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/Admin/InsertProductCategory.jsp">Product Category</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Admin/InsertTag.jsp">Tag</a>
                     </div>
                 </li>
             <%}%>
