@@ -78,6 +78,27 @@ public class DataBase{ //Contenitore della Connessione + lo Statement derivato d
       throw new NotFoundDBException("DataBase: select(): Impossibile eseguire la query sul DB. Eccezione: "+ex+ "\n " + "sql" ,this);
     }
   }
+
+    public ResultSet select(String sql, java.sql.Date sqlDate) throws NotFoundDBException { //Prende lo Statement e fa executeQuery eseguendo l'SQL che mi viene passato da sopra
+
+        ResultSet resultSet;
+        int k = 0;
+
+        try {
+            //resultSet=statement.executeQuery(sql);
+            statement = connection.prepareStatement(sql);
+
+            statement.setDate(1, sqlDate);
+
+            resultSet = statement.executeQuery(); //executeQuery ritorna un ResultSet, usato per SELECT
+
+            return resultSet;
+        } catch (SQLException ex) {
+            throw new NotFoundDBException("DataBase: select(): Impossibile eseguire la query sul DB. Eccezione: " + ex + "\n " + "sql", this);
+        }
+    }
+
+
   
   public int modify(String sql) throws NotFoundDBException{
       
@@ -119,31 +140,56 @@ public class DataBase{ //Contenitore della Connessione + lo Statement derivato d
     
   }
 
-  public int modify(String sql, ArrayList<String> parameters, java.sql.Date sqlDate) throws NotFoundDBException{
+    public int modify(String sql, ArrayList<String> parameters, java.sql.Date sqlDate) throws NotFoundDBException{
 
-    int recordsNumber,k,c;
-    c=0;
+        int recordsNumber,k,c;
+        c=0;
 
-    try {
-       //recordsNumber=statement.executeUpdate(sql);
-         statement=connection.prepareStatement(sql);
+        try {
+            //recordsNumber=statement.executeUpdate(sql);
+            statement=connection.prepareStatement(sql);
 
-            for(k=0;k<parameters.size();k++){
+            for(k=0; k<parameters.size(); k++){
                 statement.setString(k+1, parameters.get(k));
                 c++;
             }
-         statement.setDate(c+1, sqlDate);
+            statement.setDate(c+1, sqlDate);
 
-                recordsNumber=statement.executeUpdate(); //executeUpdate ritorna il numero di record modificati, usato per (INSERT,UPDATE,DELETE)
-    }
-    catch (SQLException ex){
-      throw new NotFoundDBException("DataBase: modify(): Impossibile eseguire la update sul DB. Eccezione: "+ex+ "\n " + sql,this);
+            recordsNumber = statement.executeUpdate(); //executeUpdate ritorna il numero di record modificati, usato per (INSERT,UPDATE,DELETE)
+        } catch (SQLException ex) {
+            throw new NotFoundDBException("DataBase: modify(): Impossibile eseguire la update sul DB. Eccezione: " + ex + "\n " + sql, this);
 
-    }
+        }
 
         return recordsNumber;
 
-  }
+    }
+
+    public int modify(String sql, ArrayList<String> parameters, java.sql.Date sqlDate, java.sql.Time sqlTime) throws NotFoundDBException {
+
+        int recordsNumber, k, c;
+        c = 0;
+
+        try {
+            //recordsNumber=statement.executeUpdate(sql);
+            statement = connection.prepareStatement(sql);
+
+            for (k = 0; k < parameters.size(); k++) {
+                statement.setString(k + 1, parameters.get(k));
+                c++;
+            }
+            statement.setDate(c + 1, sqlDate);
+            statement.setTime(c + 2, sqlTime);
+
+            recordsNumber=statement.executeUpdate(); //executeUpdate ritorna il numero di record modificati, usato per (INSERT,UPDATE,DELETE)
+        } catch (SQLException ex){
+            throw new NotFoundDBException("DataBase: modify(): Impossibile eseguire la update sul DB. Eccezione: "+ex+ "\n " + sql,this);
+
+        }
+
+        return recordsNumber;
+
+    }
   
   public void commit() throws NotFoundDBException { //Gestisce il ciclo di vita della Connessione stessa
     
