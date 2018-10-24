@@ -318,12 +318,9 @@
 
                             <td><%=companyManager.getCommercialProposal(k).description%></td>
 
-                            <%for (int i = 0; i < companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).size();i++){
-
+                            <%{
 
                                 ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);
-
-
                             %>
 
                             <td>
