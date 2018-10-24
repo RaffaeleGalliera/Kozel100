@@ -48,6 +48,10 @@
         companyManager.addConversationNote();
     }
 
+    if (status.equals(("addAppointment"))) {
+        companyManager.addAppointment();
+    }
+
     if (status.equals("deleteTag")) {
         companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
@@ -85,6 +89,11 @@
     }
 
     function addConversationNote(form) {
+        form.action = "ViewCompany.jsp";
+        form.submit();
+    }
+
+    function addAppointment(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
     }
@@ -134,6 +143,10 @@
                     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addNote">
                         Add Note
                     </button>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                            data-target="#addAppointment">
+                        Add Appointment
+                    </button>
                 </div>
             </div>
             <hr class="my-4">
@@ -176,19 +189,22 @@
 </div>
 <p>
 <ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link" href="#tagCard" data-toggle="collapse"
-                            data-target="#tagCard"
-                            aria-expanded="false" aria-controls="tagCard">Tags</a></li>
-    <li class="nav-item"><a class="nav-link" href="#conversationCard" data-toggle="collapse"
-                            data-target="#conversationCard"
-                            aria-expanded="false" aria-controls="conversationCard">Conversations</a>
-    </li><li class="nav-item"><a class="nav-link" href="#customerNoteCard" data-toggle="collapse"
-                            data-target="#customerNoteCard"
-                            aria-expanded="false" aria-controls="customerNoteCard">Customer Notes</a></li>
-    <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
-    <%--aria-expanded="false"--%>
-    <%--aria-controls="clientNotesCard positionCard productCategoriesCard clientTypesCard">Show--%>
-    <%--All</a></li>--%>
+    <%--<li class="nav-item"><a class="nav-link" href="#tagCard" data-toggle="collapse"--%>
+    <%--data-target="#tagCard"--%>
+    <%--aria-expanded="false" aria-controls="tagCard">Tags</a></li>--%>
+    <%--<li class="nav-item"><a class="nav-link" href="#conversationCard" data-toggle="collapse"--%>
+    <%--data-target="#conversationCard"--%>
+    <%--aria-expanded="false" aria-controls="conversationCard">Conversations</a>--%>
+    <%--</li><li class="nav-item"><a class="nav-link" href="#customerNoteCard" data-toggle="collapse"--%>
+    <%--data-target="#customerNoteCard"--%>
+    <%--aria-expanded="false" aria-controls="customerNoteCard">Customer Notes</a></li>--%>
+    <%--</li><li class="nav-item"><a class="nav-link" href="#appointmentCard" data-toggle="collapse"--%>
+    <%--data-target="#appointmentCard"--%>
+    <%--aria-expanded="false" aria-controls="appointmentCard">Appointments</a></li>--%>
+    <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"
+                            aria-expanded="false"
+                            aria-controls="conversationCard customerNoteCard tagCard appointmentCard">Show
+        Details</a></li>
 </ul>
 </p>
 
@@ -279,7 +295,8 @@
                                 </td>
                                 <td><%=companyManager.getConversation(k).date%>
                                 </td>
-                                <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%></td>
+                                <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                                </td>
                                 <td>
                                 </td>
                             </tr>
@@ -293,8 +310,8 @@
     </div>
 </div>
 <%--Customer Notes Card--%>
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
         <div class="collapse multi-collapse" id="customerNoteCard">
             <div class="card card-body">
                 <div class="container">
@@ -328,7 +345,8 @@
                                 </td>
                                 <td><%=companyManager.getCompanyNote(k).note%>
                                 </td>
-                                <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>
+                                <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
+                                </td>
                                 <td><%=companyManager.getCompanyNote(k).timestamp%>
                                 </td>
                                 <td>
@@ -342,10 +360,59 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
+<%--Appointments Card--%>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="appointmentCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Appointments
+                                    <button style="float: right" type="button" class="btn btn-outline-secondary"
+                                            data-toggle="modal" data-target="#addConversation">Add Appointment
+                                    </button>
+                                </h2>
+                            </div>
+                        </div>
 
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Note</th>
+                                <%--<th>User</th>--%>
+                                <th>Date</th>
+                                <th>At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < companyManager.getCompanyAppointments().length; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getCompanyAppointment(k).note%>
+                                </td>
+                                <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
+                                <td><%=companyManager.getCompanyAppointment(k).date%>
+                                </td>
+                                <td><%=companyManager.getCompanyAppointment(k).time%>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+
 <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
 <input type="hidden" name="status" value="view"/>
 
@@ -466,8 +533,53 @@
         </div>
     </div>
 </div>
+<!--Appointment Modal -->
+<div class="modal fade" id="addAppointment" tabindex="-1" role="dialog" aria-labelledby="addAppointmentLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAppointmentLabel">Add Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="appointmentDate" class="bmd-label-floating">Date</label>
+                        <input type="date" name="appointmentDate" class="form-control" id="appointmentDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime" class="bmd-label-floating">Time</label>
+                        <input type="time" name="appointmentTime" class="form-control" id="appointmentTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="appointmentNote" name="appointmentNote"></textarea>
+                    </div>
+                    <div id="app"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addAppointment(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
+                               value="<%= userId %>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
+<%--VUE JS--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
