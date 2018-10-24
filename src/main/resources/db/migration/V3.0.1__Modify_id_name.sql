@@ -1,0 +1,1 @@
+ALTER TABLE `commercial_proposal` CHANGE `id` `commercial_proposal_id` INT(11) NOT NULL AUTO_INCREMENT;

@@ -133,7 +133,7 @@ public class CompanyDAO {
             return companyId;
         }
         catch (SQLException e) {
-            throw new ResultSetDBException("COmpanyDAO.getNewID(): Errore sul ResultSet --> impossibile calcolare CompanyId.");
+            throw new ResultSetDBException("CompanyDAO.getNewID(): Errore sul ResultSet --> impossibile calcolare CompanyId.");
         }
 
     }

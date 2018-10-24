@@ -128,7 +128,7 @@ public class Company {
 
         String sql;
 
-        sql=" UPDATE company SET FL_Attivo=0 WHERE company_id="+companyId;
+        sql=" UPDATE company SET active_fl=0 WHERE company_id="+companyId;
 
         db.modify(sql);
     }

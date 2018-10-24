@@ -1,4 +1,5 @@
-<%--
+<%@ page import="blogics.ConsultingService" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: raffaele
   Date: 10/19/18
@@ -184,6 +185,26 @@
             <p class="lead"><a class="btn btn-success btn-lg" href="#" role="button">Edit</a></p></div>
         <div class="col"><p class="lead"><a class="btn btn-danger btn-lg" href="#" role="button">Delete</a></p></div>
     </div>
+    <p>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link" href="#tagCard" data-toggle="collapse"
+                                data-target="#tagCard"
+                                aria-expanded="false" aria-controls="tagCard">Tags</a></li>
+        <li class="nav-item"><a class="nav-link" href="#clientNotesCard" data-toggle="collapse"
+                                data-target="#clientNotesCard"
+                                aria-expanded="false" aria-controls="clientNotesCard">Customer Notes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"
+                                data-target="#consultingServicesCard"
+                                aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#commercialProposalsCard" data-toggle="collapse"
+                                data-target="#commercialProposalsCard"
+                                aria-expanded="false" aria-controls="commercialProposalsCard">Commercial Proposals</a></li>
+        <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
+        <%--aria-expanded="false"--%>
+        <%--aria-controls="clientNotesCard positionCard productCategoriesCard clientTypesCard">Show--%>
+        <%--All</a></li>--%>
+    </ul>
+          
     </p>
 </div>
 </div>
@@ -257,6 +278,24 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="collapse multi-collapse" id="clientNotesCard">
+                <div class="card card-body">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertWorkField.jsp">
+                                        <h2>Customer Notes
+                                            <button style="float:right" type="submit" value="InsertWorkField"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+
         </div>
     </div>
 </div>
@@ -274,6 +313,7 @@
                                             data-toggle="modal" data-target="#addConversation">Add Conversation
                                     </button>
                                 </h2>
+
                             </div>
                         </div>
 
@@ -360,6 +400,140 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="collapse multi-collapse" id="consultingServicesCard">
+        <div class="card card-body">
+            <div class="container">
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="">
+                                <h2>Consulting Services
+                                    <button style="float:right" type="submit" value="InsertWorkField"
+                                            class="btn btn-default">
+                                        +
+                                    </button>
+                                </h2>
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>
+                        <tr>
+                        <td><%= k + 1 %>
+                        </td>
+                        <td><%=companyManager.getConsultingService(k).name%>
+                        </td>
+                        <td>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                        class="material-icons">&#xE254;</i></a>
+                        </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse multi-collapse" id="commercialProposalsCard">
+        <div class="card card-body">
+            <div class="container">
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="">
+                                <h2>Commercial Proposals
+                                    <button style="float:right" type="submit" value=""
+                                            class="btn btn-default">
+                                        +
+                                    </button>
+                                </h2>
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Services</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>
+
+                        <tr>
+                            <td><%= k + 1 %></td>
+
+                            <td><%=companyManager.getCommercialProposal(k).name%></td>
+
+                            <td><%=companyManager.getCommercialProposal(k).description%></td>
+
+                            <%{
+
+                                ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);
+                            %>
+
+                            <td>
+
+                                    <%for(ConsultingService s : services){%>
+
+                                        <%=s.name%>
+
+                                    <%}%>
+
+                            </td>
+
+
+
+                            <%}%>
+
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE254;</i></a>
+                            </td>
+
+                        </tr>
+
+                        <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+    <input type="hidden" name="status" value="view"/>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTagLabel">Add Tag</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
 </div>
 <%--Appointments Card--%>
 <div class="row">
@@ -407,6 +581,7 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -450,6 +625,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 <!--Conversation Modal -->
 <div class="modal fade" id="addConversation" tabindex="-1" role="dialog" aria-labelledby="addConversationLabel"
