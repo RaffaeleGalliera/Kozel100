@@ -444,64 +444,78 @@
         </div>
     </div>
 </div>
-<%--&lt;%&ndash;Commercial Proposal Card&ndash;%&gt;--%>
-<%--<div class="row">--%>
-<%--<div class="col">--%>
-<%--<div class="collapse multi-collapse" id="commercialProposalsCard">--%>
-<%--<div class="card card-body">--%>
-<%--<div class="container">--%>
-<%--<div class="table-wrapper">--%>
-<%--<div class="row">--%>
-<%--<div class="col-sm-12">--%>
-<%--<form action="">--%>
-<%--<h2>Commercial Proposals--%>
-<%--<button style="float:right" type="submit" value=""--%>
-<%--class="btn btn-default">--%>
-<%--+--%>
-<%--</button>--%>
-<%--</h2>--%>
-<%--</form>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--<table class="col-md-12 table table-striped">--%>
-<%--<thead>--%>
-<%--<tr>--%>
-<%--<th>#</th>--%>
-<%--<th>Name</th>--%>
-<%--<th>Description</th>--%>
-<%--<th>Services</th>--%>
-<%--<th>Actions</th>--%>
-<%--</tr>--%>
-<%--</thead>--%>
-<%--<tbody>--%>
-<%--<%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>--%>
-<%--<tr>--%>
-<%--<td><%= k + 1 %>--%>
-<%--</td>--%>
-<%--<td><%=companyManager.getCommercialProposal(k).name%>--%>
-<%--</td>--%>
-<%--<td><%=companyManager.getCommercialProposal(k).description%>--%>
-<%--</td>--%>
-<%--<%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);%>--%>
-<%--<td>--%>
-<%--<%for (ConsultingService s : services) {%>--%>
-<%--<%=s.name%>--%>
-<%--<%}%>--%>
-<%--</td>--%>
-<%--<td>--%>
-<%--<a class="edit" title="Edit" data-toggle="tooltip"><i--%>
-<%--class="material-icons">&#xE254;</i></a>--%>
-<%--</td>--%>
-<%--</tr>--%>
-<%--<%}%>--%>
-<%--</tbody>--%>
-<%--</table>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
+<%--Commercial Proposal Card--%>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="commercialProposalsCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form action="">
+                                    <h2>Commercial Proposals
+                                        <button style="float:right" type="submit" value=""
+                                                class="btn btn-default">
+                                            +
+                                        </button>
+                                    </h2>
+                                </form>
+                            </div>
+                        </div>
+                        <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
+                            if (nProposal == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Commercial Proposal Yet</h1>
+                        </div>
+                        <%} else {%>
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Services</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < nProposal; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getCommercialProposal(k).name%>
+                                </td>
+                                <td><%=companyManager.getCommercialProposal(k).description%>
+                                </td>
+                                <%
+                                    int nProposed = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).map(p -> p.size()).orElse(0);
+                                    if (nProposed == 0) {
+                                %>
+                                None
+                                <%} else {%>
+                                <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).get();%>
+                                <td>
+                                    <%for (ConsultingService s : services) {%>
+                                    <%=s.name%>
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                            class="material-icons">&#xE254;</i></a>
+                                </td>
+                                <%}%>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
 <input type="hidden" name="status" value="view"/>
 </div>

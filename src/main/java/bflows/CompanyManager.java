@@ -207,22 +207,23 @@ public class CompanyManager implements java.io.Serializable {
             consultingServices = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
             commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database,companyId);
 
-//            consultingServicesProposed = new HashMap<Integer,ArrayList<ConsultingService>>();
-//
-//            for(CommercialProposal proposal : commercialProposals){
-//
-//                consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
-//
-//                ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database,proposal.commercial_proposal_id);
-//
-//                for(ConsultingService s : services){
-//
-//                    consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
-//
-//                }
-//
-//            }
+            consultingServicesProposed = new HashMap<Integer, ArrayList<ConsultingService>>();
 
+            if (commercialProposals != null) {
+                for (CommercialProposal proposal : commercialProposals) {
+
+                    consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
+
+                    ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database, proposal.commercial_proposal_id);
+
+                    for (ConsultingService s : services) {
+
+                        consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
+
+                    }
+
+                }
+            }
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
 
@@ -684,7 +685,7 @@ public class CompanyManager implements java.io.Serializable {
         this.consultingServices = consultingServices;
     }
 
-    public ArrayList<ConsultingService> getConsultingServicesProposedTo(int commercialProposalId){
+    public Optional<ArrayList<ConsultingService>> getConsultingServicesProposedTo(int commercialProposalId) {
 
         int id = new Integer(commercialProposalId);
 
@@ -694,7 +695,7 @@ public class CompanyManager implements java.io.Serializable {
         ArrayList<ConsultingService> proposedServicesList = new ArrayList<ConsultingService>();
         ConsultingService[] proposedServices;
 
-        return consultingServicesProposed.get(id);
+        return Optional.ofNullable(consultingServicesProposed.get(id));
     }
 
     public String getConversationUserName(Integer userId){
@@ -708,7 +709,9 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public CommercialProposal[] getCommercialProposals(){return commercialProposals;}
+    public Optional<CommercialProposal[]> getCommercialProposals() {
+        return Optional.ofNullable(commercialProposals);
+    }
 
     public CommercialProposal getCommercialProposal(int index){return commercialProposals[index];}
 
