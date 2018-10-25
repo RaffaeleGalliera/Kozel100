@@ -75,27 +75,6 @@ REPLACE INTO `contact_person` (`contact_person_id`, `first_name`, `last_name`, `
 (28, 'Balto', 'Cappon', 'matssd@gmail.cazzo', '3345678', 13, '2018-10-19 12:50:46', '2018-10-19 12:50:46', 1);
 
 --
--- Dumping data for table `flyway_schema_history`
---
-
-REPLACE INTO `flyway_schema_history` (`installed_rank`, `version`, `description`, `type`, `script`, `checksum`, `installed_by`, `installed_on`, `execution_time`, `success`) VALUES
-(1, '1', 'Base version', 'SQL', 'V1__Base_version.sql', -322072636, 'root', '2018-10-22 16:20:53', 5318, 1),
-(2, '2', 'Conversation and tag', 'SQL', 'V2__Conversation_and_tag.sql', -260328813, 'root', '2018-10-22 16:20:54', 576, 1),
-(3, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', -1110662359, 'root', '2018-10-22 16:20:54', 175, 1),
-(4, '3', 'Proposal and purchase', 'SQL', 'V3__Proposal_and_purchase.sql', 801620664, 'root', '2018-10-22 18:53:59', 1118, 1),
-(5, '3.0.1', 'Modify id name', 'SQL', 'V3.0.1__Modify_id_name.sql', -1297055543, 'root', '2018-10-22 19:02:46', 14, 1),
-(6, '3.1', 'Proposal service', 'SQL', 'V3.1__Proposal_service.sql', -642314759, 'root', '2018-10-22 20:02:49', 675, 1),
-(7, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', -613471654, 'root', '2018-10-22 21:29:43', 202, 1),
-(8, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', -559192272, 'root', '2018-10-22 21:30:41', 191, 1),
-(9, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', 1727791296, 'root', '2018-10-22 21:36:47', 199, 1),
-(10, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', -1994987520, 'root', '2018-10-23 06:30:08', 143, 1),
-(11, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', 1791276752, 'root', '2018-10-23 06:39:07', 149, 1),
-(12, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', 1755793762, 'root', '2018-10-23 06:48:11', 146, 1),
-(13, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', 1899955602, 'root', '2018-10-23 06:49:40', 209, 1),
-(14, NULL, 'Populate schemas', 'SQL', 'R__Populate_schemas.sql', -1445945243, 'root', '2018-10-23 07:02:40', 207, 1),
-(15, '3.1.1', 'Little Upgrade', 'SQL', 'V3.1.1__Little_Upgrade.sql', 1316650414, 'root', '2018-10-23 08:09:21', 596, 1);
-
---
 -- Dumping data for table `product_category`
 --
 
