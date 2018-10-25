@@ -1,11 +1,11 @@
 package bflows;
 
 import blogics.*;
+import jdk.nashorn.internal.runtime.options.Option;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.sql.Time;
 import java.text.ParseException;
@@ -672,8 +672,8 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public ConsultingService[] getConsultingServices() {
-        return consultingServices;
+    public Optional<ConsultingService[]> getConsultingServices() {
+        return Optional.ofNullable(consultingServices);
     }
 
     public ConsultingService getConsultingService(int index) {
@@ -926,23 +926,24 @@ public class CompanyManager implements java.io.Serializable {
         return companyTags[index];
     }
 
-    public Conversation[] getConversations() {
-        return conversations;
+    public Optional<Conversation[]> getConversations() {
+        return Optional.ofNullable(conversations);
     }
 
     public Conversation getConversation(int index) {
         return conversations[index];
     }
-    public ConversationNote[] getCompanyNotes() {
-        return companyNotes;
+
+    public Optional<ConversationNote[]> getCompanyNotes() {
+        return Optional.ofNullable(companyNotes);
     }
 
     public ConversationNote getCompanyNote(int index) {
         return companyNotes[index];
     }
 
-    public Appointment[] getCompanyAppointments() {
-        return companyAppointments;
+    public Optional<Appointment[]> getCompanyAppointments() {
+        return Optional.ofNullable(companyAppointments);
     }
 
     public Appointment getCompanyAppointment(int index) {

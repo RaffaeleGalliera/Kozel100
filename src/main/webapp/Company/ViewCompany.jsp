@@ -135,6 +135,9 @@
                         <% } %>
                         <%=companyManager.getCompanyTag(c).name%>
                         <%}%>
+                        <% if (nTag == 0) {%>
+                        Nessun Tag Assegnato
+                        <%}%>
                     </p>
                 </div>
             </div>
@@ -227,7 +230,11 @@
                                 </h2>
                             </div>
                         </div>
-
+                        <% if (nTag == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Tag Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -258,6 +265,7 @@
                             <input type="hidden" name="tagId" value=""/>
                             <input type="hidden" name="status" value="deleteTag"/>
                         </form>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -283,7 +291,12 @@
 
                             </div>
                         </div>
-
+                        <% int nConversation = companyManager.getConversations().map(t -> t.length).orElse(0);
+                            if (nConversation == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Conversation Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -294,7 +307,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
+                            <%for (int k = 0; k < nConversation; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -304,12 +317,11 @@
                                 </td>
                                 <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
                                 </td>
-                                <td>
-                                </td>
                             </tr>
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -328,13 +340,18 @@
                                 <h2>Customer Notes
                                     <button style="float: right" type="button"
                                             class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addConversation">Add
+                                            data-toggle="modal" data-target="#addNote">Add
                                         Note
                                     </button>
                                 </h2>
                             </div>
                         </div>
-
+                        <% int nNote = companyManager.getCompanyNotes().map(t -> t.length).orElse(0);
+                            if (nNote == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Note Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -346,7 +363,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCompanyNotes().length; k++) {%>
+                            <%for (int k = 0; k < nNote; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -364,6 +381,7 @@
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -390,6 +408,12 @@
                                 </form>
                             </div>
                         </div>
+                        <% int nService = companyManager.getConsultingServices().map(t -> t.length).orElse(0);
+                            if (nService == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Consulting Service Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -399,7 +423,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>
+                            <%for (int k = 0; k < nService; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -413,66 +437,73 @@
                             <%}%>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="collapse multi-collapse" id="commercialProposalsCard">
-            <div class="card card-body">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <form action="">
-                                    <h2>Commercial Proposals
-                                        <button style="float:right" type="submit" value=""
-                                                class="btn btn-default">
-                                            +
-                                        </button>
-                                    </h2>
-                                </form>
-                            </div>
-                        </div>
-                        <table class="col-md-12 table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Services</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>
-                            <tr>
-                                <td><%= k + 1 %>
-                                </td>
-                                <td><%=companyManager.getCommercialProposal(k).name%>
-                                </td>
-                                <td><%=companyManager.getCommercialProposal(k).description%>
-                                </td>
-                                <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);%>
-                                <td>
-                                    <%for (ConsultingService s : services) {%>
-                                    <%=s.name%>
-                                    <%}%>
-                                </td>
-                                <td>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-    <input type="hidden" name="status" value="view"/>
+</div>
+<%--&lt;%&ndash;Commercial Proposal Card&ndash;%&gt;--%>
+<%--<div class="row">--%>
+<%--<div class="col">--%>
+<%--<div class="collapse multi-collapse" id="commercialProposalsCard">--%>
+<%--<div class="card card-body">--%>
+<%--<div class="container">--%>
+<%--<div class="table-wrapper">--%>
+<%--<div class="row">--%>
+<%--<div class="col-sm-12">--%>
+<%--<form action="">--%>
+<%--<h2>Commercial Proposals--%>
+<%--<button style="float:right" type="submit" value=""--%>
+<%--class="btn btn-default">--%>
+<%--+--%>
+<%--</button>--%>
+<%--</h2>--%>
+<%--</form>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--<table class="col-md-12 table table-striped">--%>
+<%--<thead>--%>
+<%--<tr>--%>
+<%--<th>#</th>--%>
+<%--<th>Name</th>--%>
+<%--<th>Description</th>--%>
+<%--<th>Services</th>--%>
+<%--<th>Actions</th>--%>
+<%--</tr>--%>
+<%--</thead>--%>
+<%--<tbody>--%>
+<%--<%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>--%>
+<%--<tr>--%>
+<%--<td><%= k + 1 %>--%>
+<%--</td>--%>
+<%--<td><%=companyManager.getCommercialProposal(k).name%>--%>
+<%--</td>--%>
+<%--<td><%=companyManager.getCommercialProposal(k).description%>--%>
+<%--</td>--%>
+<%--<%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);%>--%>
+<%--<td>--%>
+<%--<%for (ConsultingService s : services) {%>--%>
+<%--<%=s.name%>--%>
+<%--<%}%>--%>
+<%--</td>--%>
+<%--<td>--%>
+<%--<a class="edit" title="Edit" data-toggle="tooltip"><i--%>
+<%--class="material-icons">&#xE254;</i></a>--%>
+<%--</td>--%>
+<%--</tr>--%>
+<%--<%}%>--%>
+<%--</tbody>--%>
+<%--</table>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--</div>--%>
+<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+<input type="hidden" name="status" value="view"/>
 </div>
 <%--Appointments Card--%>
 <div class="row">
@@ -486,13 +517,18 @@
                                 <h2>Appointments
                                     <button style="float: right" type="button"
                                             class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addConversation">Add
+                                            data-toggle="modal" data-target="#addAppointment">Add
                                         Appointment
                                     </button>
                                 </h2>
                             </div>
                         </div>
-
+                        <% int nAppointments = companyManager.getCompanyAppointments().map(t -> t.length).orElse(0);
+                            if (nAppointments == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Appointment Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -504,7 +540,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCompanyAppointments().length; k++) {%>
+                            <%for (int k = 0; k < nAppointments; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -521,6 +557,7 @@
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -621,10 +658,15 @@
                 </button>
             </div>
             <div class="modal-body">
+                <%if (nConversation == 0) {%>
+                <div class="jumbotron">
+                    <h1 class="display-4"> There is no Conversation Yet</h1>
+                </div>
+                <%} else {%>
                 <form name="companyManager" action="" method="post">
                     <label for="conversationId" class="bmd-label-floating">Conversation</label>
                     <select class="form-control" id="conversationId" name="conversationId">
-                        <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
+                        <%for (int k = 0; k < nConversation; k++) {%>
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
@@ -653,6 +695,7 @@
                                value="<%= userId %>"/>
                     </div>
                 </form>
+                <%}%>
             </div>
         </div>
     </div>
