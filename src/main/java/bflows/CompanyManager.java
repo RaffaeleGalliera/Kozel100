@@ -690,6 +690,15 @@ public class CompanyManager implements java.io.Serializable {
 
         int id = new Integer(commercialProposalId);
 
+
+
+
+        ArrayList<ConsultingService> proposedServicesList = new ArrayList<ConsultingService>();
+        ConsultingService[] proposedServices;
+
+        return consultingServicesProposed.get(id);
+    }
+
     public String getConversationUserName(Integer userId){
         String user="";
         for(int k = 0; k<(users.length); k++){
@@ -700,12 +709,6 @@ public class CompanyManager implements java.io.Serializable {
         return  user;
     }
 
-
-        ArrayList<ConsultingService> proposedServicesList = new ArrayList<ConsultingService>();
-        ConsultingService[] proposedServices;
-
-        return consultingServicesProposed.get(id);
-    }
 
     public CommercialProposal[] getCommercialProposals(){return commercialProposals;}
 
