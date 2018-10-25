@@ -206,12 +206,11 @@
                                 aria-controls="conversationCard customerNoteCard tagCard commercialProposalsCard consultingServicesCard appointmentCard">Show
             Details</a></li>
     </ul>
-
     </p>
 </div>
-</div>
+
+<%--TAG CARD--%>
 <div class="row">
-    <%--TAG CARD--%>
     <div class="col">
         <div class="collapse multi-collapse" id="tagCard">
             <div class="card card-body">
@@ -259,510 +258,468 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="collapse multi-collapse" id="clientNotesCard">
-                <div class="card card-body">
-                    <div class="container">
-                        <div class="table-wrapper">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form action="Setup/InsertWorkField.jsp">
-                                        <h2>Customer Notes
-                                            <button style="float:right" type="submit" value="InsertWorkField"
-                                                    class="btn btn-default">
-                                                +
-                                            </button>
-                                        </h2>
-                                    </form>
-                                </div>
+        </div>
+    </div>
+</div>
+<%--Conversations Card--%>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="conversationCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Conversations
+                                    <button style="float: right" type="button"
+                                            class="btn btn-outline-secondary"
+                                            data-toggle="modal" data-target="#addConversation">Add
+                                        Conversation
+                                    </button>
+                                </h2>
 
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <%--Conversations Card--%>
-                        <div class="col">
-                            <div class="collapse multi-collapse" id="conversationCard">
-                                <div class="card card-body">
-                                    <div class="container">
-                                        <div class="table-wrapper">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <h2>Conversations
-                                                        <button style="float: right" type="button"
-                                                                class="btn btn-outline-secondary"
-                                                                data-toggle="modal" data-target="#addConversation">Add
-                                                            Conversation
-                                                        </button>
-                                                    </h2>
 
-                                                </div>
-                                            </div>
-
-                                            <table class="col-md-12 table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Reason</th>
-                                                    <th>Date</th>
-                                                    <th>User</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
-                                                <tr>
-                                                    <td><%= k + 1 %>
-                                                    </td>
-                                                    <td><%=companyManager.getConversation(k).reason%>
-                                                    </td>
-                                                    <td><%=companyManager.getConversation(k).date%>
-                                                    </td>
-                                                    <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <%}%>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%--Customer Notes Card--%>
-                    <div class="row">
-                        <div class="col">
-                            <div class="collapse multi-collapse" id="customerNoteCard">
-                                <div class="card card-body">
-                                    <div class="container">
-                                        <div class="table-wrapper">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <h2>Customer Notes
-                                                        <button style="float: right" type="button"
-                                                                class="btn btn-outline-secondary"
-                                                                data-toggle="modal" data-target="#addConversation">Add
-                                                            Note
-                                                        </button>
-                                                    </h2>
-                                                </div>
-                                            </div>
-
-                                            <table class="col-md-12 table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Title</th>
-                                                    <th>Note</th>
-                                                    <th>Author</th>
-                                                    <th>Posted at</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <%for (int k = 0; k < companyManager.getCompanyNotes().length; k++) {%>
-                                                <tr>
-                                                    <td><%= k + 1 %>
-                                                    </td>
-                                                    <td><%=companyManager.getCompanyNote(k).title%>
-                                                    </td>
-                                                    <td><%=companyManager.getCompanyNote(k).note%>
-                                                    </td>
-                                                    <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
-                                                    </td>
-                                                    <td><%=companyManager.getCompanyNote(k).timestamp%>
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <%}%>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="collapse multi-collapse" id="consultingServicesCard">
-                            <div class="card card-body">
-                                <div class="container">
-                                    <div class="table-wrapper">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <form action="">
-                                                    <h2>Consulting Services
-                                                        <button style="float:right" type="submit"
-                                                                value="InsertWorkField"
-                                                                class="btn btn-default">
-                                                            +
-                                                        </button>
-                                                    </h2>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                        <table class="col-md-12 table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>
-                                            <tr>
-                                                <td><%= k + 1 %>
-                                                </td>
-                                                <td><%=companyManager.getConsultingService(k).name%>
-                                                </td>
-                                                <td>
-                                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                            class="material-icons">&#xE254;</i></a>
-                                                </td>
-                                            </tr>
-                                            <%}%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="collapse multi-collapse" id="commercialProposalsCard">
-                            <div class="card card-body">
-                                <div class="container">
-                                    <div class="table-wrapper">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <form action="">
-                                                    <h2>Commercial Proposals
-                                                        <button style="float:right" type="submit" value=""
-                                                                class="btn btn-default">
-                                                            +
-                                                        </button>
-                                                    </h2>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                        <table class="col-md-12 table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Services</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>
-
-                                            <tr>
-                                                <td><%= k + 1 %>
-                                                </td>
-
-                                                <td><%=companyManager.getCommercialProposal(k).name%>
-                                                </td>
-
-                                                <td><%=companyManager.getCommercialProposal(k).description%>
-                                                </td>
-
-                                                <%
-                                                    {
-
-                                                        ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);
-                                                %>
-
-                                                <td>
-
-                                                    <%for (ConsultingService s : services) {%>
-
-                                                    <%=s.name%>
-
-                                                    <%}%>
-
-                                                </td>
-
-
-                                                <%}%>
-
-                                                <td>
-                                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                            class="material-icons">&#xE254;</i></a>
-                                                </td>
-
-                                            </tr>
-
-                                            <%}%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-                    <input type="hidden" name="status" value="view"/>
-
-
-                </div>
-                <%--Appointments Card--%>
-                <div class="row">
-                    <div class="col">
-                        <div class="collapse multi-collapse" id="appointmentCard">
-                            <div class="card card-body">
-                                <div class="container">
-                                    <div class="table-wrapper">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h2>Appointments
-                                                    <button style="float: right" type="button"
-                                                            class="btn btn-outline-secondary"
-                                                            data-toggle="modal" data-target="#addConversation">Add
-                                                        Appointment
-                                                    </button>
-                                                </h2>
-                                            </div>
-                                        </div>
-
-                                        <table class="col-md-12 table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Note</th>
-                                                <%--<th>User</th>--%>
-                                                <th>Date</th>
-                                                <th>At</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <%for (int k = 0; k < companyManager.getCompanyAppointments().length; k++) {%>
-                                            <tr>
-                                                <td><%= k + 1 %>
-                                                </td>
-                                                <td><%=companyManager.getCompanyAppointment(k).note%>
-                                                </td>
-                                                <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
-                                                <td><%=companyManager.getCompanyAppointment(k).date%>
-                                                </td>
-                                                <td><%=companyManager.getCompanyAppointment(k).time%>
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <%}%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-                <input type="hidden" name="status" value="view"/>
-
-                <!-- Tag Modal -->
-                <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addTagLabel">Add Tag</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form name="companyManager" action="" method="post">
-                                    <div class="form-group">
-                                        <label for="tagId" class="bmd-label-floating">Tags</label>
-                                        <select class="form-control" id="tagId" name="tagId">
-                                            <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
-                                            <option value="<%=companyManager.getTag(k).tagId%>">
-                                                <%=companyManager.getTag(k).name%>
-                                            </option>
-                                            <% } %>
-                                        </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-default">Cancel</button>
-                                        <button type="submit" class="btn btn-primary btn-raised"
-                                                onclick="addTag(this.form)">
-                                            Submit
-                                        </button>
-                                        <input type="hidden" name="status" value="addTag"/>
-                                        <input type="hidden" name="companyId"
-                                               value="<%=companyManager.getCompany().companyId%>"/>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Conversation Modal -->
-                <div class="modal fade" id="addConversation" tabindex="-1" role="dialog"
-                     aria-labelledby="addConversationLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addConversationLabel">Add Conversation</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form name="companyManager" action="" method="post">
-                                    <div class="form-group">
-                                        <label for="reason" class="bmd-label-floating">Reason</label>
-                                        <input type="text" name="reason" class="form-control" id="reason">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="conversationDate" class="bmd-label-floating">Date</label>
-                                        <input type="date" name="conversationDate" class="form-control"
-                                               id="conversationDate">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-default">Cancel</button>
-                                        <button type="submit" class="btn btn-primary btn-raised"
-                                                onclick="addConversation(this.form)">
-                                            Submit
-                                        </button>
-                                        <input type="hidden" name="status" value="addConversation"/>
-                                        <input type="hidden" name="companyId" id="companyId"
-                                               value="<%=companyManager.getCompany().companyId%>"/>
-                                        <input type="hidden" name="conversationUserId" id="conversationUserId"
-                                               value="<%= userId %>"/>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Note Modal -->
-                <div class="modal fade" id="addNote" tabindex="-1" role="dialog" aria-labelledby="addNoteLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addNoteLabel">Add Note</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form name="companyManager" action="" method="post">
-                                    <label for="conversationId" class="bmd-label-floating">Conversation</label>
-                                    <select class="form-control" id="conversationId" name="conversationId">
-                                        <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
-                                        <option value="<%=companyManager.getConversation(k).conversationId%>">
-                                            <%=companyManager.getConversation(k).date%>
-                                            : <%=companyManager.getConversation(k).reason%>
-                                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
-                                        </option>
-                                        <% } %>
-                                    </select>
-                                    <div class="form-group">
-                                        <label for="Title" class="bmd-label-floating">Title</label>
-                                        <input type="text" name="title" class="form-control" id="title">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="note" class="bmd-label-floating">Note</label>
-                                        <textarea class="form-control" rows="5" id="note" name="note"></textarea>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-default">Cancel</button>
-                                        <button type="submit" class="btn btn-primary btn-raised"
-                                                onclick="addConversationNote(this.form)">
-                                            Submit
-                                        </button>
-                                        <input type="hidden" name="status" value="addConversationNote"/>
-                                        <input type="hidden" name="companyId" id="companyId"
-                                               value="<%=companyManager.getCompany().companyId%>"/>
-                                        <input type="hidden" name="conversationNoteUserId" id="conversationNoteUserId"
-                                               value="<%= userId %>"/>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Appointment Modal -->
-                <div class="modal fade" id="addAppointment" tabindex="-1" role="dialog"
-                     aria-labelledby="addAppointmentLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addAppointmentLabel">Add Appointment</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form name="companyManager" action="" method="post">
-                                    <div class="form-group">
-                                        <label for="appointmentDate" class="bmd-label-floating">Date</label>
-                                        <input type="date" name="appointmentDate" class="form-control"
-                                               id="appointmentDate">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="appointmentTime" class="bmd-label-floating">Time</label>
-                                        <input type="time" name="appointmentTime" class="form-control"
-                                               id="appointmentTime">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="appointmentNote" class="bmd-label-floating">Note</label>
-                                        <textarea class="form-control" rows="5" id="appointmentNote"
-                                                  name="appointmentNote"></textarea>
-                                    </div>
-                                    <div id="app"></div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-default">Cancel</button>
-                                        <button type="submit" class="btn btn-primary btn-raised"
-                                                onclick="addAppointment(this.form)">
-                                            Submit
-                                        </button>
-                                        <input type="hidden" name="status" value="addAppointment"/>
-                                        <input type="hidden" name="companyId" id="companyId"
-                                               value="<%=companyManager.getCompany().companyId%>"/>
-                                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
-                                               value="<%= userId %>"/>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Reason</th>
+                                <th>Date</th>
+                                <th>User</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getConversation(k).reason%>
+                                </td>
+                                <td><%=companyManager.getConversation(k).date%>
+                                </td>
+                                <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<%--Customer Notes Card--%>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="customerNoteCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Customer Notes
+                                    <button style="float: right" type="button"
+                                            class="btn btn-outline-secondary"
+                                            data-toggle="modal" data-target="#addConversation">Add
+                                        Note
+                                    </button>
+                                </h2>
+                            </div>
+                        </div>
 
-            <%--VUE JS--%>
-            <%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Note</th>
+                                <th>Author</th>
+                                <th>Posted at</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < companyManager.getCompanyNotes().length; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getCompanyNote(k).title%>
+                                </td>
+                                <td><%=companyManager.getCompanyNote(k).note%>
+                                </td>
+                                <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
+                                </td>
+                                <td><%=companyManager.getCompanyNote(k).timestamp%>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%--Consulting Services Card--%>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="consultingServicesCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form action="">
+                                    <h2>Consulting Services
+                                        <button style="float:right" type="submit"
+                                                value="InsertWorkField"
+                                                class="btn btn-default">
+                                            +
+                                        </button>
+                                    </h2>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getConsultingService(k).name%>
+                                </td>
+                                <td>
+                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                            class="material-icons">&#xE254;</i></a>
+                                </td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="collapse multi-collapse" id="commercialProposalsCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form action="">
+                                    <h2>Commercial Proposals
+                                        <button style="float:right" type="submit" value=""
+                                                class="btn btn-default">
+                                            +
+                                        </button>
+                                    </h2>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Services</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getCommercialProposal(k).name%>
+                                </td>
+                                <td><%=companyManager.getCommercialProposal(k).description%>
+                                </td>
+                                <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);%>
+                                <td>
+                                    <%for (ConsultingService s : services) {%>
+                                    <%=s.name%>
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                            class="material-icons">&#xE254;</i></a>
+                                </td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+    <input type="hidden" name="status" value="view"/>
+</div>
+<%--Appointments Card--%>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="appointmentCard">
+            <div class="card card-body">
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Appointments
+                                    <button style="float: right" type="button"
+                                            class="btn btn-outline-secondary"
+                                            data-toggle="modal" data-target="#addConversation">Add
+                                        Appointment
+                                    </button>
+                                </h2>
+                            </div>
+                        </div>
 
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-                    crossorigin="anonymous"></script>
-            <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-                    integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-                    crossorigin="anonymous"></script>
-            <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-                    integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-                    crossorigin="anonymous"></script>
-            <script>$(document).ready(function () {
-                $('body').bootstrapMaterialDesign();
-            });</script>
+                        <table class="col-md-12 table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Note</th>
+                                <%--<th>User</th>--%>
+                                <th>Date</th>
+                                <th>At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%for (int k = 0; k < companyManager.getCompanyAppointments().length; k++) {%>
+                            <tr>
+                                <td><%= k + 1 %>
+                                </td>
+                                <td><%=companyManager.getCompanyAppointment(k).note%>
+                                </td>
+                                <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
+                                <td><%=companyManager.getCompanyAppointment(k).date%>
+                                </td>
+                                <td><%=companyManager.getCompanyAppointment(k).time%>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+<input type="hidden" name="status" value="view"/>
+
+<!-- Tag Modal -->
+<div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTagLabel">Add Tag</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="tagId" class="bmd-label-floating">Tags</label>
+                        <select class="form-control" id="tagId" name="tagId">
+                            <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                            <option value="<%=companyManager.getTag(k).tagId%>">
+                                <%=companyManager.getTag(k).name%>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addTag(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addTag"/>
+                        <input type="hidden" name="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Conversation Modal -->
+<div class="modal fade" id="addConversation" tabindex="-1" role="dialog"
+     aria-labelledby="addConversationLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addConversationLabel">Add Conversation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="reason" class="bmd-label-floating">Reason</label>
+                        <input type="text" name="reason" class="form-control" id="reason">
+                    </div>
+                    <div class="form-group">
+                        <label for="conversationDate" class="bmd-label-floating">Date</label>
+                        <input type="date" name="conversationDate" class="form-control"
+                               id="conversationDate">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addConversation(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addConversation"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="conversationUserId" id="conversationUserId"
+                               value="<%= userId %>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Note Modal -->
+<div class="modal fade" id="addNote" tabindex="-1" role="dialog" aria-labelledby="addNoteLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNoteLabel">Add Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <label for="conversationId" class="bmd-label-floating">Conversation</label>
+                    <select class="form-control" id="conversationId" name="conversationId">
+                        <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
+                        <option value="<%=companyManager.getConversation(k).conversationId%>">
+                            <%=companyManager.getConversation(k).date%>
+                            : <%=companyManager.getConversation(k).reason%>
+                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                        </option>
+                        <% } %>
+                    </select>
+                    <div class="form-group">
+                        <label for="Title" class="bmd-label-floating">Title</label>
+                        <input type="text" name="title" class="form-control" id="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="note" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="note" name="note"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addConversationNote(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addConversationNote"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="conversationNoteUserId" id="conversationNoteUserId"
+                               value="<%= userId %>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Appointment Modal -->
+<div class="modal fade" id="addAppointment" tabindex="-1" role="dialog"
+     aria-labelledby="addAppointmentLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAppointmentLabel">Add Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="appointmentDate" class="bmd-label-floating">Date</label>
+                        <input type="date" name="appointmentDate" class="form-control"
+                               id="appointmentDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime" class="bmd-label-floating">Time</label>
+                        <input type="time" name="appointmentTime" class="form-control"
+                               id="appointmentTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="appointmentNote"
+                                  name="appointmentNote"></textarea>
+                    </div>
+                    <div id="app"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addAppointment(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
+                               value="<%= userId %>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<%--VUE JS--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+    $('body').bootstrapMaterialDesign();
+});</script>
 
 </body>
 </html>
