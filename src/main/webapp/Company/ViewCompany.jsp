@@ -9,6 +9,7 @@
 <%@ page import="services.tokenservice.JWTService" %>
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="util.Debug" %>
+<%@ page import="blogics.Tag" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
@@ -127,7 +128,8 @@
                         <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
                                 data-target="#addTag">Tag
                         </button>
-                        <%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
+                        <% int nTag = companyManager.getCompanyTags().map(t -> t.length).orElse(0);
+                            for (int c = 0; c < nTag; c++) {%>
                         <% if (c > 0) {%>
                         ,
                         <% } %>
@@ -235,7 +237,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCompanyTags().length; k++) {%>
+                            <%
+                                for (int k = 0; k < nTag; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
