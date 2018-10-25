@@ -9,6 +9,7 @@
 <%@ page import="services.tokenservice.JWTService" %>
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="util.Debug" %>
+<%@ page import="blogics.Tag" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
@@ -127,11 +128,15 @@
                         <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
                                 data-target="#addTag">Tag
                         </button>
-                        <%for (int c = 0; c < companyManager.getCompanyTags().length; c++) {%>
+                        <% int nTag = companyManager.getCompanyTags().map(t -> t.length).orElse(0);
+                            for (int c = 0; c < nTag; c++) {%>
                         <% if (c > 0) {%>
                         ,
                         <% } %>
                         <%=companyManager.getCompanyTag(c).name%>
+                        <%}%>
+                        <% if (nTag == 0) {%>
+                        Nessun Tag Assegnato
                         <%}%>
                     </p>
                 </div>
@@ -225,7 +230,11 @@
                                 </h2>
                             </div>
                         </div>
-
+                        <% if (nTag == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Tag Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -235,7 +244,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCompanyTags().length; k++) {%>
+                            <%
+                                for (int k = 0; k < nTag; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -255,6 +265,7 @@
                             <input type="hidden" name="tagId" value=""/>
                             <input type="hidden" name="status" value="deleteTag"/>
                         </form>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -280,7 +291,12 @@
 
                             </div>
                         </div>
-
+                        <% int nConversation = companyManager.getConversations().map(t -> t.length).orElse(0);
+                            if (nConversation == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Conversation Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -291,7 +307,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
+                            <%for (int k = 0; k < nConversation; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -301,12 +317,11 @@
                                 </td>
                                 <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
                                 </td>
-                                <td>
-                                </td>
                             </tr>
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -325,13 +340,18 @@
                                 <h2>Customer Notes
                                     <button style="float: right" type="button"
                                             class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addConversation">Add
+                                            data-toggle="modal" data-target="#addNote">Add
                                         Note
                                     </button>
                                 </h2>
                             </div>
                         </div>
-
+                        <% int nNote = companyManager.getCompanyNotes().map(t -> t.length).orElse(0);
+                            if (nNote == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Note Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -343,7 +363,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCompanyNotes().length; k++) {%>
+                            <%for (int k = 0; k < nNote; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -361,6 +381,7 @@
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -387,6 +408,12 @@
                                 </form>
                             </div>
                         </div>
+                        <% int nService = companyManager.getConsultingServices().map(t -> t.length).orElse(0);
+                            if (nService == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Consulting Service Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -396,7 +423,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getConsultingServices().length; k++) {%>
+                            <%for (int k = 0; k < nService; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -410,10 +437,16 @@
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<%--Commercial Proposal Card--%>
+<div class="row">
+    <div class="col">
         <div class="collapse multi-collapse" id="commercialProposalsCard">
             <div class="card card-body">
                 <div class="container">
@@ -430,6 +463,12 @@
                                 </form>
                             </div>
                         </div>
+                        <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
+                            if (nProposal == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Commercial Proposal Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -441,7 +480,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCommercialProposals().length; k++) {%>
+                            <%for (int k = 0; k < nProposal; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -449,7 +488,13 @@
                                 </td>
                                 <td><%=companyManager.getCommercialProposal(k).description%>
                                 </td>
-                                <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id);%>
+                                <%
+                                    int nProposed = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).map(p -> p.size()).orElse(0);
+                                    if (nProposed == 0) {
+                                %>
+                                None
+                                <%} else {%>
+                                <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).get();%>
                                 <td>
                                     <%for (ConsultingService s : services) {%>
                                     <%=s.name%>
@@ -459,17 +504,20 @@
                                     <a class="edit" title="Edit" data-toggle="tooltip"><i
                                             class="material-icons">&#xE254;</i></a>
                                 </td>
+                                <%}%>
                             </tr>
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-    <input type="hidden" name="status" value="view"/>
+</div>
+<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+<input type="hidden" name="status" value="view"/>
 </div>
 <%--Appointments Card--%>
 <div class="row">
@@ -483,13 +531,18 @@
                                 <h2>Appointments
                                     <button style="float: right" type="button"
                                             class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addConversation">Add
+                                            data-toggle="modal" data-target="#addAppointment">Add
                                         Appointment
                                     </button>
                                 </h2>
                             </div>
                         </div>
-
+                        <% int nAppointments = companyManager.getCompanyAppointments().map(t -> t.length).orElse(0);
+                            if (nAppointments == 0) {%>
+                        <div class="jumbotron">
+                            <h1 class="display-4"> There is no Appointment Yet</h1>
+                        </div>
+                        <%} else {%>
                         <table class="col-md-12 table table-striped">
                             <thead>
                             <tr>
@@ -501,7 +554,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (int k = 0; k < companyManager.getCompanyAppointments().length; k++) {%>
+                            <%for (int k = 0; k < nAppointments; k++) {%>
                             <tr>
                                 <td><%= k + 1 %>
                                 </td>
@@ -518,6 +571,7 @@
                             <%}%>
                             </tbody>
                         </table>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -618,10 +672,15 @@
                 </button>
             </div>
             <div class="modal-body">
+                <%if (nConversation == 0) {%>
+                <div class="jumbotron">
+                    <h1 class="display-4"> There is no Conversation Yet</h1>
+                </div>
+                <%} else {%>
                 <form name="companyManager" action="" method="post">
                     <label for="conversationId" class="bmd-label-floating">Conversation</label>
                     <select class="form-control" id="conversationId" name="conversationId">
-                        <%for (int k = 0; k < companyManager.getConversations().length; k++) {%>
+                        <%for (int k = 0; k < nConversation; k++) {%>
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
@@ -650,6 +709,7 @@
                                value="<%= userId %>"/>
                     </div>
                 </form>
+                <%}%>
             </div>
         </div>
     </div>
