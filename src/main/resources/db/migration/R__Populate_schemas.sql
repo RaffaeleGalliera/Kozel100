@@ -148,7 +148,7 @@ REPLACE INTO `work_position` (`position_id`, `name`, `created_at`, `updated_at`)
 (22, 'Ministro dello sviluppo economico', '2018-10-12 07:12:08', '2018-10-12 07:12:08'),
 (23, NULL, '2018-10-12 10:28:42', '2018-10-12 10:28:42'),
 (24, NULL, '2018-10-15 10:29:06', '2018-10-15 10:29:06'),
-(25, 'Nuovo', '2018-10-15 10:29:17', '2018-10-15 10:29:17');3
+(25, 'Nuovo', '2018-10-15 10:29:17', '2018-10-15 10:29:17');
 
 --
 -- Dumping data for table `appointment`
