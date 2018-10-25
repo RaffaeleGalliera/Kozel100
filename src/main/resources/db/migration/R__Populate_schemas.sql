@@ -169,7 +169,28 @@ REPLACE INTO `work_position` (`position_id`, `name`, `created_at`, `updated_at`)
 (22, 'Ministro dello sviluppo economico', '2018-10-12 07:12:08', '2018-10-12 07:12:08'),
 (23, NULL, '2018-10-12 10:28:42', '2018-10-12 10:28:42'),
 (24, NULL, '2018-10-15 10:29:06', '2018-10-15 10:29:06'),
-(25, 'Nuovo', '2018-10-15 10:29:17', '2018-10-15 10:29:17');
+(25, 'Nuovo', '2018-10-15 10:29:17', '2018-10-15 10:29:17');3
+
+--
+-- Dumping data for table `appointment`
+--
+
+REPLACE INTO `appointment` (`appointment_id`, `company_id`, `note`, `date`, `time`, `created_at`, `updated_at`) VALUES
+(1, 1, 'al bar hihihi', '2018-10-02', '47:24:17', '2018-10-25 08:33:27', '2018-10-25 08:33:27');
+
+--
+-- Dumping data for table `conversation`
+--
+
+REPLACE INTO `conversation` (`conversation_id`, `user_id`, `company_id`, `date`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, '2018-10-17', 'hahah hihihi lol', '2018-10-25 08:31:54', '2018-10-25 08:31:54');
+
+--
+-- Dumping data for table `conversation_note`
+--
+
+REPLACE INTO `conversation_note` (`conversation_note_id`, `user_id`, `title`, `note`, `created_at`, `updated_at`, `conversation_id`) VALUES
+(1, 11, 'HIHIHI??', 'Hahahaa', '2018-10-25 08:32:21', '2018-10-25 08:32:21', 1);
 
 COMMIT;
 SET FOREIGN_KEY_CHECKS = 1;
