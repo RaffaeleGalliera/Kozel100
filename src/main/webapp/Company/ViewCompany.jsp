@@ -118,116 +118,395 @@
 
     }
 </script>
+
 <div class="container">
     <div class="page-header">
-        <div class="jumbotron">
-            <div class="row">
-                <div class="col">
-                    <h1 class="display-4"><%=companyManager.getCompany().name%>
-                    </h1>
-                </div>
-                <div class="col">
-                    <p class="lead">
-                        <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                                data-target="#addTag">Tag
-                        </button>
-                        <% int nTag = companyManager.getCompanyTags().map(t -> t.length).orElse(0);
-                            for (int c = 0; c < nTag; c++) {%>
-                        <% if (c > 0) {%>
-                        ,
-                        <% } %>
-                        <%=companyManager.getCompanyTag(c).name%>
-                        <%}%>
-                        <% if (nTag == 0) {%>
-                        Nessun Tag Assegnato
-                        <%}%>
-                    </p>
+        <h1 class="text-center display-2"><%=companyManager.getCompany().name%>
+        </h1>
+        <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab"
+                   aria-controls="overview" aria-selected="true">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="appointments-tab" data-toggle="tab" href="#appointments" role="tab"
+                   aria-controls="appointments" aria-selected="false">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="notes-tab" data-toggle="tab" href="#notes" role="tab" aria-controls="notes"
+                   aria-selected="false">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="conversations-tab" data-toggle="tab" href="#conversations" role="tab"
+                   aria-controls="conversations" aria-selected="false">Conversations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="consultingServices-tab" data-toggle="tab" href="#consultingServices" role="tab"
+                   aria-controls="consultingServices" aria-selected="false">Consulting Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="commercialProposals-tab" data-toggle="tab" href="#commercialProposals"
+                   role="tab"
+                   aria-controls="commercialProposals" aria-selected="false">Commercial Proposals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tags-tab" data-toggle="tab" href="#tags" role="tab"
+                   aria-controls="tags" aria-selected="false">Tags</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="text-center display-3">Overview</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                                    data-toggle="modal"
+                                    data-target="#addConversation">Add Conversation
+                            </button>
+                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                                    data-toggle="modal"
+                                    data-target="#addNote">
+                                Add Note
+                            </button>
+                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                                    data-toggle="modal"
+                                    data-target="#addAppointment">
+                                Add Appointment
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col"><p class="lead">Contact
+                            References:<%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
+                            <br>
+                            <%=companyManager.getContactPerson(c).fullName()%>
+                            <%}%>
+                        </p></div>
+                        <div class="col"><p class="lead">Responsible User:  <%=companyManager.getUser().fullName()%>
+                        </p></div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%>
+                        </p></div>
+                        <div class="col"><p class="lead">Product Category: <%=companyManager.getProductCategory().name%>
+                        </p></div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col"><p class="lead">Address: <%=companyManager.getCompany().address%>
+                        </p></div>
+                        <div class="col"><p class="lead">City: <%=companyManager.getCompany().city%>
+                        </p></div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col"><p class="lead">VAT: <%=companyManager.getCompany().vat%>
+                        </p>
+                        </div>
+                        <div class="col">
+                            <p class="lead">
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                                        data-target="#addTag">Tag
+                                </button>
+                                <% int nTag = companyManager.getCompanyTags().map(t -> t.length).orElse(0);
+                                    for (int c = 0; c < nTag; c++) {%>
+                                <% if (c > 0) {%>
+                                ,
+                                <% } %>
+                                <%=companyManager.getCompanyTag(c).name%>
+                                <%}%>
+                                <% if (nTag == 0) {%>
+                                Nessun Tag Assegnato
+                                <%}%>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                            data-target="#addConversation">Add Conversation
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addNote">
-                        Add Note
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                            data-target="#addAppointment">
-                        Add Appointment
-                    </button>
-                </div>
-            </div>
-            <hr class="my-4">
-            <div class="row">
-                <div class="col"><p class="lead">Contact
-                    References:<%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
-                    <br>
-                    <%=companyManager.getContactPerson(c).fullName()%>
+            <div class="tab-pane fade" id="appointments" role="tabpanel" aria-labelledby="appointments-tab">
+                <%--Appointments Tab--%>
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Appointments
+                                <button style="float: right" type="button"
+                                        class="btn btn-outline-secondary"
+                                        data-toggle="modal" data-target="#addAppointment">Add
+                                    Appointment
+                                </button>
+                            </h2>
+                        </div>
+                    </div>
+                    <% int nAppointments = companyManager.getCompanyAppointments().map(t -> t.length).orElse(0);
+                        if (nAppointments == 0) {%>
+                    <div class="jumbotron">
+                        <h1 class="display-4"> There is no Appointment Yet</h1>
+                    </div>
+                    <%} else {%>
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Note</th>
+                            <%--<th>User</th>--%>
+                            <th>Date</th>
+                            <th>At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < nAppointments; k++) {%>
+                        <tr>
+                            <td><%= k + 1 %>
+                            </td>
+                            <td><%=companyManager.getCompanyAppointment(k).note%>
+                            </td>
+                            <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
+                            <td><%=companyManager.getCompanyAppointment(k).date%>
+                            </td>
+                            <td><%=companyManager.getCompanyAppointment(k).time%>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
                     <%}%>
-                </p></div>
-                <div class="col"><p class="lead">Responsible User:  <%=companyManager.getUser().fullName()%>
-                </p></div>
+                </div>
             </div>
-            <hr class="my-4">
-            <div class="row">
-                <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%>
-                </p></div>
-                <div class="col"><p class="lead">Product Category: <%=companyManager.getProductCategory().name%>
-                </p></div>
-            </div>
-            <hr class="my-4">
-            <div class="row">
-                <div class="col"><p class="lead">Address: <%=companyManager.getCompany().address%>
-                </p></div>
-                <div class="col"><p class="lead">City: <%=companyManager.getCompany().city%>
-                </p></div>
-            </div>
-            <hr class="my-4">
-            <p class="lead">VAT: <%=companyManager.getCompany().vat%>
-            </p>
-            <hr class="my-4">
-            <p class="lead">
-                <div class="row">
-                    <div class="col">
-            <p class="lead"><a class="btn btn-success btn-lg" href="#" role="button">Edit</a></p></div>
-        <div class="col"><p class="lead"><a class="btn btn-danger btn-lg" href="#" role="button">Delete</a></p></div>
-    </div>
-    <p>
-    <ul class="nav nav-tabs">
-        <%--<li class="nav-item"><a class="nav-link" href="#tagCard" data-toggle="collapse"--%>
-        <%--data-target="#tagCard"--%>
-        <%--aria-expanded="false" aria-controls="tagCard">Tags</a></li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#clientNotesCard" data-toggle="collapse"--%>
-        <%--data-target="#clientNotesCard"--%>
-        <%--aria-expanded="false" aria-controls="clientNotesCard">Customer Notes</a></li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"--%>
-        <%--data-target="#consultingServicesCard"--%>
-        <%--aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a>--%>
-        <%--</li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#commercialProposalsCard" data-toggle="collapse"--%>
-        <%--data-target="#commercialProposalsCard"--%>
-        <%--aria-expanded="false" aria-controls="commercialProposalsCard">Commercial Proposals</a>--%>
-        <%--</li>--%>
-        <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"
-                                aria-expanded="false"
-                                aria-controls="conversationCard customerNoteCard tagCard commercialProposalsCard consultingServicesCard appointmentCard">Show
-            Details</a></li>
-    </ul>
-    </p>
-</div>
 
-<%--TAG CARD--%>
-<div class="row">
-    <div class="col">
-        <div class="collapse multi-collapse" id="tagCard">
-            <div class="card card-body">
+            <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+            <input type="hidden" name="status" value="view"/>
+
+            <div class="tab-pane fade" id="conversations" role="tabpanel" aria-labelledby="conversations-tab">
+                <%--Conversations Tab--%>
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Conversations
+                                <button style="float: right" type="button"
+                                        class="btn btn-outline-secondary"
+                                        data-toggle="modal" data-target="#addConversation">Add
+                                    Conversation
+                                </button>
+                            </h2>
+
+                        </div>
+                    </div>
+                    <% int nConversation = companyManager.getConversations().map(t -> t.length).orElse(0);
+                        if (nConversation == 0) {%>
+                    <div class="jumbotron">
+                        <h1 class="display-4"> There is no Conversation Yet</h1>
+                    </div>
+                    <%} else {%>
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Reason</th>
+                            <th>Date</th>
+                            <th>User</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < nConversation; k++) {%>
+                        <tr>
+                            <td><%= k + 1 %>
+                            </td>
+                            <td><%=companyManager.getConversation(k).reason%>
+                            </td>
+                            <td><%=companyManager.getConversation(k).date%>
+                            </td>
+                            <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
+                    <%}%>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+                <%--Customer Notes Tab--%>
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Customer Notes
+                                <button style="float: right" type="button"
+                                        class="btn btn-outline-secondary"
+                                        data-toggle="modal" data-target="#addNote">Add
+                                    Note
+                                </button>
+                            </h2>
+                        </div>
+                    </div>
+                    <% int nNote = companyManager.getCompanyNotes().map(t -> t.length).orElse(0);
+                        if (nNote == 0) {%>
+                    <div class="jumbotron">
+                        <h1 class="display-4"> There is no Note Yet</h1>
+                    </div>
+                    <%} else {%>
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Note</th>
+                            <th>Author</th>
+                            <th>Posted at</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < nNote; k++) {%>
+                        <tr>
+                            <td><%= k + 1 %>
+                            </td>
+                            <td><%=companyManager.getCompanyNote(k).title%>
+                            </td>
+                            <td><%=companyManager.getCompanyNote(k).note%>
+                            </td>
+                            <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
+                            </td>
+                            <td><%=companyManager.getCompanyNote(k).timestamp%>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
+                    <%}%>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="consultingServices" role="tabpanel" aria-labelledby="consultingServices-tab">
+                <%--Consulting Services Tab--%>
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="">
+                                <h2>Consulting Services
+                                    <button style="float:right" type="submit"
+                                            value="InsertWorkField"
+                                            class="btn btn-default">
+                                        +
+                                    </button>
+                                </h2>
+                            </form>
+                        </div>
+                    </div>
+                    <% int nService = companyManager.getConsultingServices().map(t -> t.length).orElse(0);
+                        if (nService == 0) {%>
+                    <div class="jumbotron">
+                        <h1 class="display-4"> There is no Consulting Service Yet</h1>
+                    </div>
+                    <%} else {%>
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < nService; k++) {%>
+                        <tr>
+                            <td><%= k + 1 %>
+                            </td>
+                            <td><%=companyManager.getConsultingService(k).name%>
+                            </td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE254;</i></a>
+                            </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
+                    <%}%>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="commercialProposals" role="tabpanel"
+                 aria-labelledby="commercialProposals-tab">
+                <%--Commercial Proposal Tab--%>
+                <div class="table-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="">
+                                <h2>Commercial Proposals
+                                    <button style="float:right" type="submit" value=""
+                                            class="btn btn-default">
+                                        +
+                                    </button>
+                                </h2>
+                            </form>
+                        </div>
+                    </div>
+                    <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
+                        if (nProposal == 0) {%>
+                    <div class="jumbotron">
+                        <h1 class="display-4"> There is no Commercial Proposal Yet</h1>
+                    </div>
+                    <%} else {%>
+                    <table class="col-md-12 table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Services</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%for (int k = 0; k < nProposal; k++) {%>
+                        <tr>
+                            <td><%= k + 1 %>
+                            </td>
+                            <td><%=companyManager.getCommercialProposal(k).name%>
+                            </td>
+                            <td><%=companyManager.getCommercialProposal(k).description%>
+                            </td>
+                            <%
+                                int nProposed = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).map(p -> p.size()).orElse(0);
+                                if (nProposed == 0) {
+                            %>
+                            None
+                            <%} else {%>
+                            <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).get();%>
+                            <td>
+                                <%for (ConsultingService s : services) {%>
+                                <%=s.name%>
+                                <%}%>
+                            </td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE254;</i></a>
+                            </td>
+                            <%}%>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
+                    <%}%>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
+                <%--TAG TAB--%>
                 <div class="container">
                     <div class="table-wrapper">
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Tags
-                                    <button style="float: right" type="button" class="btn btn-outline-secondary"
+                                    <button style="float: right" type="button"
+                                            class="btn btn-outline-secondary"
                                             data-toggle="modal" data-target="#addTag">Add Tag
                                     </button>
                                 </h2>
@@ -264,7 +543,8 @@
                             </tbody>
                         </table>
                         <form name="deleteTagForm" action="ViewCompany.jsp" method="post">
-                            <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                            <input type="hidden" name="companyId"
+                                   value="<%=companyManager.getCompany().companyId%>"/>
                             <input type="hidden" name="tagId" value=""/>
                             <input type="hidden" name="status" value="deleteTag"/>
                         </form>
@@ -272,318 +552,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<%--Conversations Card--%>
-<div class="row">
-    <div class="col">
-        <div class="collapse multi-collapse" id="conversationCard">
-            <div class="card card-body">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2>Conversations
-                                    <button style="float: right" type="button"
-                                            class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addConversation">Add
-                                        Conversation
-                                    </button>
-                                </h2>
-
-                            </div>
-                        </div>
-                        <% int nConversation = companyManager.getConversations().map(t -> t.length).orElse(0);
-                            if (nConversation == 0) {%>
-                        <div class="jumbotron">
-                            <h1 class="display-4"> There is no Conversation Yet</h1>
-                        </div>
-                        <%} else {%>
-                        <table class="col-md-12 table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Reason</th>
-                                <th>Date</th>
-                                <th>User</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < nConversation; k++) {%>
-                            <tr>
-                                <td><%= k + 1 %>
-                                </td>
-                                <td><%=companyManager.getConversation(k).reason%>
-                                </td>
-                                <td><%=companyManager.getConversation(k).date%>
-                                </td>
-                                <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<%--Customer Notes Card--%>
-<div class="row">
-    <div class="col">
-        <div class="collapse multi-collapse" id="customerNoteCard">
-            <div class="card card-body">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2>Customer Notes
-                                    <button style="float: right" type="button"
-                                            class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addNote">Add
-                                        Note
-                                    </button>
-                                </h2>
-                            </div>
-                        </div>
-                        <% int nNote = companyManager.getCompanyNotes().map(t -> t.length).orElse(0);
-                            if (nNote == 0) {%>
-                        <div class="jumbotron">
-                            <h1 class="display-4"> There is no Note Yet</h1>
-                        </div>
-                        <%} else {%>
-                        <table class="col-md-12 table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Note</th>
-                                <th>Author</th>
-                                <th>Posted at</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < nNote; k++) {%>
-                            <tr>
-                                <td><%= k + 1 %>
-                                </td>
-                                <td><%=companyManager.getCompanyNote(k).title%>
-                                </td>
-                                <td><%=companyManager.getCompanyNote(k).note%>
-                                </td>
-                                <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
-                                </td>
-                                <td><%=companyManager.getCompanyNote(k).timestamp%>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<%--Consulting Services Card--%>
-<div class="row">
-    <div class="col">
-        <div class="collapse multi-collapse" id="consultingServicesCard">
-            <div class="card card-body">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <form action="">
-                                    <h2>Consulting Services
-                                        <button style="float:right" type="submit"
-                                                value="InsertWorkField"
-                                                class="btn btn-default">
-                                            +
-                                        </button>
-                                    </h2>
-                                </form>
-                            </div>
-                        </div>
-                        <% int nService = companyManager.getConsultingServices().map(t -> t.length).orElse(0);
-                            if (nService == 0) {%>
-                        <div class="jumbotron">
-                            <h1 class="display-4"> There is no Consulting Service Yet</h1>
-                        </div>
-                        <%} else {%>
-                        <table class="col-md-12 table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < nService; k++) {%>
-                            <tr>
-                                <td><%= k + 1 %>
-                                </td>
-                                <td><%=companyManager.getConsultingService(k).name%>
-                                </td>
-                                <td>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<%--Commercial Proposal Card--%>
-<div class="row">
-    <div class="col">
-        <div class="collapse multi-collapse" id="commercialProposalsCard">
-            <div class="card card-body">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <form action="">
-                                    <h2>Commercial Proposals
-                                        <button style="float:right" type="submit" value=""
-                                                class="btn btn-default">
-                                            +
-                                        </button>
-                                    </h2>
-                                </form>
-                            </div>
-                        </div>
-                        <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
-                            if (nProposal == 0) {%>
-                        <div class="jumbotron">
-                            <h1 class="display-4"> There is no Commercial Proposal Yet</h1>
-                        </div>
-                        <%} else {%>
-                        <table class="col-md-12 table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Services</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < nProposal; k++) {%>
-                            <tr>
-                                <td><%= k + 1 %>
-                                </td>
-                                <td><%=companyManager.getCommercialProposal(k).name%>
-                                </td>
-                                <td><%=companyManager.getCommercialProposal(k).description%>
-                                </td>
-                                <%
-                                    int nProposed = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).map(p -> p.size()).orElse(0);
-                                    if (nProposed == 0) {
-                                %>
-                                None
-                                <%} else {%>
-                                <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).get();%>
-                                <td>
-                                    <%for (ConsultingService s : services) {%>
-                                    <%=s.name%>
-                                    <%}%>
-                                </td>
-                                <td>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                </td>
-                                <%}%>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-<input type="hidden" name="status" value="view"/>
-</div>
-<%--Appointments Card--%>
-<div class="row">
-    <div class="col">
-        <div class="collapse multi-collapse" id="appointmentCard">
-            <div class="card card-body">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2>Appointments
-                                    <button style="float: right" type="button"
-                                            class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addAppointment">Add
-                                        Appointment
-                                    </button>
-                                </h2>
-                            </div>
-                        </div>
-                        <% int nAppointments = companyManager.getCompanyAppointments().map(t -> t.length).orElse(0);
-                            if (nAppointments == 0) {%>
-                        <div class="jumbotron">
-                            <h1 class="display-4"> There is no Appointment Yet</h1>
-                        </div>
-                        <%} else {%>
-                        <table class="col-md-12 table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Note</th>
-                                <%--<th>User</th>--%>
-                                <th>Date</th>
-                                <th>At</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%for (int k = 0; k < nAppointments; k++) {%>
-                            <tr>
-                                <td><%= k + 1 %>
-                                </td>
-                                <td><%=companyManager.getCompanyAppointment(k).note%>
-                                </td>
-                                <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
-                                <td><%=companyManager.getCompanyAppointment(k).date%>
-                                </td>
-                                <td><%=companyManager.getCompanyAppointment(k).time%>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>
-                    </div>
-                </div>
-            </div>
+            <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+            <input type="hidden" name="status" value="view"/>
         </div>
     </div>
 </div>
 
-<input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-<input type="hidden" name="status" value="view"/>
 
 <!-- Tag Modal -->
 <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
@@ -745,7 +719,8 @@
                                   name="appointmentNote"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other Users</label>
+                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other
+                            Users</label>
                         <select class="form-control" multiple="multiple" id="userIds" name="userIds">
                             <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
                             <%if (userId != companyManager.getUser(k).userId) {%>
@@ -771,7 +746,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <%--VUE JS--%>
