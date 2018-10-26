@@ -22,6 +22,7 @@
     String message = null;
     boolean complete = false;
     String status = request.getParameter("status");
+    String previousStatus = "none";
     Boolean filterByUser = false;
     Boolean filterByType = false;
     Boolean filterByProduct = false;
@@ -32,6 +33,13 @@
     if (status == null) status = "view"; //
 
     if (status.equals("view")) {
+
+
+        if(request.getParameter("previousStatus")!=null && request.getParameter("previousStatus").equals("filter")){
+
+            previousStatus = "filter";
+
+        }
 
         companyManager.companiesView();
 
@@ -60,6 +68,7 @@
     if (status.equals("filter")) {
 
         Map<String, Integer> filters = new HashMap<String, Integer>();
+        previousStatus = request.getParameter("previousStatus");
 
         filterByUser = Boolean.parseBoolean(request.getParameter("filterByUser"));
         userId = request.getParameter("userId");
@@ -248,7 +257,8 @@
 
 
                 <input type="hidden" name="status" value="filter">
-                <input type="hidden" name="wasFiltering" value=<%=status.equals("filter")%>>
+                <input type="hidden" name="previousStatus" value=<%=previousStatus%>>
+                <input type="hidden" name="wasFiltering" value=<%=status.equals("filter") || previousStatus.equals("filter")%>>
                 <%--<button type="button" class="btn btn-primary btn-raised" onclick="getFiltered()">Submit</button>--%>
 
             </form>
@@ -531,6 +541,10 @@
         $('#companiesTable').fadeToggle(200);
         $('#errorCompany').fadeToggle(200);
 
+        console.log($("#filter input[name='previousStatus']").val());
+
+
+
 
 
     });
@@ -543,24 +557,6 @@
     function redirect() {
 
         window.location.replace("/Company/InsertCompany.jsp");
-
-    }
-
-    function getFiltered() {
-
-
-        f = document.getElementById("filterForm");
-
-        if (f.filterByType.checked || f.filterByUser.checked || f.filterByProduct.checked) {
-
-            f.submit();
-
-        } else {
-
-            alert("No fields selected xD LOL!");
-
-        }
-
 
     }
 
@@ -599,8 +595,19 @@
 
         $('#filter').slideToggle(300);
 
+        if($("#filter input[name='previousStatus']").val()!="filter"){
 
-    })
+            $("#filter input[name='previousStatus']").val("filter");
+
+        }else{
+
+            $("#filter input[name='previousStatus']").val("none");
+
+        }
+
+
+
+    });
 
     $('#filterForm select').on("change",function() {
 
@@ -612,6 +619,7 @@
     $('#filterForm input:checkbox').each(function() {
 
         $(this).on("change",function(){
+
 
             checkbox = $(this).attr('id');
 
