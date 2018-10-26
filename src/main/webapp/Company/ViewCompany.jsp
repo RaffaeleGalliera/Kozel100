@@ -75,6 +75,9 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
 
+    <%--Bootstrap multiselect css--%>
+    <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
+
     <title>Kozel100 CRM</title>
 </head>
 <body>
@@ -597,10 +600,12 @@
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="tagId" class="bmd-label-floating">Tags</label>
-                        <select class="form-control" id="tagId" name="tagId">
+                        <select class="form-control" multiple="multiple" id="tagId" name="tagId">
                             <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                            <% int cTags = 0; %>
                             <option value="<%=companyManager.getTag(k).tagId%>">
                                 <%=companyManager.getTag(k).name%>
+                                <% cTags++; %>
                             </option>
                             <% } %>
                         </select>
@@ -612,6 +617,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addTag"/>
+                        <input type="hidden" name="cTag" value="addTag"/>
                         <input type="hidden" name="companyId"
                                value="<%=companyManager.getCompany().companyId%>"/>
                     </div>
@@ -777,7 +783,14 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
+
 <script>$(document).ready(function () {
+    $(document).ready(function () {
+        $('#tagId').multiselect({
+            enableFiltering: true
+        });
+    });
     $('body').bootstrapMaterialDesign();
 });</script>
 
