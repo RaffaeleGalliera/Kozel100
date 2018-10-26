@@ -51,40 +51,43 @@ public class CompanyDAO {
         String sql;
         ResultSet rs;
         ArrayList<String> parameters=new ArrayList();
+        Boolean isFirstParameter = true;
         int i=0;
 
-        sql="SELECT * FROM company";
+        sql="SELECT * FROM company ";
 
-        //filters.forEach((key,value) -> Debug.println(key + ":"+ value)); Lambda Way
+        if(filters.containsKey("productCategoryId")){
 
-        if(filters.containsKey("tagId")){
-            //TODO Find Out if we can query 'active_fl=1' even here
-            sql=sql + " JOIN company_product ON company.company_id=company_product.company_id AND product_category_id=?";
-            parameters.add(filters.get("tagId").toString());
-
-        }
-
-        if (filters.containsKey("userId") && filters.containsKey("clientTypeId")) {
-
-            sql = sql + " WHERE user_id=? AND client_type_id=? AND active_fl=1";
-            parameters.add(filters.get("userId").toString());
-            parameters.add(filters.get("clientTypeId").toString());
+            sql=sql + "WHERE product_category_id=? ";
+            isFirstParameter=false;
+            parameters.add(filters.get("productCategoryId").toString());
 
         }
 
-        if (filters.containsKey("userId") && !filters.containsKey("clientTypeId")) {
+        if (filters.containsKey("userId")) {
 
-            sql = sql + " WHERE user_id=? AND active_fl=1";
+            if(isFirstParameter) {
+                sql = sql + "WHERE user_id=? ";
+                isFirstParameter=false;
+            }else{
+                sql = sql + "AND user_id=? ";
+            }
             parameters.add(filters.get("userId").toString());
 
         }
 
-        if (!filters.containsKey("userId") && filters.containsKey("clientTypeId")) {
+        if (filters.containsKey("clientTypeId")) {
 
-            sql = sql + " WHERE client_type_id=? AND active_fl=1";
+            if(isFirstParameter) {
+                sql = sql + "WHERE client_type_id=? ";
+            }else{
+                sql = sql + "AND client_type_id=? ";
+            }
             parameters.add(filters.get("clientTypeId").toString());
 
         }
+
+        sql = sql + "AND active_fl=1";
 
         rs=db.select(sql,parameters);
 
