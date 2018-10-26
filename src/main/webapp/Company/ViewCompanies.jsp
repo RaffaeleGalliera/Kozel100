@@ -146,6 +146,18 @@
 
         }
 
+        #companiesTable{
+
+            display:none;
+
+        }
+
+        #errorCompany{
+
+            display:none;
+
+        }
+
     </style>
 
 
@@ -166,10 +178,10 @@
         <div class="col-md-12">
             <h1 class="text-center">
                 Companies
-                <button class="btn btn-raised btn-primary" data-toggle="modal" data-target="#insertCompanyModal"><i
+                <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#insertCompanyModal"><i
                         class="fa fa-plus"></i>Add New
                 </button>
-                <button class="btn btn-raised btn-primary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
+                <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
             </h1>
         </div>
 
@@ -246,7 +258,7 @@
 
         <%int nCompanies = companyManager.getCompanies().map(companies -> companies.length ).orElse(0);
         if(nCompanies>0){%>
-        <table class="col-md-12 table table-striped">
+        <table class="col-md-12 table table-striped" id="companiesTable">
             <thead class="cf">
             <tr>
                 <th scope="col">#</th>
@@ -510,10 +522,17 @@
 
         if(f.val() == "true"){
 
+
             $('#filter').toggle(0);
-            console.log("diocan");
+
 
         }
+
+        $('#companiesTable').slideToggle(100);
+        $('#errorCompany').slideToggle(100);
+
+
+
 
 
 
