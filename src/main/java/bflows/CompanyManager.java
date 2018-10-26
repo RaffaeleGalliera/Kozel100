@@ -44,6 +44,7 @@ public class CompanyManager implements java.io.Serializable {
     private String appointmentTime;
     private String appointmentNote;
     private Integer appointmentUserId;
+    private Integer[] userIds;
 
     private Company[] companies;
     private Conversation[] conversations;
@@ -57,6 +58,7 @@ public class CompanyManager implements java.io.Serializable {
     private ProductCategory productCategory;
     private Tag[] tags;
     private Tag[] companyTags;
+    private Integer[] tagIds;
     private ContactPerson[] contactPeople;
     private User[] users;
     private User user;
@@ -256,8 +258,11 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
-            CompanyTag companyTags = new CompanyTag(companyId, tagId);
-            companyTags.insert(database);
+
+            for (int k = 0; k < tagIds.length; k++) {
+                CompanyTag companyTags = new CompanyTag(companyId, tagIds[k]);
+                companyTags.insert(database);
+            }
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
@@ -374,6 +379,12 @@ public class CompanyManager implements java.io.Serializable {
 
             AppointmentUser appointmentUser = new AppointmentUser(appointmentUserId, appointmentId);
             appointmentUser.insert(database);
+
+            for (int k = 0; k < userIds.length; k++) {
+                AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
+                otherUser.insert(database);
+            }
+
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
@@ -919,6 +930,22 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setTags(Tag[] tags) {
         this.tags = tags;
+    }
+
+    public Integer[] getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(Integer[] tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public Integer[] getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(Integer[] userIds) {
+        this.userIds = userIds;
     }
 
     public Optional<Tag[]> getCompanyTags() {

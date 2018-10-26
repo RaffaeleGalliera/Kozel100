@@ -577,6 +577,7 @@
     if ($('#modal').val() == 1) {
         $('#insertCompanyModal').modal('show');
     }
+
 });</script>
 
 </body>

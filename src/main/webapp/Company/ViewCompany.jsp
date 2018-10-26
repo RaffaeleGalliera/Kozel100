@@ -75,6 +75,9 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
 
+    <%--Bootstrap multiselect css--%>
+    <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
+
     <title>Kozel100 CRM</title>
 </head>
 <body>
@@ -596,8 +599,8 @@
             <div class="modal-body">
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
-                        <label for="tagId" class="bmd-label-floating">Tags</label>
-                        <select class="form-control" id="tagId" name="tagId">
+                        <label for="tagIds" class="bmd-label-floating">Tags</label>
+                        <select class="form-control" multiple="multiple" id="tagIds" name="tagIds">
                             <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
                             <option value="<%=companyManager.getTag(k).tagId%>">
                                 <%=companyManager.getTag(k).name%>
@@ -611,6 +614,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addTag"/>
+                        <input type="hidden" name="cTag" value="addTag"/>
                         <input type="hidden" name="companyId"
                                value="<%=companyManager.getCompany().companyId%>"/>
                     </div>
@@ -740,7 +744,18 @@
                         <textarea class="form-control" rows="5" id="appointmentNote"
                                   name="appointmentNote"></textarea>
                     </div>
-                    <div id="app"></div>
+                    <div class="form-group">
+                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other Users</label>
+                        <select class="form-control" multiple="multiple" id="userIds" name="userIds">
+                            <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
+                            <%if (userId != companyManager.getUser(k).userId) {%>
+                            <option value="<%=companyManager.getUser(k).userId%>">
+                                <%=companyManager.getUser(k).fullName()%>
+                            </option>
+                            <% } %>
+                            <% } %>
+                        </select>
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addAppointment(this.form)">
@@ -773,7 +788,17 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
+
 <script>$(document).ready(function () {
+    $(document).ready(function () {
+        $('#tagIds').multiselect({
+            enableFiltering: true
+        });
+        $('#userIds').multiselect({
+            enableFiltering: true
+        });
+    });
     $('body').bootstrapMaterialDesign();
 });</script>
 
