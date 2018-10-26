@@ -1,6 +1,7 @@
 package bflows;
 
 import blogics.*;
+import jdk.nashorn.internal.runtime.options.Option;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
@@ -43,6 +44,7 @@ public class CompanyManager implements java.io.Serializable {
     private String appointmentTime;
     private String appointmentNote;
     private Integer appointmentUserId;
+    private Integer[] userIds;
 
     private Company[] companies;
     private Conversation[] conversations;
@@ -56,6 +58,7 @@ public class CompanyManager implements java.io.Serializable {
     private ProductCategory productCategory;
     private Tag[] tags;
     private Tag[] companyTags;
+    private Integer[] tagIds;
     private ContactPerson[] contactPeople;
     private User[] users;
     private User user;
@@ -206,22 +209,23 @@ public class CompanyManager implements java.io.Serializable {
             consultingServices = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
             commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database,companyId);
 
-            consultingServicesProposed = new HashMap<Integer,ArrayList<ConsultingService>>();
+            consultingServicesProposed = new HashMap<Integer, ArrayList<ConsultingService>>();
 
-            for(CommercialProposal proposal : commercialProposals){
+            if (commercialProposals != null) {
+                for (CommercialProposal proposal : commercialProposals) {
 
-                consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
+                    consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
 
-                ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database,proposal.commercial_proposal_id);
+                    ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database, proposal.commercial_proposal_id);
 
-                for(ConsultingService s : services){
+                    for (ConsultingService s : services) {
 
-                    consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
+                        consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
+
+                    }
 
                 }
-
             }
-
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
 
@@ -254,8 +258,11 @@ public class CompanyManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
-            CompanyTag companyTags = new CompanyTag(companyId, tagId);
-            companyTags.insert(database);
+
+            for (int k = 0; k < tagIds.length; k++) {
+                CompanyTag companyTags = new CompanyTag(companyId, tagIds[k]);
+                companyTags.insert(database);
+            }
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
@@ -372,6 +379,12 @@ public class CompanyManager implements java.io.Serializable {
 
             AppointmentUser appointmentUser = new AppointmentUser(appointmentUserId, appointmentId);
             appointmentUser.insert(database);
+
+            for (int k = 0; k < userIds.length; k++) {
+                AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
+                otherUser.insert(database);
+            }
+
 
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
@@ -672,8 +685,8 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public ConsultingService[] getConsultingServices() {
-        return consultingServices;
+    public Optional<ConsultingService[]> getConsultingServices() {
+        return Optional.ofNullable(consultingServices);
     }
 
     public ConsultingService getConsultingService(int index) {
@@ -684,7 +697,7 @@ public class CompanyManager implements java.io.Serializable {
         this.consultingServices = consultingServices;
     }
 
-    public ArrayList<ConsultingService> getConsultingServicesProposedTo(int commercialProposalId){
+    public Optional<ArrayList<ConsultingService>> getConsultingServicesProposedTo(int commercialProposalId) {
 
         int id = new Integer(commercialProposalId);
 
@@ -694,7 +707,7 @@ public class CompanyManager implements java.io.Serializable {
         ArrayList<ConsultingService> proposedServicesList = new ArrayList<ConsultingService>();
         ConsultingService[] proposedServices;
 
-        return consultingServicesProposed.get(id);
+        return Optional.ofNullable(consultingServicesProposed.get(id));
     }
 
     public String getConversationUserName(Integer userId){
@@ -708,7 +721,9 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public CommercialProposal[] getCommercialProposals(){return commercialProposals;}
+    public Optional<CommercialProposal[]> getCommercialProposals() {
+        return Optional.ofNullable(commercialProposals);
+    }
 
     public CommercialProposal getCommercialProposal(int index){return commercialProposals[index];}
 
@@ -918,31 +933,48 @@ public class CompanyManager implements java.io.Serializable {
         this.tags = tags;
     }
 
-    public Tag[] getCompanyTags() {
-        return companyTags;
+    public Integer[] getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(Integer[] tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public Integer[] getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(Integer[] userIds) {
+        this.userIds = userIds;
+    }
+
+    public Optional<Tag[]> getCompanyTags() {
+        return Optional.ofNullable(companyTags);
     }
 
     public Tag getCompanyTag(int index) {
         return companyTags[index];
     }
 
-    public Conversation[] getConversations() {
-        return conversations;
+    public Optional<Conversation[]> getConversations() {
+        return Optional.ofNullable(conversations);
     }
 
     public Conversation getConversation(int index) {
         return conversations[index];
     }
-    public ConversationNote[] getCompanyNotes() {
-        return companyNotes;
+
+    public Optional<ConversationNote[]> getCompanyNotes() {
+        return Optional.ofNullable(companyNotes);
     }
 
     public ConversationNote getCompanyNote(int index) {
         return companyNotes[index];
     }
 
-    public Appointment[] getCompanyAppointments() {
-        return companyAppointments;
+    public Optional<Appointment[]> getCompanyAppointments() {
+        return Optional.ofNullable(companyAppointments);
     }
 
     public Appointment getCompanyAppointment(int index) {

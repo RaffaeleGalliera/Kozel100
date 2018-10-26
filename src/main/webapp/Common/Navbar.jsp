@@ -31,16 +31,16 @@
 %>
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-color: #27C46B;">
-    <a class="navbar-brand" href="#">Kozel100</a>
+    <a class="navbar-brand" href="/Dashboard.jsp">
+        <img src="../resources/logoS.png" width="50" height="50" alt="">
+        Dashboard
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/Dashboard.jsp">Dashboard <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Companies
