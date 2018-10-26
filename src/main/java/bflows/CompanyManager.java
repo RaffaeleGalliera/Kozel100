@@ -4,14 +4,11 @@ import blogics.*;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
+import java.util.*;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
 public class CompanyManager implements java.io.Serializable {
 
@@ -538,6 +535,7 @@ public class CompanyManager implements java.io.Serializable {
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             tags = TagDAO.getAllTags(db);
             users = UserDAO.getAllUsers(db);
+            contactPeople = ContactPersonDAO.getAllContactPeople(db);
 
 
 
@@ -888,8 +886,8 @@ public class CompanyManager implements java.io.Serializable {
         this.productCategories = productCategories;
     }
 
-    public Company[] getCompanies() {
-        return companies;
+    public Optional<Company[]> getCompanies() {
+        return Optional.ofNullable(companies);
     }
 
     public Company getCompany(int index) {
