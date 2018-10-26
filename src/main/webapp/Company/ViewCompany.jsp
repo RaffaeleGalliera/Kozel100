@@ -599,13 +599,11 @@
             <div class="modal-body">
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
-                        <label for="tagId" class="bmd-label-floating">Tags</label>
-                        <select class="form-control" multiple="multiple" id="tagId" name="tagId">
+                        <label for="tagIds" class="bmd-label-floating">Tags</label>
+                        <select class="form-control" multiple="multiple" id="tagIds" name="tagIds">
                             <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
-                            <% int cTags = 0; %>
                             <option value="<%=companyManager.getTag(k).tagId%>">
                                 <%=companyManager.getTag(k).name%>
-                                <% cTags++; %>
                             </option>
                             <% } %>
                         </select>
@@ -749,7 +747,18 @@
                         <textarea class="form-control" rows="5" id="appointmentNote"
                                   name="appointmentNote"></textarea>
                     </div>
-                    <div id="app"></div>
+                    <div class="form-group">
+                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other Users</label>
+                        <select class="form-control" multiple="multiple" id="userIds" name="userIds">
+                            <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
+                            <%if (userId != companyManager.getUser(k).userId) {%>
+                            <option value="<%=companyManager.getUser(k).userId%>">
+                                <%=companyManager.getUser(k).fullName()%>
+                            </option>
+                            <% } %>
+                            <% } %>
+                        </select>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-default">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-raised"
@@ -787,7 +796,10 @@
 
 <script>$(document).ready(function () {
     $(document).ready(function () {
-        $('#tagId').multiselect({
+        $('#tagIds').multiselect({
+            enableFiltering: true
+        });
+        $('#userIds').multiselect({
             enableFiltering: true
         });
     });
