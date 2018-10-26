@@ -249,7 +249,7 @@
 
 
                 <input type="hidden" name="status" value="filter">
-                <input type="hidden" name="wasFiltering" value=<%=filterByProduct || filterByType || filterByUser%>>
+                <input type="hidden" name="wasFiltering" value=<%=status.equals("filter")%>>
                 <%--<button type="button" class="btn btn-primary btn-raised" onclick="getFiltered()">Submit</button>--%>
 
             </form>
@@ -326,6 +326,7 @@
             <input type="hidden" name="companyId" value=""/>
             <input type="hidden" name="status" value="view"/>
         </form>
+
         <!-- Modal -->
         <div class="modal fade" id="insertCompanyModal" tabindex="-1" role="dialog" aria-labelledby="insertCompanyTitle"
              aria-hidden="true">
@@ -523,18 +524,13 @@
         if(f.val() == "true"){
 
 
-            $('#filter').toggle(0);
+            $('#filter').fadeIn(0);
 
 
         }
 
-        $('#companiesTable').slideToggle(100);
-        $('#errorCompany').slideToggle(100);
-
-
-
-
-
+        $('#companiesTable').fadeToggle(200);
+        $('#errorCompany').fadeToggle(200);
 
 
 
@@ -624,9 +620,6 @@
                 $(this).val("true");
             }else{
                 $(this).val("false");
-                if($("#filter input[name='wasFiltering']").val()=="true") {
-                    $('#filterForm').submit();
-                }
             }
 
             if(checkbox == "filterByType"){
@@ -641,9 +634,55 @@
                 $('#filterProductGroup').slideToggle(300);
             }
 
+            if($("#filterForm input[type='checkbox'][value='false']").length==3){
+
+                $("#filterForm [name='status']").val("view");
+                $("#filterForm").submit();
+
+
+            }else{
+
+                $("#filterForm [name='status']").val("filter");
+                $("#filterForm").submit();
+
+            }
+
+
         })
 
+
     })
+
+    // $('#filterForm input:checkbox').each(function() {
+    //
+    //     $(this).on("change",function(){
+    //
+    //         checkbox = $(this).attr('id');
+    //
+    //         if($(this).val()=="false"){
+    //             $(this).val("true");
+    //         }else{
+    //             $(this).val("false");
+    //             if($("#filter input[name='wasFiltering']").val()=="true") {
+    //                 $('#filterForm').submit();
+    //             }
+    //         }
+    //
+    //         if(checkbox == "filterByType"){
+    //             $('#filterClientTypeGroup').slideToggle(300);
+    //         }
+    //
+    //         if(checkbox == "filterByUser"){
+    //             $('#filterUserGroup').slideToggle(300);
+    //         }
+    //
+    //         if(checkbox == "filterByProduct"){
+    //             $('#filterProductGroup').slideToggle(300);
+    //         }
+    //
+    //     })
+    //
+    // })
 
 </script>
 

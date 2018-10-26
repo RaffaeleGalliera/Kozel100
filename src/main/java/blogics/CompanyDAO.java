@@ -79,14 +79,15 @@ public class CompanyDAO {
         if (filters.containsKey("clientTypeId")) {
 
             if(isFirstParameter) {
-                sql = sql + "WHERE client_type_id=?";
+                sql = sql + "WHERE client_type_id=? ";
             }else{
-                sql = sql + "AND client_type_id=?";
+                sql = sql + "AND client_type_id=? ";
             }
             parameters.add(filters.get("clientTypeId").toString());
 
         }
 
+        sql = sql + "AND active_fl=1";
 
         rs=db.select(sql,parameters);
 
