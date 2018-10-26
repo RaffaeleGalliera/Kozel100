@@ -606,7 +606,6 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addTag(this.form)">
                             Submit
@@ -644,7 +643,6 @@
                                id="conversationDate">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addConversation(this.form)">
                             Submit
@@ -697,7 +695,6 @@
                         <textarea class="form-control" rows="5" id="note" name="note"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addConversationNote(this.form)">
                             Submit
@@ -745,7 +742,6 @@
                     </div>
                     <div id="app"></div>
                     <div class="modal-footer">
-                        <button class="btn btn-default">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addAppointment(this.form)">
                             Submit
