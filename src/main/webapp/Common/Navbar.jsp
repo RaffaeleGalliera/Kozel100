@@ -47,8 +47,6 @@
                 <div class="dropdown-menu" aria-labelledby="companyDropdown">
                     <a class="dropdown-item" href="/Company/ViewCompanies.jsp">View</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Company/InsertCompany.jsp">Insert Company</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Company/InsertContactPerson.jsp">Insert Contact Person</a>
                 </div>
             </li>
