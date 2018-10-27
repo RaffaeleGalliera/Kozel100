@@ -20,6 +20,7 @@ public class CompanyManager implements java.io.Serializable {
     private int conversationUserId=-1;
     private int conversationNoteUserId=-1;
     private int tagId=-1;
+    private int noteId = -1;
     private int appointmentId = -1;
     private String firstName;
     private String lastName;
@@ -192,41 +193,7 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
             //Get all infos
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-            productCategories = ProductCategoryDAO.getAllProductCategories(database);
-            tags = TagDAO.getAllTags(database);
-            users = UserDAO.getAllUsers(database);
-
-            company = CompanyDAO.getCompany(database, companyId);
-            user=UserDAO.getUser(database, company.userId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
-            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
-            conversations = ConversationDAO.getConversations(database, companyId);
-            companyTags = TagDAO.getTags(database, companyId);
-
-            consultingServices = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
-            commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database,companyId);
-
-            consultingServicesProposed = new HashMap<Integer, ArrayList<ConsultingService>>();
-
-            if (commercialProposals != null) {
-                for (CommercialProposal proposal : commercialProposals) {
-
-                    consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
-
-                    ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database, proposal.commercial_proposal_id);
-
-                    for (ConsultingService s : services) {
-
-                        consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
-
-                    }
-
-                }
-            }
-            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
-            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
+            getAllCompanyInfos(database);
 
 
 
@@ -237,10 +204,7 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         }
-        catch (ResultSetDBException ex) {
-            EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
-        }
+
         finally {
             try {
                 database.close();
@@ -263,24 +227,7 @@ public class CompanyManager implements java.io.Serializable {
                 companyTags.insert(database);
             }
 
-            //Get all infos
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-            productCategories = ProductCategoryDAO.getAllProductCategories(database);
-            tags = TagDAO.getAllTags(database);
-            users = UserDAO.getAllUsers(database);
-
-            company = CompanyDAO.getCompany(database, companyId);
-            user=UserDAO.getUser(database, company.userId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
-            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
-            conversations = ConversationDAO.getConversations(database, companyId);
-            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
-            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
-            this.companyTags = TagDAO.getTags(database, companyId);
-
-
-
+            getAllCompanyInfos(database);
 
             database.commit();
 
@@ -317,21 +264,8 @@ public class CompanyManager implements java.io.Serializable {
             Conversation conversation = new Conversation(companyId, conversationUserId, reason, parsed);
             conversation.insert(database);
 
-            //Get all infos
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-            productCategories = ProductCategoryDAO.getAllProductCategories(database);
-            tags = TagDAO.getAllTags(database);
-            users = UserDAO.getAllUsers(database);
+            getAllCompanyInfos(database);
 
-            company = CompanyDAO.getCompany(database, companyId);
-            user=UserDAO.getUser(database, company.userId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
-            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
-            conversations = ConversationDAO.getConversations(database, companyId);
-            companyTags = TagDAO.getTags(database, companyId);
-            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
-            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
 
 
             database.commit();
@@ -345,10 +279,7 @@ public class CompanyManager implements java.io.Serializable {
 //            EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         }
-        catch (ResultSetDBException ex) {
-            EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
-        }
+
 
         finally {
             try {
@@ -385,21 +316,8 @@ public class CompanyManager implements java.io.Serializable {
             }
 
 
-            //Get all infos
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-            productCategories = ProductCategoryDAO.getAllProductCategories(database);
-            tags = TagDAO.getAllTags(database);
-            users = UserDAO.getAllUsers(database);
+            getAllCompanyInfos(database);
 
-            company = CompanyDAO.getCompany(database, companyId);
-            user = UserDAO.getUser(database, company.userId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
-            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
-            conversations = ConversationDAO.getConversations(database, companyId);
-            companyTags = TagDAO.getTags(database, companyId);
-            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
-            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
 
 
             database.commit();
@@ -437,21 +355,7 @@ public class CompanyManager implements java.io.Serializable {
             ConversationNote conversationNote= new ConversationNote(conversationId, conversationNoteUserId, title, note );
             conversationNote.insert(database);
 
-            //Get all infos
-            clientTypes = ClientTypeDAO.getAllClientTypes(database);
-            productCategories = ProductCategoryDAO.getAllProductCategories(database);
-            tags = TagDAO.getAllTags(database);
-            users = UserDAO.getAllUsers(database);
-
-            company = CompanyDAO.getCompany(database, companyId);
-            user=UserDAO.getUser(database, company.userId);
-            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
-            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
-            conversations = ConversationDAO.getConversations(database, companyId);
-            companyTags = TagDAO.getTags(database, companyId);
-            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
-            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
+            getAllCompanyInfos(database);
 
 
             database.commit();
@@ -637,6 +541,30 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public void deleteCompanyNote(int noteId) {
+
+        DataBase db = null;
+
+        try {
+            db = DBService.getDataBase();
+            ConversationNoteDAO.delete(db, noteId);
+
+            getAllCompanyInfos(db);
+
+            db.commit();
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } finally {
+            try {
+                db.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+    }
+
 
     public void deleteTag(Integer tagId){
 
@@ -647,6 +575,27 @@ public class CompanyManager implements java.io.Serializable {
             database=DBService.getDataBase();
             CompanyDAO.deleteTag(database, companyId, tagId);
 
+            getAllCompanyInfos(database);
+
+
+
+
+
+            database.commit();
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        finally {
+            try { database.close(); }
+            catch (NotFoundDBException e) { EService.logAndRecover(e); }
+        }
+
+    }
+
+    public void getAllCompanyInfos(DataBase database) {
+        try {
             //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
             productCategories = ProductCategoryDAO.getAllProductCategories(database);
@@ -660,25 +609,36 @@ public class CompanyManager implements java.io.Serializable {
             contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
             conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
+
+            consultingServices = ConsultingServiceDAO.getPurchasedConsultingServices(database, companyId);
+            commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database, companyId);
+
+            consultingServicesProposed = new HashMap<Integer, ArrayList<ConsultingService>>();
+
+            if (commercialProposals != null) {
+                for (CommercialProposal proposal : commercialProposals) {
+
+                    consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
+
+                    ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database, proposal.commercial_proposal_id);
+
+                    for (ConsultingService s : services) {
+
+                        consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
+
+                    }
+
+                }
+            }
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
 
-
-
-
-            database.commit();
-        }
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        catch (ResultSetDBException ex) {
+        } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        finally {
-            try { database.close(); }
-            catch (NotFoundDBException e) { EService.logAndRecover(e); }
         }
 
     }

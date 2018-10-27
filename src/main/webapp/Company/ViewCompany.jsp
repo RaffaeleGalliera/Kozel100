@@ -19,6 +19,7 @@
     String status = null;
     String message = null;
     int userId = 0;
+    boolean isAdmin = false;
     boolean complete = false;
     Cookie[] cookies = request.getCookies();
     status = request.getParameter("status");
@@ -32,6 +33,15 @@
 
             }
         }
+    }
+    for (Cookie cookie : cookies) {
+
+        if (cookie.getName().equals("jwt_auth_token") && Session.isAdmin(cookie)) {
+
+            isAdmin = true;
+
+        }
+
     }
 
     if (status.equals("view")) {
@@ -57,6 +67,11 @@
     if (status.equals("deleteTag")) {
         companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
+
+    if (status.equals("deleteNote")) {
+        companyManager.deleteCompanyNote(Integer.parseInt(request.getParameter("companyNoteId")));
+    }
+
 %>
 <!doctype html>
 <html>
@@ -73,6 +88,7 @@
           href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/non-spec-apps/mio-icons/latest/twotone.css">
     <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
 
     <%--Bootstrap multiselect css--%>
@@ -83,6 +99,27 @@
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
 <script language="JavaScript">
+
+    function deleteNote(id) {
+
+        r = confirm("Are you sure to delete this Note?");
+
+        if (r === true) {
+            document.deleteNoteForm.companyNoteId.value = id;
+
+            document.deleteNoteForm.submit();
+        }
+        else {
+            return;
+        }
+
+    }
+
+    function updateNote(id) {
+        document.updateNoteForm.companyNoteId.value = id;
+        document.updateNoteForm.submit();
+    }
+
     function addTag(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
@@ -236,11 +273,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Appointments
-                                <button style="float: right" type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-toggle="modal" data-target="#addAppointment">Add
-                                    Appointment
-                                </button>
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addAppointment"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
                             </h2>
                         </div>
                     </div>
@@ -291,11 +327,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Conversations
-                                <button style="float: right" type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-toggle="modal" data-target="#addConversation">Add
-                                    Conversation
-                                </button>
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addConversation"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
                             </h2>
 
                         </div>
@@ -339,11 +374,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Customer Notes
-                                <button style="float: right" type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-toggle="modal" data-target="#addNote">Add
-                                    Note
-                                </button>
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addNote"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
                             </h2>
                         </div>
                     </div>
@@ -361,6 +395,7 @@
                             <th>Note</th>
                             <th>Author</th>
                             <th>Posted at</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -376,13 +411,36 @@
                             </td>
                             <td><%=companyManager.getCompanyNote(k).timestamp%>
                             </td>
-                            <td>
+                            <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
+                            <td><a class="edit" title="Edit" data-toggle="tooltip"
+                                   href="JavaScript: updateNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
+                                    class="material-icons">&#xE254;</i>
+                            </a>
+                                <a class="delete" title="Delete" data-toggle="tooltip"
+                                   href="JavaScript:deleteNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
+                                        class="material-icons">&#xE872;</i>
+                                </a>
                             </td>
+                            <%} else {%>
+                            <a class="highlight_off" title="noPermission" data-toggle="tooltip"><i
+                                    class="material-icons">highlight_off</i>
+                            </a>
+                            <%}%>
                         </tr>
                         <%}%>
                         </tbody>
                     </table>
                     <%}%>
+                    <form name="deleteNoteForm" action="ViewCompany.jsp" method="post">
+                        <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyNoteId" value=""/>
+                        <input type="hidden" name="status" value="deleteNote"/>
+                    </form>
+                    <form name="updateNoteForm" action="ViewCompany.jsp" method="post">
+                        <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyNoteId" value=""/>
+                        <input type="hidden" name="status" value="updateNote"/>
+                    </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="consultingServices" role="tabpanel" aria-labelledby="consultingServices-tab">
@@ -392,11 +450,10 @@
                         <div class="col-sm-12">
                             <form action="">
                                 <h2>Consulting Services
-                                    <button style="float:right" type="submit"
-                                            value="InsertWorkField"
-                                            class="btn btn-default">
-                                        +
-                                    </button>
+                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                       data-target="#addAppointment"><i
+                                            class="material-icons md-48">add_box</i>
+                                    </a>
                                 </h2>
                             </form>
                         </div>
@@ -441,10 +498,10 @@
                         <div class="col-sm-12">
                             <form action="">
                                 <h2>Commercial Proposals
-                                    <button style="float:right" type="submit" value=""
-                                            class="btn btn-default">
-                                        +
-                                    </button>
+                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                       data-target="#addAppointment"><i
+                                            class="material-icons md-48">add_box</i>
+                                    </a>
                                 </h2>
                             </form>
                         </div>
@@ -505,10 +562,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Tags
-                                    <button style="float: right" type="button"
-                                            class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addTag">Add Tag
-                                    </button>
+                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                       data-target="#addTag"><i
+                                            class="material-icons md-48">add_box</i>
+                                    </a>
                                 </h2>
                             </div>
                         </div>
