@@ -45,7 +45,9 @@ public class AdminPanelManager implements java.io.Serializable {
     private String recruitmentDate;
     private Date endWorking;
     private String phoneNumber;
-    
+
+    private String serviceName;
+
     private int result;
     private String errorMessage;
 
@@ -155,6 +157,44 @@ public class AdminPanelManager implements java.io.Serializable {
 
     }
 
+    public void insertConsultingService(){
+
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            ConsultingService consultingService = new ConsultingService(serviceName);
+            consultingService.insert(database);
+
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+        catch(DuplicatedRecordDBException ex){
+            EService.logAndRecover(ex);
+            setResult((EService.RECOVERABLE_ERROR));
+        }
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
     public void insertPosition() {
 
         DataBase database = null;
@@ -216,42 +256,6 @@ public class AdminPanelManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Work Field already exist");
-        }finally {
-            try {
-                database.close();
-            } catch (NotFoundDBException e) {
-                EService.logAndRecover(e);
-            }
-        }
-
-
-    }
-
-    public void insertConsultingService() {
-
-        DataBase database = null;
-
-        try {
-
-            database = DBService.getDataBase();
-
-            Tag tag = new Tag(consultingServiceName);
-            tag.insert(database);
-            database.commit();
-
-        }
-        catch (NotFoundDBException ex) {
-            EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        catch (ResultSetDBException ex) {
-            EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        catch(DuplicatedRecordDBException ex){
-            EService.logAndRecover(ex);
-            setResult(EService.RECOVERABLE_ERROR);
-            setErrorMessage("Consulting Service already exist");
         }finally {
             try {
                 database.close();
@@ -369,6 +373,9 @@ public class AdminPanelManager implements java.io.Serializable {
 
 
     }
+    public String getServiceName(){return serviceName;}
+
+    public void setServiceName(String serviceName){this.serviceName = serviceName;}
 
     public Integer getPositionId() {
         return positionId;

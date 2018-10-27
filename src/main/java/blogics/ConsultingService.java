@@ -23,9 +23,8 @@ public class ConsultingService {
 
     }
 
-    public ConsultingService(int consulting_service_id, String name){
+    public ConsultingService(String name){
 
-        this.consulting_service_id=consulting_service_id;
         this.name=name;
 
     }
