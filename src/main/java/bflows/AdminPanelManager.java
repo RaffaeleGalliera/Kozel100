@@ -48,6 +48,8 @@ public class AdminPanelManager implements java.io.Serializable {
 
     private String serviceName;
 
+    private ConsultingService[] consultingServices;
+
     private int result;
     private String errorMessage;
 
@@ -71,6 +73,8 @@ public class AdminPanelManager implements java.io.Serializable {
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
             productCategories = ProductCategoryDAO.getAllProductCategories(db);
             users = UserDAO.getAllUsers(db);
+            consultingServices = ConsultingServiceDAO.getConsultingServices(db);
+
             db.commit();
 
         } catch (NotFoundDBException ex) {
@@ -165,7 +169,7 @@ public class AdminPanelManager implements java.io.Serializable {
         try {
 
             database = DBService.getDataBase();
-            ConsultingService consultingService = new ConsultingService(serviceName);
+            ConsultingService consultingService = new ConsultingService(consultingServiceName);
             consultingService.insert(database);
 
 
@@ -482,9 +486,11 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
 
-    public Tag getConsultingService(int index) {
-        return tags[index];
+    public ConsultingService getConsultingService(int index) {
+        return consultingServices[index];
     }
+
+    public ConsultingService[] getConsultingServices(){return consultingServices;}
 
     public WorkField[] getWorkFields() {
         return workFields;
