@@ -394,6 +394,7 @@
                             <th>Title</th>
                             <th>Note</th>
                             <th>Author</th>
+                            <th>Conversation Referred</th>
                             <th>Posted at</th>
                             <th>Actions</th>
                         </tr>
@@ -408,6 +409,8 @@
                             <td><%=companyManager.getCompanyNote(k).note%>
                             </td>
                             <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
+                            </td>
+                            <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
                             </td>
                             <td><%=companyManager.getCompanyNote(k).timestamp%>
                             </td>

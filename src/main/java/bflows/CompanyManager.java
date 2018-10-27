@@ -653,6 +653,16 @@ public class CompanyManager implements java.io.Serializable {
         return  user;
     }
 
+    public String getCompanyNoteConversation(Integer conversationId) {
+        String conversation = "";
+        for (int k = 0; k < (conversations.length); k++) {
+            if (conversations[k].conversationId == conversationId) {
+                conversation = "Reason: " + conversations[k].reason + "<br>Date: " + conversations[k].date + "<br>Created by: " + getConversationUserName(conversations[k].userId);
+            }
+        }
+        return conversation;
+    }
+
 
     public Optional<CommercialProposal[]> getCommercialProposals() {
         return Optional.ofNullable(commercialProposals);
