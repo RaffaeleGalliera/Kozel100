@@ -114,6 +114,30 @@ public class ConversationNoteDAO {
 
     }
 
+    public static ConversationNote getNote(DataBase db, Integer noteId) throws NotFoundDBException, ResultSetDBException {
+
+        ConversationNote conversationNote = null;
+        String sql;
+        ResultSet rs;
+
+        sql = "SELECT * FROM conversation_note WHERE conversation_note_id =" + noteId + " AND active_fl=1";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                conversationNote = new ConversationNote(rs);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("ConversationNoteDAO.getConversationNote(): ResultSetDBException: " + ex.getMessage(), db);
+        }
+
+        return conversationNote;
+
+    }
+
     public static void delete(DataBase db, Integer noteId) throws NotFoundDBException {
 
         String sql = "UPDATE conversation_note SET active_fl=0 WHERE conversation_note_id=" + noteId;

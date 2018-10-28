@@ -53,4 +53,21 @@ public class ConversationNote {
 
     }
 
+    public void update(DataBase db) throws NotFoundDBException, ResultSetDBException, DuplicatedRecordDBException {
+
+        String sql;
+        ArrayList<String> parameters = new ArrayList();
+        ResultSet rs;
+        boolean exist;
+
+        sql = " UPDATE conversation_note "
+                + " SET conversation_id=" + conversationId + ", title=?, note=?"
+                + " WHERE conversation_note_id=" + conversationNoteId;
+
+        parameters.add(title);
+        parameters.add(note);
+
+        db.modify(sql, parameters);
+    }
+
 }

@@ -20,7 +20,7 @@ public class CompanyManager implements java.io.Serializable {
     private int conversationUserId=-1;
     private int conversationNoteUserId=-1;
     private int tagId=-1;
-    private int noteId = -1;
+    private Integer companyNoteId = -1;
     private int appointmentId = -1;
     private String firstName;
     private String lastName;
@@ -47,6 +47,7 @@ public class CompanyManager implements java.io.Serializable {
     private Integer[] userIds;
 
     private Company[] companies;
+    private ConversationNote companyNote;
     private Conversation[] conversations;
     private User conversationUser;
     private Company company;
@@ -539,6 +540,42 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public void updateCompanyNote() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            companyNote = ConversationNoteDAO.getNote(database, companyNoteId);
+
+            companyNote.title = title;
+            companyNote.note = note;
+            companyNote.conversationId = conversationId;
+            companyNote.update(database);
+
+            getAllCompanyInfos(database);
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Company already exist");
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
 
     public void deleteTag(Integer tagId){
 
@@ -1028,5 +1065,13 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setAppointmentTime(String appointmentTime) {
         this.appointmentTime = appointmentTime;
+    }
+
+    public Integer getCompanyNoteId() {
+        return companyNoteId;
+    }
+
+    public void setCompanyNoteId(Integer companyNoteId) {
+        this.companyNoteId = companyNoteId;
     }
 }

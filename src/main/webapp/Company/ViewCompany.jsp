@@ -56,7 +56,7 @@
         companyManager.addConversation();
     }
 
-    if (status.equals(("addConversationNote"))) {
+    if (status.equals(("addNote"))) {
         companyManager.addConversationNote();
     }
 
@@ -70,6 +70,9 @@
 
     if (status.equals("deleteNote")) {
         companyManager.deleteCompanyNote(Integer.parseInt(request.getParameter("companyNoteId")));
+    }
+    if (status.equals("updateCompanyNote")) {
+        companyManager.updateCompanyNote();
     }
 
 %>
@@ -115,9 +118,18 @@
 
     }
 
-    function updateNote(id) {
+    function updateNoteModal(id, conversationId, title, note) {
+        $('#updateNoteModal').modal('show');
         document.updateNoteForm.companyNoteId.value = id;
-        document.updateNoteForm.submit();
+        document.updateNoteForm.conversationId.value = conversationId;
+        document.updateNoteForm.title.value = title;
+        document.updateNoteForm.note.value = note;
+    }
+
+    function updateNote(form) {
+
+        form.action = "ViewCompany.jsp";
+        form.submit();
     }
 
     function addTag(form) {
@@ -416,12 +428,12 @@
                             </td>
                             <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
                             <td><a class="edit" title="Edit" data-toggle="tooltip"
-                                   href="JavaScript: updateNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
-                                    class="material-icons">&#xE254;</i>
+                                   href="JavaScript: updateNoteModal('<%=companyManager.getCompanyNote(k).conversationNoteId%>', '<%=companyManager.getCompanyNote(k).conversationId%>', '<%=companyManager.getCompanyNote(k).title%>', '<%=companyManager.getCompanyNote(k).note%>');"><i
+                                    class="material-icons md-24">&#xE254;</i>
                             </a>
                                 <a class="delete" title="Delete" data-toggle="tooltip"
                                    href="JavaScript:deleteNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
-                                        class="material-icons">&#xE872;</i>
+                                        class="material-icons md-24">&#xE872;</i>
                                 </a>
                             </td>
                             <%} else {%>
@@ -438,11 +450,6 @@
                         <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="companyNoteId" value=""/>
                         <input type="hidden" name="status" value="deleteNote"/>
-                    </form>
-                    <form name="updateNoteForm" action="ViewCompany.jsp" method="post">
-                        <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
-                        <input type="hidden" name="companyNoteId" value=""/>
-                        <input type="hidden" name="status" value="updateNote"/>
                     </form>
                 </div>
             </div>
@@ -648,9 +655,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addTag"/>
-                        <input type="hidden" name="cTag" value="addTag"/>
-                        <input type="hidden" name="companyId"
-                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
                     </div>
                 </form>
             </div>
@@ -726,25 +731,72 @@
                     </select>
                     <div class="form-group">
                         <label for="Title" class="bmd-label-floating">Title</label>
-                        <input type="text" name="title" class="form-control" id="title">
+                        <input type="text" name="title" class="form-control" id="title" value="">
                     </div>
                     <div class="form-group">
                         <label for="note" class="bmd-label-floating">Note</label>
-                        <textarea class="form-control" rows="5" id="note" name="note"></textarea>
+                        <textarea class="form-control" rows="5" id="note" name="note" value=""></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addConversationNote(this.form)">
                             Submit
                         </button>
-                        <input type="hidden" name="status" value="addConversationNote"/>
-                        <input type="hidden" name="companyId" id="companyId"
-                               value="<%=companyManager.getCompany().companyId%>"/>
-                        <input type="hidden" name="conversationNoteUserId" id="conversationNoteUserId"
-                               value="<%= userId %>"/>
                     </div>
+                    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                    <input type="hidden" name="companyNoteId" value=""/>
+                    <input type="hidden" name="status" value="addNote"/>
+                    <input type="hidden" name="conversationNoteUserId" id="conversationNoteUserId"
+                           value="<%= userId %>"/>
                 </form>
                 <%}%>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Update Note Modal -->
+<div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateNoteLabel">Update Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="updateNoteForm" action="" method="post">
+                    <label for="updatedConversationId" class="bmd-label-floating">Conversation</label>
+                    <select class="form-control" id="updatedConversationId" name="conversationId">
+                        <%for (int k = 0; k < nConversation; k++) {%>
+                        <option value="<%=companyManager.getConversation(k).conversationId%>">
+                            <%=companyManager.getConversation(k).date%>
+                            : <%=companyManager.getConversation(k).reason%>
+                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                        </option>
+                        <% } %>
+                    </select>
+                    <div class="form-group">
+                        <label for="updatedTitle" class="bmd-label-floating">Title</label>
+                        <input type="text" name="title" class="form-control" id="updatedTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="updatedNote" name="note"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="updateNote(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="updateCompanyNote"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyNoteId" id="updateCompanyNoteId"
+                               value=""/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
