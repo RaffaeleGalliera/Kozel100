@@ -82,6 +82,7 @@
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
+
 <script language="JavaScript">
     function addTag(form) {
         form.action = "ViewCompany.jsp";
@@ -747,6 +748,65 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addAppointment" tabindex="-1" role="dialog"
+     aria-labelledby="addAppointmentLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAppointmentLabel">Add Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="appointmentDate" class="bmd-label-floating">Date</label>
+                        <input type="date" name="appointmentDate" class="form-control"
+                               id="appointmentDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime" class="bmd-label-floating">Time</label>
+                        <input type="time" name="appointmentTime" class="form-control"
+                               id="appointmentTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="appointmentNote"
+                                  name="appointmentNote"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other
+                            Users</label>
+                        <select class="form-control" multiple="multiple" id="userIds" name="userIds">
+                            <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
+                            <%if (userId != companyManager.getUser(k).userId) {%>
+                            <option value="<%=companyManager.getUser(k).userId%>">
+                                <%=companyManager.getUser(k).fullName()%>
+                            </option>
+                            <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addAppointment(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
+                               value="<%= userId %>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <%--VUE JS--%>
 <%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>

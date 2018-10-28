@@ -60,9 +60,6 @@ public class ConsultingService {
         query="INSERT INTO consulting_service(consulting_service_id, name)" +
                 " VALUES("+consulting_service_id+",?)";
 
-
-        parameters.add(name);
-
         database.modify(query,parameters);
 
     }

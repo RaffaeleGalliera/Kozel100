@@ -90,7 +90,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <form action="InsertConsultingService.jsp">
-                                        <h2>Product Categories
+                                        <h2>Consulting Services
                                             <button style="float:right" type="submit" value="Tag"
                                                     class="btn btn-default">
                                                 +
