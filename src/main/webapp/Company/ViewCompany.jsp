@@ -95,7 +95,7 @@
     <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
 
     <%--Bootstrap multiselect css--%>
-    <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
     <title>Kozel100 CRM</title>
 </head>
@@ -641,7 +641,7 @@
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="tagIds" class="bmd-label-floating">Tags</label>
-                        <select class="form-control" multiple="multiple" id="tagIds" name="tagIds">
+                        <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
                             <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
                             <option value="<%=companyManager.getTag(k).tagId%>">
                                 <%=companyManager.getTag(k).name%>
@@ -833,7 +833,7 @@
                     <div class="form-group">
                         <label for="userIds" class="bmd-label-floating">Share this Appointment with other
                             Users</label>
-                        <select class="form-control" multiple="multiple" id="userIds" name="userIds">
+                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple">
                             <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
                             <%if (userId != companyManager.getUser(k).userId) {%>
                             <option value="<%=companyManager.getUser(k).userId%>">
@@ -874,16 +874,13 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
+<%--Multiselect javascript--%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <script>$(document).ready(function () {
     $(document).ready(function () {
-        $('#tagIds').multiselect({
-            enableFiltering: true
-        });
-        $('#userIds').multiselect({
-            enableFiltering: true
-        });
+        $('.multipleSelect').css('width', '100%');
+        $('.multipleSelect').select2();
     });
     $('body').bootstrapMaterialDesign();
 });</script>
