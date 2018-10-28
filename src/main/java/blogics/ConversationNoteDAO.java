@@ -19,7 +19,7 @@ public class ConversationNoteDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM conversation_note WHERE conversation_id="+conversationId+"";
+        sql = "SELECT * FROM conversation_note WHERE conversation_id=" + conversationId + " WHERE active_fl=1";
 
 
         rs=db.select(sql);
@@ -52,7 +52,7 @@ public class ConversationNoteDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM conversation_note";
+        sql = "SELECT * FROM conversation_note WHERE active_fl=1";
 
 
         rs=db.select(sql);
@@ -87,7 +87,7 @@ public class ConversationNoteDAO {
 
         sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at " +
                 "FROM conversation_note AS CN JOIN conversation AS C on CN.conversation_id = C.conversation_id " +
-                "WHERE company_id=" + companyId + " " +
+                "WHERE company_id=" + companyId + " AND active_fl=1 " +
                 "ORDER BY CN.created_at DESC";
 
 
@@ -111,6 +111,38 @@ public class ConversationNoteDAO {
         }
 
         return conversationNotes;
+
+    }
+
+    public static ConversationNote getNote(DataBase db, Integer noteId) throws NotFoundDBException, ResultSetDBException {
+
+        ConversationNote conversationNote = null;
+        String sql;
+        ResultSet rs;
+
+        sql = "SELECT * FROM conversation_note WHERE conversation_note_id =" + noteId + " AND active_fl=1";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                conversationNote = new ConversationNote(rs);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("ConversationNoteDAO.getConversationNote(): ResultSetDBException: " + ex.getMessage(), db);
+        }
+
+        return conversationNote;
+
+    }
+
+    public static void delete(DataBase db, Integer noteId) throws NotFoundDBException {
+
+        String sql = "UPDATE conversation_note SET active_fl=0 WHERE conversation_note_id=" + noteId;
+
+        db.modify(sql);
 
     }
 }

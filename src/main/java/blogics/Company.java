@@ -53,7 +53,7 @@ public class Company {
         boolean exist;
 
         //Check unicita
-        query="SELECT name FROM company WHERE name=?";
+        query = "SELECT name FROM company WHERE name=? AND active_fl=1";
 
         parameters.add(name);
 

@@ -32,8 +32,7 @@
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-color: #27C46B;">
     <a class="navbar-brand" href="/Dashboard.jsp">
-        <img src="../resources/logoS.png" width="50" height="50" alt="">
-        Dashboard
+        <img src="../resources/logoSmall.png" width="101" height="50" class="d-inline-block align-top" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,8 +46,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="companyDropdown">
                     <a class="dropdown-item" href="/Company/ViewCompanies.jsp">View</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Company/InsertCompany.jsp">Insert Company</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Company/InsertContactPerson.jsp">Insert Contact Person</a>
                 </div>
