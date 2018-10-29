@@ -23,6 +23,7 @@
     boolean complete = false;
     Cookie[] cookies = request.getCookies();
     status = request.getParameter("status");
+    if (status == null) status = "view";
 
     if (cookies != null) {
         for (Cookie cookie : cookies) {
@@ -45,6 +46,13 @@
 
     }
 
+    if (status.equals("view")) {
+        agendaManager.agendaView();
+    }
+
+    if (status.equals(("addAppointment"))) {
+        agendaManager.addAppointment();
+    }
     agendaManager.agendaView();
 %>
 <!doctype html>
@@ -75,11 +83,83 @@
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
+<script language="JavaScript">
+    function addAppointment(form) {
+        form.action = "Agenda.jsp";
+        form.submit();
+    }
+</script>
+
 <div class="container">
     <div id='calendar'></div>
 </div>
 
-
+<!--Appointment Modal -->
+<div class="modal fade" id="addAppointment" tabindex="-1" role="dialog"
+     aria-labelledby="addAppointmentLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAppointmentLabel">Add Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="agendaManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="companyId" class="bmd-label-floating">Select Company</label>
+                        <select class="form-control" name="companyId" id="companyId">
+                            <%for (int k = 0; k < agendaManager.getCompanies().length; k++) {%>
+                            <option value="<%=agendaManager.getCompany(k).companyId%>">
+                                <%=agendaManager.getCompany(k).name%>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentDate" class="bmd-label-floating">Date</label>
+                        <input type="date" name="appointmentDate" class="form-control"
+                               id="appointmentDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime" class="bmd-label-floating">Time</label>
+                        <input type="time" name="appointmentTime" class="form-control"
+                               id="appointmentTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="appointmentNote"
+                                  name="appointmentNote"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other
+                            Users</label>
+                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple">
+                            <%for (int k = 0; k < agendaManager.getUsers().length; k++) {%>
+                            <%if (userId != agendaManager.getUser(k).userId) {%>
+                            <option value="<%=agendaManager.getUser(k).userId%>">
+                                <%=agendaManager.getUser(k).fullName()%>
+                            </option>
+                            <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addAppointment(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
+                               value="<%= userId %>"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <%--VUE JS--%>
 <%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>
 <!-- Optional JavaScript -->
@@ -104,6 +184,9 @@
 
 
 <script>$(document).ready(function () {
+    $('.multipleSelect').css('width', '100%');
+    $('.multipleSelect').select2();
+
     var curEvents = [];
     <% for(int x=0;x<agendaManager.getUserAppointments().length;x++){ %>
     curEvents.push({
@@ -117,10 +200,16 @@
     $('#calendar').fullCalendar({
         events: curEvents,
         themeSystem: 'bootstrap4',
+        themeButtonIcons: {
+            prev: 'circle-triangle-w',
+            next: 'circle-triangle-e',
+            prevYear: 'seek-prev',
+            nextYear: 'seek-next'
+        },
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'agendaWeek,month,listMonth'
+            right: 'agendaWeek,month,listMonth,addAppointment'
         },
         eventRender: function (eventObj, $el) {
             $el.popover({
@@ -131,20 +220,15 @@
                 container: 'body'
             });
         },
-        // businessHours: {
-        //     // days of week. an array of zero-based day of week integers (0=Sunday)
-        //     dow: [ 1, 2, 3, 4, 5 ], // Monday - Frriday
-        //
-        //     start: '10:00', // a start time
-        //     end: '18:00', // an end time
-        // },
-        timeFormat: 'H(:mm)',
-        themeButtonIcons: {
-            prev: 'circle-triangle-w',
-            next: 'circle-triangle-e',
-            prevYear: 'seek-prev',
-            nextYear: 'seek-next'
+        customButtons: {
+            addAppointment: {
+                text: 'ADD',
+                click: function () {
+                    $('#addAppointment').modal('show');
+                }
+            }
         },
+        timeFormat: 'H(:mm)',
     });
     $('body').bootstrapMaterialDesign();
 });</script>
