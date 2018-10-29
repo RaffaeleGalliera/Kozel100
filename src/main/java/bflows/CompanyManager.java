@@ -66,7 +66,9 @@ public class CompanyManager implements java.io.Serializable {
     private ConsultingService[] consultingServicesPurchased;
     private ConsultingService[] consultingServices;
     private int[] consultingServiceIds;
-
+    private int purchasedServiceId;
+    private String purchaseDate;
+    private String startDate;
 
     private String proposalName;
     private String proposalDescription;
@@ -486,6 +488,91 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public void purchaseService(){
+
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            //Get all infos
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+            tags = TagDAO.getAllTags(database);
+            users = UserDAO.getAllUsers(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            user=UserDAO.getUser(database, company.userId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
+            companyTags = TagDAO.getTags(database, companyId);
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
+            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
+            consultingServices = ConsultingServiceDAO.getConsultingServices(database);
+
+
+            commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database,companyId);
+
+            consultingServicesProposed = new HashMap<Integer, ArrayList<ConsultingService>>();
+
+            if (commercialProposals != null) {
+                for (CommercialProposal proposal : commercialProposals) {
+
+                    consultingServicesProposed.put(proposal.commercial_proposal_id, new ArrayList<ConsultingService>());
+
+                    ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database, proposal.commercial_proposal_id);
+
+                    if(services!=null) {
+                        for (ConsultingService s : services) {
+
+                            consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
+
+                        }
+                    }
+
+                }
+            }
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedPurchaseDate = format.parse(purchaseDate);
+            Date parseStartDate = format.parse(startDate);
+
+            Purchase purchase = new Purchase(companyId, purchasedServiceId,parsedPurchaseDate,parseStartDate);
+            purchase.insert(database);
+
+            consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (ParseException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+
+    }
+
     public void addCommercialProposal(){
 
         DataBase database = null;
@@ -517,6 +604,8 @@ public class CompanyManager implements java.io.Serializable {
             companyTags = TagDAO.getTags(database, companyId);
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
+            consultingServices = ConsultingServiceDAO.getConsultingServices(database);
+
 
             consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
             commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database,companyId);
@@ -815,6 +904,13 @@ public class CompanyManager implements java.io.Serializable {
         return  user;
     }
 
+    public int getPurchasedServiceId() {
+        return purchasedServiceId;
+    }
+
+    public void setPurchasedServiceId(int purchasedServiceId) {
+        this.purchasedServiceId = purchasedServiceId;
+    }
 
     public int[] getConsultingServiceIds() {
         return consultingServiceIds;
@@ -830,6 +926,22 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setConsultingServices(ConsultingService[] consultingServices) {
         this.consultingServices = consultingServices;
+    }
+
+    public String getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public String getProposalName() {return proposalName;}

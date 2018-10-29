@@ -58,6 +58,12 @@
         companyManager.addCommercialProposal();
     }
 
+    if(status.equals("purchaseService")){
+
+        companyManager.purchaseService();
+
+    }
+
     if (status.equals("deleteTag")) {
         companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
@@ -112,6 +118,13 @@
     function addAppointment(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
+    }
+
+    function purchaseService(){
+
+        form.action = "ViewCompany.jsp";
+        form.submit();
+
     }
 
     function deleteTag(id, name) {
@@ -404,15 +417,15 @@
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form action="">
                                 <h2>Consulting Services
                                     <button style="float:right" type="submit"
-                                            value="InsertWorkField"
+                                            value="consultingServicePurchase"
+                                            data-toggle="modal"
+                                            data-target="#addServicePurchase"
                                             class="btn btn-default">
                                         +
                                     </button>
                                 </h2>
-                            </form>
                         </div>
                     </div>
                     <% int nService = companyManager.getConsultingServicesPurchased().map(t -> t.length).orElse(0);
@@ -619,6 +632,64 @@
         </div>
     </div>
 </div>
+
+<!-- Purchase Service Modal -->
+<div class="modal fade" id="addServicePurchase" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="purchaseServiceLabel">Add a Purchase</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <%--TODO i used get() to retrieve Optionals here and there because my balls were exploding--%>
+
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="purchasedServiceId" class="bmd-label-floating">Consulting Service</label>
+                        <select class="form-control" id="purchasedServiceId" name="purchasedServiceId">
+                            <%for (int k = 0; k < companyManager.getConsultingServices().get().length; k++) {%>
+                            <option value="<%=companyManager.getConsultingService(k).get().consulting_service_id%>">
+                                <%=companyManager.getConsultingService(k).get().name%>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchaseDate" class="bmd-label-floating">Purchase Date</label>
+                        <input type="date" name="purchaseDate" class="form-control"
+                               id="purchaseDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate" class="bmd-label-floating">Start Date</label>
+                        <input type="date" name="startDate" class="form-control"
+                               id="startDate">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="purchaseService(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="purchaseService"/>
+                        <input type="hidden" name="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!--Conversation Modal -->
 <div class="modal fade" id="addConversation" tabindex="-1" role="dialog"
      aria-labelledby="addConversationLabel"
