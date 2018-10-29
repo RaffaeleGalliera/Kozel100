@@ -148,8 +148,8 @@ public class AgendaManager {
         this.userId = userId;
     }
 
-    public Appointment[] getUserAppointments() {
-        return userAppointments;
+    public Optional<Appointment[]> getUserAppointments() {
+        return Optional.ofNullable(userAppointments);
     }
 
     public void setUserAppointments(Appointment[] userAppointments) {

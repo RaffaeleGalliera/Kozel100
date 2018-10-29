@@ -188,13 +188,16 @@
     $('.multipleSelect').select2();
 
     var curEvents = [];
-    <% for(int x=0;x<agendaManager.getUserAppointments().length;x++){ %>
+    <% int nAppointments = agendaManager.getUserAppointments().map(t -> t.length).orElse(0);
+    if (nAppointments != 0) {%>
+    <% for(int x=0;x<nAppointments;x++){ %>
     curEvents.push({
         title: "<%=agendaManager.getAppointmentCompany(agendaManager.getUserAppointment(x).companyId)%>",
         start: "<%=agendaManager.getUserAppointment(x).date%>" + " <%=agendaManager.getUserAppointment(x).time%>",
         description: "<%=agendaManager.getUserAppointment(x).note%>",
         allDay: false
     });
+    <% } %>
     <% } %>
 
     $('#calendar').fullCalendar({
