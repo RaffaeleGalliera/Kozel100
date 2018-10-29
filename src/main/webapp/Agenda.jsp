@@ -109,7 +109,7 @@
     curEvents.push({
         title: "<%=agendaManager.getAppointmentCompany(agendaManager.getUserAppointment(x).companyId)%>",
         start: "<%=agendaManager.getUserAppointment(x).date%>" + " <%=agendaManager.getUserAppointment(x).time%>",
-        <%--description: "<%=agendaManager.getUserAppointment(x).note%>",--%>
+        description: "<%=agendaManager.getUserAppointment(x).note%>",
         allDay: false
     });
     <% } %>
@@ -121,6 +121,15 @@
             left: 'prev,next today',
             center: 'title',
             right: 'agendaWeek,month,listMonth'
+        },
+        eventRender: function (eventObj, $el) {
+            $el.popover({
+                title: eventObj.title,
+                content: eventObj.description,
+                trigger: 'hover',
+                placement: 'top',
+                container: 'body'
+            });
         },
         // businessHours: {
         //     // days of week. an array of zero-based day of week integers (0=Sunday)
