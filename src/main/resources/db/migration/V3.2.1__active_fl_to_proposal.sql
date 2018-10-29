@@ -1,0 +1,1 @@
+ALTER TABLE `commercial_proposal` ADD `active_fl` BOOLEAN NOT NULL DEFAULT TRUE AFTER `company_id`;

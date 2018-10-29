@@ -17,7 +17,7 @@ public class ConsultingService {
 
     public ConsultingService(ResultSet result){
 
-        try {consulting_service_id=result.getInt("commercial_proposal_id");} catch(SQLException sqle) {}
+        try {consulting_service_id=result.getInt("consulting_service_id");} catch(SQLException sqle) {}
         try {name=result.getString("name");} catch(SQLException sqle) {}
 
 

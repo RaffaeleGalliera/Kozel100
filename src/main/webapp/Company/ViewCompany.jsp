@@ -104,6 +104,11 @@
         form.submit();
     }
 
+    function addCommercialProposal(form) {
+        form.action = "ViewCompany.jsp";
+        form.submit();
+    }
+
     function addAppointment(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
@@ -410,7 +415,7 @@
                             </form>
                         </div>
                     </div>
-                    <% int nService = companyManager.getConsultingServices().map(t -> t.length).orElse(0);
+                    <% int nService = companyManager.getConsultingServicesPurchased().map(t -> t.length).orElse(0);
                         if (nService == 0) {%>
                     <div class="jumbotron">
                         <h1 class="display-4"> There is no Consulting Service Yet</h1>
@@ -429,7 +434,7 @@
                         <tr>
                             <td><%= k + 1 %>
                             </td>
-                            <td><%=companyManager.getConsultingService(k).name%>
+                            <td><%=companyManager.getConsultingServicePurchased(k).name%>
                             </td>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="tooltip"><i
@@ -450,14 +455,14 @@
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form action="">
                                 <h2>Commercial Proposals
-                                    <button style="float:right" type="submit" value=""
+                                    <button style="float:right" type="submit"
+                                            data-toggle="modal"
+                                            data-target="#addCommercialProposal"
                                             class="btn btn-default">
                                         +
                                     </button>
                                 </h2>
-                            </form>
                         </div>
                     </div>
                     <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
@@ -489,7 +494,9 @@
                                 int nProposed = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).map(p -> p.size()).orElse(0);
                                 if (nProposed == 0) {
                             %>
-                            None
+                            <td>
+                                None
+                            </td>
                             <%} else {%>
                             <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).get();%>
                             <td>
@@ -511,7 +518,7 @@
             </div>
 
             <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
-                <%--TAG TAB--%>
+                <%--Tag Tab--%>
                 <div class="container">
                     <div class="table-wrapper">
                         <div class="row">
@@ -778,30 +785,37 @@
             <div class="modal-body">
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
-                        <label for="commercialProposalsName" class="bmd-label-floating">Date</label>
-                        <input type="text" name="commercialProposalsName" class="form-control"
-                               id="commercialProposalsName">
+                        <label for="proposalName" class="bmd-label-floating">Name</label>
+                        <input type="text" name="proposalName" class="form-control"
+                               id="proposalName">
                     </div>
                     <div class="form-group">
-                        <label for="appointmentTime" class="bmd-label-floating">Time</label>
-                        <input type="time" name="appointmentTime" class="form-control"
-                               id="appointmentTime">
+                        <label for="proposalDescription" class="bmd-label-floating">Description</label>
+                        <input type="textarea" name="proposalDescription" class="form-control"
+                               id="proposalDescription">
                     </div>
+
                     <div class="form-group">
-                        <label for="appointmentNote" class="bmd-label-floating">Note</label>
-                        <textarea class="form-control" rows="5" id="appointmentNote"
-                                  name="appointmentNote"></textarea>
+                        <label for="consultingServiceIds" class="bmd-label-static">Related Consulting Services</label>
+                        <select class="form-control multipleSelect" name="consultingServiceIds" multiple="multiple"
+                                id="consultingServiceIds">
+                            <%for (int k = 0; k < companyManager.getConsultingServices().get().length; k++) {%>
+                            <option value="<%=companyManager.getConsultingService(k).get().consulting_service_id%>">
+                                <%=companyManager.getConsultingService(k).get().name%>
+                            </option>
+                            <% } %>
+                        </select>
                     </div>
+
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addAppointment(this.form)">
+                                onclick="addCommercialProposal(this.form)">
                             Submit
                         </button>
-                        <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="status" value="addCommercialProposal"/>
                         <input type="hidden" name="companyId" id="companyId"
                                value="<%=companyManager.getCompany().companyId%>"/>
-                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
-                               value="<%= userId %>"/>
+
                     </div>
                 </form>
             </div>
@@ -826,6 +840,9 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 <script>$(document).ready(function () {
     $(document).ready(function () {
         $('#tagIds').multiselect({
@@ -834,6 +851,8 @@
         $('#userIds').multiselect({
             enableFiltering: true
         });
+        $('.multipleSelect').css('width', '100%');
+        $('.multipleSelect').select2();
     });
     $('body').bootstrapMaterialDesign();
 });</script>

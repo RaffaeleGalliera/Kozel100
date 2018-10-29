@@ -90,7 +90,7 @@ public class ConsultingServiceDAO {
                 "ON CP.commercial_proposal_id = PS.commercial_proposal_id " +
                 "JOIN consulting_service AS CS " +
                 "ON CS.consulting_service_id = PS.consulting_service_id " +
-                "WHERE PS.commercial_proposal_id="+proposalId+" AND active_fl=1";
+                "WHERE PS.commercial_proposal_id="+proposalId;
 
         rs=database.select(sql);
 

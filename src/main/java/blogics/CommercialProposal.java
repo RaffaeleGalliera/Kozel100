@@ -44,7 +44,7 @@ public class CommercialProposal {
 
     }
 
-    public CommercialProposal(String name, String description, int company_id) {
+    public CommercialProposal(int commercial_proposal_id, String name, String description, int company_id) {
 
         this.commercial_proposal_id=commercial_proposal_id;
         this.name=name;
@@ -82,13 +82,12 @@ public class CommercialProposal {
             throw new DuplicatedRecordDBException("CommercialProposal.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
-        query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description,status, company_id)" +
-                "VALUES("+commercial_proposal_id+",?,?,?,"+company_id+")";
+        query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description, company_id)" +
+                "VALUES("+commercial_proposal_id+",?,?,"+company_id+")";
 
 
-        parameters.add(name);
         parameters.add(description);
-        parameters.add(status.name()); // the name() method returns the name of the enum value as a String
+        //parameters.add(status.name()); // the name() method returns the name of the enum value as a String
 
 
         database.modify(query,parameters);
