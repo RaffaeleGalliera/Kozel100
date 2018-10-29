@@ -77,7 +77,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css" rel="stylesheet"/>
     <%--Calendar CSS--%>
-    <link rel='stylesheet' href='fullcalendar/fullcalendar.css'/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css"/>
 
     <title>Kozel100 CRM</title>
 </head>
@@ -180,9 +180,7 @@
 <%--Multiselect javascript--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <%--FullCalendar Script--%>
-<script src='fullcalendar/fullcalendar.js'></script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 <script>$(document).ready(function () {
     $('.multipleSelect').css('width', '100%');
     $('.multipleSelect').select2();
