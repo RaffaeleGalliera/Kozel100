@@ -54,6 +54,10 @@
         companyManager.addAppointment();
     }
 
+    if (status.equals(("addCommercialProposal"))) {
+        companyManager.addCommercialProposal();
+    }
+
     if (status.equals("deleteTag")) {
         companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
@@ -84,6 +88,7 @@
 <jsp:include page="/Common/Navbar.jsp"/>
 
 <script language="JavaScript">
+
     function addTag(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
@@ -155,6 +160,7 @@
                    aria-controls="tags" aria-selected="false">Tags</a>
             </li>
         </ul>
+
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                 <div class="jumbotron">
@@ -334,6 +340,7 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
                 <%--Customer Notes Tab--%>
                 <div class="table-wrapper">
@@ -386,6 +393,7 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="consultingServices" role="tabpanel" aria-labelledby="consultingServices-tab">
                 <%--Consulting Services Tab--%>
                 <div class="table-wrapper">
@@ -434,8 +442,10 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="commercialProposals" role="tabpanel"
                  aria-labelledby="commercialProposals-tab">
+
                 <%--Commercial Proposal Tab--%>
                 <div class="table-wrapper">
                     <div class="row">
@@ -499,6 +509,7 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
                 <%--TAG TAB--%>
                 <div class="container">
@@ -555,8 +566,11 @@
             </div>
             <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
             <input type="hidden" name="status" value="view"/>
+
         </div>
+
     </div>
+
 </div>
 
 
@@ -749,13 +763,14 @@
     </div>
 </div>
 
-<div class="modal fade" id="addAppointment" tabindex="-1" role="dialog"
+<!--Commercial Proposal Modal-->
+<div class="modal fade" id="addCommercialProposal" tabindex="-1" role="dialog"
      aria-labelledby="addAppointmentLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addAppointmentLabel">Add Appointment</h5>
+                <h5 class="modal-title" id="addCommercialProposalLabel">Add Commercial Proposal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -763,9 +778,9 @@
             <div class="modal-body">
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
-                        <label for="appointmentDate" class="bmd-label-floating">Date</label>
-                        <input type="date" name="appointmentDate" class="form-control"
-                               id="appointmentDate">
+                        <label for="commercialProposalsName" class="bmd-label-floating">Date</label>
+                        <input type="text" name="commercialProposalsName" class="form-control"
+                               id="commercialProposalsName">
                     </div>
                     <div class="form-group">
                         <label for="appointmentTime" class="bmd-label-floating">Time</label>
@@ -776,19 +791,6 @@
                         <label for="appointmentNote" class="bmd-label-floating">Note</label>
                         <textarea class="form-control" rows="5" id="appointmentNote"
                                   name="appointmentNote"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="userIds" class="bmd-label-floating">Share this Appointment with other
-                            Users</label>
-                        <select class="form-control" multiple="multiple" id="userIds" name="userIds">
-                            <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
-                            <%if (userId != companyManager.getUser(k).userId) {%>
-                            <option value="<%=companyManager.getUser(k).userId%>">
-                                <%=companyManager.getUser(k).fullName()%>
-                            </option>
-                            <% } %>
-                            <% } %>
-                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-raised"

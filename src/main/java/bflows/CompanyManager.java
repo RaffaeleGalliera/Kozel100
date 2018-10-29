@@ -64,6 +64,8 @@ public class CompanyManager implements java.io.Serializable {
 
     private CommercialProposal[] commercialProposals;
     private ConsultingService[] consultingServices;
+    private String proposalName;
+    private String proposalDescription;
     private Map<Integer,ArrayList<ConsultingService>> consultingServicesProposed;
     private Appointment[] companyAppointments;
     private Appointment companyAppointment;
@@ -473,6 +475,60 @@ public class CompanyManager implements java.io.Serializable {
                 EService.logAndRecover(e);
             }
         }
+
+    }
+
+    public void addCommercialProposal(){
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            CommercialProposal commercialProposal = new CommercialProposal(proposalName, proposalDescription, companyId );
+            commercialProposal.insert(database);
+
+            //Get all infos
+            clientTypes = ClientTypeDAO.getAllClientTypes(database);
+            productCategories = ProductCategoryDAO.getAllProductCategories(database);
+            tags = TagDAO.getAllTags(database);
+            users = UserDAO.getAllUsers(database);
+
+            company = CompanyDAO.getCompany(database, companyId);
+            user=UserDAO.getUser(database, company.userId);
+            clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
+            productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
+            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            conversations = ConversationDAO.getConversations(database, companyId);
+            companyTags = TagDAO.getTags(database, companyId);
+            companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
+            companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+            setResult((EService.RECOVERABLE_ERROR));
+            setErrorMessage("A proposal with the same name already exists");
+        }
+
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
 
     }
 
