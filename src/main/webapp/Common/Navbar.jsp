@@ -50,6 +50,9 @@
                     <a class="dropdown-item" href="/Company/InsertContactPerson.jsp">Insert Contact Person</a>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Agenda.jsp">Agenda</a>
+            </li>
             <%if(isAdmin){%>
                 <li class="nav-item">
                     <a class="nav-link" href="/Admin/AdminPanel.jsp">Admin Panel</a>
