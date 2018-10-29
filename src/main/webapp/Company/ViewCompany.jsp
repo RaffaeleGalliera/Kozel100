@@ -504,11 +504,11 @@
                                 <%=s.name%>
                                 <%}%>
                             </td>
+                            <%}%>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="tooltip"><i
                                         class="material-icons">&#xE254;</i></a>
                             </td>
-                            <%}%>
                         </tr>
                         <%}%>
                         </tbody>
