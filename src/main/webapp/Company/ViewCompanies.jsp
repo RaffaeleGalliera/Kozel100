@@ -154,17 +154,6 @@
 
         }
 
-        #companiesTable{
-
-            display:none;
-
-        }
-
-        #errorCompany{
-
-            display:none;
-
-        }
 
     </style>
 
@@ -257,8 +246,6 @@
 
 
                 <input type="hidden" name="status" value="filter">
-                <input type="hidden" name="previousStatus" value=<%=previousStatus%>>
-                <input type="hidden" name="wasFiltering" value=<%=status.equals("filter") || previousStatus.equals("filter")%>>
                 <%--<button type="button" class="btn btn-primary btn-raised" onclick="getFiltered()">Submit</button>--%>
 
             </form>
@@ -516,34 +503,82 @@
                 $('#insertCompanyModal').modal('show');
             }
 
-        //Il Selettore prende il filterGroup dei vari hidden e li mostra se erano precedentemente attivi
-        $("input[name='wasVisible'][value='true']").parentsUntil($('.outerGroup')).toggle(0);
 
-        //Questo prende tutte le checkbox che devono tornare visibili e le setta true
-        $("input[name='wasVisible'][value='true']").parentsUntil($('.outerGroup')).siblings().find("input[type='checkbox']").each(function() {
 
-            $(this).val("true");
-            $(this).prop( "checked", true );
+        var companies = [];
+
+        <% int nOfCompanies = companyManager.getCompanies().map(t -> t.length).orElse(0);
+            if (nOfCompanies != 0) {%>
+        <% for(int x=0;x<nOfCompanies;x++){ %>
+        companies.push({
+            id: <%=companyManager.getCompany(x).companyId%>,
+            name: "<%=companyManager.getCompany(x).name%>",
+            vat: "<%=companyManager.getCompany(x).vat%>",
+            address: "<%=companyManager.getCompany(x).address%>",
+            city: "<%=companyManager.getCompany(x).city%>",
+            email: "<%=companyManager.getCompany(x).email%>",
+            userId: "<%=companyManager.getCompany(x).userId%>",
+            email: "<%=companyManager.getCompany(x).email%>",
+            email: "<%=companyManager.getCompany(x).email%>",
+
+            contacts: []
+        });
+
+        <%}%>
+        <%}%>
+
+        let contactPeople = [];
+
+        <% for(int x=0;x<companyManager.getContactPeople().length;x++){ %>
+
+        contactPeople.push({
+
+            companyId: "<%=companyManager.getContactPerson(x).companyId%>",
+            fullName: "<%=companyManager.getContactPerson(x).fullName()%>"
+
+        });
+
+        <%}%>
+
+
+        companies.forEach((company) => {
+
+            for(let i=0;i<contactPeople.length;i++){
+
+                if(contactPeople[i].companyId==company.id){
+
+                    company.contacts.push(contactPeople[i].fullName);
+
+                }
+
+            }
+
+            console.log(company);
+
+            let tdContacts = ""
+
+            for(let c=0;c<company.contacts.length;c++){
+
+                tdContacts = tdContacts + company.contacts[c] + "<br>"
+
+            }
+
+            tdContacts = "<td>"+tdContacts+"</td>"
+
+            row = $("<tr>" +
+                "<td><a href=\"JavaScript: viewCompany(\'"+company.id+"\');\">"+company.name+"</a></td>" +
+                "<td>"+company.vat+"</td>" +
+                "<td>"+company.address+"</td>" +
+                "<td>"+company.city+"</td>" +
+                "<td>"+company.email+"</td>" +
+                tdContacts+
+                "</tr>")
+
+
+            $("#companiesTable tbody").append(row);
+
 
         })
-
-        //Se filtro era gia aperto lo riapro
-        f =$("#filter input[name='wasFiltering']");
-
-        if(f.val() == "true"){
-
-
-            $('#filter').fadeIn(0);
-
-
-        }
-
-        $('#companiesTable').fadeToggle(200);
-        $('#errorCompany').fadeToggle(200);
-
-        console.log($("#filter input[name='previousStatus']").val());
-
-
 
 
 
