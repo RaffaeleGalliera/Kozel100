@@ -735,10 +735,12 @@ public class CompanyManager implements java.io.Serializable {
 
                     ConsultingService[] services = ConsultingServiceDAO.getConsultingServicesByProposal(database, proposal.commercial_proposal_id);
 
-                    for (ConsultingService s : services) {
+                    if(services!=null) {
+                        for (ConsultingService s : services) {
 
-                        consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
+                            consultingServicesProposed.get(proposal.commercial_proposal_id).add(s);
 
+                        }
                     }
 
                 }
