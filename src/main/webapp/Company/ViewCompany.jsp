@@ -237,29 +237,20 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
-                                    data-toggle="modal"
-                                    data-target="#addConversation">Add Conversation
-                            </button>
-                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addNote">
                                 Add Note
                             </button>
-                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addAppointment">
                                 Add Appointment
                             </button>
-                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
-                                    data-target="#addAppointment">
+                                    data-target="#addCommercialProposal">
                                 Add Proposal
-                            </button>
-                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
-                                    data-toggle="modal"
-                                    data-target="#addAppointment">
-                                Add Service
                             </button>
                         </div>
                     </div>
@@ -496,7 +487,7 @@
                         <div class="col-sm-12">
                             <h2>Consulting Services
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                   data-target="#addAppointment"><i
+                                   data-target="#addServicePurchase"><i
                                         class="material-icons md-48">add_box</i>
                                 </a>
                             </h2>
@@ -544,7 +535,7 @@
                         <div class="col-sm-12">
                             <h2>Commercial Proposals
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                   data-target="#addAppointment"><i
+                                   data-target="#addCommercialProposal"><i
                                         class="material-icons md-48">add_box</i>
                                 </a>
                             </h2>
