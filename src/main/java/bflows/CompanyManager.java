@@ -405,8 +405,6 @@ public class CompanyManager implements java.io.Serializable {
             Purchase purchase = new Purchase(companyId, purchasedServiceId,parsedPurchaseDate,parseStartDate);
             purchase.insert(database);
 
-            consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
-          
              //Get all infos
             getAllCompanyInfos(database);
 
@@ -414,10 +412,6 @@ public class CompanyManager implements java.io.Serializable {
             database.commit();
 
         } catch (NotFoundDBException ex) {
-            EService.logAndRecover(ex);
-            setResult(EService.UNRECOVERABLE_ERROR);
-
-        }catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
 
@@ -747,6 +741,8 @@ public class CompanyManager implements java.io.Serializable {
             }
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
+            consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database, companyId);
+
 
         } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
