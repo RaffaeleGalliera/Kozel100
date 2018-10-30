@@ -165,13 +165,13 @@ public class DataBase{ //Contenitore della Connessione + lo Statement derivato d
 
     }
 
-    public int modify(String sql, java.sql.Date sqlPurchaseDate, java.sql.Date sqlStartDate) throws NotFoundDBException{
+    public int modify(String sql, java.sql.Date sqlPurchaseDate, java.sql.Date sqlStartDate) throws NotFoundDBException {
 
         int recordsNumber;
 
         try {
             //recordsNumber=statement.executeUpdate(sql);
-            statement=connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
 
             statement.setDate(1, sqlPurchaseDate);
             statement.setDate(2, sqlStartDate);

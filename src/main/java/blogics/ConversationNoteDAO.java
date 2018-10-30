@@ -77,7 +77,7 @@ public class ConversationNoteDAO {
         return conversationNotes;
 
     }
-    
+
     public static ConversationNote[] getCompanyNotes(DataBase db, int companyId) throws NotFoundDBException,ResultSetDBException {
 
         ConversationNote[] conversationNotes=null;
@@ -105,8 +105,7 @@ public class ConversationNoteDAO {
                 }
             }
             rs.close();
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new ResultSetDBException("ConversationNoteDAO.getAllConversationNote(): Errore nel ResultSet: "+ex.getMessage(),db);
         }
 

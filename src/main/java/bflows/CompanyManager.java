@@ -703,7 +703,6 @@ public class CompanyManager implements java.io.Serializable {
 
     public void getAllCompanyInfos(DataBase database) {
         try {
-            //Get all infos
             clientTypes = ClientTypeDAO.getAllClientTypes(database);
             productCategories = ProductCategoryDAO.getAllProductCategories(database);
             tags = TagDAO.getAllTags(database);
@@ -717,7 +716,8 @@ public class CompanyManager implements java.io.Serializable {
             conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
 
-            consultingServices = ConsultingServiceDAO.getPurchasedConsultingServices(database, companyId);
+            consultingServices = ConsultingServiceDAO.getConsultingServices(database);
+            consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database, companyId);
             commercialProposals = CommercialProposalDAO.getProposalsByCompanyId(database, companyId);
 
             consultingServicesProposed = new HashMap<Integer, ArrayList<ConsultingService>>();
@@ -741,8 +741,6 @@ public class CompanyManager implements java.io.Serializable {
             }
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
-            consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database, companyId);
-
 
         } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);

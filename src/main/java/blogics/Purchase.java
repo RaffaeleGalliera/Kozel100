@@ -17,44 +17,51 @@ public class Purchase {
     public Date purchaseDate;
     public Date startDate;
 
-    public Purchase(ResultSet result){
+    public Purchase(ResultSet result) {
 
-        try {companyId=result.getInt("company_id");} catch(SQLException sqle) {}
-        try {consultingServiceId=result.getInt("consulting_service_id");} catch(SQLException sqle) {}
-        try {purchaseDate=result.getDate("purchase_date");} catch(SQLException sqle) {}
-        try {startDate=result.getDate("start_date");} catch(SQLException sqle) {}
+        try {
+            companyId = result.getInt("company_id");
+        } catch (SQLException sqle) {
+        }
+        try {
+            consultingServiceId = result.getInt("consulting_service_id");
+        } catch (SQLException sqle) {
+        }
+        try {
+            purchaseDate = result.getDate("purchase_date");
+        } catch (SQLException sqle) {
+        }
+        try {
+            startDate = result.getDate("start_date");
+        } catch (SQLException sqle) {
+        }
     }
 
-    public Purchase(Integer companyId, Integer consultingServiceId, Date purchaseDate, Date startDate){
-        this.companyId=companyId;
-        this.consultingServiceId=consultingServiceId;
-        this.purchaseDate=purchaseDate;
-        this.startDate=startDate;
+    public Purchase(Integer companyId, Integer consultingServiceId, Date purchaseDate, Date startDate) {
+        this.companyId = companyId;
+        this.consultingServiceId = consultingServiceId;
+        this.purchaseDate = purchaseDate;
+        this.startDate = startDate;
     }
 
 
     public void insert(DataBase database) throws NotFoundDBException {
 
         String query;
-        ArrayList<String> parameters=new ArrayList();
+        ArrayList<String> parameters = new ArrayList();
         ResultSet rs;
 
         java.sql.Date sqlPurchaseDate = new java.sql.Date(purchaseDate.getTime());
         java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
 
 
-
-        query="INSERT INTO purchase(company_id, consulting_service_id, purchase_date, start_date)" +
-                "VALUES("+companyId+","+consultingServiceId+",?, ?)";
-
+        query = "INSERT INTO purchase(company_id, consulting_service_id, purchase_date, start_date)" +
+                "VALUES(" + companyId + "," + consultingServiceId + ",?, ?)";
 
 
-        database.modify(query,sqlPurchaseDate,sqlStartDate);
+        database.modify(query, sqlPurchaseDate, sqlStartDate);
 
     }
-
-
-
 
 
 }
