@@ -19,6 +19,7 @@
     String status = null;
     String message = null;
     int userId = 0;
+    boolean isAdmin = false;
     boolean complete = false;
     Cookie[] cookies = request.getCookies();
     status = request.getParameter("status");
@@ -33,6 +34,15 @@
             }
         }
     }
+    for (Cookie cookie : cookies) {
+
+        if (cookie.getName().equals("jwt_auth_token") && Session.isAdmin(cookie)) {
+
+            isAdmin = true;
+
+        }
+
+    }
 
     if (status.equals("view")) {
         companyManager.companyView();
@@ -46,7 +56,7 @@
         companyManager.addConversation();
     }
 
-    if (status.equals(("addConversationNote"))) {
+    if (status.equals(("addNote"))) {
         companyManager.addConversationNote();
     }
 
@@ -67,6 +77,14 @@
     if (status.equals("deleteTag")) {
         companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
+
+    if (status.equals("deleteNote")) {
+        companyManager.deleteCompanyNote(Integer.parseInt(request.getParameter("companyNoteId")));
+    }
+    if (status.equals("updateCompanyNote")) {
+        companyManager.updateCompanyNote();
+    }
+
 %>
 <!doctype html>
 <html>
@@ -83,10 +101,11 @@
           href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/non-spec-apps/mio-icons/latest/twotone.css">
     <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
 
     <%--Bootstrap multiselect css--%>
-    <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
     <title>Kozel100 CRM</title>
 </head>
@@ -94,6 +113,35 @@
 <jsp:include page="/Common/Navbar.jsp"/>
 
 <script language="JavaScript">
+
+    function deleteNote(id) {
+
+        r = confirm("Are you sure to delete this Note?");
+
+        if (r === true) {
+            document.deleteNoteForm.companyNoteId.value = id;
+
+            document.deleteNoteForm.submit();
+        }
+        else {
+            return;
+        }
+
+    }
+
+    function updateNoteModal(id, conversationId, title, note) {
+        $('#updateNoteModal').modal('show');
+        document.updateNoteForm.companyNoteId.value = id;
+        document.updateNoteForm.conversationId.value = conversationId;
+        document.updateNoteForm.title.value = title;
+        document.updateNoteForm.note.value = note;
+    }
+
+    function updateNote(form) {
+
+        form.action = "ViewCompany.jsp";
+        form.submit();
+    }
 
     function addTag(form) {
         form.action = "ViewCompany.jsp";
@@ -261,11 +309,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Appointments
-                                <button style="float: right" type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-toggle="modal" data-target="#addAppointment">Add
-                                    Appointment
-                                </button>
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addAppointment"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
                             </h2>
                         </div>
                     </div>
@@ -316,11 +363,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Conversations
-                                <button style="float: right" type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-toggle="modal" data-target="#addConversation">Add
-                                    Conversation
-                                </button>
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addConversation"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
                             </h2>
 
                         </div>
@@ -365,11 +411,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Customer Notes
-                                <button style="float: right" type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-toggle="modal" data-target="#addNote">Add
-                                    Note
-                                </button>
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addNote"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
                             </h2>
                         </div>
                     </div>
@@ -386,7 +431,9 @@
                             <th>Title</th>
                             <th>Note</th>
                             <th>Author</th>
+                            <th>Conversation Referred</th>
                             <th>Posted at</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -400,15 +447,35 @@
                             </td>
                             <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
                             </td>
+                            <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
+                            </td>
                             <td><%=companyManager.getCompanyNote(k).timestamp%>
                             </td>
-                            <td>
+                            <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
+                            <td><a class="edit" title="Edit" data-toggle="tooltip"
+                                   href="JavaScript: updateNoteModal('<%=companyManager.getCompanyNote(k).conversationNoteId%>', '<%=companyManager.getCompanyNote(k).conversationId%>', '<%=companyManager.getCompanyNote(k).title%>', '<%=companyManager.getCompanyNote(k).note%>');"><i
+                                    class="material-icons md-24">&#xE254;</i>
+                            </a>
+                                <a class="delete" title="Delete" data-toggle="tooltip"
+                                   href="JavaScript:deleteNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
+                                        class="material-icons md-24">&#xE872;</i>
+                                </a>
                             </td>
+                            <%} else {%>
+                            <a class="highlight_off" title="noPermission" data-toggle="tooltip"><i
+                                    class="material-icons">highlight_off</i>
+                            </a>
+                            <%}%>
                         </tr>
                         <%}%>
                         </tbody>
                     </table>
                     <%}%>
+                    <form name="deleteNoteForm" action="ViewCompany.jsp" method="post">
+                        <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyNoteId" value=""/>
+                        <input type="hidden" name="status" value="deleteNote"/>
+                    </form>
                 </div>
             </div>
 
@@ -418,13 +485,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                                 <h2>Consulting Services
-                                    <button style="float:right" type="submit"
-                                            value="consultingServicePurchase"
-                                            data-toggle="modal"
-                                            data-target="#addServicePurchase"
-                                            class="btn btn-default">
-                                        +
-                                    </button>
+                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                       data-target="#addAppointment"><i
+                                            class="material-icons md-48">add_box</i>
+                                    </a>
                                 </h2>
                         </div>
                     </div>
@@ -469,12 +533,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                                 <h2>Commercial Proposals
-                                    <button style="float:right" type="submit"
-                                            data-toggle="modal"
-                                            data-target="#addCommercialProposal"
-                                            class="btn btn-default">
-                                        +
-                                    </button>
+                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                       data-target="#addAppointment"><i
+                                            class="material-icons md-48">add_box</i>
+                                    </a>
                                 </h2>
                         </div>
                     </div>
@@ -537,10 +599,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Tags
-                                    <button style="float: right" type="button"
-                                            class="btn btn-outline-secondary"
-                                            data-toggle="modal" data-target="#addTag">Add Tag
-                                    </button>
+                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                       data-target="#addTag"><i
+                                            class="material-icons md-48">add_box</i>
+                                    </a>
                                 </h2>
                             </div>
                         </div>
@@ -609,7 +671,7 @@
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="tagIds" class="bmd-label-floating">Tags</label>
-                        <select class="form-control" multiple="multiple" id="tagIds" name="tagIds">
+                        <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
                             <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
                             <option value="<%=companyManager.getTag(k).tagId%>">
                                 <%=companyManager.getTag(k).name%>
@@ -623,9 +685,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addTag"/>
-                        <input type="hidden" name="cTag" value="addTag"/>
-                        <input type="hidden" name="companyId"
-                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
                     </div>
                 </form>
             </div>
@@ -759,25 +819,72 @@
                     </select>
                     <div class="form-group">
                         <label for="Title" class="bmd-label-floating">Title</label>
-                        <input type="text" name="title" class="form-control" id="title">
+                        <input type="text" name="title" class="form-control" id="title" value="">
                     </div>
                     <div class="form-group">
                         <label for="note" class="bmd-label-floating">Note</label>
-                        <textarea class="form-control" rows="5" id="note" name="note"></textarea>
+                        <textarea class="form-control" rows="5" id="note" name="note" value=""></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-raised"
                                 onclick="addConversationNote(this.form)">
                             Submit
                         </button>
-                        <input type="hidden" name="status" value="addConversationNote"/>
-                        <input type="hidden" name="companyId" id="companyId"
-                               value="<%=companyManager.getCompany().companyId%>"/>
-                        <input type="hidden" name="conversationNoteUserId" id="conversationNoteUserId"
-                               value="<%= userId %>"/>
                     </div>
+                    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                    <input type="hidden" name="companyNoteId" value=""/>
+                    <input type="hidden" name="status" value="addNote"/>
+                    <input type="hidden" name="conversationNoteUserId" id="conversationNoteUserId"
+                           value="<%= userId %>"/>
                 </form>
                 <%}%>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Update Note Modal -->
+<div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateNoteLabel">Update Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="updateNoteForm" action="" method="post">
+                    <label for="updatedConversationId" class="bmd-label-floating">Conversation</label>
+                    <select class="form-control" id="updatedConversationId" name="conversationId">
+                        <%for (int k = 0; k < nConversation; k++) {%>
+                        <option value="<%=companyManager.getConversation(k).conversationId%>">
+                            <%=companyManager.getConversation(k).date%>
+                            : <%=companyManager.getConversation(k).reason%>
+                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                        </option>
+                        <% } %>
+                    </select>
+                    <div class="form-group">
+                        <label for="updatedTitle" class="bmd-label-floating">Title</label>
+                        <input type="text" name="title" class="form-control" id="updatedTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="updatedNote" name="note"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="updateNote(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="updateCompanyNote"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                        <input type="hidden" name="companyNoteId" id="updateCompanyNoteId"
+                               value=""/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -814,7 +921,7 @@
                     <div class="form-group">
                         <label for="userIds" class="bmd-label-floating">Share this Appointment with other
                             Users</label>
-                        <select class="form-control" multiple="multiple" id="userIds" name="userIds">
+                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple">
                             <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
                             <%if (userId != companyManager.getUser(k).userId) {%>
                             <option value="<%=companyManager.getUser(k).userId%>">
@@ -909,7 +1016,8 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
+<%--Multiselect javascript--%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
