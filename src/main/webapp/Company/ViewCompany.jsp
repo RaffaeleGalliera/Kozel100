@@ -68,7 +68,7 @@
         companyManager.addCommercialProposal();
     }
 
-    if(status.equals("purchaseService")){
+    if (status.equals("purchaseService")) {
 
         companyManager.purchaseService();
 
@@ -168,7 +168,7 @@
         form.submit();
     }
 
-    function purchaseService(){
+    function purchaseService() {
 
         form.action = "ViewCompany.jsp";
         form.submit();
@@ -237,19 +237,29 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addConversation">Add Conversation
                             </button>
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addNote">
                                 Add Note
                             </button>
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addAppointment">
                                 Add Appointment
+                            </button>
+                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
+                                    data-toggle="modal"
+                                    data-target="#addAppointment">
+                                Add Proposal
+                            </button>
+                            <button style="width: 20%" type="button" class="btn btn-outline-secondary"
+                                    data-toggle="modal"
+                                    data-target="#addAppointment">
+                                Add Service
                             </button>
                         </div>
                     </div>
@@ -484,12 +494,12 @@
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                                <h2>Consulting Services
-                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                       data-target="#addAppointment"><i
-                                            class="material-icons md-48">add_box</i>
-                                    </a>
-                                </h2>
+                            <h2>Consulting Services
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addAppointment"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
+                            </h2>
                         </div>
                     </div>
                     <% int nService = companyManager.getConsultingServicesPurchased().map(t -> t.length).orElse(0);
@@ -532,12 +542,12 @@
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                                <h2>Commercial Proposals
-                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                       data-target="#addAppointment"><i
-                                            class="material-icons md-48">add_box</i>
-                                    </a>
-                                </h2>
+                            <h2>Commercial Proposals
+                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                   data-target="#addAppointment"><i
+                                        class="material-icons md-48">add_box</i>
+                                </a>
+                            </h2>
                         </div>
                     </div>
                     <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
@@ -1019,17 +1029,9 @@
 <%--Multiselect javascript--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <script>$(document).ready(function () {
     $(document).ready(function () {
-        $('#tagIds').multiselect({
-            enableFiltering: true
-        });
-        $('#userIds').multiselect({
-            enableFiltering: true
-        });
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
     });
