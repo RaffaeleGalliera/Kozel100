@@ -70,6 +70,9 @@
         <li class="nav-item"><a class="nav-link" href="#productCategoryCard" data-toggle="collapse"
                                 data-target="#productCategoryCard"
                                 aria-expanded="false" aria-controls="productCategoryCard">Product Categories</a></li>
+    <li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"
+                            data-target="#consultingServicesCard"
+                            aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a></li>
 
         <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
                                 <%--aria-expanded="false"--%>
@@ -80,6 +83,49 @@
 
     <div class="row">
         <div class="col">
+            <div class="collapse multi-collapse" id="consultingServicesCard">
+                <div class="card card-body">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="InsertConsultingService.jsp">
+                                        <h2>Consulting Services
+                                            <button style="float:right" type="submit" value="Tag"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <table class="col-md-12 table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getConsultingServices().length; k++) {%>
+                                <tr>
+                                    <td><%= k +1 %></td>
+                                    <td><%=adminPanelManager.getConsultingService(k).name%></td>
+                                    <td>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="collapse multi-collapse" id="usersCard">
                 <div class="card card-body">
                     <div class="container">
@@ -334,8 +380,10 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

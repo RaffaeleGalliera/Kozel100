@@ -64,6 +64,16 @@
         companyManager.addAppointment();
     }
 
+    if (status.equals(("addCommercialProposal"))) {
+        companyManager.addCommercialProposal();
+    }
+
+    if(status.equals("purchaseService")){
+
+        companyManager.purchaseService();
+
+    }
+
     if (status.equals("deleteTag")) {
         companyManager.deleteTag(Integer.parseInt(request.getParameter("tagId")));
     }
@@ -101,6 +111,7 @@
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
+
 <script language="JavaScript">
 
     function deleteNote(id) {
@@ -147,9 +158,21 @@
         form.submit();
     }
 
+    function addCommercialProposal(form) {
+        form.action = "ViewCompany.jsp";
+        form.submit();
+    }
+
     function addAppointment(form) {
         form.action = "ViewCompany.jsp";
         form.submit();
+    }
+
+    function purchaseService(){
+
+        form.action = "ViewCompany.jsp";
+        form.submit();
+
     }
 
     function deleteTag(id, name) {
@@ -203,6 +226,7 @@
                    aria-controls="tags" aria-selected="false">Tags</a>
             </li>
         </ul>
+
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                 <div class="jumbotron">
@@ -380,6 +404,7 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
                 <%--Customer Notes Tab--%>
                 <div class="table-wrapper">
@@ -453,22 +478,21 @@
                     </form>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="consultingServices" role="tabpanel" aria-labelledby="consultingServices-tab">
                 <%--Consulting Services Tab--%>
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form action="">
                                 <h2>Consulting Services
                                     <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                        data-target="#addAppointment"><i
                                             class="material-icons md-48">add_box</i>
                                     </a>
                                 </h2>
-                            </form>
                         </div>
                     </div>
-                    <% int nService = companyManager.getConsultingServices().map(t -> t.length).orElse(0);
+                    <% int nService = companyManager.getConsultingServicesPurchased().map(t -> t.length).orElse(0);
                         if (nService == 0) {%>
                     <div class="jumbotron">
                         <h1 class="display-4"> There is no Consulting Service Yet</h1>
@@ -487,7 +511,7 @@
                         <tr>
                             <td><%= k + 1 %>
                             </td>
-                            <td><%=companyManager.getConsultingService(k).name%>
+                            <td><%=companyManager.getConsultingServicePurchased(k).name%>
                             </td>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="tooltip"><i
@@ -500,20 +524,20 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="commercialProposals" role="tabpanel"
                  aria-labelledby="commercialProposals-tab">
+
                 <%--Commercial Proposal Tab--%>
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form action="">
                                 <h2>Commercial Proposals
                                     <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                        data-target="#addAppointment"><i
                                             class="material-icons md-48">add_box</i>
                                     </a>
                                 </h2>
-                            </form>
                         </div>
                     </div>
                     <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
@@ -545,7 +569,9 @@
                                 int nProposed = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).map(p -> p.size()).orElse(0);
                                 if (nProposed == 0) {
                             %>
-                            None
+                            <td>
+                                None
+                            </td>
                             <%} else {%>
                             <%ArrayList<ConsultingService> services = companyManager.getConsultingServicesProposedTo(companyManager.getCommercialProposal(k).commercial_proposal_id).get();%>
                             <td>
@@ -553,11 +579,11 @@
                                 <%=s.name%>
                                 <%}%>
                             </td>
+                            <%}%>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="tooltip"><i
                                         class="material-icons">&#xE254;</i></a>
                             </td>
-                            <%}%>
                         </tr>
                         <%}%>
                         </tbody>
@@ -565,8 +591,9 @@
                     <%}%>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
-                <%--TAG TAB--%>
+                <%--Tag Tab--%>
                 <div class="container">
                     <div class="table-wrapper">
                         <div class="row">
@@ -621,8 +648,11 @@
             </div>
             <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
             <input type="hidden" name="status" value="view"/>
+
         </div>
+
     </div>
+
 </div>
 
 
@@ -662,6 +692,64 @@
         </div>
     </div>
 </div>
+
+<!-- Purchase Service Modal -->
+<div class="modal fade" id="addServicePurchase" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="purchaseServiceLabel">Add a Purchase</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <%--TODO i used get() to retrieve Optionals here and there because my balls were exploding--%>
+
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="purchasedServiceId" class="bmd-label-floating">Consulting Service</label>
+                        <select class="form-control" id="purchasedServiceId" name="purchasedServiceId">
+                            <%for (int k = 0; k < companyManager.getConsultingServices().get().length; k++) {%>
+                            <option value="<%=companyManager.getConsultingService(k).get().consulting_service_id%>">
+                                <%=companyManager.getConsultingService(k).get().name%>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchaseDate" class="bmd-label-floating">Purchase Date</label>
+                        <input type="date" name="purchaseDate" class="form-control"
+                               id="purchaseDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate" class="bmd-label-floating">Start Date</label>
+                        <input type="date" name="startDate" class="form-control"
+                               id="startDate">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="purchaseService(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="purchaseService"/>
+                        <input type="hidden" name="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!--Conversation Modal -->
 <div class="modal fade" id="addConversation" tabindex="-1" role="dialog"
      aria-labelledby="addConversationLabel"
@@ -860,6 +948,60 @@
     </div>
 </div>
 
+<!--Commercial Proposal Modal-->
+<div class="modal fade" id="addCommercialProposal" tabindex="-1" role="dialog"
+     aria-labelledby="addAppointmentLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCommercialProposalLabel">Add Commercial Proposal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="companyManager" action="" method="post">
+                    <div class="form-group">
+                        <label for="proposalName" class="bmd-label-floating">Name</label>
+                        <input type="text" name="proposalName" class="form-control"
+                               id="proposalName">
+                    </div>
+                    <div class="form-group">
+                        <label for="proposalDescription" class="bmd-label-floating">Description</label>
+                        <input type="textarea" name="proposalDescription" class="form-control"
+                               id="proposalDescription">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consultingServiceIds" class="bmd-label-static">Related Consulting Services</label>
+                        <select class="form-control multipleSelect" name="consultingServiceIds" multiple="multiple"
+                                id="consultingServiceIds">
+                            <%for (int k = 0; k < companyManager.getConsultingServices().get().length; k++) {%>
+                            <option value="<%=companyManager.getConsultingService(k).get().consulting_service_id%>">
+                                <%=companyManager.getConsultingService(k).get().name%>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised"
+                                onclick="addCommercialProposal(this.form)">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="addCommercialProposal"/>
+                        <input type="hidden" name="companyId" id="companyId"
+                               value="<%=companyManager.getCompany().companyId%>"/>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <%--VUE JS--%>
 <%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>
 <!-- Optional JavaScript -->
@@ -877,8 +1019,17 @@
 <%--Multiselect javascript--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 <script>$(document).ready(function () {
     $(document).ready(function () {
+        $('#tagIds').multiselect({
+            enableFiltering: true
+        });
+        $('#userIds').multiselect({
+            enableFiltering: true
+        });
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
     });

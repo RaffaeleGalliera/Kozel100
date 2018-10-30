@@ -11,6 +11,38 @@ public class ConsultingServiceDAO {
 
     public ConsultingServiceDAO(){}
 
+    public static ConsultingService[] getConsultingServices(DataBase database) throws NotFoundDBException,ResultSetDBException{
+
+        ConsultingService[] consultingServices=null;
+        String sql;
+        ResultSet rs;
+        int i=0;
+
+        sql="SELECT * FROM consulting_service";
+
+        rs=database.select(sql);
+
+        try{
+            if(rs.next()){
+                rs.last();
+                consultingServices= new ConsultingService[rs.getRow()];
+                rs.beforeFirst();
+
+                while(rs.next()){
+                    consultingServices[i]=new ConsultingService(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("ConsultingServiceDAO.getAllCompanies(): Errore nel ResultSet: "+ex.getMessage(),database);
+        }
+
+        return consultingServices;
+
+    }
+
     public static ConsultingService[] getPurchasedConsultingServices(DataBase database, Integer companyId) throws NotFoundDBException,ResultSetDBException {
 
         ConsultingService[] consultingServices=null;
@@ -58,7 +90,7 @@ public class ConsultingServiceDAO {
                 "ON CP.commercial_proposal_id = PS.commercial_proposal_id " +
                 "JOIN consulting_service AS CS " +
                 "ON CS.consulting_service_id = PS.consulting_service_id " +
-                "WHERE PS.commercial_proposal_id="+proposalId+" AND active_fl=1";
+                "WHERE PS.commercial_proposal_id="+proposalId;
 
         rs=database.select(sql);
 

@@ -44,6 +44,34 @@ public class CommercialProposalDAO {
 
     }
 
+    public static Integer getNewID(DataBase db) throws NotFoundDBException, ResultSetDBException{
+
+        String sql;
+        ResultSet rs;
+        Integer companyId;
+
+        sql="SELECT MAX(commercial_proposal_id) AS N FROM commercial_proposal FOR UPDATE";
+
+
+
+        try {
+            rs=db.select(sql);
+
+            if (rs.next()) //Se ho letto qualcosa
+                companyId = rs.getInt("N")+1;
+            else //la tabella è vuota
+                companyId = 1;
+
+            rs.close();
+
+            return companyId;
+        }
+        catch (SQLException e) {
+            throw new ResultSetDBException("CommercialProposalDAO.getNewID(): Errore sul ResultSet --> impossibile calcolare commercialProposalId.");
+        }
+
+    }
+
 }
 
 

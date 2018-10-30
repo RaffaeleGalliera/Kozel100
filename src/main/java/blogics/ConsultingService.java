@@ -17,15 +17,14 @@ public class ConsultingService {
 
     public ConsultingService(ResultSet result){
 
-        try {consulting_service_id=result.getInt("commercial_proposal_id");} catch(SQLException sqle) {}
+        try {consulting_service_id=result.getInt("consulting_service_id");} catch(SQLException sqle) {}
         try {name=result.getString("name");} catch(SQLException sqle) {}
 
 
     }
 
-    public ConsultingService(int consulting_service_id, String name){
+    public ConsultingService(String name){
 
-        this.consulting_service_id=consulting_service_id;
         this.name=name;
 
     }
@@ -59,10 +58,7 @@ public class ConsultingService {
         }
 
         query="INSERT INTO consulting_service(consulting_service_id, name)" +
-                "VALUES("+consulting_service_id+",?)";
-
-
-        parameters.add(name);
+                " VALUES("+consulting_service_id+",?)";
 
         database.modify(query,parameters);
 

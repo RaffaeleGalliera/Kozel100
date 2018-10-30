@@ -65,7 +65,16 @@ public class CompanyManager implements java.io.Serializable {
     private User user;
 
     private CommercialProposal[] commercialProposals;
+    private ConsultingService[] consultingServicesPurchased;
     private ConsultingService[] consultingServices;
+    private int[] consultingServiceIds;
+    private int purchasedServiceId;
+    private String purchaseDate;
+    private String startDate;
+
+    private String proposalName;
+    private String proposalDescription;
+
     private Map<Integer,ArrayList<ConsultingService>> consultingServicesProposed;
     private Appointment[] companyAppointments;
     private Appointment companyAppointment;
@@ -381,6 +390,99 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
+    public void purchaseService(){
+
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedPurchaseDate = format.parse(purchaseDate);
+            Date parseStartDate = format.parse(startDate);
+
+            Purchase purchase = new Purchase(companyId, purchasedServiceId,parsedPurchaseDate,parseStartDate);
+            purchase.insert(database);
+
+            consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database,companyId);
+          
+             //Get all infos
+            getAllCompanyInfos(database);
+
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (ParseException ex) {
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }
+
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+
+    }
+
+    public void addCommercialProposal(){
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            int proposalId = CommercialProposalDAO.getNewID(database);
+            CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId);
+            commercialProposal.insert(database);
+
+            for (int k = 0; k < consultingServiceIds.length; k++) {
+                ProposalService linkedService = new ProposalService(proposalId,consultingServiceIds[k]);
+                linkedService.insert(database);
+            }
+
+             //Get all infos
+            getAllCompanyInfos(database);
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        }catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+            setResult((EService.RECOVERABLE_ERROR));
+            setErrorMessage("A proposal with the same name already exists");
+        }
+
+        finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
     public void companiesView() {
 
         DataBase db = null;
@@ -655,16 +757,20 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public Optional<ConsultingService[]> getConsultingServices() {
-        return Optional.ofNullable(consultingServices);
+    public Optional<ConsultingService[]> getConsultingServicesPurchased() {
+        return Optional.ofNullable(consultingServicesPurchased);
     }
 
-    public ConsultingService getConsultingService(int index) {
-        return consultingServices[index];
+    public Optional<ConsultingService> getConsultingService(int index) {
+        return Optional.ofNullable(consultingServices[index]);
     }
 
-    public void setConsultingServices(ConsultingService[] consultingServices) {
-        this.consultingServices = consultingServices;
+    public ConsultingService getConsultingServicePurchased(int index) {
+        return consultingServicesPurchased[index];
+    }
+
+    public void setConsultingServicesPurchased(ConsultingService[] consultingServicesPurchased) {
+        this.consultingServicesPurchased = consultingServicesPurchased;
     }
 
     public Optional<ArrayList<ConsultingService>> getConsultingServicesProposedTo(int commercialProposalId) {
@@ -690,6 +796,55 @@ public class CompanyManager implements java.io.Serializable {
         return  user;
     }
 
+
+    public int getPurchasedServiceId() {
+        return purchasedServiceId;
+    }
+
+    public void setPurchasedServiceId(int purchasedServiceId) {
+        this.purchasedServiceId = purchasedServiceId;
+    }
+
+    public int[] getConsultingServiceIds() {
+        return consultingServiceIds;
+    }
+
+    public void setConsultingServiceIds(int[] consultingServiceIds) {
+        this.consultingServiceIds = consultingServiceIds;
+    }
+
+    public Optional<ConsultingService[]> getConsultingServices() {
+        return Optional.ofNullable(consultingServices);
+    }
+
+    public void setConsultingServices(ConsultingService[] consultingServices) {
+        this.consultingServices = consultingServices;
+    }
+
+    public String getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getProposalName() {return proposalName;}
+
+    public void setProposalName(String proposalName) {this.proposalName = proposalName;}
+
+    public String getProposalDescription(){return proposalDescription;}
+
+    public void setProposalDescription(String proposalDescription) {this.proposalDescription = proposalDescription;}
+
     public String getCompanyNoteConversation(Integer conversationId) {
         String conversation = "";
         for (int k = 0; k < (conversations.length); k++) {
@@ -699,6 +854,7 @@ public class CompanyManager implements java.io.Serializable {
         }
         return conversation;
     }
+
 
 
     public Optional<CommercialProposal[]> getCommercialProposals() {
