@@ -196,12 +196,11 @@
                     <div class="form-group filterGroup" id="filterClientTypeGroup">
                         <select class="form-control" id="clientTypeId" name="clientTypeId">
                             <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                            <option value="<%=companyManager.getClientType(k).clientTypeId%>" <%if(status.equals("filter") && companyManager.getClientType(k).clientTypeId==Integer.parseInt(clientTypeId)){%>selected<%}%>
-                            ><%=companyManager.getClientType(k).name%>
+                            <option value="<%=companyManager.getClientType(k).clientTypeId%>">
+                            <%=companyManager.getClientType(k).name%>
                             </option>
                             <% } %>
                         </select>
-                        <input type="hidden" name="wasVisible" value=<%=filterByType%>>
                     </div>
                 </div>
                 <div class="outerGroup">
@@ -215,12 +214,11 @@
                     <div class="form-group filterGroup" id="filterUserGroup">
                         <select class="form-control" id="userId" name="userId">
                             <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
-                            <option value="<%=companyManager.getUser(k).userId%>" <%if(status.equals("filter") && companyManager.getUser(k).userId==Integer.parseInt(userId)){%>selected<%}%>
-                            ><%=companyManager.getUser(k).lastName%>
+                            <option value="<%=companyManager.getUser(k).userId%>">
+                                <%=companyManager.getUser(k).lastName%>
                             </option>
                             <% } %>
                         </select>
-                        <input type="hidden" name="wasVisible" value=<%=filterByUser%>>
                     </div>
                 </div>
 
@@ -235,12 +233,11 @@
                     <div class="form-group filterGroup" id="filterProductGroup">
                         <select class="form-control" id="productCategoryId" name="productCategoryId">
                             <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
-                            <option value="<%=companyManager.getProductCategory(k).productCategoryId%>" <%if(status.equals("filter") && companyManager.getProductCategory(k).productCategoryId==Integer.parseInt(productCategoryId)){%>selected<%}%>
-                            ><%=companyManager.getProductCategory(k).name%>
+                            <option value="<%=companyManager.getProductCategory(k).productCategoryId%>">
+                                <%=companyManager.getProductCategory(k).name%>
                             </option>
                             <% } %>
                         </select>
-                        <input type="hidden" name="wasVisible" value=<%=filterByProduct%>>
                     </div>
                 </div>
 
@@ -269,11 +266,11 @@
             </thead>
             <tbody>
             <%for (int k = 0; k < nCompanies; k++) {%>
-            <tr>
+            <tr value=<%=companyManager.getCompany(k).companyId%>>
                 <th scope="row"><%= k %>
                 </th>
 
-                <td value=<%=companyManager.getCompany(k).companyId%>><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
+                <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
                 <td><%=companyManager.getCompany(k).vat%>
                 </td>
                 <td><%=companyManager.getCompany(k).address%>
@@ -553,7 +550,184 @@
 
             }
 
-            console.log(company);
+            //console.log(company);
+
+
+
+
+        })
+
+        let companiesByUser = companies.slice();
+        let companiesByProduct = companies.slice();
+        let companiesByType = companies.slice();
+
+
+
+        function refreshTable() {
+
+            let filteredCompanies = []
+
+            filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y))
+            console.log(filteredCompanies)
+
+            $("#companiesTable tbody tr").each(function () {
+
+                rowId = $(this).val();
+                isPresent = false
+
+                for(i=0;i<filteredCompanies.length;i++){
+
+                    if(filteredCompanies[i].id == rowId);
+                    isPresent = true;
+
+                }
+
+                if(isPresent){
+
+                    $(this).show(0);
+
+                }else{
+
+                    $(this).hide(0);
+
+                }
+
+
+            })
+        }
+
+        function empty(array){
+
+            while(array.length>0){
+
+                array.pop();
+
+            }
+
+        }
+
+        function filterByUserId(userId){
+
+            empty(companiesByUser)
+
+            companies.forEach((company) => {
+
+                if(company.userId == userId){
+
+                    companiesByUser.push(company)
+
+                }
+
+            })
+
+        }
+
+        function filterByProductId(productId){
+
+            empty(companiesByProduct)
+
+            companies.forEach((company) => {
+
+                if(company.productCategoryId == productId){
+
+                    companiesByProduct.push(company)
+
+                }
+
+            })
+
+        }
+
+        function filterByClientTypeId(typeId){
+
+            empty(companiesByType)
+
+            companies.forEach((company) => {
+
+                if(company.clientTypeId == typeId){
+
+                    companiesByType.push(company)
+
+                }
+
+            })
+
+
+        }
+
+
+
+
+
+        $("#filterForm select[name='clientTypeId']").on("change",function(select) {
+
+            filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val(),companiesByType)
+
+
+        })
+
+
+        $('#filterForm input:checkbox').each(function() {
+
+            $(this).on("change",function(){
+
+
+                checkbox = $(this).attr('id');
+
+                if($(this).val()=="false"){
+                    $(this).val("true");
+
+                    if(checkbox == "filterByType"){
+
+                        filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val())
+                        refreshTable()
+                        // console.log(companiesByType)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByUser"){
+
+                        filterByUserId($("#filterForm select[name='userId'] option:selected").val())
+                        refreshTable()
+                        // console.log(companiesByUser)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByProduct"){
+
+                        filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val())
+                        refreshTable()
+                        // console.log(companiesByProduct)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+
+                }else{
+                    $(this).val("false");
+                }
+
+                if(checkbox == "filterByType"){
+                    $('#filterClientTypeGroup').slideToggle(300);
+                }
+
+                if(checkbox == "filterByUser"){
+                    $('#filterUserGroup').slideToggle(300);
+                }
+
+                if(checkbox == "filterByProduct"){
+                    $('#filterProductGroup').slideToggle(300);
+
+                }
+
+
+
+            })
 
 
         })
@@ -610,54 +784,7 @@
 
     });
 
-    $('#filterForm select').on("change",function() {
 
-       $("#companiesTable tbody tr").fadeToggle(500)
-
-    })
-
-
-    $('#filterForm input:checkbox').each(function() {
-
-        $(this).on("change",function(){
-
-
-            checkbox = $(this).attr('id');
-
-            if($(this).val()=="false"){
-                $(this).val("true");
-            }else{
-                $(this).val("false");
-            }
-
-            if(checkbox == "filterByType"){
-                $('#filterClientTypeGroup').slideToggle(300);
-            }
-
-            if(checkbox == "filterByUser"){
-                $('#filterUserGroup').slideToggle(300);
-            }
-
-            if(checkbox == "filterByProduct"){
-                $('#filterProductGroup').slideToggle(300);
-            }
-
-            if($("#filterForm input[type='checkbox'][value='false']").length==3){
-
-                $("#filterForm [name='status']").val("view");
-
-
-            }else{
-
-                $("#filterForm [name='status']").val("filter");
-
-            }
-
-
-        })
-
-
-    })
 
     // $('#filterForm input:checkbox').each(function() {
     //
