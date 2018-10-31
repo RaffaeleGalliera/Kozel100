@@ -559,6 +559,14 @@ public class AdminPanelManager implements java.io.Serializable {
         return users[index];
     }
 
+    public AuditLog[] getAuditLogs() {
+        return auditLogs;
+    }
+
+    public AuditLog getAuditLog(int index) {
+        return auditLogs[index];
+    }
+
     public int getUserId() {
         return userId;
     }

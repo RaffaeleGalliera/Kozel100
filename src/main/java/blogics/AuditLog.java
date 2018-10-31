@@ -48,11 +48,15 @@ public class AuditLog {
         } catch (SQLException sqle) {
         }
         try {
-            details = result.getString("parameters");
+            details = result.getString("details");
         } catch (SQLException sqle) {
         }
         try {
             timestamp = result.getTimestamp("created_at");
+        } catch (SQLException sqle) {
+        }
+        try {
+            action = result.getString("action");
         } catch (SQLException sqle) {
         }
     }

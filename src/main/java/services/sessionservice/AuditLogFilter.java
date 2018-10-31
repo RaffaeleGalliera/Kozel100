@@ -37,7 +37,7 @@ public class AuditLogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Integer userId = -1;
-        String userEmail = "None";
+        String userEmail = "Not Logged";
         HttpServletRequest req = (HttpServletRequest) request;
         String uri = req.getRequestURI();
         DataBase database = null;
@@ -77,7 +77,7 @@ public class AuditLogFilter implements Filter {
                             company = CompanyDAO.getCompany(database, companyId).name;
                         }
 
-                        String details = parameterName + " : " + req.getParameter(parameterName) + " ";
+                        String details = parameterName + " : " + req.getParameter(parameterName) + "";
                         parameterMessage = parameterMessage + details;
                     }
                 }

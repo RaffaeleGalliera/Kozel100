@@ -19,7 +19,8 @@ public class AuditLogDAO {
         ResultSet rs;
         int i = 0;
 
-        sql = "SELECT * FROM audit_log";
+        sql = "SELECT * FROM audit_log "
+                + " ORDER BY created_at DESC";
 
 
         rs = db.select(sql);
