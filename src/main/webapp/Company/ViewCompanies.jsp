@@ -273,7 +273,7 @@
                 <th scope="row"><%= k %>
                 </th>
 
-                <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
+                <td value=<%=companyManager.getCompany(k).companyId%>><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
                 <td><%=companyManager.getCompany(k).vat%>
                 </td>
                 <td><%=companyManager.getCompany(k).address%>
@@ -518,8 +518,8 @@
             city: "<%=companyManager.getCompany(x).city%>",
             email: "<%=companyManager.getCompany(x).email%>",
             userId: "<%=companyManager.getCompany(x).userId%>",
-            email: "<%=companyManager.getCompany(x).email%>",
-            email: "<%=companyManager.getCompany(x).email%>",
+            productCategoryId: "<%=companyManager.getCompany(x).productCategoryId%>",
+            clientTypeId: "<%=companyManager.getCompany(x).clientTypeId%>",
 
             contacts: []
         });
@@ -554,28 +554,6 @@
             }
 
             console.log(company);
-
-            let tdContacts = ""
-
-            for(let c=0;c<company.contacts.length;c++){
-
-                tdContacts = tdContacts + company.contacts[c] + "<br>"
-
-            }
-
-            tdContacts = "<td>"+tdContacts+"</td>"
-
-            row = $("<tr>" +
-                "<td><a href=\"JavaScript: viewCompany(\'"+company.id+"\');\">"+company.name+"</a></td>" +
-                "<td>"+company.vat+"</td>" +
-                "<td>"+company.address+"</td>" +
-                "<td>"+company.city+"</td>" +
-                "<td>"+company.email+"</td>" +
-                tdContacts+
-                "</tr>")
-
-
-            $("#companiesTable tbody").append(row);
 
 
         })
@@ -630,23 +608,11 @@
 
         $('#filter').slideToggle(300);
 
-        if($("#filter input[name='previousStatus']").val()!="filter"){
-
-            $("#filter input[name='previousStatus']").val("filter");
-
-        }else{
-
-            $("#filter input[name='previousStatus']").val("none");
-
-        }
-
-
-
     });
 
     $('#filterForm select').on("change",function() {
 
-        $('#filterForm').submit();
+       $("#companiesTable tbody tr").fadeToggle(500)
 
     })
 
@@ -679,13 +645,11 @@
             if($("#filterForm input[type='checkbox'][value='false']").length==3){
 
                 $("#filterForm [name='status']").val("view");
-                $("#filterForm").submit();
 
 
             }else{
 
                 $("#filterForm [name='status']").val("filter");
-                $("#filterForm").submit();
 
             }
 
