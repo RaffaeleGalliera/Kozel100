@@ -64,7 +64,7 @@ public class AuditLogFilter implements Filter {
                 Enumeration<String> enumeration = req.getParameterNames();
                 String message = "Requested Resource: " + uri + " Method: " + method + " IP: " + ip + " User Email: " + userEmail;
                 String parameterMessage = "";
-                String status = "View";
+                String status = "view";
                 String company = "None";
                 while (enumeration.hasMoreElements()) {
                     String parameterName = enumeration.nextElement();
