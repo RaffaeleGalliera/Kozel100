@@ -124,7 +124,7 @@
 
         .filter {
 
-            background-color: #e9ecef;
+            background-color: rgba(0,0,0,.05);
             padding-top: 2%;
             padding-left: 2%;
             padding-right: 2%;
@@ -494,7 +494,9 @@
 
 <script>
 
-    $(document).ready(function () {
+
+
+$(document).ready(function () {
         $('body').bootstrapMaterialDesign();
             if ($('#modal').val() == 1) {
                 $('#insertCompanyModal').modal('show');
@@ -565,6 +567,8 @@
 
         function refreshTable() {
 
+        	//$.snackbar({content: "This is my awesome snackbar!"});
+
             let filteredCompanies = []
 
             filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y))
@@ -572,13 +576,17 @@
 
             $("#companiesTable tbody tr").each(function () {
 
-                rowId = $(this).val();
+                rowId = $(this).attr("value")
                 isPresent = false
+
 
                 for(i=0;i<filteredCompanies.length;i++){
 
-                    if(filteredCompanies[i].id == rowId);
-                    isPresent = true;
+                    if(filteredCompanies[i].id == rowId) {
+
+                      isPresent = true;
+
+                    }
 
                 }
 
@@ -662,7 +670,21 @@
         $("#filterForm select[name='clientTypeId']").on("change",function(select) {
 
             filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val(),companiesByType)
+            refreshTable()
 
+        })
+
+        $("#filterForm select[name='productCategoryId']").on("change",function(select) {
+
+            filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val(),companiesByProduct)
+            refreshTable()
+
+        })
+
+        $("#filterForm select[name='userId']").on("change",function(select) {
+
+            filterByUserId($("#filterForm select[name='userId'] option:selected").val(),companiesByUser)
+            refreshTable()
 
         })
 
@@ -709,7 +731,39 @@
 
 
                 }else{
+
                     $(this).val("false");
+
+                    if(checkbox == "filterByType"){
+
+                    	companiesByType = companies.slice()
+                        refreshTable()
+                        // console.log(companiesByType)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByUser"){
+
+                    	companiesByUser = companies.slice()
+                        refreshTable()
+                        // console.log(companiesByUser)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByProduct"){
+
+                        companiesByProduct = companies.slice()
+                        console.log(companiesByProduct)
+                        refreshTable()
+                        // console.log(companiesByProduct)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
                 }
 
                 if(checkbox == "filterByType"){
