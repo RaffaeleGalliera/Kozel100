@@ -138,7 +138,6 @@
     }
 
     function updateNote(form) {
-
         form.action = "ViewCompany.jsp";
         form.submit();
     }
@@ -149,8 +148,18 @@
     }
 
     function addConversation(form) {
-        form.action = "ViewCompany.jsp";
-        form.submit();
+        var GivenDate = document.addConversationForm.conversationDate.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate > CurrentDate) {
+            alert('Are you John Titor?');
+            document.addConversationForm.conversationDate.focus();
+            return false
+        } else {
+            form.action = "ViewCompany.jsp";
+            form.submit();
+        }
     }
 
     function addConversationNote(form) {
@@ -764,7 +773,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form name="companyManager" action="" method="post">
+                <form name="addConversationForm" action="" method="post">
                     <div class="form-group">
                         <label for="reason" class="bmd-label-floating">Reason</label>
                         <input type="text" name="reason" class="form-control" id="reason">
@@ -966,12 +975,12 @@
                     <div class="form-group">
                         <label for="proposalName" class="bmd-label-floating">Name</label>
                         <input type="text" name="proposalName" class="form-control"
-                               id="proposalName">
+                               id="proposalName" required>
                     </div>
                     <div class="form-group">
                         <label for="proposalDescription" class="bmd-label-floating">Description</label>
                         <input type="textarea" name="proposalDescription" class="form-control"
-                               id="proposalDescription">
+                               id="proposalDescription" required>
                     </div>
 
                     <div class="form-group">
@@ -1027,6 +1036,7 @@
         $('.multipleSelect').select2();
     });
     $('body').bootstrapMaterialDesign();
+
 });</script>
 
 </body>
