@@ -154,6 +154,12 @@
 
         }
 
+        .highlight {
+            /*background: yellow !important;*/
+            /*border-left:5px solid #009688 !important;*/
+            box-shadow: -1px 18px 26px 1px rgba(173,168,173,1) !important;
+        }
+
 
     </style>
 
@@ -563,8 +569,6 @@ $(document).ready(function () {
         let companiesByProduct = companies.slice();
         let companiesByType = companies.slice();
 
-
-
         function refreshTable() {
 
         	//$.snackbar({content: "This is my awesome snackbar!"});
@@ -662,10 +666,6 @@ $(document).ready(function () {
 
 
         }
-
-
-
-
 
         $("#filterForm select[name='clientTypeId']").on("change",function(select) {
 
@@ -788,6 +788,15 @@ $(document).ready(function () {
 
 
 
+        $("#companiesTable tbody tr").click(function(){
+
+            console.log($(this))
+            $(this).toggleClass("highlight")
+
+        })
+
+
+
     });
 
 </script>
@@ -803,7 +812,7 @@ $(document).ready(function () {
 
     function deleteCompany(id, name) {
 
-        r = confirm("Are you sure to delete : " + name + "? Even all its contacts will be Deleted");
+        r = confirm("Are you sure you want to delete : " + name + "? Even all its contacts will be Deleted");
 
         if (r === true) {
             document.deleteCompanyForm.companyId.value = id;
