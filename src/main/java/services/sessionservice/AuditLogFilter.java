@@ -42,7 +42,7 @@ public class AuditLogFilter implements Filter {
         String uri = req.getRequestURI();
         DataBase database = null;
 
-        if (uri.startsWith("/index.jsp") || uri.equals("/favicon.ico") || uri.startsWith("/js") || uri.startsWith("/Common") || uri.startsWith("/css") || uri.startsWith("/resources")) {
+        if (uri.startsWith("/index.jsp") || uri.equals("/favicon.ico") || uri.startsWith("/js") || uri.startsWith("/Common") || uri.startsWith("/assets") || uri.startsWith("/css") || uri.startsWith("/resources")) {
             chain.doFilter(request, response); // Just continue chain.
         } else {
             try {
