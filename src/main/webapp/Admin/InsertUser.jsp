@@ -103,7 +103,7 @@
             </div>
             <div class="form-group">
                 <label for="password" class="bmd-label-floating">Password</label>
-                <input type="text" name="password" class="form-control" id="password">
+                <input type="text" name="password" class="form-control" id="password" required>
             </div>
             <div class="form-group">
                 <label for="positionId" class="bmd-label-floating">Position</label>
