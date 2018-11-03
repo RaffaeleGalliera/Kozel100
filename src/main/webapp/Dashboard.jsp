@@ -400,7 +400,7 @@
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="card">
-                            <div class="card-header card-header-tabs card-header-warning">
+                            <div class="card-header card-header-tabs card-header-success">
                                 <div class="card-icon">
                                     <i class="material-icons">store</i>
                                 </div>
