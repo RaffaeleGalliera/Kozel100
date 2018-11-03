@@ -138,18 +138,52 @@
     }
 
 
-    function validateDate() {
-        var GivenDate = document.addConversationForm.conversationDate.value;
+    function pastDate(input) {
+        var GivenDate = input.value;
         var CurrentDate = new Date();
         GivenDate = new Date(GivenDate);
 
         if (GivenDate > CurrentDate) {
-            document.addConversationForm.conversationDate.focus();
+            input.setCustomValidity("Are you John Titor?");
             return false;
         } else {
+            input.setCustomValidity('');
             return true;
         }
     }
+
+    function futureDate(input) {
+        var GivenDate = input.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate < CurrentDate) {
+            input.setCustomValidity("You can't insert past appointments");
+            return false;
+        } else {
+            input.setCustomValidity('');
+            return true;
+        }
+    }
+
+    // function validateAppointmentTime(input) {
+    // //     var time = input.value;
+    // //     givenTime = new Date("01/01/2000"+time);
+    // //     startWorkingTime = new Date("01/01/2000"+"08:00:00");
+    // //     endWorkingTime= new Date("01/01/2000"+"20:00:00");
+    // //
+    // //     if (givenTime > endWorkingTime ) {
+    // //         input.setCustomValidity("Appointments After 20:00 are not accepted");
+    // //         return false;
+    // //     }
+    // //     if (givenTime < startWorkingTime) {
+    // //         input.setCustomValidity("Appointments Before 08:00 are not accepted");
+    // //         return false;
+    // //     } else {
+    // //         input.setCustomValidity('');
+    // //         return true;
+    // //     }
+    // // }
 
     function deleteTag(id, name) {
 
@@ -700,13 +734,13 @@
                     <div class="form-group">
                         <label for="purchaseDate" class="bmd-label-floating">Purchase Date</label>
                         <input type="date" name="purchaseDate" class="form-control"
-                               id="purchaseDate" required>
+                               id="purchaseDate" oninput="pastDate(this)" required>
                     </div>
 
                     <div class="form-group">
                         <label for="startDate" class="bmd-label-floating">Start Date</label>
                         <input type="date" name="startDate" class="form-control"
-                               id="startDate">
+                               id="startDate" oninput="futureDate(this)">
                     </div>
 
                     <div class="modal-footer">
@@ -739,7 +773,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form name="addConversationForm" onsubmit="return validateDate()" action="" method="post">
+                <form name="addConversationForm" action="" method="post">
                     <div class="form-group">
                         <label for="reason" class="bmd-label-floating">Reason</label>
                         <input type="text" name="reason" class="form-control" id="reason" required>
@@ -747,7 +781,7 @@
                     <div class="form-group">
                         <label for="conversationDate" class="bmd-label-floating">Date</label>
                         <input type="date" name="conversationDate" class="form-control"
-                               id="conversationDate" required>
+                               id="conversationDate" required oninput="pastDate(this)">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-raised">
@@ -879,7 +913,7 @@
                     <div class="form-group">
                         <label for="appointmentDate" class="bmd-label-floating">Date</label>
                         <input type="date" name="appointmentDate" class="form-control"
-                               id="appointmentDate" required>
+                               id="appointmentDate" oninput="futureDate(this)" required>
                     </div>
                     <div class="form-group">
                         <label for="appointmentTime" class="bmd-label-floating">Time</label>

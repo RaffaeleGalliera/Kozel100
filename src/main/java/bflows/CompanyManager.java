@@ -30,6 +30,9 @@ public class CompanyManager implements java.io.Serializable {
     private String vat;
     private String address;
     private String city;
+    private String country;
+    private String state;
+    private Integer zip;
     private String companyEmail;
     private String contactEmail;
 
@@ -94,7 +97,7 @@ public class CompanyManager implements java.io.Serializable {
             //Insert Company
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, companyEmail);
+            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, country, state, zip, companyEmail);
 
             company.insert(database);
             //Insert Contact_Person
@@ -1225,5 +1228,29 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setCompanyNoteId(Integer companyNoteId) {
         this.companyNoteId = companyNoteId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Integer getZip() {
+        return zip;
+    }
+
+    public void setZip(Integer zip) {
+        this.zip = zip;
     }
 }

@@ -364,18 +364,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="vat" class="bmd-label-floating">VAT</label>
-                                <input type="text" name="vat" class="form-control" id="vat"
-                                       <%if (message != null)%>value="<%=companyManager.getVat()%>" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address" class="bmd-label-floating">Address</label>
-                                <input type="text" name="address" class="form-control" id="address"
-                                       <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="city" class="bmd-label-floating">City</label>
-                                <input type="text" name="city" class="form-control" id="city"
-                                       <%if (message != null)%>value="<%=companyManager.getCity()%>" required>
+                                <input type="number" name="vat" class="form-control" id="vat"
+                                       <%if (message != null)%>value="<%=companyManager.getVat()%>" required
+                                       min="11111111111" max="99999999999">
                             </div>
                             <div class="form-group">
                                 <label for="companyEmail" class="bmd-label-floating">Email</label>
@@ -434,26 +425,34 @@
                                     <% } %>
                                 </select>
                             </div>
-                            <%--<div class="form-group">--%>
-                                <%--<div class="checkbox">--%>
-                                            <%--<%for (int k = 0; k < companyManager.getTags().length; k++) { int c=0; %>--%>
-                                                <%--<%if ((message != null) && (companyManager.getTag(k) == companyManager.getCompanyTag(c).tagId)) {%>--%>
-                                                 <%--<label>--%>
-                                                   <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>" checked>--%>
-                                                       <%--<%=companyManager.getClientType(k).name%>--%>
-                                                       <%--<% c++;%>--%>
-                                                 <%--</label>--%>
-                                                <%--<% } %>--%>
-                                                <%--<%if (companyManager.getTag(k).tagId!= companyManager.getCompanyTag(c).tagId) {%>--%>
-                                                <%--<label>--%>
-                                                    <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>">--%>
-                                                    <%--<%=companyManager.getClientType(k).name%>--%>
-                                                    <%--<% c++;%>--%>
-                                                <%--</label>--%>
-                                                <%--<% } %>--%>
-                                            <%--<% } %>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+                            <div class="form-group">
+                                <label for="country" class="bmd-label-floating">Country</label>
+                                <select name="country" class="form-control" id="country"
+                                        <%if (message != null)%>value="<%=companyManager.getCountry()%>"
+                                        required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="bmd-label-floating">State</label>
+                                <select name="state" class="form-control" id="state"
+                                        <%if (message != null)%>value="<%=companyManager.getState()%>"
+                                        required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="bmd-label-floating">City</label>
+                                <input type="text" name="city" class="form-control" id="city"
+                                       <%if (message != null)%>value="<%=companyManager.getCity()%>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zip" class="bmd-label-floating">Zip</label>
+                                <input type="number" name="zip" class="form-control" id="zip"
+                                       <%if (message != null)%>value="<%=companyManager.getZip()%>" required min="111"
+                                       max="9999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="bmd-label-floating">Address</label>
+                                <input type="text" name="address" class="form-control" id="address"
+                                       <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
+                            </div>
                             <div class="jumbotron">
                                 <h1>Contact Reference</h1>
                                 <div class="form-row">
@@ -499,6 +498,8 @@
 
     </div>
 </div>
+
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -511,7 +512,7 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="/js/countries.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -556,7 +557,7 @@
 </script>
 
 <script language="JavaScript">
-
+    populateCountries("country", "state");
 
     function redirect() {
 
