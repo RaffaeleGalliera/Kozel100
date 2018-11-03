@@ -22,24 +22,10 @@
     String message = null;
     boolean complete = false;
     String status = request.getParameter("status");
-    String previousStatus = "none";
-    Boolean filterByUser = false;
-    Boolean filterByType = false;
-    Boolean filterByProduct = false;
-    String userId=null;
-    String clientTypeId=null;
-    String productCategoryId=null;
 
     if (status == null) status = "view"; //
 
     if (status.equals("view")) {
-
-
-        if(request.getParameter("previousStatus")!=null && request.getParameter("previousStatus").equals("filter")){
-
-            previousStatus = "filter";
-
-        }
 
         companyManager.companiesView();
 
@@ -64,44 +50,6 @@
         message = companyManager.getErrorMessage();
     }
 
-
-    if (status.equals("filter")) {
-
-        Map<String, Integer> filters = new HashMap<String, Integer>();
-        previousStatus = request.getParameter("previousStatus");
-
-        filterByUser = Boolean.parseBoolean(request.getParameter("filterByUser"));
-        userId = request.getParameter("userId");
-
-        if (filterByUser) {
-
-            filters.put("userId", Integer.parseInt(userId));
-
-        }
-
-        filterByType = Boolean.parseBoolean(request.getParameter("filterByType"));
-        clientTypeId = request.getParameter("clientTypeId");
-
-        if (filterByType) {
-
-            filters.put("clientTypeId", Integer.parseInt(clientTypeId));
-
-        }
-
-        filterByProduct = Boolean.parseBoolean(request.getParameter("filterByProduct"));
-        productCategoryId = request.getParameter("productCategoryId");
-
-        if (filterByProduct) {
-
-            filters.put("productCategoryId", Integer.parseInt(productCategoryId));
-
-        }
-
-        //I used an HashMap so it's easier to deal with parameters sent to the bean
-
-        companyManager.filterCompanies(filters);
-
-    }
 
 %>
 
@@ -155,9 +103,8 @@
         }
 
         .highlight {
-            /*background: yellow !important;*/
-            /*border-left:5px solid #009688 !important;*/
-            box-shadow: -1px 18px 26px 1px rgba(173,168,173,1) !important;
+            background: #C8E6C9 !important;
+
         }
 
 
@@ -191,60 +138,74 @@
         <div class="container filter col-md-12" id="filter">
 
             <form id="filterForm" action="ViewCompanies.jsp" method="post">
-                <div class="outerGroup">
-                    <div class="switch">
-                        <label>
-                            <input class="form-check-input" type="checkbox" id="filterByType" name="filterByType"
-                                   value="false">
-                            Tipo Cliente
-                        </label>
-                    </div>
-                    <div class="form-group filterGroup" id="filterClientTypeGroup">
-                        <select class="form-control" id="clientTypeId" name="clientTypeId">
-                            <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                            <option value="<%=companyManager.getClientType(k).clientTypeId%>">
-                            <%=companyManager.getClientType(k).name%>
-                            </option>
-                            <% } %>
-                        </select>
-                    </div>
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByType" name="filterByType"
+                               value="false">
+                        Client Type
+                    </label>
                 </div>
-                <div class="outerGroup">
-                    <div class="switch">
-                        <label>
-                            <input class="form-check-input" type="checkbox" id="filterByUser" name="filterByUser"
-                                   value="false">
-                            Utente
-                        </label>
-                    </div>
-                    <div class="form-group filterGroup" id="filterUserGroup">
-                        <select class="form-control" id="userId" name="userId">
-                            <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
-                            <option value="<%=companyManager.getUser(k).userId%>">
-                                <%=companyManager.getUser(k).lastName%>
-                            </option>
-                            <% } %>
-                        </select>
-                    </div>
+                <div class="form-group filterGroup" id="filterClientTypeGroup">
+                    <select class="form-control" id="clientTypeId" name="clientTypeId">
+                        <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
+                        <option value="<%=companyManager.getClientType(k).clientTypeId%>">
+                        <%=companyManager.getClientType(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
                 </div>
 
-                <div class="outerGroup">
-                    <div class="switch">
-                        <label>
-                            <input class="form-check-input" type="checkbox" id="filterByProduct" name="filterByProduct"
-                                   value="false">
-                            Categoria Merceologica
-                        </label>
-                    </div>
-                    <div class="form-group filterGroup" id="filterProductGroup">
-                        <select class="form-control" id="productCategoryId" name="productCategoryId">
-                            <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
-                            <option value="<%=companyManager.getProductCategory(k).productCategoryId%>">
-                                <%=companyManager.getProductCategory(k).name%>
-                            </option>
-                            <% } %>
-                        </select>
-                    </div>
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByUser" name="filterByUser"
+                               value="false">
+                        Assigned User
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterUserGroup">
+                    <select class="form-control" id="userId" name="userId">
+                        <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
+                        <option value="<%=companyManager.getUser(k).userId%>">
+                            <%=companyManager.getUser(k).lastName%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByProduct" name="filterByProduct"
+                               value="false">
+                        Product Category
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterProductGroup">
+                    <select class="form-control" id="productCategoryId" name="productCategoryId">
+                        <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
+                        <option value="<%=companyManager.getProductCategory(k).productCategoryId%>">
+                            <%=companyManager.getProductCategory(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
+
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByTag" name="filterByTag"
+                               value="false">
+                        Tags
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterTagGroup">
+                    <select class="form-control" id="tagId" multiple name="tagId">
+                        <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                        <option value="<%=companyManager.getTag(k).tagId%>">
+                            <%=companyManager.getTag(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
                 </div>
 
 
@@ -779,6 +740,11 @@ $(document).ready(function () {
 
                 }
 
+                if(checkbox == "filterByTag"){
+                    $('#filterTagGroup').slideToggle(300);
+
+                }
+
 
 
             })
@@ -796,6 +762,13 @@ $(document).ready(function () {
         })
 
 
+
+    });
+
+
+    $('#toggleFilterButton').click(function(){
+
+        $('#filter').slideToggle(300);
 
     });
 
@@ -841,44 +814,9 @@ $(document).ready(function () {
         form.submit();
     }
 
-    $('#toggleFilterButton').click(function(){
-
-        $('#filter').slideToggle(300);
-
-    });
 
 
 
-    // $('#filterForm input:checkbox').each(function() {
-    //
-    //     $(this).on("change",function(){
-    //
-    //         checkbox = $(this).attr('id');
-    //
-    //         if($(this).val()=="false"){
-    //             $(this).val("true");
-    //         }else{
-    //             $(this).val("false");
-    //             if($("#filter input[name='wasFiltering']").val()=="true") {
-    //                 $('#filterForm').submit();
-    //             }
-    //         }
-    //
-    //         if(checkbox == "filterByType"){
-    //             $('#filterClientTypeGroup').slideToggle(300);
-    //         }
-    //
-    //         if(checkbox == "filterByUser"){
-    //             $('#filterUserGroup').slideToggle(300);
-    //         }
-    //
-    //         if(checkbox == "filterByProduct"){
-    //             $('#filterProductGroup').slideToggle(300);
-    //         }
-    //
-    //     })
-    //
-    // })
 
 </script>
 </body>
