@@ -272,9 +272,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">VAT</th>
-                <th scope="col">Address</th>
+                <th scope="col">Country</th>
                 <th scope="col">City</th>
+                <th scope="col">VAT</th>
                 <th scope="col">Email</th>
                 <th scope="col">Contact Reference</th>
                 <th scope="col">Actions</th>
@@ -287,11 +287,11 @@
                 </th>
 
                 <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
-                <td><%=companyManager.getCompany(k).vat%>
-                </td>
-                <td><%=companyManager.getCompany(k).address%>
+                <td><%=companyManager.getCompany(k).country%>
                 </td>
                 <td><%=companyManager.getCompany(k).city%>
+                </td>
+                <td><%=companyManager.getCompany(k).vat%>
                 </td>
                 <td><%=companyManager.getCompany(k).email%>
                 </td>
