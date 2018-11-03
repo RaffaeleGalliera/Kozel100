@@ -182,7 +182,7 @@
                         <div class="card card-stats">
                             <div class="card-header card-header-primary card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">assignment</i>
+                                    <i class="material-icons">comment</i>
                                 </div>
                                 <p class="card-category">Your Interactions</p>
                                 <h3 class="card-title"><% int nUserNotes = dashboardManager.getUserNotes().map(t -> t.length).orElse(0);%>
@@ -192,8 +192,6 @@
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons text-danger">warning</i>
-                                    <a href="#pablo">Get More Space...</a>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +210,6 @@
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">date_range</i> Last 24 Hours
                                 </div>
                             </div>
                         </div>
@@ -231,7 +228,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">local_offer</i> Visit Your Agenda
+                                    <i class="material-icons">date_range</i> Visit Your Agenda
                                 </div>
                             </div>
                         </div>
@@ -240,7 +237,7 @@
                         <div class="card card-stats">
                             <div class="card-header card-header-info card-header-icon">
                                 <div class="card-icon">
-                                    <i class="fa fa-twitter"></i>
+                                    <i class="material-icons">assignment</i>
                                 </div>
                                 <p class="card-category">Commercial Proposals</p>
                                 <h3 class="card-title">+245</h3>
