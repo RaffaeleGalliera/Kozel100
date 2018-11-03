@@ -15,6 +15,9 @@ public class Company {
     public String vat;
     public String address;
     public String city;
+    public Integer zip;
+    public String country;
+    public String state;
     public String email;
     public int clientTypeId;
     public int productCategoryId;
@@ -30,10 +33,22 @@ public class Company {
         try {vat=result.getString("vat");} catch(SQLException sqle) {}
         try {address=result.getString("address");} catch(SQLException sqle) {}
         try {city=result.getString("city");} catch(SQLException sqle) {}
+        try {
+            country = result.getString("country");
+        } catch (SQLException sqle) {
+        }
+        try {
+            state = result.getString("state");
+        } catch (SQLException sqle) {
+        }
+        try {
+            zip = result.getInt("zip_code");
+        } catch (SQLException sqle) {
+        }
         try {email=result.getString("email");} catch(SQLException sqle) {}
     }
 
-    public Company(Integer companyId, Integer clientTypeId, Integer productCategoryId, Integer userId, String name, String vat, String address, String city, String email){
+    public Company(Integer companyId, Integer clientTypeId, Integer productCategoryId, Integer userId, String name, String vat, String address, String city, String country, String state, Integer zip, String email) {
         this.companyId=companyId;
         this.clientTypeId=clientTypeId;
         this.productCategoryId=productCategoryId;
@@ -42,6 +57,9 @@ public class Company {
         this.vat=vat;
         this.address=address;
         this.city=city;
+        this.country = country;
+        this.zip = zip;
+        this.state = state;
         this.email=email;
     }
 
@@ -74,13 +92,15 @@ public class Company {
         }
 
 
-        query="INSERT INTO company(company_id, client_type_id, product_category_id, user_id, name, vat, address, city, email)" +
-              "VALUES("+companyId+","+clientTypeId+","+productCategoryId+","+userId+",?,?,?,?,?)";
+        query = "INSERT INTO company(company_id, client_type_id, product_category_id, user_id, name, vat, address, city, country, state, zip_code, email)" +
+                "VALUES(" + companyId + "," + clientTypeId + "," + productCategoryId + "," + userId + ",?,?,?,?,?,?," + zip + ",?)";
 
 
         parameters.add(vat);
         parameters.add(address);
         parameters.add(city);
+        parameters.add(country);
+        parameters.add(state);
         parameters.add(email);
 
         database.modify(query,parameters);
@@ -113,12 +133,14 @@ public class Company {
         }
 
         sql=" UPDATE company "
-                +" SET name=?, client_type_id="+clientTypeId+", product_category_id="+productCategoryId+", user_id="+userId+", vat=?, address=?, city=?, email=?"
+                + " SET name=?, client_type_id=" + clientTypeId + ", product_category_id=" + productCategoryId + ", user_id=" + userId + ", vat=?, address=?, city=?, country=?, state=?, zip_code=" + zip + " email=?"
                 +" WHERE company_id="+companyId;
 
         parameters.add(vat);
         parameters.add(address);
         parameters.add(city);
+        parameters.add(country);
+        parameters.add(state);
         parameters.add(email);
 
         db.modify(sql,parameters);

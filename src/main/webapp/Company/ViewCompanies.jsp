@@ -272,9 +272,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">VAT</th>
-                <th scope="col">Address</th>
+                <th scope="col">Country</th>
                 <th scope="col">City</th>
+                <th scope="col">VAT</th>
                 <th scope="col">Email</th>
                 <th scope="col">Contact Reference</th>
                 <th scope="col">Actions</th>
@@ -287,11 +287,11 @@
                 </th>
 
                 <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
-                <td><%=companyManager.getCompany(k).vat%>
-                </td>
-                <td><%=companyManager.getCompany(k).address%>
+                <td><%=companyManager.getCompany(k).country%>
                 </td>
                 <td><%=companyManager.getCompany(k).city%>
+                </td>
+                <td><%=companyManager.getCompany(k).vat%>
                 </td>
                 <td><%=companyManager.getCompany(k).email%>
                 </td>
@@ -352,11 +352,11 @@
                             <div class="form-group">
                                 <label for="name" class="bmd-label-floating">Name</label>
                                 <%if (message == null) {%>
-                                <input type="text" name="name" class="form-control" id="name">
+                                <input type="text" name="name" class="form-control" id="name" required>
                                 <%}%>
                                 <%if (message != null) {%>
                                 <input type="text" name="name" class="form-control is-invalid" id="name"
-                                       value="<%=companyManager.getName()%>">
+                                       value="<%=companyManager.getName()%>" required>
                                 <div class="invalid-feedback">
                                     <%=message%>
                                 </div>
@@ -364,27 +364,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="vat" class="bmd-label-floating">VAT</label>
-                                <input type="text" name="vat" class="form-control" id="vat"
-                                       <%if (message != null)%>value="<%=companyManager.getVat()%>">
-                            </div>
-                            <div class="form-group">
-                                <label for="address" class="bmd-label-floating">Address</label>
-                                <input type="text" name="address" class="form-control" id="address"
-                                       <%if (message != null)%>value="<%=companyManager.getAddress()%>">
-                            </div>
-                            <div class="form-group">
-                                <label for="city" class="bmd-label-floating">City</label>
-                                <input type="text" name="city" class="form-control" id="city"
-                                       <%if (message != null)%>value="<%=companyManager.getCity()%>">
+                                <input type="number" name="vat" class="form-control" id="vat"
+                                       <%if (message != null)%>value="<%=companyManager.getVat()%>" required
+                                       min="11111111111" max="99999999999">
                             </div>
                             <div class="form-group">
                                 <label for="companyEmail" class="bmd-label-floating">Email</label>
                                 <input type="email" name="companyEmail" class="form-control" id="companyEmail"
-                                       <%if (message != null)%>value="<%=companyManager.getCompanyEmail()%>">
+                                       <%if (message != null)%>value="<%=companyManager.getCompanyEmail()%>" required>
                             </div>
                             <div class="form-group">
                                 <label for="clientTypeId2" class="bmd-label-floating">Client Type</label>
-                                <select class="form-control" id="clientTypeId2" name="clientTypeId">
+                                <select class="form-control" id="clientTypeId2" name="clientTypeId" required>
                                     <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
                                     <%if ((message != null) && (companyManager.getClientType(k).clientTypeId == companyManager.getClientTypeId())) {%>
                                     <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
@@ -401,7 +392,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="productCategoryId2" class="bmd-label-floating">Product Category</label>
-                                <select class="form-control" id="productCategoryId2" name="productCategoryId">
+                                <select class="form-control" id="productCategoryId2" name="productCategoryId" required>
                                     <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
                                     <%if ((message != null) && (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId())) {%>
                                     <option value="<%=companyManager.getProductCategory(x).productCategoryId%>" selected>
@@ -434,49 +425,61 @@
                                     <% } %>
                                 </select>
                             </div>
-                            <%--<div class="form-group">--%>
-                                <%--<div class="checkbox">--%>
-                                            <%--<%for (int k = 0; k < companyManager.getTags().length; k++) { int c=0; %>--%>
-                                                <%--<%if ((message != null) && (companyManager.getTag(k) == companyManager.getCompanyTag(c).tagId)) {%>--%>
-                                                 <%--<label>--%>
-                                                   <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>" checked>--%>
-                                                       <%--<%=companyManager.getClientType(k).name%>--%>
-                                                       <%--<% c++;%>--%>
-                                                 <%--</label>--%>
-                                                <%--<% } %>--%>
-                                                <%--<%if (companyManager.getTag(k).tagId!= companyManager.getCompanyTag(c).tagId) {%>--%>
-                                                <%--<label>--%>
-                                                    <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>">--%>
-                                                    <%--<%=companyManager.getClientType(k).name%>--%>
-                                                    <%--<% c++;%>--%>
-                                                <%--</label>--%>
-                                                <%--<% } %>--%>
-                                            <%--<% } %>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+                            <div class="form-group">
+                                <label for="country" class="bmd-label-floating">Country</label>
+                                <select name="country" class="form-control" id="country"
+                                        <%if (message != null)%>value="<%=companyManager.getCountry()%>"
+                                        required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="bmd-label-floating">State</label>
+                                <select name="state" class="form-control" id="state"
+                                        <%if (message != null)%>value="<%=companyManager.getState()%>"
+                                        required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="bmd-label-floating">City</label>
+                                <input type="text" name="city" class="form-control" id="city"
+                                       <%if (message != null)%>value="<%=companyManager.getCity()%>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zip" class="bmd-label-floating">Zip</label>
+                                <input type="number" name="zip" class="form-control" id="zip"
+                                       <%if (message != null)%>value="<%=companyManager.getZip()%>" required min="111"
+                                       max="9999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="bmd-label-floating">Address</label>
+                                <input type="text" name="address" class="form-control" id="address"
+                                       <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
+                            </div>
                             <div class="jumbotron">
                                 <h1>Contact Reference</h1>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="firstName" class="bmd-label-floating">First Name</label>
                                         <input type="text" name="firstName" class="form-control" id="firstName"
-                                               <%if (message != null)%>value="<%=companyManager.getFirstName()%>">
+                                               <%if (message != null)%>value="<%=companyManager.getFirstName()%>"
+                                               required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="lastName" class="bmd-label-floating">Last Name</label>
                                         <input type="text" name="lastName" class="form-control" id="lastName"
-                                               <%if (message != null)%>value="<%=companyManager.getLastName()%>">
+                                               <%if (message != null)%>value="<%=companyManager.getLastName()%>"
+                                               required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
-                                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber"
-                                           <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>">
+                                    <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber"
+                                           <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>"
+                                           required>
                                 </div>
                                 <div class="form-group">
                                     <label for="contactEmail" class="bmd-label-floating">Email</label>
                                     <input type="email" name="contactEmail" class="form-control" id="contactEmail"
-                                           <%if (message != null)%>value="<%=companyManager.getcontactEmail()%>">
+                                           <%if (message != null)%>value="<%=companyManager.getcontactEmail()%>"
+                                           required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -495,6 +498,8 @@
 
     </div>
 </div>
+
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -507,7 +512,7 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="/js/countries.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -552,7 +557,7 @@
 </script>
 
 <script language="JavaScript">
-
+    populateCountries("country", "state");
 
     function redirect() {
 
