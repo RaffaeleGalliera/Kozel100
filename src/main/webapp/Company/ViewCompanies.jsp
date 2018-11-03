@@ -471,7 +471,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
-                                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber"
+                                    <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber"
                                            <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>"
                                            required>
                                 </div>

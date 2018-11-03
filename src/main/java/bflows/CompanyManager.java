@@ -156,7 +156,10 @@ public class CompanyManager implements java.io.Serializable {
             company.address=address;
             company.email=companyEmail;
             company.city=city;
+            company.country = country;
+            company.state = state;
             company.vat=vat;
+            company.zip = zip;
             company.clientTypeId=clientTypeId;
             company.productCategoryId=productCategoryId;
             company.userId=userId;
