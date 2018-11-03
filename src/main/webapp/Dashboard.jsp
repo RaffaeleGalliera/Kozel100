@@ -453,11 +453,11 @@
             <script>$(document).ready(function () {
                 $.notify({
                     icon: "add_alert",
-                    message: "Welcome back to Your Dashboard "
+                    message: "Welcome back <%=dashboardManager.getUser().firstName%> "
 
                 }, {
                     type: 'success',
-                    timer: 4000,
+                    timer: 500,
                     placement: {
                         from: 'top',
                         align: 'center'

@@ -29,6 +29,7 @@ public class DashboardManager {
     private Appointment[] userAppointments;
     private Appointment userAppointment;
     private User[] users;
+    private User user;
 
     private ConversationNote[] userNotes;
     private ConversationNote userNote;
@@ -45,6 +46,7 @@ public class DashboardManager {
         try {
             database = DBService.getDataBase();
 
+            user = UserDAO.getUser(database, userId);
             users = UserDAO.getAllUsers(database);
             userCompanies = CompanyDAO.getCompaniesByUser(database, userId);
 
@@ -181,6 +183,10 @@ public class DashboardManager {
 
     public User getUser(int index) {
         return users[index];
+    }
+
+    public User getUser() {
+        return user ;
     }
 
     public Company getCompany(int index) {
