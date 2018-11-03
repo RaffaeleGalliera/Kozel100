@@ -180,13 +180,14 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-header card-header-primary card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">content_copy</i>
+                                    <i class="material-icons">assignment</i>
                                 </div>
-                                <p class="card-category">Used Space</p>
-                                <h3 class="card-title">49/50
-                                    <small>GB</small>
+                                <p class="card-category">Your Interactions</p>
+                                <h3 class="card-title"><% int nUserNotes = dashboardManager.getUserNotes().map(t -> t.length).orElse(0);%>
+                                    <%=nUserNotes%>
+                                    <small>Notes</small>
                                 </h3>
                             </div>
                             <div class="card-footer">
@@ -225,11 +226,12 @@
                                 <p class="card-category">Appointments</p>
                                 <h3 class="card-title"><% int nAppointments = dashboardManager.getUserAppointments().map(t -> t.length).orElse(0);%>
                                     <%=nAppointments%>
+                                    <small>To do</small>
                                 </h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">local_offer</i> Tracked from Github
+                                    <i class="material-icons">local_offer</i> Visit Your Agenda
                                 </div>
                             </div>
                         </div>
@@ -240,7 +242,7 @@
                                 <div class="card-icon">
                                     <i class="fa fa-twitter"></i>
                                 </div>
-                                <p class="card-category">Followers</p>
+                                <p class="card-category">Commercial Proposals</p>
                                 <h3 class="card-title">+245</h3>
                             </div>
                             <div class="card-footer">
@@ -319,7 +321,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#otherUsersNotes" data-toggle="tab">
-                                                    <i class="material-icons">note</i> Your Companies Interactions
+                                                    <i class="material-icons">question_answer</i> Your Companies Interactions
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </li>
@@ -332,10 +334,9 @@
                                     <div class="tab-pane active" id="userNotes">
                                         <table class="table">
                                             <tbody>
-                                            <% int nUserNotes = dashboardManager.getUserNotes().map(t -> t.length).orElse(0);
-                                                if (nUserNotes == 0) {%>
+                                            <%if (nUserNotes == 0) {%>
                                             <div class="jumbotron">
-                                                <h1 class="display-4"> Nope</h1>
+                                                <h4 class="display-4"> No Comments on your Companies yet</h4>
                                             </div>
                                             <%} else {%>
                                             <%for (int k = 0; k < 10; k++) {%>
@@ -367,7 +368,7 @@
                                             <% int nOtherUsersNotes = dashboardManager.getOtherUsersNotes().map(t -> t.length).orElse(0);
                                                 if (nOtherUsersNotes == 0) {%>
                                             <div class="jumbotron">
-                                                <h1 class="display-4"> Nope</h1>
+                                                <h6> No Comments on your Companies yet</h6>
                                             </div>
                                             <%} else {%>
                                             <%for (int k = 0; k < 10; k++) {%>
@@ -393,6 +394,47 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-warning">
+                                <div class="card-icon">
+                                    <i class="material-icons">store</i>
+                                </div>
+                                <p class="card-category">Assigned Companies</p>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <%if (nCompanies== 0) {%>
+                                    <div class="jumbotron">
+                                        <h6> You have no Companies Assigned right now</h6>
+                                    </div>
+                                    <%} else {%>
+                                    <%for (int k = 0; k < nCompanies; k++) {%>
+                                    <tr>
+                                        <td><%=dashboardManager.getUserCompany(k).name%>
+                                        </td>
+                                        <td><%=dashboardManager.getUserCompany(k).email%>
+                                        </td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" title="Edit Task"
+                                                    class="btn btn-primary btn-link btn-sm">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remove"
+                                                    class="btn btn-danger btn-link btn-sm">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                    <%}%>
+                                    </tbody>
+                                </table>
                                 </div>
                             </div>
                         </div>

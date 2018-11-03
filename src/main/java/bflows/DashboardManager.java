@@ -189,7 +189,7 @@ public class DashboardManager {
         return user ;
     }
 
-    public Company getCompany(int index) {
+    public Company getUserCompany(int index) {
         return userCompanies[index];
     }
 
