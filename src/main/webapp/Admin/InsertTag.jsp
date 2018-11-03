@@ -78,17 +78,18 @@
             <div class="form-group">
                 <label for="tagName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="tagName" class="form-control" id="tagName">
+                <input type="text" name="tagName" class="form-control" id="tagName" required>
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="tagName" class="form-control is-invalid" id="tagName" value="<%=adminPanelManager.getTagName()%>">
+                <input type="text" name="tagName" class="form-control is-invalid" id="tagName"
+                       value="<%=adminPanelManager.getTagName()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
                 <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <button type="submit" class="btn btn-primary btn-raised">Submit</button>
             <input type="hidden" name="status" value="insertTag"/>
         </form>
     </div>
@@ -109,12 +110,3 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
-<script>
-
-    function insert(form) {
-
-        form.action = "InsertTag.jsp";
-        form.submit();
-    }
-
-</script>

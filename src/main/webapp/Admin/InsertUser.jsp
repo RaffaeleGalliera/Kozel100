@@ -81,21 +81,21 @@
             <div class="form-group">
                 <label for="firstName" class="bmd-label-floating">First Name</label>
                 <input type="text" name="firstName" class="form-control" id="firstName"
-                       <%if (message != null)%>value="<%=adminPanelManager.getFirstName()%>">
+                       <%if (message != null)%>value="<%=adminPanelManager.getFirstName()%>" required>
             </div>
             <div class="form-group">
                 <label for="lastName" class="bmd-label-floating">Last Name</label>
                 <input type="text" name="lastName" class="form-control" id="lastName"
-                       <%if (message != null)%>value="<%=adminPanelManager.getLastName()%>">
+                       <%if (message != null)%>value="<%=adminPanelManager.getLastName()%>" required>
             </div>
             <div class="form-group">
                 <label for="email" class="bmd-label-floating">Email</label>
                 <%if (message == null) {%>
-                <input type="email" name="email" class="form-control" id="email">
+                <input type="email" name="email" class="form-control" id="email" required>
                 <%}%>
                 <%if (message != null) {%>
                 <input type="email" name="email" class="form-control is-invalid" id="email"
-                       value="<%=adminPanelManager.getEmail()%>">
+                       value="<%=adminPanelManager.getEmail()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
@@ -107,7 +107,7 @@
             </div>
             <div class="form-group">
                 <label for="positionId" class="bmd-label-floating">Position</label>
-                <select class="form-control" id="positionId" name="positionId">
+                <select class="form-control" id="positionId" name="positionId" required>
                     <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
                         <%if ((message!=null)&&(adminPanelManager.getPosition(k).positionId==adminPanelManager.getPositionId())) {%>
                             <option value="<%=adminPanelManager.getPosition(k).positionId%>" selected>
@@ -124,7 +124,7 @@
             </div>
             <div class="form-group">
                 <label for="workFieldId" class="bmd-label-floating">Work Field</label>
-                <select class="form-control" id="workFieldId" name="workFieldId">
+                <select class="form-control" id="workFieldId" name="workFieldId" required>
                     <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
                         <%if ((message != null) && (adminPanelManager.getWorkField(k).workFieldId == adminPanelManager.getWorkFieldId())) {%>
                             <option value="<%=adminPanelManager.getWorkField(k).workFieldId%>" selected>
@@ -146,25 +146,11 @@
                 </label>
             </div>
             <button class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <button type="submit" class="btn btn-primary btn-raised">Submit</button>
             <input type="hidden" name="status" value="insertUser"/>
         </form>
     </div>
 </div>
-
-
-<script>
-
-
-    function insert(form) {
-
-
-        form.action = "InsertUser.jsp";
-        form.submit();
-    }
-
-</script>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

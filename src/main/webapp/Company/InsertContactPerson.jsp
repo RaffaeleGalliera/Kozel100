@@ -105,20 +105,11 @@
                 </select>
             </div>
             <button class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <button type="submit" class="btn btn-primary btn-raised">Submit</button>
             <input type="hidden" name="status" value="insertContactPerson"/>
         </form>
     </div>
 </div>
-<script>
-
-    function insert(form) {
-
-        form.action = "InsertContactPerson.jsp";
-        form.submit();
-    }
-
-</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

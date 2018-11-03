@@ -83,13 +83,6 @@
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
-<script language="JavaScript">
-    function addAppointment(form) {
-        form.action = "Agenda.jsp";
-        form.submit();
-    }
-</script>
-
 <div class="container">
     <div id='calendar'></div>
 </div>
@@ -147,8 +140,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addAppointment(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
