@@ -17,9 +17,9 @@
     Cookie[] cookies = request.getCookies();
     Boolean isAdmin = false;
 
-    for(Cookie cookie : cookies){
+    for (Cookie cookie : cookies) {
 
-        if(cookie.getName().equals("jwt_auth_token") && Session.isAdmin(cookie)){
+        if (cookie.getName().equals("jwt_auth_token") && Session.isAdmin(cookie)) {
 
             isAdmin = true;
 
@@ -34,14 +34,16 @@
     <a class="navbar-brand" href="/Dashboard.jsp">
         <img src="../resources/logoSmall.png" width="101" height="50" class="d-inline-block align-top" alt="">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Companies
                 </a>
                 <div class="dropdown-menu" aria-labelledby="companyDropdown">
@@ -53,34 +55,43 @@
             <li class="nav-item">
                 <a class="nav-link" href="../Agenda.jsp">Agenda</a>
             </li>
-            <%if(isAdmin){%>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Admin/AdminPanel.jsp">Admin Panel</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Insert Setup
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                        <a class="dropdown-item" href="/Admin/InsertUser.jsp">User</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Admin/InsertClientType.jsp">Client Type</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Admin/InsertPosition.jsp">Position</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Admin/InsertWorkField.jsp">Work Field</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Admin/InsertProductCategory.jsp">Product Category</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Admin/InsertTag.jsp">Tag</a>
-                    </div>
-                </li>
+            <%if (isAdmin) {%>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin Panel
+            </a>
+                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                    <a class="dropdown-item" href="/Admin/AdminPanel.jsp">Panel</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Admin/Audit.jsp">Audit Logging</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Insert Setup
+                </a>
+                <div class="dropdown-menu" aria-labelledby="setupDropdown">
+                    <a class="dropdown-item" href="/Admin/InsertUser.jsp">User</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Admin/InsertClientType.jsp">Client Type</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Admin/InsertPosition.jsp">Position</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Admin/InsertWorkField.jsp">Work Field</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Admin/InsertProductCategory.jsp">Product Category</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Admin/InsertTag.jsp">Tag</a>
+                </div>
+            </li>
             <%}%>
 
         </ul>
         <%--<form class="form-inline my-2 my-lg-0">--%>
-            <%--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--%>
-            <%--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
+        <%--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--%>
+        <%--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
         <%--</form>--%>
         <form class="form-inline my-2 my-lg-0" action="/index.jsp" method="post">
             <input type="hidden" name="status" value="logout"/>
@@ -92,11 +103,11 @@
 
 <script language="javascript">
 
-	function logout(){
+    function logout() {
 
 
-		f.submit();
+        f.submit();
 
-	}
+    }
 
 </script>
