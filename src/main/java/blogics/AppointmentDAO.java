@@ -116,7 +116,8 @@ public class AppointmentDAO {
 
         sql = "SELECT A.appointment_id, A.company_id, A.note, A.date, A.time FROM appointment AS A JOIN appointment_user AS AU "
                 + "ON A.appointment_id=AU.appointment_id "
-                + "WHERE user_id=" + userId + " AND A.date >= CURDATE()";
+                + "WHERE user_id=" + userId + " AND A.date >= CURDATE() "
+                + "ORDER BY A.date ASC";
 
 
         rs = db.select(sql);

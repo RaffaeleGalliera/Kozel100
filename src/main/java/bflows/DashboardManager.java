@@ -12,6 +12,9 @@ import javax.swing.text.html.Option;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 
@@ -26,6 +29,7 @@ public class DashboardManager {
     private Integer companyId = -1;
 
     private Company[] userCompanies;
+    private Company[] companies;
     private Appointment[] userAppointments;
     private Appointment userAppointment;
     private User[] users;
@@ -49,6 +53,7 @@ public class DashboardManager {
             user = UserDAO.getUser(database, userId);
             users = UserDAO.getAllUsers(database);
             userCompanies = CompanyDAO.getCompaniesByUser(database, userId);
+            companies = CompanyDAO.getAllCompanies(database);
 
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
             userNotes = ConversationNoteDAO.getNoteByUser(database, userId);
@@ -128,12 +133,22 @@ public class DashboardManager {
 
     public String getAppointmentCompany(Integer companyId) {
         String company = "";
-        for (int k = 0; k < (userCompanies.length); k++) {
-            if (userCompanies[k].companyId == companyId) {
-                company = userCompanies[k].name;
+        for (int k = 0; k < (companies.length); k++) {
+            if (companies[k].companyId == companyId) {
+                company = companies[k].name;
             }
         }
         return company;
+    }
+
+    public boolean appointmentToday(Date passedDate){
+        LocalDate date = new java.sql.Date(passedDate.getTime()).toLocalDate();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.now();
+        if(date.equals(localDate)){
+            return true;
+        }
+        return false;
     }
 
     public int getResult() {

@@ -21,6 +21,7 @@
     int userId = 0;
     String status = "view";
     boolean isAdmin = false;
+    int todayAppointments=0;
     status = request.getParameter("status");
 
     if (cookies != null) {
@@ -318,7 +319,8 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#otherUsersNotes" data-toggle="tab">
-                                                    <i class="material-icons">question_answer</i> Your Companies Interactions
+                                                    <i class="material-icons">question_answer</i> Your Companies
+                                                    Interactions
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </li>
@@ -338,7 +340,7 @@
                                             </div>
                                             <%} else {%>
                                             <%int c = nUserNotes;%>
-                                            <%if(nUserNotes > 10) c=10;  %>
+                                            <%if (nUserNotes > 10) c = 10; %>
                                             <%for (int k = 0; k < c; k++) {%>
                                             <tr>
 
@@ -373,7 +375,7 @@
                                             </div>
                                             <%} else {%>
                                             <%int c = nOtherUsersNotes;%>
-                                            <%if(nOtherUsersNotes > 10) c=10;  %>
+                                            <%if (nOtherUsersNotes > 10) c = 10; %>
                                             <%for (int k = 0; k < c; k++) {%>
                                             <tr>
 
@@ -401,6 +403,53 @@
                             </div>
                         </div>
                     </div>
+                    <%--Next 10 User Appointments--%>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-warning">
+                                <div class="card-icon">
+                                    <i class="material-icons">calendar_today</i>
+                                </div>
+                                <p class="card-category">Next Appointments</p>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <%if (nAppointments == 0) {%>
+                                    <div class="jumbotron">
+                                        <h6> No scheduled appointments</h6>
+                                    </div>
+                                    <%} else {%>
+                                    <%for (int k = 0; k < nAppointments; k++) {%>
+                                    <tr>
+                                        <td><%=dashboardManager.getUserAppointment(k).date%>
+                                        </td>
+                                        <td><%=dashboardManager.getUserAppointment(k).time%>
+                                        </td>
+                                        <td><%=dashboardManager.getAppointmentCompany(dashboardManager.getUserAppointment(k).companyId)%>
+                                        </td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" title="Edit Task"
+                                                    class="btn btn-primary btn-link btn-sm">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remove"
+                                                    class="btn btn-danger btn-link btn-sm">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                        <%if(dashboardManager.appointmentToday(dashboardManager.getUserAppointment(k).date)){%>
+                                        <%todayAppointments++;%>
+                                        <%}%>
+                                    </tr>
+                                    <%}%>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <%--Companies assigned to user--%>
                     <div class="col-lg-6 col-md-12">
                         <div class="card">
                             <div class="card-header card-header-tabs card-header-success">
@@ -412,7 +461,7 @@
                             <div class="card-body">
                                 <table class="table">
                                     <tbody>
-                                    <%if (nCompanies== 0) {%>
+                                    <%if (nCompanies == 0) {%>
                                     <div class="jumbotron">
                                         <h6> You have no Companies Assigned right now</h6>
                                     </div>
@@ -438,77 +487,95 @@
                                     <%}%>
                                     </tbody>
                                 </table>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <nav class="float-left">
-                                <ul>
-                                    <li>
-                                        <a href="https://www.creative-tim.com">
-                                            Creative Tim
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://creative-tim.com/presentation">
-                                            About Us
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://blog.creative-tim.com">
-                                            Blog
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.creative-tim.com/license">
-                                            Licenses
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <div class="copyright float-right">
-                                &copy;
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script>
-                                , made with <i class="material-icons">favorite</i> by
-                                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better
-                                web.
-                            </div>
-                        </div>
-                    </footer>
+
+
                 </div>
             </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com">
+                                Creative Tim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://creative-tim.com/presentation">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com">
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.creative-tim.com/license">
+                                Licenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    , made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better
+                    web.
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
 
-            <!--   Core JS Files   -->
-            <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
-            <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
-            <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-            <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-            <!--  Google Maps Plugin    -->
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-            <!-- Chartist JS -->
-            <script src="assets/js/plugins/chartist.min.js"></script>
-            <!--  Notifications Plugin    -->
-            <script src="assets/js/plugins/bootstrap-notify.js"></script>
-            <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-            <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-            <script>$(document).ready(function () {
-                $.notify({
-                    icon: "add_alert",
-                    message: "Welcome back <%=dashboardManager.getUser().firstName%> "
+<!--   Core JS Files   -->
+<script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chartist JS -->
+<script src="assets/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+<script>$(document).ready(function () {
+    $.notify({
+        icon: "add_alert",
+        message: "Welcome back <%=dashboardManager.getUser().firstName%> "
 
-                }, {
-                    type: 'success',
-                    timer: 500,
-                    placement: {
-                        from: 'top',
-                        align: 'center'
-                    }
-                });
-            });</script>
+    }, {
+        type: 'success',
+        timer: 500,
+        placement: {
+            from: 'top',
+            align: 'center'
+        }
+    });
+    <%if(todayAppointments>0){%>
+    $.notify({
+        icon: "add_alert",
+        message: " <%=dashboardManager.getUser().firstName%> You Have <%=todayAppointments%> appointments today "
+
+    }, {
+        type: 'danger',
+        timer: 500,
+        placement: {
+            from: 'top',
+            align: 'right'
+        }
+    });
+    <%}%>
+});</script>
 </body>
 
 </html>
