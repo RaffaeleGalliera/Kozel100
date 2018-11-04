@@ -563,14 +563,14 @@
     });
     <%if(todayAppointments>0){%>
     $.notify({
-        icon: "add_alert",
-        message: " <%=dashboardManager.getUser().firstName%> You Have <%=todayAppointments%> appointments today "
+        icon: "calendar_today",
+        message: " <%=dashboardManager.getUser().firstName%> check out your appointments today: <%=todayAppointments%> Scheduled"
 
     }, {
         type: 'danger',
-        timer: 500,
+        timer: 2000,
         placement: {
-            from: 'top',
+            from: 'bottom',
             align: 'right'
         }
     });
