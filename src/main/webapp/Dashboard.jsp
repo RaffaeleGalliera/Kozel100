@@ -326,6 +326,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <%--Last 10 notes made by current user--%>
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="userNotes">
@@ -336,7 +337,9 @@
                                                 <h4 class="display-4"> No Comments on your Companies yet</h4>
                                             </div>
                                             <%} else {%>
-                                            <%for (int k = 0; k < 10; k++) {%>
+                                            <%int c = nUserNotes;%>
+                                            <%if(nUserNotes > 10) c=10;  %>
+                                            <%for (int k = 0; k < c; k++) {%>
                                             <tr>
 
                                                 <td><%=dashboardManager.getUserNote(k).timestamp%>
@@ -359,6 +362,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <%--Last 10 notes made by other users on current user's company--%>
                                     <div class="tab-pane" id="otherUsersNotes">
                                         <table class="table">
                                             <tbody>
@@ -368,7 +372,9 @@
                                                 <h6> No Comments on your Companies yet</h6>
                                             </div>
                                             <%} else {%>
-                                            <%for (int k = 0; k < 10; k++) {%>
+                                            <%int c = nOtherUsersNotes;%>
+                                            <%if(nOtherUsersNotes > 10) c=10;  %>
+                                            <%for (int k = 0; k < c; k++) {%>
                                             <tr>
 
                                                 <td><%=dashboardManager.getOtherUsersNote(k).timestamp%>
