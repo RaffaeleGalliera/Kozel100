@@ -1,7 +1,7 @@
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/src/main/webapp/resources/logo.png)
 # Kozel100
 
-Kozel100 is a Customer Relationship Management system for Consulting Firms who want to manage relationships with their clients.
+Kozel100 is a material designed Customer Relationship Management system for Consulting Firms that want to manage relationships with their clients.
 
 Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
 
