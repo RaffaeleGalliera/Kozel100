@@ -68,6 +68,9 @@
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+
     <style>
 
         .filter {
@@ -199,7 +202,7 @@
                     </label>
                 </div>
                 <div class="form-group filterGroup" id="filterTagGroup">
-                    <select class="form-control" id="tagId" multiple name="tagId">
+                    <select class="form-control multipleSelect" id="tagId" multiple="multiple" name="tagId">
                         <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
                         <option value="<%=companyManager.getTag(k).tagId%>">
                             <%=companyManager.getTag(k).name%>
@@ -446,6 +449,7 @@
 
     </div>
 </div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -459,17 +463,28 @@
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
 <script>
 
 
 
+
+
 $(document).ready(function () {
+
+
         $('body').bootstrapMaterialDesign();
-            if ($('#modal').val() == 1) {
-                $('#insertCompanyModal').modal('show');
-            }
+
+    	$('.multipleSelect').select2();
+    	$('.multipleSelect').css('width', '100%');
 
 
+
+	if ($('#modal').val() == 1) {
+            $('#insertCompanyModal').modal('show');
+        }
 
         var companies = [];
 
