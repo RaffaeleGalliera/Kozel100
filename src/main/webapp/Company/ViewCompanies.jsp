@@ -144,12 +144,12 @@
                 Companies
             </h1>
             <h2>
-                <button class="btn btn-outline-secondary" id="exportBtn"><i class="fa fa-plus"></i>Export</button>
-                <button class="btn btn-outline-secondary" id="tagBtn"><i class="fa fa-plus"></i>Tag</button>
                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#insertCompanyModal"><i
                         class="fa fa-plus"></i>Add New
                 </button>
                 <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
+                <button class="btn btn-outline-secondary" id="exportBtn"><i class="fa fa-plus"></i>Export</button>
+                <button class="btn btn-outline-secondary" id="tagBtn"><i class="fa fa-plus"></i>Tag</button>
             </h2>
         </div>
 
@@ -834,13 +834,13 @@ $(document).ready(function () {
 
             if((selectedCompanies.length) > 0){
 
-                $('#tagBtn').show(300)
-                $('#exportBtn').show(300)
+                $('#tagBtn').slideDown(300)
+                $('#exportBtn').slideDown(300)
 
             }else{
 
-                $('#tagBtn').hide(300)
-                $('#exportBtn').hide(300)
+                $('#tagBtn').slideUp(300)
+                $('#exportBtn').slideUp(300)
 
 
             }
