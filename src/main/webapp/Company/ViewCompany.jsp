@@ -177,7 +177,7 @@
 
     function deleteTag(id, name) {
 
-        r = confirm("Are you sure to delete : " + name + " as  Tag");
+        r = confirm("Are you sure you want to delete the " + name + "  Tag?");
 
         if (r === true) {
             document.deleteTagForm.tagId.value = id;

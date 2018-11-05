@@ -15,6 +15,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="services.sessionservice.Session" %>
+<%@ page import="blogics.Tag" %>
 
 
 <%
@@ -521,29 +522,25 @@ $(document).ready(function () {
             tags:[]
         });
 
-        <%}%>
+        <% int nTags = companyManager.getTagsForCompany(companyManager.getCompany(x).companyId).map(t -> t.size()).orElse(0);
+        if (nTags != 0) {
+
+            ArrayList<Tag> tagsForCompany = companyManager.getTagsForCompany(companyManager.getCompany(x).companyId).get();
+
+        %>
+            <% for(Tag tag : tagsForCompany){ %>
+
+                companies[<%=x%>].tags.push("<%=tag.tagId%>");
+
+            <%}%>
         <%}%>
 
-        <% int nTags = companyManager.getCompanies().map(t -> t.length).orElse(0);
-        if (nOfCompanies != 0) {%>
-        <% for(int x=0;x<nOfCompanies;x++){ %>
-        companies.push({
-            id: <%=companyManager.getCompany(x).companyId%>,
-            name: "<%=companyManager.getCompany(x).name%>",
-            vat: "<%=companyManager.getCompany(x).vat%>",
-            address: "<%=companyManager.getCompany(x).address%>",
-            city: "<%=companyManager.getCompany(x).city%>",
-            email: "<%=companyManager.getCompany(x).email%>",
-            userId: "<%=companyManager.getCompany(x).userId%>",
-            productCategoryId: "<%=companyManager.getCompany(x).productCategoryId%>",
-            clientTypeId: "<%=companyManager.getCompany(x).clientTypeId%>",
 
-            contacts: [],
-            tags:[]
-        });
 
         <%}%>
         <%}%>
+
+
 
 
         let contactPeople = [];
@@ -572,7 +569,7 @@ $(document).ready(function () {
 
             }
 
-            console.log(company);
+            //console.log(company);
 
 
 
@@ -582,6 +579,7 @@ $(document).ready(function () {
         let companiesByUser = companies.slice();
         let companiesByProduct = companies.slice();
         let companiesByType = companies.slice();
+        let companiesByTag = companies.slice();
 
         //Avoid row highlighting when clicking on company name
         $('#companiesTable tr td a').click(function(event) {
@@ -597,8 +595,9 @@ $(document).ready(function () {
 
             let filteredCompanies = []
 
-            filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y))
-            console.log(filteredCompanies)
+            filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)).filter(z => companiesByTag.includes(z))
+
+            // console.log(filteredCompanies)
 
             $("#companiesTable tbody tr").each(function () {
 
@@ -690,25 +689,53 @@ $(document).ready(function () {
 
         }
 
+        function filterByTagId(tagId){
+
+            empty(companiesByTag)
+
+            companies.forEach((company) => {
+
+                console.log(company.tags.filter(c => tagId.includes(c)))
+
+                if(company.tags.filter(c => tagId.includes(c)).length==tagId.length){
+
+                    companiesByTag.push(company)
+
+                }
+
+            })
+
+
+        }
+
         //Gestione delle azioni sui componenti dell'interfaccia
         $("#filterForm select[name='clientTypeId']").on("change",function(select) {
 
-            filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val(),companiesByType)
-            refreshTable()
+            filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val());
+            refreshTable();
 
         })
 
         $("#filterForm select[name='productCategoryId']").on("change",function(select) {
 
-            filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val(),companiesByProduct)
-            refreshTable()
+            filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val());
+            refreshTable();
 
         })
 
         $("#filterForm select[name='userId']").on("change",function(select) {
 
-            filterByUserId($("#filterForm select[name='userId'] option:selected").val(),companiesByUser)
-            refreshTable()
+            filterByUserId($("#filterForm select[name='userId'] option:selected").val());
+            refreshTable();
+
+        })
+
+        $("#filterForm select[name='tagId']").on("change",function(select) {
+
+            //console.log($("#filterForm select[name='tagId']").val());
+
+            filterByTagId($("#filterForm select[name='tagId']").val());
+            refreshTable();
 
         })
 
@@ -753,6 +780,16 @@ $(document).ready(function () {
 
                     }
 
+                    if(checkbox == "filterByTag"){
+
+                        filterByTagId($("#filterForm select[name='tagId']").val())
+                        refreshTable()
+                        // console.log(companiesByProduct)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
 
                 }else{
 
@@ -785,6 +822,14 @@ $(document).ready(function () {
                         refreshTable()
                         // console.log(companiesByProduct)
                         // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByTag"){
+
+                        companiesByTag = companies.slice()
+                        refreshTable()
 
 
                     }
