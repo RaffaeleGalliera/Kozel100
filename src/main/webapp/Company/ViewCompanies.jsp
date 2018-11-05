@@ -320,7 +320,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form name="companyManager" action="" method="post">
+                        <form name="companyManager" id="tagModalForm" action="" method="post">
                             <div class="form-group">
                                 <label for="tagIds" class="bmd-label-floating">Tags</label>
                                 <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
@@ -333,11 +333,10 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary btn-raised"
-                                        onclick="addTag(this.form)">
+                                        onclick="">
                                     Submit
                                 </button>
                                 <input type="hidden" name="status" value="addTag"/>
-                                <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
                             </div>
                         </form>
                     </div>
@@ -912,8 +911,20 @@ $(document).ready(function () {
 
         })
 
+        $('#tagModalForm').on('submit',function(e){
 
+            $(this).append('<select id=\"selectedCompanies\" name=\"selectedCompanies\"multiple></select>')
 
+            selectedCompanies.forEach(c => {
+
+                $('#selectedCompanies').append('<option value=\"' + c + '\" selected></option>')
+
+            })
+
+            $('#selectedCompanies').hide(0)
+            e.preventDefault()
+
+        });
 
 
     });
@@ -928,12 +939,6 @@ $(document).ready(function () {
     $('#exportBtn').click(function(){
 
         console.log("Esporto su file...")
-
-    });
-
-    $('#tagBtn').click(function(){
-
-        console.log("Modale per aggiungere Tags")
 
     });
 
