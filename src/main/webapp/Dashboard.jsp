@@ -62,21 +62,34 @@
     <title>
         Dashboard
     </title>
+
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Montserrat+Slab:400,700|Material+Icons"/>
+
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Material+Icons" rel="stylesheet">
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://storage.googleapis.com/non-spec-apps/mio-icons/latest/twotone.css">
+    <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
+
+    <%--<!--     Fonts and icons     -->--%>
+    <%--<link rel="stylesheet" type="text/css"--%>
+          <%--href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Montserrat+Slab:400,700|Material+Icons"/>--%>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet"/>
 
-</head>
 
-<body class="" >
+</head>
 <jsp:include page="/Common/Navbar.jsp"/>
 
-<div class="bg">
+<body class="" >
+
+<div class="wrapper-full-page">
     <%--<div class="sidebar" data-color="green" data-image="resources/logoS.png" data-background-color="white">--%>
         <%--<!----%>
           <%--Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"--%>

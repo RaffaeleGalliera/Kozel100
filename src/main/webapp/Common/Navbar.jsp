@@ -30,7 +30,7 @@
 
 %>
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-color: #27C46B;">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="font-family: 'Montserrat', sans-serif; font-size: xx-large">
     <a class="navbar-brand" href="/Dashboard.jsp">
         <img src="../resources/logoSmall.png" width="101" height="50" class="d-inline-block align-top" alt="">
     </a>
