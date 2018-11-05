@@ -183,7 +183,7 @@
                         <div class="card card-stats">
                             <div class="card-header card-header-primary card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">comment</i>
+                                    <i class="material-icons">speaker_notes</i>
                                 </div>
                                 <p class="card-category">Your Interactions</p>
                                 <h3 class="card-title"><% int nUserNotes = dashboardManager.getUserNotes().map(t -> t.length).orElse(0);%>
