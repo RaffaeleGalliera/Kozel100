@@ -485,14 +485,11 @@ public class CompanyManager implements java.io.Serializable {
            db = DBService.getDataBase();
 
            companies = CompanyDAO.getAllCompanies(db);
-            clientTypes = ClientTypeDAO.getAllClientTypes(db);
-            productCategories = ProductCategoryDAO.getAllProductCategories(db);
+           clientTypes = ClientTypeDAO.getAllClientTypes(db);
+           productCategories = ProductCategoryDAO.getAllProductCategories(db);
            tags = TagDAO.getAllTags(db);
            users = UserDAO.getAllUsers(db);
            contactPeople = ContactPersonDAO.getAllContactPeople(db);
-
-
-//           totalRecords=OrdineDAO.getRicevutiTotalRecords();
 
            db.commit();
         } catch (NotFoundDBException ex) {
@@ -739,6 +736,7 @@ public class CompanyManager implements java.io.Serializable {
 
                 }
             }
+
             companyNotes = ConversationNoteDAO.getCompanyNotes(database, companyId);
             companyAppointments = AppointmentDAO.getCompanyAppointments(database, companyId);
 

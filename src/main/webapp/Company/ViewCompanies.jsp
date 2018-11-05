@@ -110,6 +110,16 @@
 
         }
 
+        #tagBtn{
+            display: none;
+
+        }
+
+        #exportBtn{
+            display: none;
+
+        }
+
 
     </style>
 
@@ -129,13 +139,18 @@
     <%}%>
     <div class="row">
         <div class="col-md-12">
+
             <h1 class="text-center">
                 Companies
+            </h1>
+            <h2>
+                <button class="btn btn-outline-secondary" id="exportBtn"><i class="fa fa-plus"></i>Export</button>
+                <button class="btn btn-outline-secondary" id="tagBtn"><i class="fa fa-plus"></i>Tag</button>
                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#insertCompanyModal"><i
                         class="fa fa-plus"></i>Add New
                 </button>
                 <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
-            </h1>
+            </h2>
         </div>
 
         <div class="container filter col-md-12" id="filter">
@@ -477,8 +492,8 @@ $(document).ready(function () {
 
         $('body').bootstrapMaterialDesign();
 
-    	$('.multipleSelect').select2();
-    	$('.multipleSelect').css('width', '100%');
+        $('.multipleSelect').css('width', '100%');
+        $('.multipleSelect').select2();
 
 
 
@@ -486,7 +501,8 @@ $(document).ready(function () {
             $('#insertCompanyModal').modal('show');
         }
 
-        var companies = [];
+        //Inserimento delle compagnie in struttura dati JS
+        let companies = [];
 
         <% int nOfCompanies = companyManager.getCompanies().map(t -> t.length).orElse(0);
             if (nOfCompanies != 0) {%>
@@ -545,6 +561,9 @@ $(document).ready(function () {
         let companiesByProduct = companies.slice();
         let companiesByType = companies.slice();
 
+        let selectedCompanies = []
+
+        //Metodo chiamato per aggiornare il contenuto della tabella in base ai filtri selezionati
         function refreshTable() {
 
         	//$.snackbar({content: "This is my awesome snackbar!"});
@@ -594,6 +613,7 @@ $(document).ready(function () {
 
         }
 
+        //Metodi che eseguono il filtraggio
         function filterByUserId(userId){
 
             empty(companiesByUser)
@@ -643,6 +663,7 @@ $(document).ready(function () {
 
         }
 
+        //Gestione delle azioni sui componenti dell'interfaccia
         $("#filterForm select[name='clientTypeId']").on("change",function(select) {
 
             filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val(),companiesByType)
@@ -771,10 +792,36 @@ $(document).ready(function () {
 
         $("#companiesTable tbody tr").click(function(){
 
-            console.log($(this))
             $(this).toggleClass("highlight")
 
+            if(!selectedCompanies.includes($(this).attr("value"))) {
+                selectedCompanies.push($(this).attr("value"))
+            }else{
+
+                selectedCompanies.splice(selectedCompanies.indexOf($(this).attr("value")),1)
+
+            }
+
+            console.log(selectedCompanies.length>0)
+            console.log(selectedCompanies)
+
+            if((selectedCompanies.length) > 0){
+
+                $('#tagBtn').show(300)
+                $('#exportBtn').show(300)
+
+            }else{
+
+                $('#tagBtn').hide(300)
+                $('#exportBtn').hide(300)
+
+
+            }
+
+
         })
+
+
 
 
 
@@ -786,6 +833,21 @@ $(document).ready(function () {
         $('#filter').slideToggle(300);
 
     });
+
+    $('#exportBtn').click(function(){
+
+        console.log("Esporto su file...")
+
+    });
+
+    $('#tagBtn').click(function(){
+
+        console.log("Modale per aggiungere Tags")
+
+    });
+
+
+
 
 </script>
 
