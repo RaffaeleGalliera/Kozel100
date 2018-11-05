@@ -70,116 +70,42 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet"/>
+
 </head>
 
-<body class="">
-<div class="wrapper ">
-    <div class="sidebar" data-color="green" data-image="resources/logoS.png" data-background-color="white">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+<body class="" >
+<jsp:include page="/Common/Navbar.jsp"/>
 
-          Tip 2: you can also add an image using data-image tag
-      -->
-        <div class="logo">
-            <img src="/resources/logoSmall.png" width="160" height="80" class="d-inline-block align-top" alt="">
+<div class="bg">
+    <%--<div class="sidebar" data-color="green" data-image="resources/logoS.png" data-background-color="white">--%>
+        <%--<!----%>
+          <%--Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"--%>
 
-        </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <%--<li class="nav-item active  ">--%>
-                <%--<a class="nav-link" href="#0">--%>
-                <%--<i class="material-icons">dashboard</i>--%>
-                <%--<p>Dashboard</p>--%>
-                <%--</a>--%>
-                <%--</li>--%>
-                <!-- your sidebar here -->
-            </ul>
-        </div>
-    </div>
+          <%--Tip 2: you can also add an image using data-image tag--%>
+      <%---->--%>
+        <%--<div class="logo">--%>
+            <%--<img src="/resources/logoSmall.png" width="160" height="80" class="d-inline-block align-top" alt="">--%>
+
+        <%--</div>--%>
+        <%--<div class="sidebar-wrapper">--%>
+            <%--<ul class="nav">--%>
+                <%--&lt;%&ndash;<li class="nav-item active  ">&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<a class="nav-link" href="#0">&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<i class="material-icons">dashboard</i>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<p>Dashboard</p>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</a>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</li>&ndash;%&gt;--%>
+                <%--<!-- your sidebar here -->--%>
+            <%--</ul>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-            <div class="container-fluid">
-                <%--<div class="navbar-wrapper">--%>
-                    <%--<a class="navbar-brand" href="#pablo">Dashboard</a>--%>
-                <%--</div>--%>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#pablo">
-                                <i class="material-icons">notifications</i> Notifications
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                Companies
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="companyDropdown">
-                                <a class="dropdown-item" href="/Company/ViewCompanies.jsp">View</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Company/InsertContactPerson.jsp">Insert Contact
-                                    Person</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../Agenda.jsp">Agenda</a>
-                        </li>
-                        <%if (isAdmin) {%>
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="adminDropdown"
-                                                         role="button"
-                                                         data-toggle="dropdown" aria-haspopup="true"
-                                                         aria-expanded="false">
-                            Admin Panel
-                        </a>
-                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                                <a class="dropdown-item" href="/Admin/AdminPanel.jsp">Panel</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Admin/Audit.jsp">Audit Logging</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                Insert Setup
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                                <a class="dropdown-item" href="/Admin/InsertUser.jsp">User</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Admin/InsertClientType.jsp">Client Type</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Admin/InsertPosition.jsp">Position</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Admin/InsertWorkField.jsp">Work Field</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Admin/InsertProductCategory.jsp">Product Category</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Admin/InsertTag.jsp">Tag</a>
-                            </div>
-                        </li>
-                        <%}%>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-header card-header-success card-header-icon">
                                 <div class="card-icon">
                                     <i class="material-icons">speaker_notes</i>
                                 </div>
@@ -198,7 +124,7 @@
                     <%--Assigned Companies MiniCard--%>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-success card-header-icon">
+                            <div class="card-header card-header-icon">
                                 <div class="card-icon">
                                     <i class="material-icons">store</i>
                                 </div>
@@ -216,7 +142,7 @@
                     <%--Appointments Mini card--%>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-header card-header-success card-header-icon">
                                 <div class="card-icon">
                                     <i class="material-icons">calendar_today</i>
                                 </div>
@@ -236,7 +162,7 @@
                     <%--Commercial Proposals mini card--%>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-info card-header-icon">
+                            <div class="card-header card-header-icon">
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
@@ -275,7 +201,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card card-chart">
-                            <div class="card-header card-header-warning">
+                            <div class="card-header ">
                                 <div class="ct-chart" id="websiteViewsChart"></div>
                             </div>
                             <div class="card-body">
@@ -291,7 +217,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card card-chart">
-                            <div class="card-header card-header-danger">
+                            <div class="card-header card-header-success">
                                 <div class="ct-chart" id="completedTasksChart"></div>
                             </div>
                             <div class="card-body">
@@ -309,7 +235,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
                         <div class="card">
-                            <div class="card-header card-header-tabs card-header-primary">
+                            <div class="card-header card-header-tabs card-header-success">
                                 <div class="nav-tabs-navigation">
                                     <div class="nav-tabs-wrapper">
                                         <span class="nav-tabs-title">Notes Recap</span>
@@ -409,7 +335,7 @@
                     <%--Next 10 User Appointments--%>
                     <div class="col-lg-6 col-md-12">
                         <div class="card">
-                            <div class="card-header card-header-tabs card-header-warning">
+                            <div class="card-header card-header-tabs card-header-success">
                                 <div class="card-icon">
                                     <i class="material-icons">calendar_today</i>
                                 </div>
