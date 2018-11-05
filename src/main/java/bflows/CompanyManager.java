@@ -64,6 +64,8 @@ public class CompanyManager implements java.io.Serializable {
     private User[] users;
     private User user;
 
+    private Map<Integer,ArrayList<Tag>> tagsByCompany;
+
     private CommercialProposal[] commercialProposals;
     private ConsultingService[] consultingServicesPurchased;
     private ConsultingService[] consultingServices;
@@ -490,6 +492,28 @@ public class CompanyManager implements java.io.Serializable {
            tags = TagDAO.getAllTags(db);
            users = UserDAO.getAllUsers(db);
            contactPeople = ContactPersonDAO.getAllContactPeople(db);
+
+            tagsByCompany = new HashMap<Integer, ArrayList<Tag>>();
+
+            for(Company company : companies){
+
+                tagsByCompany.put(company.companyId, new ArrayList<Tag>());
+
+                Tag[] tagsOfCompany = TagDAO.getTags(db,company.companyId);
+
+                if(tagsOfCompany!=null){
+
+                    for(Tag tag : tagsOfCompany){
+
+                        tagsByCompany.get(company.companyId).add(tag);
+
+                    }
+
+                }
+
+            }
+
+
 
            db.commit();
         } catch (NotFoundDBException ex) {
@@ -1129,6 +1153,12 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setConversationId(int conversationId) {
         this.conversationId=conversationId;
+    }
+
+    public Optional<ArrayList<Tag>> getTagsForCompany(int companyId){
+
+        return Optional.ofNullable(tagsByCompany.get(companyId));
+
     }
 
     public Tag getTag(int index){ return tags[index];}

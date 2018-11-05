@@ -490,11 +490,10 @@
 $(document).ready(function () {
 
 
-        $('body').bootstrapMaterialDesign();
+    $('body').bootstrapMaterialDesign();
 
-        $('.multipleSelect').css('width', '100%');
-        $('.multipleSelect').select2();
-
+    $('.multipleSelect').css('width', '100%');
+    $('.multipleSelect').select2();
 
 
 	if ($('#modal').val() == 1) {
@@ -518,11 +517,34 @@ $(document).ready(function () {
             productCategoryId: "<%=companyManager.getCompany(x).productCategoryId%>",
             clientTypeId: "<%=companyManager.getCompany(x).clientTypeId%>",
 
-            contacts: []
+            contacts: [],
+            tags:[]
         });
 
         <%}%>
         <%}%>
+
+        <% int nTags = companyManager.getCompanies().map(t -> t.length).orElse(0);
+        if (nOfCompanies != 0) {%>
+        <% for(int x=0;x<nOfCompanies;x++){ %>
+        companies.push({
+            id: <%=companyManager.getCompany(x).companyId%>,
+            name: "<%=companyManager.getCompany(x).name%>",
+            vat: "<%=companyManager.getCompany(x).vat%>",
+            address: "<%=companyManager.getCompany(x).address%>",
+            city: "<%=companyManager.getCompany(x).city%>",
+            email: "<%=companyManager.getCompany(x).email%>",
+            userId: "<%=companyManager.getCompany(x).userId%>",
+            productCategoryId: "<%=companyManager.getCompany(x).productCategoryId%>",
+            clientTypeId: "<%=companyManager.getCompany(x).clientTypeId%>",
+
+            contacts: [],
+            tags:[]
+        });
+
+        <%}%>
+        <%}%>
+
 
         let contactPeople = [];
 
@@ -550,7 +572,7 @@ $(document).ready(function () {
 
             }
 
-            //console.log(company);
+            console.log(company);
 
 
 
@@ -560,6 +582,11 @@ $(document).ready(function () {
         let companiesByUser = companies.slice();
         let companiesByProduct = companies.slice();
         let companiesByType = companies.slice();
+
+        //Avoid row highlighting when clicking on company name
+        $('#companiesTable tr td a').click(function(event) {
+           event.stopPropagation();
+         });
 
         let selectedCompanies = []
 
@@ -754,7 +781,7 @@ $(document).ready(function () {
                     if(checkbox == "filterByProduct"){
 
                         companiesByProduct = companies.slice()
-                        console.log(companiesByProduct)
+                        //console.log(companiesByProduct)
                         refreshTable()
                         // console.log(companiesByProduct)
                         // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
@@ -802,8 +829,8 @@ $(document).ready(function () {
 
             }
 
-            console.log(selectedCompanies.length>0)
-            console.log(selectedCompanies)
+            //console.log(selectedCompanies.length>0)
+            //console.log(selectedCompanies)
 
             if((selectedCompanies.length) > 0){
 
