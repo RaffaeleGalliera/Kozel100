@@ -111,6 +111,12 @@
 
         }
 
+        .highlight a{
+
+            color: #3c6b3d;
+
+        }
+
         #tagBtn{
             display: none;
 
@@ -144,13 +150,13 @@
             <h1 class="text-center">
                 Companies
             </h1>
-            <h2>
+            <h2 class="text-center">
                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#insertCompanyModal"><i
                         class="fa fa-plus"></i>Add New
                 </button>
                 <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
                 <button class="btn btn-outline-secondary" id="exportBtn"><i class="fa fa-plus"></i>Export</button>
-                <button class="btn btn-outline-secondary" id="tagBtn"><i class="fa fa-plus"></i>Tag</button>
+                <button class="btn btn-outline-secondary" id="tagBtn" data-toggle="modal" data-target="#addTag"><i class="fa fa-plus"></i>Tag</button>
             </h2>
         </div>
 
@@ -226,11 +232,7 @@
                         <% } %>
                     </select>
                 </div>
-
-
                 <input type="hidden" name="status" value="filter">
-                <%--<button type="button" class="btn btn-primary btn-raised" onclick="getFiltered()">Submit</button>--%>
-
             </form>
 
         </div>
@@ -305,6 +307,43 @@
             <input type="hidden" name="companyId" value=""/>
             <input type="hidden" name="status" value="view"/>
         </form>
+
+        <!-- Tag Modal -->
+        <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addTagLabel">Add Tag</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="companyManager" action="" method="post">
+                            <div class="form-group">
+                                <label for="tagIds" class="bmd-label-floating">Tags</label>
+                                <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
+                                    <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                                    <option value="<%=companyManager.getTag(k).tagId%>">
+                                        <%=companyManager.getTag(k).name%>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-raised"
+                                        onclick="addTag(this.form)">
+                                    Submit
+                                </button>
+                                <input type="hidden" name="status" value="addTag"/>
+                                <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="insertCompanyModal" tabindex="-1" role="dialog" aria-labelledby="insertCompanyTitle"
@@ -404,26 +443,6 @@
                                     <% } %>
                                 </select>
                             </div>
-                            <%--<div class="form-group">--%>
-                                <%--<div class="checkbox">--%>
-                                            <%--<%for (int k = 0; k < companyManager.getTags().length; k++) { int c=0; %>--%>
-                                                <%--<%if ((message != null) && (companyManager.getTag(k) == companyManager.getCompanyTag(c).tagId)) {%>--%>
-                                                 <%--<label>--%>
-                                                   <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>" checked>--%>
-                                                       <%--<%=companyManager.getClientType(k).name%>--%>
-                                                       <%--<% c++;%>--%>
-                                                 <%--</label>--%>
-                                                <%--<% } %>--%>
-                                                <%--<%if (companyManager.getTag(k).tagId!= companyManager.getCompanyTag(c).tagId) {%>--%>
-                                                <%--<label>--%>
-                                                    <%--<input type="checkbox" value="<%=companyManager.getTag(k).tagId%>">--%>
-                                                    <%--<%=companyManager.getClientType(k).name%>--%>
-                                                    <%--<% c++;%>--%>
-                                                <%--</label>--%>
-                                                <%--<% } %>--%>
-                                            <%--<% } %>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
                             <div class="jumbotron">
                                 <h1>Contact Reference</h1>
                                 <div class="form-row">
@@ -879,13 +898,13 @@ $(document).ready(function () {
 
             if((selectedCompanies.length) > 0){
 
-                $('#tagBtn').slideDown(300)
-                $('#exportBtn').slideDown(300)
+                $('#tagBtn').fadeIn(300)
+                $('#exportBtn').fadeIn(300)
 
             }else{
 
-                $('#tagBtn').slideUp(300)
-                $('#exportBtn').slideUp(300)
+                $('#tagBtn').fadeOut(300)
+                $('#exportBtn').fadeOut(300)
 
 
             }
