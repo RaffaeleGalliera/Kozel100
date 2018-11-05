@@ -46,7 +46,7 @@ public class CommercialProposal {
 
     }
 
-    public CommercialProposal(int commercial_proposal_id, String name, String description, int company_id) {
+    public CommercialProposal(int commercial_proposal_id, String name, String description, int company_id, int user_id) {
 
         this.commercial_proposal_id=commercial_proposal_id;
         this.name=name;

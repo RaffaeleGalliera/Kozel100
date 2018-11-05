@@ -1,6 +1,7 @@
 package bflows;
 
 import blogics.*;
+import global.Status;
 import services.databaseservice.DBService;
 import services.databaseservice.DataBase;
 import services.databaseservice.exception.DuplicatedRecordDBException;
@@ -32,6 +33,8 @@ public class DashboardManager {
     private Company[] companies;
     private Appointment[] userAppointments;
     private Appointment userAppointment;
+    private CommercialProposal[] userCommercialProposals;
+    private CommercialProposal userCommercialProposal;
     private User[] users;
     private User user;
 
@@ -56,6 +59,7 @@ public class DashboardManager {
             companies = CompanyDAO.getAllCompanies(database);
 
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
+            userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
             userNotes = ConversationNoteDAO.getNoteByUser(database, userId);
             otherUsersNotes = ConversationNoteDAO.getNotesByOtherUsers(database, userId);
 
@@ -131,7 +135,7 @@ public class DashboardManager {
 //
 //    }
 
-    public String getAppointmentCompany(Integer companyId) {
+    public String getCompanyById(Integer companyId) {
         String company = "";
         for (int k = 0; k < (companies.length); k++) {
             if (companies[k].companyId == companyId) {
@@ -141,14 +145,25 @@ public class DashboardManager {
         return company;
     }
 
-    public boolean appointmentToday(Date passedDate){
+    public boolean appointmentToday(Date passedDate) {
         LocalDate date = new java.sql.Date(passedDate.getTime()).toLocalDate();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.now();
-        if(date.equals(localDate)){
+        if (date.equals(localDate)) {
             return true;
         }
         return false;
+    }
+
+    public int getPendingCommercialProposal(){
+        int c=0;
+        int nCommercialProposals = getUserCommercialProposals().map(t -> t.length).orElse(0);
+        for(int k=0; k < nCommercialProposals; k++){
+            if (getUserCommercialProposal(k).status== Status.PENDING) {
+                c++;
+            }
+        }
+        return c;
     }
 
     public int getResult() {
@@ -188,6 +203,18 @@ public class DashboardManager {
         return userAppointments[index];
     }
 
+    public void setUserCommercialProposals(CommercialProposal[] userCommercialProposals) {
+        this.userCommercialProposals = userCommercialProposals;
+    }
+
+    public Optional<CommercialProposal[]> getUserCommercialProposals() {
+        return Optional.ofNullable(userCommercialProposals);
+    }
+
+    public CommercialProposal getUserCommercialProposal(int index) {
+        return userCommercialProposals[index];
+    }
+
     public User[] getUsers() {
         return users;
     }
@@ -201,7 +228,7 @@ public class DashboardManager {
     }
 
     public User getUser() {
-        return user ;
+        return user;
     }
 
     public Company getUserCompany(int index) {

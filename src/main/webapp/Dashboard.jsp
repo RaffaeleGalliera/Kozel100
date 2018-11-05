@@ -9,8 +9,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="services.sessionservice.Session" %>
 
-<%@ page import="services.tokenservice.JWTService" %>
-<%@ page import="services.sessionservice.Session" %>
 <%@ page import="util.Debug" %>
 <%@ page buffer="30kb" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -215,6 +213,7 @@
                             </div>
                         </div>
                     </div>
+                    <%--Appointments Mini card--%>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-warning card-header-icon">
@@ -234,6 +233,7 @@
                             </div>
                         </div>
                     </div>
+                    <%--Commercial Proposals mini card--%>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-info card-header-icon">
@@ -241,7 +241,10 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <p class="card-category">Commercial Proposals</p>
-                                <h3 class="card-title">+245</h3>
+                                <h3 class="card-title"><% int nCommercialProposals = dashboardManager.getUserCommercialProposals().map(t -> t.length).orElse(0);%>
+                                    <%=dashboardManager.getPendingCommercialProposal()%>
+                                    <small>Pending</small>
+                                </h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -332,7 +335,7 @@
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="userNotes">
-                                        <table class="table">
+                                        <table class="table table-striped">
                                             <tbody>
                                             <%if (nUserNotes == 0) {%>
                                             <div class="jumbotron">
@@ -366,7 +369,7 @@
                                     </div>
                                     <%--Last 10 notes made by other users on current user's company--%>
                                     <div class="tab-pane" id="otherUsersNotes">
-                                        <table class="table">
+                                        <table class="table table-striped">
                                             <tbody>
                                             <% int nOtherUsersNotes = dashboardManager.getOtherUsersNotes().map(t -> t.length).orElse(0);
                                                 if (nOtherUsersNotes == 0) {%>
@@ -413,7 +416,7 @@
                                 <p class="card-category">Next Appointments</p>
                             </div>
                             <div class="card-body">
-                                <table class="table">
+                                <table class="table table-striped">
                                     <tbody>
                                     <%if (nAppointments == 0) {%>
                                     <div class="jumbotron">
@@ -426,17 +429,7 @@
                                         </td>
                                         <td><%=dashboardManager.getUserAppointment(k).time%>
                                         </td>
-                                        <td><%=dashboardManager.getAppointmentCompany(dashboardManager.getUserAppointment(k).companyId)%>
-                                        </td>
-                                        <td class="td-actions text-right">
-                                            <button type="button" rel="tooltip" title="Edit Task"
-                                                    class="btn btn-primary btn-link btn-sm">
-                                                <i class="material-icons">edit</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Remove"
-                                                    class="btn btn-danger btn-link btn-sm">
-                                                <i class="material-icons">close</i>
-                                            </button>
+                                        <td><%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId)%>
                                         </td>
                                         <%if(dashboardManager.appointmentToday(dashboardManager.getUserAppointment(k).date)){%>
                                         <%todayAppointments++;%>
@@ -459,28 +452,75 @@
                                 <p class="card-category">Assigned Companies</p>
                             </div>
                             <div class="card-body">
-                                <table class="table">
+                                <table class="table table-striped">
                                     <tbody>
                                     <%if (nCompanies == 0) {%>
                                     <div class="jumbotron">
                                         <h6> You have no Companies Assigned right now</h6>
                                     </div>
                                     <%} else {%>
+                                    <thead class="text-gray">
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    </thead>
                                     <%for (int k = 0; k < nCompanies; k++) {%>
                                     <tr>
                                         <td><%=dashboardManager.getUserCompany(k).name%>
                                         </td>
                                         <td><%=dashboardManager.getUserCompany(k).email%>
                                         </td>
-                                        <td class="td-actions text-right">
-                                            <button type="button" rel="tooltip" title="Edit Task"
-                                                    class="btn btn-primary btn-link btn-sm">
-                                                <i class="material-icons">edit</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Remove"
-                                                    class="btn btn-danger btn-link btn-sm">
-                                                <i class="material-icons">close</i>
-                                            </button>
+                                        <td><%=dashboardManager.getUserCompany(k).country%>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <%--USer's commercial proposal--%>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-info">
+                                <div class="card-icon">
+                                    <i class="material-icons">store</i>
+                                </div>
+                                <p class="card-category">Commercial Proposals</p>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <%if (nCommercialProposals == 0) {%>
+                                    <div class="jumbotron">
+                                        <h6> You have no Commercial Proposals right now</h6>
+                                    </div>
+                                    <%} else {%>
+                                    <thead class="text-gray">
+                                    <th>
+                                        Proposal
+                                    </th>
+                                    <th>
+                                        Company
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    </thead>
+                                    <%for (int k = 0; k < nCommercialProposals; k++) {%>
+                                    <tr>
+                                        <td><%=dashboardManager.getUserCommercialProposal(k).name%>
+                                        </td>
+                                        <td><%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id)%>
+                                        </td>
+                                        <td><%=dashboardManager.getUserCommercialProposal(k).status%>
                                         </td>
                                     </tr>
                                     <%}%>
@@ -497,38 +537,13 @@
         </div>
         <footer class="footer">
             <div class="container-fluid">
-                <nav class="float-left">
-                    <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://creative-tim.com/presentation">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.creative-tim.com/license">
-                                Licenses
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <div class="copyright float-right">
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
                     , made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better
-                    web.
+                    Teu & Rafu
                 </div>
             </div>
         </footer>

@@ -997,6 +997,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addCommercialProposal"/>
+                        <input type="hidden" name="commercialProposalUserId" value="<%=userId%>"/>
                         <input type="hidden" name="companyId" id="companyId"
                                value="<%=companyManager.getCompany().companyId%>"/>
 
