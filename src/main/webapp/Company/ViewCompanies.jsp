@@ -15,6 +15,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="services.sessionservice.Session" %>
+<%@ page import="blogics.Tag" %>
 
 
 <%
@@ -22,33 +23,8 @@
     String message = null;
     boolean complete = false;
     String status = request.getParameter("status");
-    String previousStatus = "none";
-    Boolean filterByUser = false;
-    Boolean filterByType = false;
-    Boolean filterByProduct = false;
-    String userId=null;
-    String clientTypeId=null;
-    String productCategoryId=null;
 
-    if (status == null) status = "view"; //
-
-    if (status.equals("view")) {
-
-
-        if(request.getParameter("previousStatus")!=null && request.getParameter("previousStatus").equals("filter")){
-
-            previousStatus = "filter";
-
-        }
-
-        companyManager.companiesView();
-
-    }
-
-
-    if (status.equals("deleteCompany")) {
-        companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
-    }
+    if (status == null) status = "view";
 
     if (status.equals("insertCompany")) {
         companyManager.insertCompany();
@@ -60,48 +36,21 @@
         }
     }
 
+    if (status.equals("view")) {
+        companyManager.companiesView();
+    }
+
+    if (status.equals("deleteCompany")) {
+        companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
+    }
+
+    if (status.equals("addTag")) {
+        companyManager.addNTagNCompanies();
+    }
     if (companyManager.getResult() == -2) {
         message = companyManager.getErrorMessage();
     }
 
-
-    if (status.equals("filter")) {
-
-        Map<String, Integer> filters = new HashMap<String, Integer>();
-        previousStatus = request.getParameter("previousStatus");
-
-        filterByUser = Boolean.parseBoolean(request.getParameter("filterByUser"));
-        userId = request.getParameter("userId");
-
-        if (filterByUser) {
-
-            filters.put("userId", Integer.parseInt(userId));
-
-        }
-
-        filterByType = Boolean.parseBoolean(request.getParameter("filterByType"));
-        clientTypeId = request.getParameter("clientTypeId");
-
-        if (filterByType) {
-
-            filters.put("clientTypeId", Integer.parseInt(clientTypeId));
-
-        }
-
-        filterByProduct = Boolean.parseBoolean(request.getParameter("filterByProduct"));
-        productCategoryId = request.getParameter("productCategoryId");
-
-        if (filterByProduct) {
-
-            filters.put("productCategoryId", Integer.parseInt(productCategoryId));
-
-        }
-
-        //I used an HashMap so it's easier to deal with parameters sent to the bean
-
-        companyManager.filterCompanies(filters);
-
-    }
 
 %>
 
@@ -120,11 +69,14 @@
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+
     <style>
 
         .filter {
 
-            background-color: #e9ecef;
+            background-color: rgba(0,0,0,.05);
             padding-top: 2%;
             padding-left: 2%;
             padding-right: 2%;
@@ -154,17 +106,33 @@
 
         }
 
-        #companiesTable{
+        .highlight {
+            background: #C8E6C9 !important;
 
-            display:none;
+        }
+
+        .highlight a{
+
+            color: #3c6b3d;
 
         }
 
-        #errorCompany{
+        .highlightField{
 
-            display:none;
+            background-color: rgba(220, 20, 60, 0.65) !important;
 
         }
+
+        #tagBtn{
+            display: none;
+
+        }
+
+        #exportBtn{
+            display: none;
+
+        }
+
 
     </style>
 
@@ -184,83 +152,93 @@
     <%}%>
     <div class="row">
         <div class="col-md-12">
+
             <h1 class="text-center">
                 Companies
+            </h1>
+            <h2 class="text-center">
                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#insertCompanyModal"><i
                         class="fa fa-plus"></i>Add New
                 </button>
                 <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
-            </h1>
+                <button class="btn btn-outline-secondary" id="exportBtn"><i class="fa fa-plus"></i>Export</button>
+                <button class="btn btn-outline-secondary" id="tagBtn" data-toggle="modal" data-target="#addTag"><i class="fa fa-plus"></i>Tag</button>
+            </h2>
         </div>
 
         <div class="container filter col-md-12" id="filter">
 
             <form id="filterForm" action="ViewCompanies.jsp" method="post">
-                <div class="outerGroup">
-                    <div class="switch">
-                        <label>
-                            <input class="form-check-input" type="checkbox" id="filterByType" name="filterByType"
-                                   value="false">
-                            Tipo Cliente
-                        </label>
-                    </div>
-                    <div class="form-group filterGroup" id="filterClientTypeGroup">
-                        <select class="form-control" id="clientTypeId" name="clientTypeId">
-                            <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
-                            <option value="<%=companyManager.getClientType(k).clientTypeId%>" <%if(status.equals("filter") && companyManager.getClientType(k).clientTypeId==Integer.parseInt(clientTypeId)){%>selected<%}%>
-                            ><%=companyManager.getClientType(k).name%>
-                            </option>
-                            <% } %>
-                        </select>
-                        <input type="hidden" name="wasVisible" value=<%=filterByType%>>
-                    </div>
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByType" name="filterByType"
+                               value="false">
+                        Client Type
+                    </label>
                 </div>
-                <div class="outerGroup">
-                    <div class="switch">
-                        <label>
-                            <input class="form-check-input" type="checkbox" id="filterByUser" name="filterByUser"
-                                   value="false">
-                            Utente
-                        </label>
-                    </div>
-                    <div class="form-group filterGroup" id="filterUserGroup">
-                        <select class="form-control" id="userId" name="userId">
-                            <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
-                            <option value="<%=companyManager.getUser(k).userId%>" <%if(status.equals("filter") && companyManager.getUser(k).userId==Integer.parseInt(userId)){%>selected<%}%>
-                            ><%=companyManager.getUser(k).lastName%>
-                            </option>
-                            <% } %>
-                        </select>
-                        <input type="hidden" name="wasVisible" value=<%=filterByUser%>>
-                    </div>
+                <div class="form-group filterGroup" id="filterClientTypeGroup">
+                    <select class="form-control" id="clientTypeId" name="clientTypeId">
+                        <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
+                        <option value="<%=companyManager.getClientType(k).clientTypeId%>">
+                        <%=companyManager.getClientType(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
                 </div>
 
-                <div class="outerGroup">
-                    <div class="switch">
-                        <label>
-                            <input class="form-check-input" type="checkbox" id="filterByProduct" name="filterByProduct"
-                                   value="false">
-                            Categoria Merceologica
-                        </label>
-                    </div>
-                    <div class="form-group filterGroup" id="filterProductGroup">
-                        <select class="form-control" id="productCategoryId" name="productCategoryId">
-                            <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
-                            <option value="<%=companyManager.getProductCategory(k).productCategoryId%>" <%if(status.equals("filter") && companyManager.getProductCategory(k).productCategoryId==Integer.parseInt(productCategoryId)){%>selected<%}%>
-                            ><%=companyManager.getProductCategory(k).name%>
-                            </option>
-                            <% } %>
-                        </select>
-                        <input type="hidden" name="wasVisible" value=<%=filterByProduct%>>
-                    </div>
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByUser" name="filterByUser"
+                               value="false">
+                        Assigned User
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterUserGroup">
+                    <select class="form-control" id="userId" name="userId">
+                        <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
+                        <option value="<%=companyManager.getUser(k).userId%>">
+                            <%=companyManager.getUser(k).lastName%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByProduct" name="filterByProduct"
+                               value="false">
+                        Product Category
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterProductGroup">
+                    <select class="form-control" id="productCategoryId" name="productCategoryId">
+                        <%for (int k = 0; k < companyManager.getProductCategories().length; k++) {%>
+                        <option value="<%=companyManager.getProductCategory(k).productCategoryId%>">
+                            <%=companyManager.getProductCategory(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
                 </div>
 
 
+                <div class="switch">
+                    <label>
+                        <input class="form-check-input" type="checkbox" id="filterByTag" name="filterByTag"
+                               value="false">
+                        Tags
+                    </label>
+                </div>
+                <div class="form-group filterGroup" id="filterTagGroup">
+                    <select class="form-control multipleSelect" id="tagId" multiple="multiple" name="tagId">
+                        <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                        <option value="<%=companyManager.getTag(k).tagId%>">
+                            <%=companyManager.getTag(k).name%>
+                        </option>
+                        <% } %>
+                    </select>
+                </div>
                 <input type="hidden" name="status" value="filter">
-                <input type="hidden" name="previousStatus" value=<%=previousStatus%>>
-                <input type="hidden" name="wasFiltering" value=<%=status.equals("filter") || previousStatus.equals("filter")%>>
-                <%--<button type="button" class="btn btn-primary btn-raised" onclick="getFiltered()">Submit</button>--%>
-
             </form>
 
         </div>
@@ -282,7 +260,7 @@
             </thead>
             <tbody>
             <%for (int k = 0; k < nCompanies; k++) {%>
-            <tr>
+            <tr value=<%=companyManager.getCompany(k).companyId%>>
                 <th scope="row"><%= k %>
                 </th>
 
@@ -335,6 +313,42 @@
             <input type="hidden" name="companyId" value=""/>
             <input type="hidden" name="status" value="view"/>
         </form>
+
+        <!-- Tag Modal -->
+        <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="addTagLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addTagLabel">Add Tag</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="companyManager" id="tagModalForm" action="" method="post">
+                            <div class="form-group">
+                                <label for="tagIds" class="bmd-label-floating">Tags</label>
+                                <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
+                                    <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
+                                    <option value="<%=companyManager.getTag(k).tagId%>">
+                                        <%=companyManager.getTag(k).name%>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-raised"
+                                        onclick="">
+                                    Submit
+                                </button>
+                                <input type="hidden" name="status" value="addTag"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="insertCompanyModal" tabindex="-1" role="dialog" aria-labelledby="insertCompanyTitle"
@@ -501,8 +515,6 @@
 
     </div>
 </div>
-
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -515,52 +527,460 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript" src="/js/countries.js"></script>
 <script>
 
-    $(document).ready(function () {
-        $('body').bootstrapMaterialDesign();
-            if ($('#modal').val() == 1) {
-                $('#insertCompanyModal').modal('show');
+
+
+
+
+$(document).ready(function () {
+
+
+    $('body').bootstrapMaterialDesign();
+
+    $('.multipleSelect').css('width', '100%');
+    $('.multipleSelect').select2();
+    
+    populateCountries("country", "state");
+
+	if ($('#modal').val() == 1) {
+            $('#insertCompanyModal').modal('show');
+        }
+
+        //Inserimento delle compagnie in struttura dati JS
+        let companies = [];
+
+        <% int nOfCompanies = companyManager.getCompanies().map(t -> t.length).orElse(0);
+            if (nOfCompanies != 0) {%>
+        <% for(int x=0;x<nOfCompanies;x++){ %>
+        companies.push({
+            id: <%=companyManager.getCompany(x).companyId%>,
+            name: "<%=companyManager.getCompany(x).name%>",
+            vat: "<%=companyManager.getCompany(x).vat%>",
+            address: "<%=companyManager.getCompany(x).address%>",
+            city: "<%=companyManager.getCompany(x).city%>",
+            email: "<%=companyManager.getCompany(x).email%>",
+            userId: "<%=companyManager.getCompany(x).userId%>",
+            productCategoryId: "<%=companyManager.getCompany(x).productCategoryId%>",
+            clientTypeId: "<%=companyManager.getCompany(x).clientTypeId%>",
+
+            contacts: [],
+            tags:[]
+        });
+
+        <% int nTags = companyManager.getTagsForCompany(companyManager.getCompany(x).companyId).map(t -> t.size()).orElse(0);
+        if (nTags != 0) {
+
+            ArrayList<Tag> tagsForCompany = companyManager.getTagsForCompany(companyManager.getCompany(x).companyId).get();
+
+        %>
+            <% for(Tag tag : tagsForCompany){ %>
+
+                companies[<%=x%>].tags.push("<%=tag.tagId%>");
+
+            <%}%>
+        <%}%>
+
+
+
+        <%}%>
+        <%}%>
+
+
+
+
+        let contactPeople = [];
+
+        <% for(int x=0;x<companyManager.getContactPeople().length;x++){ %>
+
+        contactPeople.push({
+
+            companyId: "<%=companyManager.getContactPerson(x).companyId%>",
+            fullName: "<%=companyManager.getContactPerson(x).fullName()%>"
+
+        });
+
+        <%}%>
+
+
+        companies.forEach((company) => {
+
+            for(let i=0;i<contactPeople.length;i++){
+
+                if(contactPeople[i].companyId==company.id){
+
+                    company.contacts.push(contactPeople[i].fullName);
+
+                }
+
             }
 
-        //Il Selettore prende il filterGroup dei vari hidden e li mostra se erano precedentemente attivi
-        $("input[name='wasVisible'][value='true']").parentsUntil($('.outerGroup')).toggle(0);
+            //console.log(company);
 
-        //Questo prende tutte le checkbox che devono tornare visibili e le setta true
-        $("input[name='wasVisible'][value='true']").parentsUntil($('.outerGroup')).siblings().find("input[type='checkbox']").each(function() {
 
-            $(this).val("true");
-            $(this).prop( "checked", true );
+
 
         })
 
-        //Se filtro era gia aperto lo riapro
-        f =$("#filter input[name='wasFiltering']");
+        let companiesByUser = companies.slice();
+        let companiesByProduct = companies.slice();
+        let companiesByType = companies.slice();
+        let companiesByTag = companies.slice();
 
-        if(f.val() == "true"){
+        //Avoid row highlighting when clicking on company name
+        $('#companiesTable tr td a').click(function(event) {
+           event.stopPropagation();
+         });
+
+        let selectedCompanies = []
+
+        //Metodo chiamato per aggiornare il contenuto della tabella in base ai filtri selezionati
+        function refreshTable() {
+
+        	//$.snackbar({content: "This is my awesome snackbar!"});
+
+            let filteredCompanies = []
+
+            filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)).filter(z => companiesByTag.includes(z))
+
+            // console.log(filteredCompanies)
+
+            $("#companiesTable tbody tr").each(function () {
+
+                rowId = $(this).attr("value")
+                isPresent = false
 
 
-            $('#filter').fadeIn(0);
+                for(i=0;i<filteredCompanies.length;i++){
+
+                    if(filteredCompanies[i].id == rowId) {
+
+                      isPresent = true;
+
+                    }
+
+                }
+                if(isPresent){
+
+                    $(this).show(0);
+
+                }else{
+
+                    $(this).hide(0);
+
+                }
+
+
+            })
+        }
+
+        function empty(array){
+
+            while(array.length>0){
+
+                array.pop();
+
+            }
+
+        }
+
+        //Metodi che eseguono il filtraggio
+        function filterByUserId(userId){
+
+            empty(companiesByUser)
+
+            companies.forEach((company) => {
+
+                if(company.userId == userId){
+
+                    companiesByUser.push(company)
+
+                }
+
+            })
+
+        }
+
+        function filterByProductId(productId){
+
+            empty(companiesByProduct)
+
+            companies.forEach((company) => {
+
+                if(company.productCategoryId == productId){
+
+                    companiesByProduct.push(company)
+
+                }
+
+            })
+
+        }
+
+        function filterByClientTypeId(typeId){
+
+            empty(companiesByType)
+
+            companies.forEach((company) => {
+
+                if(company.clientTypeId == typeId){
+
+                    companiesByType.push(company)
+
+                }
+
+            })
 
 
         }
 
-        $('#companiesTable').fadeToggle(200);
-        $('#errorCompany').fadeToggle(200);
+        function filterByTagId(tagId){
 
-        console.log($("#filter input[name='previousStatus']").val());
+            empty(companiesByTag)
+
+            companies.forEach((company) => {
+
+                console.log(company.tags.filter(c => tagId.includes(c)))
+
+                if(company.tags.filter(c => tagId.includes(c)).length==tagId.length){
+
+                    companiesByTag.push(company)
+
+                }
+
+            })
+
+
+        }
+
+        //Gestione delle azioni sui componenti dell'interfaccia
+        $("#filterForm select[name='clientTypeId']").on("change",function(select) {
+
+            filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val());
+            refreshTable();
+
+        })
+
+        $("#filterForm select[name='productCategoryId']").on("change",function(select) {
+
+            filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val());
+            refreshTable();
+
+        })
+
+        $("#filterForm select[name='userId']").on("change",function(select) {
+
+            filterByUserId($("#filterForm select[name='userId'] option:selected").val());
+            refreshTable();
+
+        })
+
+        $("#filterForm select[name='tagId']").on("change",function(select) {
+
+            //console.log($("#filterForm select[name='tagId']").val());
+
+            filterByTagId($("#filterForm select[name='tagId']").val());
+            refreshTable();
+
+        })
+
+
+        $('#filterForm input:checkbox').each(function() {
+
+            $(this).on("change",function(){
+
+
+                checkbox = $(this).attr('id');
+
+                if($(this).val()=="false"){
+                    $(this).val("true");
+
+                    if(checkbox == "filterByType"){
+
+                        filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val())
+                        refreshTable()
+                        // console.log(companiesByType)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByUser"){
+
+                        filterByUserId($("#filterForm select[name='userId'] option:selected").val())
+                        refreshTable()
+                        // console.log(companiesByUser)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByProduct"){
+
+                        filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val())
+                        refreshTable()
+                        // console.log(companiesByProduct)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByTag"){
+
+                        filterByTagId($("#filterForm select[name='tagId']").val())
+                        refreshTable()
+                        // console.log(companiesByProduct)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+
+                }else{
+
+                    $(this).val("false");
+
+                    if(checkbox == "filterByType"){
+
+                    	companiesByType = companies.slice()
+                        refreshTable()
+                        // console.log(companiesByType)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByUser"){
+
+                    	companiesByUser = companies.slice()
+                        refreshTable()
+                        // console.log(companiesByUser)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByProduct"){
+
+                        companiesByProduct = companies.slice()
+                        //console.log(companiesByProduct)
+                        refreshTable()
+                        // console.log(companiesByProduct)
+                        // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
+
+
+                    }
+
+                    if(checkbox == "filterByTag"){
+
+                        companiesByTag = companies.slice()
+                        refreshTable()
+
+
+                    }
+                }
+
+                if(checkbox == "filterByType"){
+                    $('#filterClientTypeGroup').slideToggle(300);
+                }
+
+                if(checkbox == "filterByUser"){
+                    $('#filterUserGroup').slideToggle(300);
+                }
+
+                if(checkbox == "filterByProduct"){
+                    $('#filterProductGroup').slideToggle(300);
+
+                }
+
+                if(checkbox == "filterByTag"){
+                    $('#filterTagGroup').slideToggle(300);
+
+                }
 
 
 
+            })
+
+
+        })
+
+        $("#companiesTable thead tr th").click(function(){
+
+            $(this).toggleClass("highlightField")
+
+        })
+
+        $("#companiesTable tbody tr").click(function(){
+
+            $(this).toggleClass("highlight")
+
+            if(!selectedCompanies.includes($(this).attr("value"))) {
+                selectedCompanies.push($(this).attr("value"))
+            }else{
+
+                selectedCompanies.splice(selectedCompanies.indexOf($(this).attr("value")),1)
+
+            }
+
+            //console.log(selectedCompanies.length>0)
+            //console.log(selectedCompanies)
+
+            if((selectedCompanies.length) > 0){
+
+                $('#tagBtn').fadeIn(300)
+                $('#exportBtn').fadeIn(300)
+
+            }else{
+
+                $('#tagBtn').fadeOut(300)
+                $('#exportBtn').fadeOut(300)
+
+
+            }
+
+
+        })
+
+        $('#tagModalForm').on('submit',function(e){
+
+            $(this).append('<select id=\"selectedCompanies\" name=\"selectedCompanies\"multiple></select>')
+
+            selectedCompanies.forEach(c => {
+
+                $('#selectedCompanies').append('<option value=\"' + c + '\" selected></option>')
+
+            })
+
+            $('#selectedCompanies').hide(0)
+
+        });
 
 
     });
 
+
+    $('#toggleFilterButton').click(function(){
+
+        $('#filter').slideToggle(300);
+
+    });
+
+    $('#exportBtn').click(function(){
+
+        console.log("Esporto su file...")
+
+    });
+
+
+
+
 </script>
 
 <script language="JavaScript">
-    populateCountries("country", "state");
+
 
     function redirect() {
 
@@ -570,7 +990,7 @@
 
     function deleteCompany(id, name) {
 
-        r = confirm("Are you sure to delete : " + name + "? Even all its contacts will be Deleted");
+        r = confirm("Are you sure you want to delete : " + name + "? Even all its contacts will be Deleted");
 
         if (r === true) {
             document.deleteCompanyForm.companyId.value = id;
@@ -599,105 +1019,9 @@
         form.submit();
     }
 
-    $('#toggleFilterButton').click(function(){
-
-        $('#filter').slideToggle(300);
-
-        if($("#filter input[name='previousStatus']").val()!="filter"){
-
-            $("#filter input[name='previousStatus']").val("filter");
-
-        }else{
-
-            $("#filter input[name='previousStatus']").val("none");
-
-        }
 
 
 
-    });
-
-    $('#filterForm select').on("change",function() {
-
-        $('#filterForm').submit();
-
-    })
-
-
-    $('#filterForm input:checkbox').each(function() {
-
-        $(this).on("change",function(){
-
-
-            checkbox = $(this).attr('id');
-
-            if($(this).val()=="false"){
-                $(this).val("true");
-            }else{
-                $(this).val("false");
-            }
-
-            if(checkbox == "filterByType"){
-                $('#filterClientTypeGroup').slideToggle(300);
-            }
-
-            if(checkbox == "filterByUser"){
-                $('#filterUserGroup').slideToggle(300);
-            }
-
-            if(checkbox == "filterByProduct"){
-                $('#filterProductGroup').slideToggle(300);
-            }
-
-            if($("#filterForm input[type='checkbox'][value='false']").length==3){
-
-                $("#filterForm [name='status']").val("view");
-                $("#filterForm").submit();
-
-
-            }else{
-
-                $("#filterForm [name='status']").val("filter");
-                $("#filterForm").submit();
-
-            }
-
-
-        })
-
-
-    })
-
-    // $('#filterForm input:checkbox').each(function() {
-    //
-    //     $(this).on("change",function(){
-    //
-    //         checkbox = $(this).attr('id');
-    //
-    //         if($(this).val()=="false"){
-    //             $(this).val("true");
-    //         }else{
-    //             $(this).val("false");
-    //             if($("#filter input[name='wasFiltering']").val()=="true") {
-    //                 $('#filterForm').submit();
-    //             }
-    //         }
-    //
-    //         if(checkbox == "filterByType"){
-    //             $('#filterClientTypeGroup').slideToggle(300);
-    //         }
-    //
-    //         if(checkbox == "filterByUser"){
-    //             $('#filterUserGroup').slideToggle(300);
-    //         }
-    //
-    //         if(checkbox == "filterByProduct"){
-    //             $('#filterProductGroup').slideToggle(300);
-    //         }
-    //
-    //     })
-    //
-    // })
 
 </script>
 </body>

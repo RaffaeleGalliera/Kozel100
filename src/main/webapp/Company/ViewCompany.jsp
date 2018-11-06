@@ -187,7 +187,7 @@
 
     function deleteTag(id, name) {
 
-        r = confirm("Are you sure to delete : " + name + " as  Tag");
+        r = confirm("Are you sure you want to delete the " + name + "  Tag?");
 
         if (r === true) {
             document.deleteTagForm.tagId.value = id;
@@ -1009,9 +1009,6 @@
 </div>
 
 
-<%--VUE JS--%>
-<%--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>--%>
-<!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -1027,14 +1024,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 
-<script>$(document).ready(function () {
+<script>
     $(document).ready(function () {
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
     });
     $('body').bootstrapMaterialDesign();
-
 });</script>
+
 
 </body>
 </html>
