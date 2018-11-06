@@ -78,17 +78,18 @@
             <div class="form-group">
                 <label for="productCategoryName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="productCategoryName" class="form-control" id="productCategoryName">
+                <input type="text" name="productCategoryName" class="form-control" id="productCategoryName" required>
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="productCategoryName" class="form-control is-invalid" id="productCategoryName" value="<%=adminPanelManager.getProductCategoryName()%>">
+                <input type="text" name="productCategoryName" class="form-control is-invalid" id="productCategoryName"
+                       value="<%=adminPanelManager.getProductCategoryName()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
                 <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <button type="submit" class="btn btn-primary btn-raised">Submit</button>
             <input type="hidden" name="status" value="insertProductCategory"/>
         </form>
     </div>
@@ -109,12 +110,3 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
-<script>
-
-    function insert(form) {
-
-        form.action = "InsertProductCategory.jsp";
-        form.submit();
-    }
-
-</script>

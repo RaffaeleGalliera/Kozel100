@@ -83,13 +83,6 @@
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
-<script language="JavaScript">
-    function addAppointment(form) {
-        form.action = "Agenda.jsp";
-        form.submit();
-    }
-</script>
-
 <div class="container">
     <div id='calendar'></div>
 </div>
@@ -147,8 +140,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addAppointment(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
@@ -192,7 +184,7 @@
         title: "<%=agendaManager.getAppointmentCompany(agendaManager.getUserAppointment(x).companyId)%>",
         start: "<%=agendaManager.getUserAppointment(x).date%>" + " <%=agendaManager.getUserAppointment(x).time%>",
         description: "<%=agendaManager.getUserAppointment(x).note%>",
-        allDay: false
+        allDay: false,
     });
     <% } %>
     <% } %>
@@ -200,6 +192,7 @@
     $('#calendar').fullCalendar({
         events: curEvents,
         themeSystem: 'bootstrap4',
+        eventColor: '#55AE59',
         themeButtonIcons: {
             prev: 'circle-triangle-w',
             next: 'circle-triangle-e',

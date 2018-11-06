@@ -12,15 +12,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class CompanyManager implements java.io.Serializable {
-
-    private int contactPersonId = -1;
-    private Integer companyId = -1;
-    private int clientTypeId = -1;
-    private int productCategoryId = -1;
-    private int userId = -1;
-    private int conversationUserId = -1;
-    private int conversationNoteUserId = -1;
-    private int tagId = -1;
+  
+    private int contactPersonId=-1;
+    private Integer companyId=-1;
+    private int clientTypeId=-1;
+    private int productCategoryId=-1;
+    private int userId=-1;
+    private int conversationUserId=-1;
+    private int conversationNoteUserId=-1;
+    private int commercialProposalUserId=-1;
+    private int tagId=-1;
     private Integer companyNoteId = -1;
     private int appointmentId = -1;
     private String firstName;
@@ -31,6 +32,9 @@ public class CompanyManager implements java.io.Serializable {
     private String vat;
     private String address;
     private String city;
+    private String country;
+    private String state;
+    private Integer zip;
     private String companyEmail;
     private String contactEmail;
 
@@ -98,7 +102,7 @@ public class CompanyManager implements java.io.Serializable {
             //Insert Company
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, companyEmail);
+            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, country, state, zip, companyEmail);
 
             company.insert(database);
             //Insert Contact_Person
@@ -142,14 +146,17 @@ public class CompanyManager implements java.io.Serializable {
 
             company = CompanyDAO.getCompany(database, companyId);
 
-            company.name = name;
-            company.address = address;
-            company.email = companyEmail;
-            company.city = city;
-            company.vat = vat;
-            company.clientTypeId = clientTypeId;
-            company.productCategoryId = productCategoryId;
-            company.userId = userId;
+            company.name=name;
+            company.address=address;
+            company.email=companyEmail;
+            company.city=city;
+            company.country = country;
+            company.state = state;
+            company.vat=vat;
+            company.zip = zip;
+            company.clientTypeId=clientTypeId;
+            company.productCategoryId=productCategoryId;
+            company.userId=userId;
             company.update(database);
 
             getAllCompaniesInfo(database);
@@ -223,12 +230,9 @@ public class CompanyManager implements java.io.Serializable {
         } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        } catch (DuplicatedRecordDBException ex) {
-            EService.logAndRecover(ex);
-            setResult((EService.RECOVERABLE_ERROR));
-//            setErrorMessage("Email already taken by another Contact");
-        } finally {
-            try {
+        }
+        finally {
+          try {
                 database.close();
             } catch (NotFoundDBException e) {
                 EService.logAndRecover(e);
@@ -431,7 +435,7 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
             int proposalId = CommercialProposalDAO.getNewID(database);
-            CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId);
+            CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId, commercialProposalUserId);
             commercialProposal.insert(database);
 
             for (int k = 0; k < consultingServiceIds.length; k++) {
@@ -906,6 +910,14 @@ public class CompanyManager implements java.io.Serializable {
         this.conversationNoteUserId = conversationNoteUserId;
     }
 
+    public int getCommercialProposalUserId() {
+        return commercialProposalUserId;
+    }
+
+    public void setCommercialProposalUserId(int commercialProposalUserId) {
+        this.commercialProposalUserId = commercialProposalUserId;
+    }
+
     public Integer getClientTypeId() {
         return clientTypeId;
     }
@@ -1266,5 +1278,29 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setCompanyNoteId(Integer companyNoteId) {
         this.companyNoteId = companyNoteId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Integer getZip() {
+        return zip;
+    }
+
+    public void setZip(Integer zip) {
+        this.zip = zip;
     }
 }

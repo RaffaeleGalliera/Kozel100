@@ -17,6 +17,8 @@ public class AdminPanelManager implements java.io.Serializable {
     private ClientType[] clientTypes;
     private ProductCategory[] productCategories;
     private User[] users;
+    private AuditLog[] auditLogs;
+    private Company[] companies;
 
     private int positionId;
     private String positionName;
@@ -354,19 +356,43 @@ public class AdminPanelManager implements java.io.Serializable {
             tag.insert(database);
             database.commit();
 
-        }
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        catch (ResultSetDBException ex) {
+        } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        catch(DuplicatedRecordDBException ex){
+        } catch(DuplicatedRecordDBException ex){
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Tag already exist");
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+
+    }
+
+    public void logView() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+            auditLogs = AuditLogDAO.getAllAuditLogs(database);
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
         } finally {
             try {
                 database.close();
@@ -531,6 +557,14 @@ public class AdminPanelManager implements java.io.Serializable {
 
     public User getUser(int index) {
         return users[index];
+    }
+
+    public AuditLog[] getAuditLogs() {
+        return auditLogs;
+    }
+
+    public AuditLog getAuditLog(int index) {
+        return auditLogs[index];
     }
 
     public int getUserId() {

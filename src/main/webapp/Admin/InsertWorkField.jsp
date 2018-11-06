@@ -77,17 +77,18 @@
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
                 <%if(message==null) {%>
-                <input type="text" name="workFieldName" class="form-control" id="workFieldName">
+                <input type="text" name="workFieldName" class="form-control" id="workFieldName" required>
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="workFieldName" class="form-control is-invalid" id="workFieldName" value="<%=adminPanelManager.getWorkFieldName()%>">
+                <input type="text" name="workFieldName" class="form-control is-invalid" id="workFieldName"
+                       value="<%=adminPanelManager.getWorkFieldName()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>
                 </div>
                 <%}%>
             </div>
             <button class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
+            <button type="submit" class="btn btn-primary btn-raised">Submit</button>
             <input type="hidden" name="status" value="insertWorkField"/>
         </form>
     </div>
@@ -108,12 +109,3 @@
     $('body').bootstrapMaterialDesign();
 });</script>
 </html>
-<script>
-
-    function insert(form) {
-
-        form.action = "InsertWorkField.jsp"
-        form.submit();
-    }
-
-</script>

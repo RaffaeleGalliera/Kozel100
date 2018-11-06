@@ -137,43 +137,53 @@
         document.updateNoteForm.note.value = note;
     }
 
-    function updateNote(form) {
 
-        form.action = "ViewCompany.jsp";
-        form.submit();
+    function pastDate(input) {
+        var GivenDate = input.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate > CurrentDate) {
+            input.setCustomValidity("Are you John Titor?");
+            return false;
+        } else {
+            input.setCustomValidity('');
+            return true;
+        }
     }
 
-    function addTag(form) {
-        form.action = "ViewCompany.jsp";
-        form.submit();
+    function futureDate(input) {
+        var GivenDate = input.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate < CurrentDate) {
+            input.setCustomValidity("You can't insert past appointments");
+            return false;
+        } else {
+            input.setCustomValidity('');
+            return true;
+        }
     }
 
-    function addConversation(form) {
-        form.action = "ViewCompany.jsp";
-        form.submit();
-    }
-
-    function addConversationNote(form) {
-        form.action = "ViewCompany.jsp";
-        form.submit();
-    }
-
-    function addCommercialProposal(form) {
-        form.action = "ViewCompany.jsp";
-        form.submit();
-    }
-
-    function addAppointment(form) {
-        form.action = "ViewCompany.jsp";
-        form.submit();
-    }
-
-    function purchaseService() {
-
-        form.action = "ViewCompany.jsp";
-        form.submit();
-
-    }
+    // function validateAppointmentTime(input) {
+    // //     var time = input.value;
+    // //     givenTime = new Date("01/01/2000"+time);
+    // //     startWorkingTime = new Date("01/01/2000"+"08:00:00");
+    // //     endWorkingTime= new Date("01/01/2000"+"20:00:00");
+    // //
+    // //     if (givenTime > endWorkingTime ) {
+    // //         input.setCustomValidity("Appointments After 20:00 are not accepted");
+    // //         return false;
+    // //     }
+    // //     if (givenTime < startWorkingTime) {
+    // //         input.setCustomValidity("Appointments Before 08:00 are not accepted");
+    // //         return false;
+    // //     } else {
+    // //         input.setCustomValidity('');
+    // //         return true;
+    // //     }
+    // // }
 
     function deleteTag(id, name) {
 
@@ -672,7 +682,8 @@
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="tagIds" class="bmd-label-floating">Tags</label>
-                        <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
+                        <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple"
+                                required>
                             <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
                             <option value="<%=companyManager.getTag(k).tagId%>">
                                 <%=companyManager.getTag(k).name%>
@@ -681,8 +692,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addTag(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addTag"/>
@@ -712,7 +722,7 @@
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="purchasedServiceId" class="bmd-label-floating">Consulting Service</label>
-                        <select class="form-control" id="purchasedServiceId" name="purchasedServiceId">
+                        <select class="form-control" id="purchasedServiceId" name="purchasedServiceId" required>
                             <%for (int k = 0; k < companyManager.getConsultingServices().get().length; k++) {%>
                             <option value="<%=companyManager.getConsultingService(k).get().consulting_service_id%>">
                                 <%=companyManager.getConsultingService(k).get().name%>
@@ -724,18 +734,17 @@
                     <div class="form-group">
                         <label for="purchaseDate" class="bmd-label-floating">Purchase Date</label>
                         <input type="date" name="purchaseDate" class="form-control"
-                               id="purchaseDate">
+                               id="purchaseDate" oninput="pastDate(this)" required>
                     </div>
 
                     <div class="form-group">
                         <label for="startDate" class="bmd-label-floating">Start Date</label>
                         <input type="date" name="startDate" class="form-control"
-                               id="startDate">
+                               id="startDate" oninput="futureDate(this)">
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="purchaseService(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="purchaseService"/>
@@ -764,19 +773,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form name="companyManager" action="" method="post">
+                <form name="addConversationForm" action="" method="post">
                     <div class="form-group">
                         <label for="reason" class="bmd-label-floating">Reason</label>
-                        <input type="text" name="reason" class="form-control" id="reason">
+                        <input type="text" name="reason" class="form-control" id="reason" required>
                     </div>
                     <div class="form-group">
                         <label for="conversationDate" class="bmd-label-floating">Date</label>
                         <input type="date" name="conversationDate" class="form-control"
-                               id="conversationDate">
+                               id="conversationDate" required oninput="pastDate(this)">
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addConversation(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addConversation"/>
@@ -809,7 +817,7 @@
                 <%} else {%>
                 <form name="companyManager" action="" method="post">
                     <label for="conversationId" class="bmd-label-floating">Conversation</label>
-                    <select class="form-control" id="conversationId" name="conversationId">
+                    <select class="form-control" id="conversationId" name="conversationId" required>
                         <%for (int k = 0; k < nConversation; k++) {%>
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
@@ -820,15 +828,14 @@
                     </select>
                     <div class="form-group">
                         <label for="Title" class="bmd-label-floating">Title</label>
-                        <input type="text" name="title" class="form-control" id="title" value="">
+                        <input type="text" name="title" class="form-control" id="title" value="" required>
                     </div>
                     <div class="form-group">
                         <label for="note" class="bmd-label-floating">Note</label>
-                        <textarea class="form-control" rows="5" id="note" name="note" value=""></textarea>
+                        <textarea class="form-control" rows="5" id="note" name="note" value="" required></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addConversationNote(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                     </div>
@@ -857,7 +864,7 @@
             <div class="modal-body">
                 <form name="updateNoteForm" action="" method="post">
                     <label for="updatedConversationId" class="bmd-label-floating">Conversation</label>
-                    <select class="form-control" id="updatedConversationId" name="conversationId">
+                    <select class="form-control" id="updatedConversationId" name="conversationId" required>
                         <%for (int k = 0; k < nConversation; k++) {%>
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
@@ -868,15 +875,14 @@
                     </select>
                     <div class="form-group">
                         <label for="updatedTitle" class="bmd-label-floating">Title</label>
-                        <input type="text" name="title" class="form-control" id="updatedTitle">
+                        <input type="text" name="title" class="form-control" id="updatedTitle" required>
                     </div>
                     <div class="form-group">
                         <label for="updatedNote" class="bmd-label-floating">Note</label>
-                        <textarea class="form-control" rows="5" id="updatedNote" name="note"></textarea>
+                        <textarea class="form-control" rows="5" id="updatedNote" name="note" required></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="updateNote(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="updateCompanyNote"/>
@@ -907,7 +913,7 @@
                     <div class="form-group">
                         <label for="appointmentDate" class="bmd-label-floating">Date</label>
                         <input type="date" name="appointmentDate" class="form-control"
-                               id="appointmentDate">
+                               id="appointmentDate" oninput="futureDate(this)" required>
                     </div>
                     <div class="form-group">
                         <label for="appointmentTime" class="bmd-label-floating">Time</label>
@@ -917,12 +923,13 @@
                     <div class="form-group">
                         <label for="appointmentNote" class="bmd-label-floating">Note</label>
                         <textarea class="form-control" rows="5" id="appointmentNote"
-                                  name="appointmentNote"></textarea>
+                                  name="appointmentNote" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="userIds" class="bmd-label-floating">Share this Appointment with other
                             Users</label>
-                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple">
+                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple"
+                                required>
                             <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
                             <%if (userId != companyManager.getUser(k).userId) {%>
                             <option value="<%=companyManager.getUser(k).userId%>">
@@ -933,8 +940,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addAppointment(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
@@ -966,12 +972,12 @@
                     <div class="form-group">
                         <label for="proposalName" class="bmd-label-floating">Name</label>
                         <input type="text" name="proposalName" class="form-control"
-                               id="proposalName">
+                               id="proposalName" required>
                     </div>
                     <div class="form-group">
                         <label for="proposalDescription" class="bmd-label-floating">Description</label>
                         <input type="textarea" name="proposalDescription" class="form-control"
-                               id="proposalDescription">
+                               id="proposalDescription" required>
                     </div>
 
                     <div class="form-group">
@@ -987,11 +993,11 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-raised"
-                                onclick="addCommercialProposal(this.form)">
+                        <button type="submit" class="btn btn-primary btn-raised">
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addCommercialProposal"/>
+                        <input type="hidden" name="commercialProposalUserId" value="<%=userId%>"/>
                         <input type="hidden" name="companyId" id="companyId"
                                value="<%=companyManager.getCompany().companyId%>"/>
 
@@ -1019,14 +1025,13 @@
 
 
 <script>
-
     $(document).ready(function () {
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
     });
     $('body').bootstrapMaterialDesign();
+});</script>
 
-</script>
 
 </body>
 </html>

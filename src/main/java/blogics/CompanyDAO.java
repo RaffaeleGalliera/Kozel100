@@ -36,9 +36,39 @@ public class CompanyDAO {
                 }
             }
             rs.close();
-        }
-        catch(SQLException ex){
+        } catch(SQLException ex){
             throw new ResultSetDBException("CompanyDAO.getAllCompanies(): Errore nel ResultSet: "+ex.getMessage(),db);
+        }
+
+        return companies;
+
+    }
+
+    public static Company[] getCompaniesByUser(DataBase db, Integer userId) throws NotFoundDBException, ResultSetDBException {
+
+        Company[] companies = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT * FROM company WHERE active_fl=1 AND user_id=" + userId + "";
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                rs.last();
+                companies = new Company[rs.getRow()];
+                rs.beforeFirst();
+
+                while (rs.next()) {
+                    companies[i] = new Company(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("CompanyDAO.getAllCompanies(): Errore nel ResultSet: " + ex.getMessage(), db);
         }
 
         return companies;
