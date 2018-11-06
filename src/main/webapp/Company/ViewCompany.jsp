@@ -851,7 +851,7 @@
     </div>
 </div>
 <!--Update Note Modal -->
-<div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteModal"
+<div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
