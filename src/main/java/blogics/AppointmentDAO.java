@@ -107,5 +107,40 @@ public class AppointmentDAO {
 
     }
 
+    public static Appointment[] getIncomingUserAppointments(DataBase db, int userId) throws NotFoundDBException, ResultSetDBException {
+
+        Appointment[] appointments = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT A.appointment_id, A.company_id, A.note, A.date, A.time FROM appointment AS A JOIN appointment_user AS AU "
+                + "ON A.appointment_id=AU.appointment_id "
+                + "WHERE user_id=" + userId + " AND A.date >= CURDATE() "
+                + "ORDER BY A.date ASC";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                rs.last();
+                appointments = new Appointment[rs.getRow()];
+                rs.beforeFirst();
+
+                while (rs.next()) {
+                    appointments[i] = new Appointment(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("AppointmentDAO.getAppointment(): Errore nel ResultSet: " + ex.getMessage(), db);
+        }
+
+        return appointments;
+
+    }
+
 
 }

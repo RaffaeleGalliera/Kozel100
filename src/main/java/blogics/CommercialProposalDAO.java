@@ -44,6 +44,39 @@ public class CommercialProposalDAO {
 
     }
 
+    public static CommercialProposal[] getProposalsByUserId(DataBase database, Integer userId)throws NotFoundDBException, ResultSetDBException {
+
+        CommercialProposal[] proposals=null;
+        String sql;
+        ResultSet rs;
+        int i=0;
+
+        sql="SELECT * FROM commercial_proposal " +
+                "WHERE user_id="+userId;
+
+        rs=database.select(sql);
+
+        try{
+            if(rs.next()){
+                rs.last();
+                proposals= new CommercialProposal[rs.getRow()];
+                rs.beforeFirst();
+
+                while(rs.next()){
+                    proposals[i]=new CommercialProposal(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            throw new ResultSetDBException("CommercialProposalDAO.getAllCompanies(): Errore nel ResultSet: "+ex.getMessage(),database);
+        }
+
+        return proposals;
+
+    }
+
     public static Integer getNewID(DataBase db) throws NotFoundDBException, ResultSetDBException{
 
         String sql;

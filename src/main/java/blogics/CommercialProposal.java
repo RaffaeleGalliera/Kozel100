@@ -19,6 +19,7 @@ public class CommercialProposal {
     public String description;
     public Status status;
     public int company_id;
+    public int user_id;
 
     public CommercialProposal(ResultSet result){
 
@@ -26,6 +27,7 @@ public class CommercialProposal {
         try {name=result.getString("name");} catch(SQLException sqle) {}
         try {description=result.getString("description");} catch(SQLException sqle) {}
         try {company_id=result.getInt("company_id");} catch(SQLException sqle) {}
+        try {user_id=result.getInt("user_id");} catch(SQLException sqle) {}
 
         try {
 
@@ -44,13 +46,14 @@ public class CommercialProposal {
 
     }
 
-    public CommercialProposal(int commercial_proposal_id, String name, String description, int company_id) {
+    public CommercialProposal(int commercial_proposal_id, String name, String description, int company_id, int user_id) {
 
         this.commercial_proposal_id=commercial_proposal_id;
         this.name=name;
         this.description=description;
         this.status=status;
         this.company_id=company_id;
+        this.user_id=user_id;
 
     }
 
@@ -82,8 +85,8 @@ public class CommercialProposal {
             throw new DuplicatedRecordDBException("CommercialProposal.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
-        query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description, company_id)" +
-                "VALUES("+commercial_proposal_id+",?,?,"+company_id+")";
+        query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description, company_id, user_id)" +
+                "VALUES("+commercial_proposal_id+",?,?,"+company_id+","+user_id+")";
 
 
         parameters.add(description);

@@ -352,10 +352,10 @@
                             <div class="form-group">
                                 <label for="name" class="bmd-label-floating">Name</label>
                                 <%if (message == null) {%>
-                                <input type="text" name="name" class="form-control" id="name" required>
+                                <input type="text" name="name" maxlength="50" class="form-control" id="name" required>
                                 <%}%>
                                 <%if (message != null) {%>
-                                <input type="text" name="name" class="form-control is-invalid" id="name"
+                                <input type="text" name="name" maxlength="50" class="form-control is-invalid" id="name"
                                        value="<%=companyManager.getName()%>" required>
                                 <div class="invalid-feedback">
                                     <%=message%>
@@ -439,7 +439,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="city" class="bmd-label-floating">City</label>
-                                <input type="text" name="city" class="form-control" id="city"
+                                <input type="text" maxlength="50" name="city" class="form-control" id="city"
                                        <%if (message != null)%>value="<%=companyManager.getCity()%>" required>
                             </div>
                             <div class="form-group">
@@ -450,7 +450,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="address" class="bmd-label-floating">Address</label>
-                                <input type="text" name="address" class="form-control" id="address"
+                                <input type="text" maxlength="50" name="address" class="form-control" id="address"
                                        <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
                             </div>
                             <div class="jumbotron">
@@ -458,20 +458,23 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="firstName" class="bmd-label-floating">First Name</label>
-                                        <input type="text" name="firstName" class="form-control" id="firstName"
+                                        <input type="text" maxlength="50" name="firstName" class="form-control"
+                                               id="firstName"
                                                <%if (message != null)%>value="<%=companyManager.getFirstName()%>"
                                                required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="lastName" class="bmd-label-floating">Last Name</label>
-                                        <input type="text" name="lastName" class="form-control" id="lastName"
+                                        <input type="text" maxlength="50" name="lastName" class="form-control"
+                                               id="lastName"
                                                <%if (message != null)%>value="<%=companyManager.getLastName()%>"
                                                required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
-                                    <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber"
+                                    <input type="tel" maxlength="13" name="phoneNumber" class="form-control"
+                                           id="phoneNumber"
                                            <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>"
                                            required>
                                 </div>

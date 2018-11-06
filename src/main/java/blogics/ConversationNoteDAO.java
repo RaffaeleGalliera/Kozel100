@@ -113,6 +113,74 @@ public class ConversationNoteDAO {
 
     }
 
+    public static ConversationNote[] getNotesByOtherUsers(DataBase db, int userId) throws NotFoundDBException, ResultSetDBException {
+
+        ConversationNote[] conversationNotes = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at " +
+                "FROM conversation_note AS CN JOIN conversation AS C on CN.conversation_id = C.conversation_id JOIN company AS CO ON CO.company_id=C.company_id " +
+                "WHERE C.user_id = " + userId + " AND CN.user_id!=" + userId + "" +
+                "ORDER BY CN.created_at DESC";
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                rs.last();
+                conversationNotes = new ConversationNote[rs.getRow()];
+                rs.beforeFirst();
+
+                while (rs.next()) {
+                    conversationNotes[i] = new ConversationNote(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("ConversationNoteDAO.getAllConversationNote(): Errore nel ResultSet: " + ex.getMessage(), db);
+        }
+
+        return conversationNotes;
+
+    }
+
+    public static ConversationNote[] getNoteByUser(DataBase db, int userId) throws NotFoundDBException, ResultSetDBException {
+
+        ConversationNote[] conversationNotes = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT * FROM conversation_note"
+                + " WHERE user_id=" + userId + ""
+                + " ORDER BY created_at DESC";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                rs.last();
+                conversationNotes = new ConversationNote[rs.getRow()];
+                rs.beforeFirst();
+
+                while (rs.next()) {
+                    conversationNotes[i] = new ConversationNote(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("ConversationNoteDAO.getAllConversationNote(): Errore nel ResultSet: " + ex.getMessage(), db);
+        }
+
+        return conversationNotes;
+
+    }
+
     public static ConversationNote getNote(DataBase db, Integer noteId) throws NotFoundDBException, ResultSetDBException {
 
         ConversationNote conversationNote = null;

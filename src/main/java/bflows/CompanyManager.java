@@ -19,6 +19,7 @@ public class CompanyManager implements java.io.Serializable {
     private int userId=-1;
     private int conversationUserId=-1;
     private int conversationNoteUserId=-1;
+    private int commercialProposalUserId=-1;
     private int tagId=-1;
     private Integer companyNoteId = -1;
     private int appointmentId = -1;
@@ -255,11 +256,6 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         }
-        catch(DuplicatedRecordDBException ex){
-            EService.logAndRecover(ex);
-            setResult((EService.RECOVERABLE_ERROR));
-//            setErrorMessage("Email already taken by another Contact");
-        }
         finally {
             try {
                 database.close();
@@ -445,7 +441,7 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
             int proposalId = CommercialProposalDAO.getNewID(database);
-            CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId);
+            CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId, commercialProposalUserId);
             commercialProposal.insert(database);
 
             for (int k = 0; k < consultingServiceIds.length; k++) {
@@ -893,6 +889,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setConversationNoteUserId(Integer conversationNoteUserId) {
         this.conversationNoteUserId = conversationNoteUserId;
+    }
+
+    public int getCommercialProposalUserId() {
+        return commercialProposalUserId;
+    }
+
+    public void setCommercialProposalUserId(int commercialProposalUserId) {
+        this.commercialProposalUserId = commercialProposalUserId;
     }
 
     public Integer getClientTypeId() {
