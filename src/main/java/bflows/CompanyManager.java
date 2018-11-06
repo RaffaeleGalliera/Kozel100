@@ -256,11 +256,6 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         }
-        catch(DuplicatedRecordDBException ex){
-            EService.logAndRecover(ex);
-            setResult((EService.RECOVERABLE_ERROR));
-//            setErrorMessage("Email already taken by another Contact");
-        }
         finally {
             try {
                 database.close();

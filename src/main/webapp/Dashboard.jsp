@@ -174,7 +174,9 @@
                 <div class="col-md-4">
                     <div class="card card-chart">
                         <div class="card-header card-header-success">
-                            <div class="ct-chart" id="dailySalesChart"></div>
+                            <div class="ct-chart" id="dailySalesChart">
+
+                            </div>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title">Daily Sales</h4>
@@ -238,8 +240,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#otherUsersNotes" data-toggle="tab">
-                                                <i class="material-icons">question_answer</i> Your Companies
-                                                Interactions
+                                                <i class="material-icons">question_answer</i>Companies Assigned to You
                                                 <div class="ripple-container"></div>
                                             </a>
                                         </li>
@@ -360,7 +361,7 @@
                 </div>
                 <%--Companies assigned to user--%>
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card" >
                         <div class="card-header card-header-tabs card-header-success">
                             <div class="card-icon">
                                 <i class="material-icons">store</i>
@@ -405,9 +406,9 @@
                 <%--USer's commercial proposal--%>
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-tabs card-header-info">
+                        <div class="card-header card-header-tabs card-header-success">
                             <div class="card-icon">
-                                <i class="material-icons">store</i>
+                                <i class="material-icons">assignment</i>
                             </div>
                             <p class="card-category">Commercial Proposals</p>
                         </div>
