@@ -2,20 +2,31 @@
 /*body {*/
 /*padding-top: 50px;*/
 /*}*/
+body {
+    font-family: 'Montserrat', sans-serif;
+}
 
 .spacer {
     margin-top: 2%;
     margin-bottom: 2%;
 }
 
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu a:hover,
+.dropdown-menu a:focus,
+.dropdown-menu a:active {
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
+    background-color: #52ac56;
+    color: #FFFFFF;
+}
+
+
 .block {
     min-height: 160px;
     padding-top: 15px;
 }
 
-body {
-    font-family: 'Montserrat', sans-serif;
-}
 
 .center {
     position: absolute;
