@@ -21,7 +21,7 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 6. Every user as his personal agenda  -made with JavaScript FullCalendar plugin https://fullcalendar.io/ - 
 
-7. Insert tags for each customer, even add them in a massivly, selecting customers from the customer list. Browse customer lists as point 2.
+7. Insert tags for each customer, even add them massivly, selecting customers from the customer list. Browse customer lists as point 2.
 
 8. Export customer lists to text files selecting customers by tags and customers type (with the possibility to choose the fields to be exported).
 
