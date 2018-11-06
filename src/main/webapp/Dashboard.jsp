@@ -89,31 +89,8 @@
 
 <body class="">
 <div class="wrapper-full-page">
-
-    <%--<div class="sidebar" data-color="green" data-image="resources/logoS.png" data-background-color="white">--%>
-    <%--<!----%>
-    <%--Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"--%>
-
-    <%--Tip 2: you can also add an image using data-image tag--%>
-    <%---->--%>
-    <%--<div class="logo">--%>
-    <%--<img src="/resources/logoSmall.png" width="160" height="80" class="d-inline-block align-top" alt="">--%>
-
-    <%--</div>--%>
-    <%--<div class="sidebar-wrapper">--%>
-    <%--<ul class="nav">--%>
-    <%--&lt;%&ndash;<li class="nav-item active  ">&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<a class="nav-link" href="#0">&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<i class="material-icons">dashboard</i>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<p>Dashboard</p>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;</a>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;</li>&ndash;%&gt;--%>
-    <%--<!-- your sidebar here -->--%>
-    <%--</ul>--%>
-    <%--</div>--%>
-    <%--</div>--%>
     <div class="main-panel">
-        <%--<img src="/resources/logo2.png" class="rounded mx-auto d-block" alt="Responsive image" align="bottom">--%>
+        <img src="/resources/logo2.png" class="rounded mx-auto d-none d-lg-block d-lg-none" alt="Responsive image" align="bottom">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
