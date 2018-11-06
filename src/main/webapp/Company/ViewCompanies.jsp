@@ -24,18 +24,7 @@
     boolean complete = false;
     String status = request.getParameter("status");
 
-    if (status == null) status = "view"; //
-
-    if (status.equals("view")) {
-
-        companyManager.companiesView();
-
-    }
-
-
-    if (status.equals("deleteCompany")) {
-        companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
-    }
+    if (status == null) status = "view";
 
     if (status.equals("insertCompany")) {
         companyManager.insertCompany();
@@ -47,6 +36,17 @@
         }
     }
 
+    if (status.equals("view")) {
+        companyManager.companiesView();
+    }
+
+    if (status.equals("deleteCompany")) {
+        companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
+    }
+
+    if (status.equals("addTag")) {
+        companyManager.addNTagNCompanies();
+    }
     if (companyManager.getResult() == -2) {
         message = companyManager.getErrorMessage();
     }
@@ -922,7 +922,6 @@ $(document).ready(function () {
             })
 
             $('#selectedCompanies').hide(0)
-            e.preventDefault()
 
         });
 
