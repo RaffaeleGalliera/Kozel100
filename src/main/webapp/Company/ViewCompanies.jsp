@@ -117,6 +117,12 @@
 
         }
 
+        .highlightField{
+
+            background-color: rgba(220, 20, 60, 0.65) !important;
+
+        }
+
         #tagBtn{
             display: none;
 
@@ -878,7 +884,11 @@ $(document).ready(function () {
 
         })
 
+        $("#companiesTable thead tr th").click(function(){
 
+            $(this).toggleClass("highlightField")
+
+        })
 
         $("#companiesTable tbody tr").click(function(){
 
