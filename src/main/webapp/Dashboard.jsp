@@ -113,7 +113,7 @@
     <%--</div>--%>
     <%--</div>--%>
     <div class="main-panel">
-        <img src="/resources/logo2.png" class="rounded mx-auto d-block" alt="Responsive image" align="bottom">
+        <%--<img src="/resources/logo2.png" class="rounded mx-auto d-block" alt="Responsive image" align="bottom">--%>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
