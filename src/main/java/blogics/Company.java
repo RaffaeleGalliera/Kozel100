@@ -133,7 +133,7 @@ public class Company {
         }
 
         sql=" UPDATE company "
-                + " SET name=?, client_type_id=" + clientTypeId + ", product_category_id=" + productCategoryId + ", user_id=" + userId + ", vat=?, address=?, city=?, country=?, state=?, zip_code=" + zip + " email=?"
+                + " SET name=?, client_type_id=" + clientTypeId + ", product_category_id=" + productCategoryId + ", user_id=" + userId + ", vat=?, address=?, city=?, country=?, state=?, zip_code=" + zip + ", email=?"
                 +" WHERE company_id="+companyId;
 
         parameters.add(vat);
