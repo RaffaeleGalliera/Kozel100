@@ -40,6 +40,10 @@
         companyManager.companiesView();
     }
 
+    if (status.equals("updateCompany")) {
+        companyManager.updateCompany();
+    }
+
     if (status.equals("deleteCompany")) {
         companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
     }
