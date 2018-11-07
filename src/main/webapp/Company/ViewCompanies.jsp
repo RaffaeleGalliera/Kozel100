@@ -275,7 +275,7 @@
                 </th>
 
                 <td>
-                    <a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%>
+                    <a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%>
                     </a></td>
                 <td><%=companyManager.getCompany(k).country%>
                 </td>
@@ -294,10 +294,10 @@
                     <%}%>
                 </td>
                 <td>
-                    <a class="edit" title="Edit" data-toggle="tooltip"
+                    <a style=" color:#34373b" class="edit" title="Edit" data-toggle="tooltip"
                        href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>','<%=companyManager.getCompany(k).vat%>','<%=companyManager.getCompany(k).email%>','<%=companyManager.getCompany(k).clientTypeId%>','<%=companyManager.getCompany(k).productCategoryId%>','<%=companyManager.getCompany(k).userId%>','<%=companyManager.getCompany(k).country%>','<%=companyManager.getCompany(k).state%>','<%=companyManager.getCompany(k).city%>','<%=companyManager.getCompany(k).zip%>','<%=companyManager.getCompany(k).address%>');"><i
                             class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"
+                    <a style=" color:#34373b"  class="delete" title="Delete" data-toggle="tooltip"
                        href="JavaScript:deleteCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>');"><i
                             class="material-icons">&#xE872;</i></a>
                 </td>

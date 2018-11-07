@@ -163,7 +163,7 @@
                                 <small>Pending</small>
                                 <br>
                                 <%=dashboardManager.getCommercialProposalsStatus(Status.ACCEPTED)%>
-                                <small style="color:#50aa54">Accepted</small>
+                                <small style="color:#45a149">Accepted</small>
                                 <br>
                                 <%=dashboardManager.getCommercialProposalsStatus(Status.REJECTED)%>
                                 <small>Rejected</small>
@@ -275,7 +275,7 @@
                                             </td>
                                             <td><%=dashboardManager.getUserNote(k).title%>
                                             </td>
-                                            <td><a style="font-size:large; color:#50aa54" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).companyId%>');">
+                                            <td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).companyId%>');">
                                                 <%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).name%>
                                             </a></td>
                                         </tr>
@@ -303,7 +303,7 @@
                                             </td>
                                             <td><%=dashboardManager.getOtherUsersNote(k).title%>
                                             </td>
-                                            <td><a style="font-size:large; color:#50aa54"  href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).companyId%>');">
+                                            <td><a style="font-size:large; color:#45a149"  href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).companyId%>');">
                                                 <%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).name%>
                                             </a></td>
                                             <td class="td-actions text-right">
@@ -349,7 +349,7 @@
                                     </td>
                                     <td><%=dashboardManager.getUserAppointment(k).time%>
                                     </td>
-                                    <td><td><a style="font-size:large; color:#50aa54" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
+                                    <td><td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
                                         <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
                                     </td>
                                     <%if (dashboardManager.appointmentToday(dashboardManager.getUserAppointment(k).date)) {%>
@@ -393,7 +393,7 @@
                                 </thead>
                                 <%for (int k = 0; k < nCompanies; k++) {%>
                                 <tr>
-                                    <td><a style="font-size:large; color:#50aa54" href="JavaScript: viewCompany('<%=dashboardManager.getUserCompany(k).companyId%>');">
+                                    <td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getUserCompany(k).companyId%>');">
                                             <%=dashboardManager.getUserCompany(k).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCompany(k).email%>
@@ -440,7 +440,7 @@
                                 <tr>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).name%>
                                     </td>
-                                    <td><a style="font-size:large; color:#50aa54" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).companyId%>');">
+                                    <td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).companyId%>');">
                                         <%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).status%>
