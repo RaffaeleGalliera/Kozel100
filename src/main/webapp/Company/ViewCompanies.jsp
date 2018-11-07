@@ -370,10 +370,12 @@
                             <div class="form-group">
                                 <label for="updateName" class="bmd-label-floating">Name</label>
                                 <%if (message == null) {%>
-                                <input type="text" name="name" maxlength="50" class="form-control" id="updateName" required>
+                                <input type="text" name="name" maxlength="50" class="form-control" id="updateName"
+                                       required>
                                 <%}%>
                                 <%if (message != null) {%>
-                                <input type="text" name="name" maxlength="50" class="form-control is-invalid" id="updateName"
+                                <input type="text" name="name" maxlength="50" class="form-control is-invalid"
+                                       id="updateName"
                                        value="<%=companyManager.getName()%>" required>
                                 <div class="invalid-feedback">
                                     <%=message%>
@@ -410,10 +412,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="updateProductCategoryId" class="bmd-label-floating">Product Category</label>
-                                <select class="form-control" id="updateProductCategoryId" name="productCategoryId" required>
+                                <select class="form-control" id="updateProductCategoryId" name="productCategoryId"
+                                        required>
                                     <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
                                     <%if ((message != null) && (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId())) {%>
-                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>" selected>
+                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>"
+                                            selected>
                                         <%=companyManager.getProductCategory(x).name%>
                                     </option>
                                     <% } %>
@@ -446,40 +450,39 @@
                             <div class="form-group">
                                 <label for="updateCountry" class="bmd-label-floating">Country</label>
                                 <input type="text" name="country" class="form-control" id="updateCountry"
-                                        <%if (message != null)%>value="<%=companyManager.getCountry()%>"
-                                        required></input>
+                                       <%if (message != null)%>value="<%=companyManager.getCountry()%>"
+                                       required>
                             </div>
                             <div class="form-group">
                                 <label for="updateState" class="bmd-label-floating">State</label>
                                 <input type="text" name="state" class="form-control" id="updateState"
-                                        <%if (message != null)%>value="<%=companyManager.getState()%>"
-                                        required></input>
+                                       <%if (message != null)%>value="<%=companyManager.getState()%>"
+                                       required>
                             </div>
                             <div class="form-group">
-                                <label for="city" class="bmd-label-floating">City</label>
+                                <label for="updateCity" class="bmd-label-floating">City</label>
                                 <input type="text" maxlength="50" name="city" class="form-control" id="updateCity"
                                        <%if (message != null)%>value="<%=companyManager.getCity()%>" required>
                             </div>
                             <div class="form-group">
-                                <label for="zip" class="bmd-label-floating">Zip</label>
+                                <label for="updateZip" class="bmd-label-floating">Zip</label>
                                 <input type="number" name="zip" class="form-control" id="updateZip"
                                        <%if (message != null)%>value="<%=companyManager.getZip()%>" required min="111"
                                        max="9999999999">
                             </div>
                             <div class="form-group">
-                                <label for="address" class="bmd-label-floating">Address</label>
+                                <label for="updateAddress" class="bmd-label-floating">Address</label>
                                 <input type="text" maxlength="50" name="address" class="form-control" id="updateAddress"
                                        <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
                             </div>
                             <input type="hidden" name="companyId" value=""/>
+                            <div class="modal-footer">
+                                <input type="hidden" name="status" value="updateCompany"/>
+                                <button type="submit" onclick="update(this.form)" class="btn btn-primary btn-raised">
+                                    Submit
+                                </button>
+                            </div>
                         </form>
-                        <div class="modal-footer">
-                            <button class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-primary btn-raised">
-                                Update
-                            </button>
-                            <input type="hidden" name="status" value="updateCompany"/>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1152,6 +1155,12 @@
     }
 
     function insert(form) {
+
+        form.action = "ViewCompanies.jsp";
+        form.submit();
+    }
+
+    function update(form) {
 
         form.action = "ViewCompanies.jsp";
         form.submit();
