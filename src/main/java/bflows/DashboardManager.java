@@ -167,16 +167,18 @@ public class DashboardManager {
         return false;
     }
 
-    public int getPendingCommercialProposal(){
+
+    public int getCommercialProposalsStatus(Status proposalStatus){
         int c=0;
         int nCommercialProposals = getUserCommercialProposals().map(t -> t.length).orElse(0);
         for(int k=0; k < nCommercialProposals; k++){
-            if (getUserCommercialProposal(k).status== Status.PENDING) {
+            if (getUserCommercialProposal(k).status== proposalStatus) {
                 c++;
             }
         }
         return c;
     }
+
 
     public int getResult() {
         return result;
