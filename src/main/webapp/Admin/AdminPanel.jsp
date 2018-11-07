@@ -41,43 +41,38 @@
     <div class="page-header">
         <div class="jumbotron">
             <h1 class="display-4">Welcome</h1>
-            <p class="lead">This is your administration panel. Here you can add new User, new positions and
-                other useless stuff</p>
+            <p class="lead">This is your administration panel. Here you can add new User, Consulting Services and modify the application's Setup state</p>
             <hr class="my-4">
-            <p>In case of troubles contact the Webmaster.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Contact That Motherfucker</a>
-            </p>
+            <p>In case of troubles contact your Webmaster.</p>
         </div>
     </div>
     <p>
     <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link" href="#usersCard" data-toggle="collapse"
-                            data-target="#usersCard"
-                            aria-expanded="false" aria-controls="usersCard">Users</a></li>
-        <li class="nav-item"><a class="nav-link" href="#workFieldsCard" data-toggle="collapse"
-                                data-target="#workFieldsCard"
-                                aria-expanded="false" aria-controls="workFieldsCard">Work Fields</a></li>
-        <li class="nav-item"><a class="nav-link" href="#positionCard" data-toggle="collapse" data-target="#positionCard"
-                                aria-expanded="false" aria-controls="positionCard">Position</a></li>
-        <li class="nav-item"><a class="nav-link" href="#tagsCard" data-toggle="collapse"
-                                data-target="#tagsCard"
-                                aria-expanded="false" aria-controls="tagsCard">Tag</a></li>
+        <%--<li class="nav-item"><a class="nav-link" href="#usersCard" data-toggle="collapse"--%>
+                            <%--data-target="#usersCard"--%>
+                            <%--aria-expanded="false" aria-controls="usersCard">Users</a></li>--%>
+        <%--<li class="nav-item"><a class="nav-link" href="#workFieldsCard" data-toggle="collapse"--%>
+                                <%--data-target="#workFieldsCard"--%>
+                                <%--aria-expanded="false" aria-controls="workFieldsCard">Work Fields</a></li>--%>
+        <%--<li class="nav-item"><a class="nav-link" href="#positionCard" data-toggle="collapse" data-target="#positionCard"--%>
+                                <%--aria-expanded="false" aria-controls="positionCard">Position</a></li>--%>
+        <%--<li class="nav-item"><a class="nav-link" href="#tagsCard" data-toggle="collapse"--%>
+                                <%--data-target="#tagsCard"--%>
+                                <%--aria-expanded="false" aria-controls="tagsCard">Tag</a></li>--%>
 
-        <li class="nav-item"><a class="nav-link" href="#clientTypesCard" data-toggle="collapse"
-                                data-target="#clientTypesCard"
-                                aria-expanded="false" aria-controls="clientTypesCard">Customer Types</a></li>
-        <li class="nav-item"><a class="nav-link" href="#productCategoryCard" data-toggle="collapse"
-                                data-target="#productCategoryCard"
-                                aria-expanded="false" aria-controls="productCategoryCard">Product Categories</a></li>
-    <li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"
-                            data-target="#consultingServicesCard"
-                            aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a></li>
+        <%--<li class="nav-item"><a class="nav-link" href="#clientTypesCard" data-toggle="collapse"--%>
+                                <%--data-target="#clientTypesCard"--%>
+                                <%--aria-expanded="false" aria-controls="clientTypesCard">Customer Types</a></li>--%>
+        <%--<li class="nav-item"><a class="nav-link" href="#productCategoryCard" data-toggle="collapse"--%>
+                                <%--data-target="#productCategoryCard"--%>
+                                <%--aria-expanded="false" aria-controls="productCategoryCard">Product Categories</a></li>--%>
+    <%--<li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"--%>
+                            <%--data-target="#consultingServicesCard"--%>
+                            <%--aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a></li>--%>
 
-        <%--<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"--%>
-                                <%--aria-expanded="false"--%>
-                                <%--aria-controls="workFieldsCard positionCard tagsCard clientTypesCard">Show--%>
-            <%--All</a></li>--%>
+        <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"
+                                aria-expanded="false"
+                                aria-controls="userCard workFieldsCard positionCard productCategoryCard consultingServicesCard tagsCard clientTypesCard">Show Current Setup</a></li>
     </ul>
     </p>
 
@@ -212,47 +207,6 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="tagsCard">
-                <div class="card card-body">
-                    <div class="container">
-                        <div class="table-wrapper">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form action="Setup/InsertTag.jsp">
-                                        <h2>Tags
-                                            <button style="float:right" type="submit" value="InsertTag"
-                                                    class="btn btn-default">
-                                                +
-                                            </button>
-                                        </h2>
-                                    </form>
-                                </div>
-                            </div>
-                            <table class="col-md-12 table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getTags().length; k++) {%>
-                                <tr>
-                                    <td><%= k + 1 %></td>
-                                    <td><%=adminPanelManager.getTag(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
-                                </tr>
-                                <%}%>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="col">
             <div class="collapse multi-collapse" id="positionCard">
@@ -367,6 +321,47 @@
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getProductCategory(k).name%></td>
+                                    <td>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse multi-collapse" id="tagsCard">
+                <div class="card card-body">
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form action="Setup/InsertTag.jsp">
+                                        <h2>Tags
+                                            <button style="float:right" type="submit" value="InsertTag"
+                                                    class="btn btn-default">
+                                                +
+                                            </button>
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="col-md-12 table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%for (int k = 0; k < adminPanelManager.getTags().length; k++) {%>
+                                <tr>
+                                    <td><%= k + 1 %></td>
+                                    <td><%=adminPanelManager.getTag(k).name%></td>
                                     <td>
                                         <a class="edit" title="Edit" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE254;</i></a>
