@@ -135,8 +135,8 @@
 
 <script>
     $(document).ready(function () {
-        $('#companiesTable').DataTable();
         $('body').bootstrapMaterialDesign();
+        $('#companiesTable').DataTable();
     });
 </script>
 </body>

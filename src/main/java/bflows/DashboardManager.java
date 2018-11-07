@@ -29,6 +29,7 @@ public class DashboardManager {
     private Integer appointmentId = -1;
     private Integer companyId = -1;
 
+    private Conversation[] conversations;
     private Company[] userCompanies;
     private Company[] companies;
     private Appointment[] userAppointments;
@@ -57,6 +58,7 @@ public class DashboardManager {
             users = UserDAO.getAllUsers(database);
             userCompanies = CompanyDAO.getCompaniesByUser(database, userId);
             companies = CompanyDAO.getAllCompanies(database);
+            conversations = ConversationDAO.getAllConversations(database);
 
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
             userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
@@ -140,6 +142,16 @@ public class DashboardManager {
         for (int k = 0; k < (companies.length); k++) {
             if (companies[k].companyId == companyId) {
                 company = companies[k].name;
+            }
+        }
+        return company;
+    }
+
+    public String getCompanyByConversationId(Integer conversationId) {
+        String company = "";
+        for (int k = 0; k < (conversations.length); k++) {
+            if (conversations[k].conversationId == conversationId) {
+                company = getCompanyById(conversations[k].companyId);
             }
         }
         return company;

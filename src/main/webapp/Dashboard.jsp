@@ -268,15 +268,7 @@
                                             </td>
                                             <td><%=dashboardManager.getUserNote(k).title%>
                                             </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-primary btn-link btn-sm">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-link btn-sm">
-                                                    <i class="material-icons">close</i>
-                                                </button>
+                                            <td><%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId)%>
                                             </td>
                                         </tr>
                                         <%}%>
