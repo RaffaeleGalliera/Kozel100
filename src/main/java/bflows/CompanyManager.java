@@ -434,11 +434,12 @@ public class CompanyManager implements java.io.Serializable {
             CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId, commercialProposalUserId);
             commercialProposal.insert(database);
 
-            for (int k = 0; k < consultingServiceIds.length; k++) {
-                ProposalService linkedService = new ProposalService(proposalId, consultingServiceIds[k]);
-                linkedService.insert(database);
+            if(consultingServices!=null) {
+                for (int k = 0; k < consultingServiceIds.length; k++) {
+                    ProposalService linkedService = new ProposalService(proposalId, consultingServiceIds[k]);
+                    linkedService.insert(database);
+                }
             }
-
             //Get all infos
             getAllCompanyInfos(database);
 

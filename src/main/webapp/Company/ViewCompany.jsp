@@ -497,6 +497,7 @@
                             <td>
                                 <%for (ConsultingService s : services) {%>
                                 <%=s.name%>
+                                <br>
                                 <%}%>
                             </td>
                             <%}%>
