@@ -124,10 +124,9 @@ public class CommercialProposal {
         }
 
         sql=" UPDATE commercial_proposal "
-                +" SET name=?, description=?, status+?"
+                +" SET name=?, description=?, status=?"
                 +" WHERE commercial_proposal_id="+commercial_proposal_id;
 
-        parameters.add(name);
         parameters.add(description);
         parameters.add(status.name()); // the name() method returns the name of the enum value as a String
 

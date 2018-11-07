@@ -10,6 +10,7 @@
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="util.Debug" %>
 <%@ page import="blogics.Tag" %>
+<%@ page import="global.Status" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
@@ -83,6 +84,9 @@
     }
     if (status.equals("updateCompanyNote")) {
         companyManager.updateCompanyNote();
+    }
+    if (status.equals("updateCommercialProposal")) {
+        companyManager.updateCommercialProposal();
     }
 
 %>
@@ -259,7 +263,7 @@
                             </td>
                             <td><%=companyManager.getCompanyAppointment(k).note%>
                             </td>
-                            <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
+                            <%--<td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId)%></td>--%>
                             <td><%=companyManager.getCompanyAppointment(k).date%>
                             </td>
                             <td><%=companyManager.getCompanyAppointment(k).time%>
@@ -315,7 +319,7 @@
                             </td>
                             <td><%=companyManager.getConversation(k).date%>
                             </td>
-                            <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            <td><%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
                             </td>
                         </tr>
                         <%}%>
@@ -365,7 +369,7 @@
                             </td>
                             <td><%=companyManager.getCompanyNote(k).note%>
                             </td>
-                            <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
+                            <td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId)%>
                             </td>
                             <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
                             </td>
@@ -473,6 +477,8 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Services</th>
+                            <th>User</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -501,9 +507,14 @@
                                 <%}%>
                             </td>
                             <%}%>
+                            <td><%=companyManager.getUserById(companyManager.getCommercialProposal(k).user_id)%>
+                            <td><%=companyManager.getCommercialProposal(k).status.name()%>
+                            </td>
                             <td>
-                                <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                        class="material-icons">&#xE254;</i></a>
+                                <a class="edit" title="Edit" data-toggle="tooltip"
+                                        href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>', '<%=companyManager.getCommercialProposal(k).name%>', '<%=companyManager.getCommercialProposal(k).description%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
+                                        class="material-icons md-24">&#xE254;</i>
+                                </a>
                             </td>
                         </tr>
                         <%}%>
@@ -732,7 +743,7 @@
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
-                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
                         </option>
                         <% } %>
                     </select>
@@ -779,7 +790,7 @@
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
-                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
                         </option>
                         <% } %>
                     </select>
@@ -917,7 +928,50 @@
         </div>
     </div>
 </div>
-
+<!--Update Proposal Modal -->
+<div class="modal fade" id="updateProposalModal" tabindex="-1" role="dialog" aria-labelledby="updateProposalModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateProposalTitle">Update Proposal Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="updateProposalForm" action="" method="post">
+                    <div class="form-group">
+                        <label for="proposalStatus" class="bmd-label-static">Related Consulting Services</label>
+                        <select class="form-control" name="proposalStatus"
+                                id="proposalStatus">
+                            <option value="<%=Status.PENDING%>">
+                            Pending
+                            </option>
+                            <option value="<%=Status.ACCEPTED%>">
+                            Accepted
+                            </option>
+                            <option value="<%=Status.REJECTED%>">
+                            Refused
+                            </option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="status" value="updateCommercialProposal"/>
+                    <input type="hidden" name="proposalName" value=""/>
+                    <input type="hidden" name="proposalDescription" value=""/>
+                    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                    <input type="hidden" name="commercialProposalId" id="updateCommercialProposalId"
+                           value=""/>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -968,6 +1022,14 @@
         document.updateNoteForm.conversationId.value = conversationId;
         document.updateNoteForm.title.value = title;
         document.updateNoteForm.note.value = note;
+    }
+
+    function updateProposalModal(id, name, description, status) {
+        $('#updateProposalModal').modal('show');
+        document.updateProposalForm.commercialProposalId.value = id;
+        document.updateProposalForm.proposalName.value = name;
+        document.updateProposalForm.proposalDescription.value = description;
+        document.updateProposalForm.proposalStatus.value = status;
     }
 
 
