@@ -137,18 +137,18 @@ public class DashboardManager {
 //
 //    }
 
-    public String getCompanyById(Integer companyId) {
-        String company = "";
+    public Company getCompanyById(Integer companyId) {
+        Company company=null;
         for (int k = 0; k < (companies.length); k++) {
             if (companies[k].companyId == companyId) {
-                company = companies[k].name;
+                company = companies[k];
             }
         }
         return company;
     }
 
-    public String getCompanyByConversationId(Integer conversationId) {
-        String company = "";
+    public Company getCompanyByConversationId(Integer conversationId) {
+        Company company = null;
         for (int k = 0; k < (conversations.length); k++) {
             if (conversations[k].conversationId == conversationId) {
                 company = getCompanyById(conversations[k].companyId);

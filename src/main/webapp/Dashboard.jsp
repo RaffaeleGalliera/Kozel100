@@ -268,8 +268,9 @@
                                             </td>
                                             <td><%=dashboardManager.getUserNote(k).title%>
                                             </td>
-                                            <td><%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId)%>
-                                            </td>
+                                            <td><a style="color:green"  href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).companyId%>');">
+                                                <%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).name%>
+                                            </a></td>
                                         </tr>
                                         <%}%>
                                         <%}%>
@@ -295,6 +296,9 @@
                                             </td>
                                             <td><%=dashboardManager.getOtherUsersNote(k).title%>
                                             </td>
+                                            <td><a style="color:green"  href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).companyId%>');">
+                                                <%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).name%>
+                                            </a></td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task"
                                                         class="btn btn-primary btn-link btn-sm">
@@ -338,7 +342,8 @@
                                     </td>
                                     <td><%=dashboardManager.getUserAppointment(k).time%>
                                     </td>
-                                    <td><%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId)%>
+                                    <td><td><a style="color:green" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
+                                        <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
                                     </td>
                                     <%if (dashboardManager.appointmentToday(dashboardManager.getUserAppointment(k).date)) {%>
                                     <%todayAppointments++;%>
@@ -439,10 +444,12 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
+        <form name="viewCompanyForm" action="Company/ViewCompany.jsp" method="post">
+            <input type="hidden" name="companyId" value=""/>
+            <input type="hidden" name="status" value="view"/>
+        </form>
         <footer class="footer">
             <div class="container-fluid">
                 <div class="copyright float-right">
@@ -498,6 +505,12 @@
         }
     });
     <%}%>
-});</script>
+});
+function viewCompany(id) {
+    document.viewCompanyForm.companyId.value = id;
+    document.viewCompanyForm.submit();
+}
+
+</script>
 </body>
 </html>
