@@ -1,11 +1,11 @@
 package bflows;
 
 import blogics.*;
+import global.Status;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
 
-import javax.xml.crypto.Data;
 import java.util.*;
 import java.sql.Time;
 import java.text.ParseException;
@@ -21,6 +21,7 @@ public class CompanyManager implements java.io.Serializable {
     private int conversationUserId=-1;
     private int conversationNoteUserId=-1;
     private int commercialProposalUserId=-1;
+    private int commercialProposalId=-1;
     private int tagId=-1;
     private Integer companyNoteId = -1;
     private int appointmentId = -1;
@@ -73,6 +74,7 @@ public class CompanyManager implements java.io.Serializable {
     private Map<Integer, ArrayList<Tag>> tagsByCompany;
 
     private CommercialProposal[] commercialProposals;
+    private CommercialProposal commercialProposal;
     private ConsultingService[] consultingServicesPurchased;
     private ConsultingService[] consultingServices;
     private int[] consultingServiceIds;
@@ -82,6 +84,7 @@ public class CompanyManager implements java.io.Serializable {
 
     private String proposalName;
     private String proposalDescription;
+    private Status proposalStatus;
 
     private Map<Integer, ArrayList<ConsultingService>> consultingServicesProposed;
     private Appointment[] companyAppointments;
@@ -434,11 +437,12 @@ public class CompanyManager implements java.io.Serializable {
             CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId, commercialProposalUserId);
             commercialProposal.insert(database);
 
-            for (int k = 0; k < consultingServiceIds.length; k++) {
-                ProposalService linkedService = new ProposalService(proposalId, consultingServiceIds[k]);
-                linkedService.insert(database);
+            if(consultingServices!=null) {
+                for (int k = 0; k < consultingServiceIds.length; k++) {
+                    ProposalService linkedService = new ProposalService(proposalId, consultingServiceIds[k]);
+                    linkedService.insert(database);
+                }
             }
-
             //Get all infos
             getAllCompanyInfos(database);
 
@@ -642,6 +646,44 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
+    public void updateCommercialProposal() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            commercialProposal = CommercialProposalDAO.getProposal(database, commercialProposalId);
+
+            commercialProposal.status = proposalStatus;
+            commercialProposal.name = proposalName;
+            commercialProposal.description = proposalDescription;
+            commercialProposal.update(database);
+
+            getAllCompanyInfos(database);
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Company already exist");
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
+
     public void deleteTag(Integer tagId) {
 
         DataBase database = null;
@@ -788,7 +830,7 @@ public class CompanyManager implements java.io.Serializable {
         return Optional.ofNullable(consultingServicesProposed.get(id));
     }
 
-    public String getConversationUserName(Integer userId) {
+    public String getUserById(Integer userId) {
         String user = "";
         for (int k = 0; k < (users.length); k++) {
             if (users[k].userId == userId) {
@@ -859,7 +901,7 @@ public class CompanyManager implements java.io.Serializable {
         String conversation = "";
         for (int k = 0; k < (conversations.length); k++) {
             if (conversations[k].conversationId == conversationId) {
-                conversation = "Reason: " + conversations[k].reason + "<br>Date: " + conversations[k].date + "<br>Created by: " + getConversationUserName(conversations[k].userId);
+                conversation = "Reason: " + conversations[k].reason + "<br>Date: " + conversations[k].date + "<br>Created by: " + getUserById(conversations[k].userId);
             }
         }
         return conversation;
@@ -1298,5 +1340,21 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setZip(Integer zip) {
         this.zip = zip;
+    }
+
+    public int getCommercialProposalId() {
+        return commercialProposalId;
+    }
+
+    public void setCommercialProposalId(int commercialProposalId) {
+        this.commercialProposalId = commercialProposalId;
+    }
+
+    public Status getProposalStatus() {
+        return proposalStatus;
+    }
+
+    public void setProposalStatus(Status status) {
+        this.proposalStatus = status;
     }
 }

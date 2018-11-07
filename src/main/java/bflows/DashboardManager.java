@@ -29,6 +29,7 @@ public class DashboardManager {
     private Integer appointmentId = -1;
     private Integer companyId = -1;
 
+    private Conversation[] conversations;
     private Company[] userCompanies;
     private Company[] companies;
     private Appointment[] userAppointments;
@@ -57,6 +58,7 @@ public class DashboardManager {
             users = UserDAO.getAllUsers(database);
             userCompanies = CompanyDAO.getCompaniesByUser(database, userId);
             companies = CompanyDAO.getAllCompanies(database);
+            conversations = ConversationDAO.getAllConversations(database);
 
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
             userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
@@ -135,11 +137,21 @@ public class DashboardManager {
 //
 //    }
 
-    public String getCompanyById(Integer companyId) {
-        String company = "";
+    public Company getCompanyById(Integer companyId) {
+        Company company=null;
         for (int k = 0; k < (companies.length); k++) {
             if (companies[k].companyId == companyId) {
-                company = companies[k].name;
+                company = companies[k];
+            }
+        }
+        return company;
+    }
+
+    public Company getCompanyByConversationId(Integer conversationId) {
+        Company company = null;
+        for (int k = 0; k < (conversations.length); k++) {
+            if (conversations[k].conversationId == conversationId) {
+                company = getCompanyById(conversations[k].companyId);
             }
         }
         return company;
@@ -155,16 +167,18 @@ public class DashboardManager {
         return false;
     }
 
-    public int getPendingCommercialProposal(){
+
+    public int getCommercialProposalsStatus(Status proposalStatus){
         int c=0;
         int nCommercialProposals = getUserCommercialProposals().map(t -> t.length).orElse(0);
         for(int k=0; k < nCommercialProposals; k++){
-            if (getUserCommercialProposal(k).status== Status.PENDING) {
+            if (getUserCommercialProposal(k).status== proposalStatus) {
                 c++;
             }
         }
         return c;
     }
+
 
     public int getResult() {
         return result;

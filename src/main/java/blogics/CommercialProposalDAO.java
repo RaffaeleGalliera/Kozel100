@@ -105,6 +105,29 @@ public class CommercialProposalDAO {
 
     }
 
+    public static CommercialProposal getProposal(DataBase db, Integer commercialProposalId) throws NotFoundDBException, ResultSetDBException {
+
+        CommercialProposal commercialProposal = null;
+        String sql;
+        ResultSet rs;
+
+        sql = "SELECT * FROM commercial_proposal WHERE commercial_proposal_id =" + commercialProposalId +"";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                commercialProposal = new CommercialProposal(rs);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("CommercialProposalDAO.getCommercialProposal(): ResultSetDBException: " + ex.getMessage(), db);
+        }
+
+        return commercialProposal;
+
+    }
 }
 
 

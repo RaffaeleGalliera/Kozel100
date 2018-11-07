@@ -40,6 +40,10 @@
         companyManager.companiesView();
     }
 
+    if (status.equals("updateCompany")) {
+        companyManager.updateCompany();
+    }
+
     if (status.equals("deleteCompany")) {
         companyManager.deleteCompany(Integer.parseInt(request.getParameter("companyId")));
     }
@@ -63,10 +67,12 @@
 
     <!-- Material Design for Bootstrap fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Material+Icons" rel="stylesheet">
+
     <!-- Material Design for Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
@@ -76,17 +82,16 @@
 
         .filter {
 
-            background-color: rgba(0,0,0,.05);
+            background-color: rgba(0, 0, 0, .05);
             padding-top: 2%;
             padding-left: 2%;
             padding-right: 2%;
             border-radius: 7px;
             margin-bottom: 2%;
 
-
         }
 
-        #errorCompany{
+        #errorCompany {
 
             width: 60%;
             text-align: center;
@@ -111,24 +116,24 @@
 
         }
 
-        .highlight a{
+        .highlight a {
 
             color: #3c6b3d;
 
         }
 
-        .highlightField{
+        .highlightField {
 
             background-color: rgba(220, 20, 60, 0.65) !important;
 
         }
 
-        #tagBtn{
+        #tagBtn {
             display: none;
 
         }
 
-        #exportBtn{
+        #exportBtn {
             display: none;
 
         }
@@ -160,9 +165,12 @@
                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#insertCompanyModal"><i
                         class="fa fa-plus"></i>Add New
                 </button>
-                <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter</button>
+                <button class="btn btn-outline-secondary" id="toggleFilterButton"><i class="fa fa-plus"></i>Filter
+                </button>
                 <button class="btn btn-outline-secondary" id="exportBtn"><i class="fa fa-plus"></i>Export</button>
-                <button class="btn btn-outline-secondary" id="tagBtn" data-toggle="modal" data-target="#addTag"><i class="fa fa-plus"></i>Tag</button>
+                <button class="btn btn-outline-secondary" id="tagBtn" data-toggle="modal" data-target="#addTag"><i
+                        class="fa fa-plus"></i>Tag
+                </button>
             </h2>
         </div>
 
@@ -181,7 +189,7 @@
                     <select class="form-control" id="clientTypeId" name="clientTypeId">
                         <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
                         <option value="<%=companyManager.getClientType(k).clientTypeId%>">
-                        <%=companyManager.getClientType(k).name%>
+                            <%=companyManager.getClientType(k).name%>
                         </option>
                         <% } %>
                     </select>
@@ -243,8 +251,10 @@
 
         </div>
 
-        <%int nCompanies = companyManager.getCompanies().map(companies -> companies.length ).orElse(0);
-        if(nCompanies>0){%>
+        <%
+            int nCompanies = companyManager.getCompanies().map(companies -> companies.length).orElse(0);
+            if (nCompanies > 0) {
+        %>
         <table class="col-md-12 table table-striped" id="companiesTable">
             <thead class="cf">
             <tr>
@@ -264,7 +274,9 @@
                 <th scope="row"><%= k %>
                 </th>
 
-                <td><a href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%></a></td>
+                <td>
+                    <a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%>
+                    </a></td>
                 <td><%=companyManager.getCompany(k).country%>
                 </td>
                 <td><%=companyManager.getCompany(k).city%>
@@ -275,17 +287,17 @@
                 </td>
                 <td>
                     <%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
-                        <%if ((companyManager.getContactPerson(c).companyId)==(companyManager.getCompany(k).companyId) ){%>
-                        <%=companyManager.getContactPerson(c).fullName()%>
-                        <br>
-                        <%}%>
+                    <%if ((companyManager.getContactPerson(c).companyId) == (companyManager.getCompany(k).companyId)) {%>
+                    <%=companyManager.getContactPerson(c).fullName()%>
+                    <br>
+                    <%}%>
                     <%}%>
                 </td>
                 <td>
-                    <a class="edit" title="Edit" data-toggle="tooltip"
-                       href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>');"><i
+                    <a style=" color:#34373b" class="edit" title="Edit" data-toggle="tooltip"
+                       href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>','<%=companyManager.getCompany(k).vat%>','<%=companyManager.getCompany(k).email%>','<%=companyManager.getCompany(k).clientTypeId%>','<%=companyManager.getCompany(k).productCategoryId%>','<%=companyManager.getCompany(k).userId%>','<%=companyManager.getCompany(k).country%>','<%=companyManager.getCompany(k).state%>','<%=companyManager.getCompany(k).city%>','<%=companyManager.getCompany(k).zip%>','<%=companyManager.getCompany(k).address%>');"><i
                             class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"
+                    <a style=" color:#34373b"  class="delete" title="Delete" data-toggle="tooltip"
                        href="JavaScript:deleteCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>');"><i
                             class="material-icons">&#xE872;</i></a>
                 </td>
@@ -293,7 +305,7 @@
             <%}%>
             </tbody>
         </table>
-        <%}else{%>
+        <%} else {%>
         <div class="jumbotron col-md-12" id="errorCompany">
 
             <h3>No companies found</h3>
@@ -304,10 +316,6 @@
         <form name="deleteCompanyForm" action="ViewCompanies.jsp" method="post">
             <input type="hidden" name="companyId" value=""/>
             <input type="hidden" name="status" value="deleteCompany"/>
-        </form>
-        <form name="updateCompanyForm" action="UpdateCompany.jsp" method="post">
-            <input type="hidden" name="companyId" value=""/>
-            <input type="hidden" name="status" value="view"/>
         </form>
         <form name="viewCompanyForm" action="ViewCompany.jsp" method="post">
             <input type="hidden" name="companyId" value=""/>
@@ -329,7 +337,8 @@
                         <form name="companyManager" id="tagModalForm" action="" method="post">
                             <div class="form-group">
                                 <label for="tagIds" class="bmd-label-floating">Tags</label>
-                                <select class="form-control multipleSelect" name="tagIds" id="tagIds" multiple="multiple">
+                                <select class="form-control multipleSelect" name="tagIds" id="tagIds"
+                                        multiple="multiple">
                                     <%for (int k = 0; k < companyManager.getTags().length; k++) {%>
                                     <option value="<%=companyManager.getTag(k).tagId%>">
                                         <%=companyManager.getTag(k).name%>
@@ -349,8 +358,141 @@
                 </div>
             </div>
         </div>
+        <!--Update Company Modal -->
+        <div class="modal fade" id="updateCompanyModal" tabindex="-1" role="dialog" aria-labelledby="updateCompanyTitle"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateNoteLabel">Update Note</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="updateCompanyForm" action="" method="post">
+                            <div class="form-group">
+                                <label for="updateName" class="bmd-label-floating">Name</label>
+                                <%if (message == null) {%>
+                                <input type="text" name="name" maxlength="50" class="form-control" id="updateName"
+                                       required>
+                                <%}%>
+                                <%if (message != null) {%>
+                                <input type="text" name="name" maxlength="50" class="form-control is-invalid"
+                                       id="updateName"
+                                       value="<%=companyManager.getName()%>" required>
+                                <div class="invalid-feedback">
+                                    <%=message%>
+                                </div>
+                                <%}%>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateVat" class="bmd-label-floating">VAT</label>
+                                <input type="number" name="vat" class="form-control" id="updateVat"
+                                       <%if (message != null)%>value="<%=companyManager.getVat()%>" required
+                                       min="11111111111" max="99999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="updateCompanyEmail" class="bmd-label-floating">Email</label>
+                                <input type="email" name="companyEmail" class="form-control" id="updateCompanyEmail"
+                                       <%if (message != null)%>value="<%=companyManager.getCompanyEmail()%>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateClientTypeId" class="bmd-label-floating">Client Type</label>
+                                <select class="form-control" id="updateClientTypeId" name="clientTypeId" required>
+                                    <%for (int k = 0; k < companyManager.getClientTypes().length; k++) {%>
+                                    <%if ((message != null) && (companyManager.getClientType(k).clientTypeId == companyManager.getClientTypeId())) {%>
+                                    <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
+                                        <%=companyManager.getClientType(k).name%>
+                                    </option>
+                                    <% } %>
+                                    <%if (companyManager.getClientType(k).clientTypeId != companyManager.getClientTypeId()) {%>
+                                    <option value="<%=companyManager.getClientType(k).clientTypeId%>">
+                                        <%=companyManager.getClientType(k).name%>
+                                    </option>
+                                    <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateProductCategoryId" class="bmd-label-floating">Product Category</label>
+                                <select class="form-control" id="updateProductCategoryId" name="productCategoryId"
+                                        required>
+                                    <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
+                                    <%if ((message != null) && (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId())) {%>
+                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>"
+                                            selected>
+                                        <%=companyManager.getProductCategory(x).name%>
+                                    </option>
+                                    <% } %>
+                                    <%if (companyManager.getProductCategory(x).productCategoryId != companyManager.getProductCategoryId()) {%>
+                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>">
+                                        <%=companyManager.getProductCategory(x).name%>
+                                    </option>
+                                    <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
 
-        <!-- Modal -->
+                            <div class="form-group">
+                                <label for="updateUserId" class="bmd-label-floating">Responsible User</label>
+                                <select class="form-control" id="updateUserId" name="userId">
+                                    <%for (int x = 0; x < companyManager.getUsers().length; x++) {%>
+                                    <%if ((message != null) && (companyManager.getUser(x).userId == companyManager.getUserId())) {%>
+                                    <option value="<%=companyManager.getUser(x).userId%>" selected>
+                                        <%=companyManager.getUser(x).fullName()%>
+                                    </option>
+                                    <% } %>
+                                    <%if (companyManager.getUser(x).userId != companyManager.getUserId()) {%>
+                                    <option value="<%=companyManager.getUser(x).userId%>">
+                                        <%=companyManager.getUser(x).fullName()%>
+                                    </option>
+                                    <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateCountry" class="bmd-label-floating">Country</label>
+                                <input type="text" name="country" class="form-control" id="updateCountry"
+                                       <%if (message != null)%>value="<%=companyManager.getCountry()%>"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateState" class="bmd-label-floating">State</label>
+                                <input type="text" name="state" class="form-control" id="updateState"
+                                       <%if (message != null)%>value="<%=companyManager.getState()%>"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateCity" class="bmd-label-floating">City</label>
+                                <input type="text" maxlength="50" name="city" class="form-control" id="updateCity"
+                                       <%if (message != null)%>value="<%=companyManager.getCity()%>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateZip" class="bmd-label-floating">Zip</label>
+                                <input type="number" name="zip" class="form-control" id="updateZip"
+                                       <%if (message != null)%>value="<%=companyManager.getZip()%>" required min="111"
+                                       max="9999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="updateAddress" class="bmd-label-floating">Address</label>
+                                <input type="text" maxlength="50" name="address" class="form-control" id="updateAddress"
+                                       <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
+                            </div>
+                            <input type="hidden" name="companyId" value=""/>
+                            <div class="modal-footer">
+                                <input type="hidden" name="status" value="updateCompany"/>
+                                <button type="submit" onclick="update(this.form)" class="btn btn-primary btn-raised">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Insert Company Modal -->
         <div class="modal fade" id="insertCompanyModal" tabindex="-1" role="dialog" aria-labelledby="insertCompanyTitle"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -409,7 +551,8 @@
                                 <select class="form-control" id="productCategoryId2" name="productCategoryId" required>
                                     <%for (int x = 0; x < companyManager.getProductCategories().length; x++) {%>
                                     <%if ((message != null) && (companyManager.getProductCategory(x).productCategoryId == companyManager.getProductCategoryId())) {%>
-                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>" selected>
+                                    <option value="<%=companyManager.getProductCategory(x).productCategoryId%>"
+                                            selected>
                                         <%=companyManager.getProductCategory(x).name%>
                                     </option>
                                     <% } %>
@@ -512,7 +655,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <!-- Optional JavaScript -->
@@ -532,20 +674,17 @@
 <script>
 
 
+    $(document).ready(function () {
 
 
+        $('body').bootstrapMaterialDesign();
 
-$(document).ready(function () {
+        $('.multipleSelect').css('width', '100%');
+        $('.multipleSelect').select2();
 
+        populateCountries("country", "state");
 
-    $('body').bootstrapMaterialDesign();
-
-    $('.multipleSelect').css('width', '100%');
-    $('.multipleSelect').select2();
-    
-    populateCountries("country", "state");
-
-	if ($('#modal').val() == 1) {
+        if ($('#modal').val() == 1) {
             $('#insertCompanyModal').modal('show');
         }
 
@@ -567,7 +706,7 @@ $(document).ready(function () {
             clientTypeId: "<%=companyManager.getCompany(x).clientTypeId%>",
 
             contacts: [],
-            tags:[]
+            tags: []
         });
 
         <% int nTags = companyManager.getTagsForCompany(companyManager.getCompany(x).companyId).map(t -> t.size()).orElse(0);
@@ -576,19 +715,17 @@ $(document).ready(function () {
             ArrayList<Tag> tagsForCompany = companyManager.getTagsForCompany(companyManager.getCompany(x).companyId).get();
 
         %>
-            <% for(Tag tag : tagsForCompany){ %>
+        <% for(Tag tag : tagsForCompany){ %>
 
-                companies[<%=x%>].tags.push("<%=tag.tagId%>");
-
-            <%}%>
-        <%}%>
-
-
+        companies[<%=x%>].tags.push("<%=tag.tagId%>");
 
         <%}%>
         <%}%>
 
 
+
+        <%}%>
+        <%}%>
 
 
         let contactPeople = [];
@@ -607,9 +744,9 @@ $(document).ready(function () {
 
         companies.forEach((company) => {
 
-            for(let i=0;i<contactPeople.length;i++){
+            for (let i = 0; i < contactPeople.length; i++) {
 
-                if(contactPeople[i].companyId==company.id){
+                if (contactPeople[i].companyId == company.id) {
 
                     company.contacts.push(contactPeople[i].fullName);
 
@@ -620,8 +757,6 @@ $(document).ready(function () {
             //console.log(company);
 
 
-
-
         })
 
         let companiesByUser = companies.slice();
@@ -630,16 +765,16 @@ $(document).ready(function () {
         let companiesByTag = companies.slice();
 
         //Avoid row highlighting when clicking on company name
-        $('#companiesTable tr td a').click(function(event) {
-           event.stopPropagation();
-         });
+        $('#companiesTable tr td a').click(function (event) {
+            event.stopPropagation();
+        });
 
         let selectedCompanies = []
 
         //Metodo chiamato per aggiornare il contenuto della tabella in base ai filtri selezionati
         function refreshTable() {
 
-        	//$.snackbar({content: "This is my awesome snackbar!"});
+            //$.snackbar({content: "This is my awesome snackbar!"});
 
             let filteredCompanies = []
 
@@ -653,20 +788,20 @@ $(document).ready(function () {
                 isPresent = false
 
 
-                for(i=0;i<filteredCompanies.length;i++){
+                for (i = 0; i < filteredCompanies.length; i++) {
 
-                    if(filteredCompanies[i].id == rowId) {
+                    if (filteredCompanies[i].id == rowId) {
 
-                      isPresent = true;
+                        isPresent = true;
 
                     }
 
                 }
-                if(isPresent){
+                if (isPresent) {
 
                     $(this).show(0);
 
-                }else{
+                } else {
 
                     $(this).hide(0);
 
@@ -676,9 +811,9 @@ $(document).ready(function () {
             })
         }
 
-        function empty(array){
+        function empty(array) {
 
-            while(array.length>0){
+            while (array.length > 0) {
 
                 array.pop();
 
@@ -687,13 +822,13 @@ $(document).ready(function () {
         }
 
         //Metodi che eseguono il filtraggio
-        function filterByUserId(userId){
+        function filterByUserId(userId) {
 
             empty(companiesByUser)
 
             companies.forEach((company) => {
 
-                if(company.userId == userId){
+                if (company.userId == userId) {
 
                     companiesByUser.push(company)
 
@@ -703,13 +838,13 @@ $(document).ready(function () {
 
         }
 
-        function filterByProductId(productId){
+        function filterByProductId(productId) {
 
             empty(companiesByProduct)
 
             companies.forEach((company) => {
 
-                if(company.productCategoryId == productId){
+                if (company.productCategoryId == productId) {
 
                     companiesByProduct.push(company)
 
@@ -719,13 +854,13 @@ $(document).ready(function () {
 
         }
 
-        function filterByClientTypeId(typeId){
+        function filterByClientTypeId(typeId) {
 
             empty(companiesByType)
 
             companies.forEach((company) => {
 
-                if(company.clientTypeId == typeId){
+                if (company.clientTypeId == typeId) {
 
                     companiesByType.push(company)
 
@@ -736,7 +871,7 @@ $(document).ready(function () {
 
         }
 
-        function filterByTagId(tagId){
+        function filterByTagId(tagId) {
 
             empty(companiesByTag)
 
@@ -744,7 +879,7 @@ $(document).ready(function () {
 
                 console.log(company.tags.filter(c => tagId.includes(c)))
 
-                if(company.tags.filter(c => tagId.includes(c)).length==tagId.length){
+                if (company.tags.filter(c => tagId.includes(c)).length == tagId.length) {
 
                     companiesByTag.push(company)
 
@@ -756,28 +891,28 @@ $(document).ready(function () {
         }
 
         //Gestione delle azioni sui componenti dell'interfaccia
-        $("#filterForm select[name='clientTypeId']").on("change",function(select) {
+        $("#filterForm select[name='clientTypeId']").on("change", function (select) {
 
             filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val());
             refreshTable();
 
         })
 
-        $("#filterForm select[name='productCategoryId']").on("change",function(select) {
+        $("#filterForm select[name='productCategoryId']").on("change", function (select) {
 
             filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val());
             refreshTable();
 
         })
 
-        $("#filterForm select[name='userId']").on("change",function(select) {
+        $("#filterForm select[name='userId']").on("change", function (select) {
 
             filterByUserId($("#filterForm select[name='userId'] option:selected").val());
             refreshTable();
 
         })
 
-        $("#filterForm select[name='tagId']").on("change",function(select) {
+        $("#filterForm select[name='tagId']").on("change", function (select) {
 
             //console.log($("#filterForm select[name='tagId']").val());
 
@@ -787,17 +922,17 @@ $(document).ready(function () {
         })
 
 
-        $('#filterForm input:checkbox').each(function() {
+        $('#filterForm input:checkbox').each(function () {
 
-            $(this).on("change",function(){
+            $(this).on("change", function () {
 
 
                 checkbox = $(this).attr('id');
 
-                if($(this).val()=="false"){
+                if ($(this).val() == "false") {
                     $(this).val("true");
 
-                    if(checkbox == "filterByType"){
+                    if (checkbox == "filterByType") {
 
                         filterByClientTypeId($("#filterForm select[name='clientTypeId'] option:selected").val())
                         refreshTable()
@@ -807,7 +942,7 @@ $(document).ready(function () {
 
                     }
 
-                    if(checkbox == "filterByUser"){
+                    if (checkbox == "filterByUser") {
 
                         filterByUserId($("#filterForm select[name='userId'] option:selected").val())
                         refreshTable()
@@ -817,7 +952,7 @@ $(document).ready(function () {
 
                     }
 
-                    if(checkbox == "filterByProduct"){
+                    if (checkbox == "filterByProduct") {
 
                         filterByProductId($("#filterForm select[name='productCategoryId'] option:selected").val())
                         refreshTable()
@@ -827,7 +962,7 @@ $(document).ready(function () {
 
                     }
 
-                    if(checkbox == "filterByTag"){
+                    if (checkbox == "filterByTag") {
 
                         filterByTagId($("#filterForm select[name='tagId']").val())
                         refreshTable()
@@ -838,13 +973,13 @@ $(document).ready(function () {
                     }
 
 
-                }else{
+                } else {
 
                     $(this).val("false");
 
-                    if(checkbox == "filterByType"){
+                    if (checkbox == "filterByType") {
 
-                    	companiesByType = companies.slice()
+                        companiesByType = companies.slice()
                         refreshTable()
                         // console.log(companiesByType)
                         // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
@@ -852,9 +987,9 @@ $(document).ready(function () {
 
                     }
 
-                    if(checkbox == "filterByUser"){
+                    if (checkbox == "filterByUser") {
 
-                    	companiesByUser = companies.slice()
+                        companiesByUser = companies.slice()
                         refreshTable()
                         // console.log(companiesByUser)
                         // console.log(companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)))
@@ -862,7 +997,7 @@ $(document).ready(function () {
 
                     }
 
-                    if(checkbox == "filterByProduct"){
+                    if (checkbox == "filterByProduct") {
 
                         companiesByProduct = companies.slice()
                         //console.log(companiesByProduct)
@@ -873,7 +1008,7 @@ $(document).ready(function () {
 
                     }
 
-                    if(checkbox == "filterByTag"){
+                    if (checkbox == "filterByTag") {
 
                         companiesByTag = companies.slice()
                         refreshTable()
@@ -882,24 +1017,23 @@ $(document).ready(function () {
                     }
                 }
 
-                if(checkbox == "filterByType"){
+                if (checkbox == "filterByType") {
                     $('#filterClientTypeGroup').slideToggle(300);
                 }
 
-                if(checkbox == "filterByUser"){
+                if (checkbox == "filterByUser") {
                     $('#filterUserGroup').slideToggle(300);
                 }
 
-                if(checkbox == "filterByProduct"){
+                if (checkbox == "filterByProduct") {
                     $('#filterProductGroup').slideToggle(300);
 
                 }
 
-                if(checkbox == "filterByTag"){
+                if (checkbox == "filterByTag") {
                     $('#filterTagGroup').slideToggle(300);
 
                 }
-
 
 
             })
@@ -907,33 +1041,33 @@ $(document).ready(function () {
 
         })
 
-        $("#companiesTable thead tr th").click(function(){
+        $("#companiesTable thead tr th").click(function () {
 
             $(this).toggleClass("highlightField")
 
         })
 
-        $("#companiesTable tbody tr").click(function(){
+        $("#companiesTable tbody tr").click(function () {
 
             $(this).toggleClass("highlight")
 
-            if(!selectedCompanies.includes($(this).attr("value"))) {
+            if (!selectedCompanies.includes($(this).attr("value"))) {
                 selectedCompanies.push($(this).attr("value"))
-            }else{
+            } else {
 
-                selectedCompanies.splice(selectedCompanies.indexOf($(this).attr("value")),1)
+                selectedCompanies.splice(selectedCompanies.indexOf($(this).attr("value")), 1)
 
             }
 
             //console.log(selectedCompanies.length>0)
             //console.log(selectedCompanies)
 
-            if((selectedCompanies.length) > 0){
+            if ((selectedCompanies.length) > 0) {
 
                 $('#tagBtn').fadeIn(300)
                 $('#exportBtn').fadeIn(300)
 
-            }else{
+            } else {
 
                 $('#tagBtn').fadeOut(300)
                 $('#exportBtn').fadeOut(300)
@@ -944,7 +1078,7 @@ $(document).ready(function () {
 
         })
 
-        $('#tagModalForm').on('submit',function(e){
+        $('#tagModalForm').on('submit', function (e) {
 
             $(this).append('<select id=\"selectedCompanies\" name=\"selectedCompanies\"multiple></select>')
 
@@ -962,19 +1096,17 @@ $(document).ready(function () {
     });
 
 
-    $('#toggleFilterButton').click(function(){
+    $('#toggleFilterButton').click(function () {
 
         $('#filter').slideToggle(300);
 
     });
 
-    $('#exportBtn').click(function(){
+    $('#exportBtn').click(function () {
 
         console.log("Esporto su file...")
 
     });
-
-
 
 
 </script>
@@ -1003,10 +1135,23 @@ $(document).ready(function () {
 
     }
 
-    function updateCompany(id) {
+
+    function updateCompany(id, name, vat, companyEmail, clientTypeId, productCategoryId, userId, country, state, city, zip, address) {
+        $('#updateCompanyModal').modal('show');
         document.updateCompanyForm.companyId.value = id;
-        document.updateCompanyForm.submit();
+        document.updateCompanyForm.name.value = name;
+        document.updateCompanyForm.vat.value = vat;
+        document.updateCompanyForm.companyEmail.value = companyEmail;
+        document.updateCompanyForm.clientTypeId.value = clientTypeId;
+        document.updateCompanyForm.productCategoryId.value = productCategoryId;
+        document.updateCompanyForm.userId.value = userId;
+        document.updateCompanyForm.country.value = country;
+        document.updateCompanyForm.state.value = state;
+        document.updateCompanyForm.city.value = city;
+        document.updateCompanyForm.zip.value = zip;
+        document.updateCompanyForm.address.value = address;
     }
+
 
     function viewCompany(id) {
         document.viewCompanyForm.companyId.value = id;
@@ -1019,8 +1164,11 @@ $(document).ready(function () {
         form.submit();
     }
 
+    function update(form) {
 
-
+        form.action = "ViewCompanies.jsp";
+        form.submit();
+    }
 
 
 </script>

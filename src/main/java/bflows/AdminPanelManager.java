@@ -385,6 +385,7 @@ public class AdminPanelManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
             auditLogs = AuditLogDAO.getAllAuditLogs(database);
+            companies = CompanyDAO.getAllCompanies(database);
             database.commit();
 
         } catch (NotFoundDBException ex) {
@@ -402,6 +403,16 @@ public class AdminPanelManager implements java.io.Serializable {
         }
 
 
+    }
+
+    public Company getCompanyByName(String companyName) {
+        Company company=null;
+        for (int k = 0; k < (companies.length); k++) {
+            if (companies[k].name.equals(companyName)) {
+                company = companies[k];
+            }
+        }
+        return company;
     }
     public String getServiceName(){return serviceName;}
 

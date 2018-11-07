@@ -222,7 +222,7 @@
                 <input type="password" class="form-control" id="password" name="password">
             </div>
             <input type="hidden" name="status" value="login"/>
-            <button type="submit" class="btn btn-outline-success" onclick="login()">Submit</button>
+            <button type="submit" class="btn btn-outline-success  btn-block" onclick="login()">Login</button>
         </form>
 
     </div>

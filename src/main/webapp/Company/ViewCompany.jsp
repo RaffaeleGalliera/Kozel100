@@ -10,6 +10,7 @@
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="util.Debug" %>
 <%@ page import="blogics.Tag" %>
+<%@ page import="global.Status" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
@@ -84,6 +85,9 @@
     if (status.equals("updateCompanyNote")) {
         companyManager.updateCompanyNote();
     }
+    if (status.equals("updateCommercialProposal")) {
+        companyManager.updateCommercialProposal();
+    }
 
 %>
 <!doctype html>
@@ -92,115 +96,24 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Material Design for Bootstrap fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Material+Icons" rel="stylesheet">
-
     <!-- Material Design for Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" href="https://storage.googleapis.com/non-spec-apps/mio-icons/latest/twotone.css">
-    <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
-
     <%--Bootstrap multiselect css--%>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <%--TimePicker css--%>
+    <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.css" rel="stylesheet"/>
+    <%--Common CSS--%>
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <title>Kozel100 CRM</title>
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
-
-<script language="JavaScript">
-
-    function deleteNote(id) {
-
-        r = confirm("Are you sure to delete this Note?");
-
-        if (r === true) {
-            document.deleteNoteForm.companyNoteId.value = id;
-
-            document.deleteNoteForm.submit();
-        }
-        else {
-            return;
-        }
-
-    }
-
-    function updateNoteModal(id, conversationId, title, note) {
-        $('#updateNoteModal').modal('show');
-        document.updateNoteForm.companyNoteId.value = id;
-        document.updateNoteForm.conversationId.value = conversationId;
-        document.updateNoteForm.title.value = title;
-        document.updateNoteForm.note.value = note;
-    }
-
-
-    function pastDate(input) {
-        var GivenDate = input.value;
-        var CurrentDate = new Date();
-        GivenDate = new Date(GivenDate);
-
-        if (GivenDate > CurrentDate) {
-            input.setCustomValidity("Are you John Titor?");
-            return false;
-        } else {
-            input.setCustomValidity('');
-            return true;
-        }
-    }
-
-    function futureDate(input) {
-        var GivenDate = input.value;
-        var CurrentDate = new Date();
-        GivenDate = new Date(GivenDate);
-
-        if (GivenDate < CurrentDate) {
-            input.setCustomValidity("You can't insert past appointments");
-            return false;
-        } else {
-            input.setCustomValidity('');
-            return true;
-        }
-    }
-
-    // function validateAppointmentTime(input) {
-    // //     var time = input.value;
-    // //     givenTime = new Date("01/01/2000"+time);
-    // //     startWorkingTime = new Date("01/01/2000"+"08:00:00");
-    // //     endWorkingTime= new Date("01/01/2000"+"20:00:00");
-    // //
-    // //     if (givenTime > endWorkingTime ) {
-    // //         input.setCustomValidity("Appointments After 20:00 are not accepted");
-    // //         return false;
-    // //     }
-    // //     if (givenTime < startWorkingTime) {
-    // //         input.setCustomValidity("Appointments Before 08:00 are not accepted");
-    // //         return false;
-    // //     } else {
-    // //         input.setCustomValidity('');
-    // //         return true;
-    // //     }
-    // // }
-
-    function deleteTag(id, name) {
-
-        r = confirm("Are you sure you want to delete the " + name + "  Tag?");
-
-        if (r === true) {
-            document.deleteTagForm.tagId.value = id;
-
-            document.deleteTagForm.submit();
-        }
-        else {
-            return;
-        }
-
-    }
-</script>
-
 <div class="container">
     <div class="page-header">
         <h1 class="text-center display-2"><%=companyManager.getCompany().name%>
@@ -350,7 +263,7 @@
                             </td>
                             <td><%=companyManager.getCompanyAppointment(k).note%>
                             </td>
-                            <%--<td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%></td>--%>
+                            <%--<td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId)%></td>--%>
                             <td><%=companyManager.getCompanyAppointment(k).date%>
                             </td>
                             <td><%=companyManager.getCompanyAppointment(k).time%>
@@ -406,7 +319,7 @@
                             </td>
                             <td><%=companyManager.getConversation(k).date%>
                             </td>
-                            <td><%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            <td><%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
                             </td>
                         </tr>
                         <%}%>
@@ -456,7 +369,7 @@
                             </td>
                             <td><%=companyManager.getCompanyNote(k).note%>
                             </td>
-                            <td><%=companyManager.getConversationUserName(companyManager.getCompanyNote(k).userId)%>
+                            <td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId)%>
                             </td>
                             <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
                             </td>
@@ -564,6 +477,8 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Services</th>
+                            <th>User</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -588,12 +503,18 @@
                             <td>
                                 <%for (ConsultingService s : services) {%>
                                 <%=s.name%>
+                                <br>
                                 <%}%>
                             </td>
                             <%}%>
+                            <td><%=companyManager.getUserById(companyManager.getCommercialProposal(k).user_id)%>
+                            <td><%=companyManager.getCommercialProposal(k).status.name()%>
+                            </td>
                             <td>
-                                <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                        class="material-icons">&#xE254;</i></a>
+                                <a class="edit" title="Edit" data-toggle="tooltip"
+                                        href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>', '<%=companyManager.getCommercialProposal(k).name%>', '<%=companyManager.getCommercialProposal(k).description%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
+                                        class="material-icons md-24">&#xE254;</i>
+                                </a>
                             </td>
                         </tr>
                         <%}%>
@@ -822,7 +743,7 @@
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
-                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
                         </option>
                         <% } %>
                     </select>
@@ -851,7 +772,7 @@
     </div>
 </div>
 <!--Update Note Modal -->
-<div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteModal"
+<div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -869,7 +790,7 @@
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
-                            : <%=companyManager.getConversationUserName(companyManager.getConversation(k).userId)%>
+                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
                         </option>
                         <% } %>
                     </select>
@@ -917,7 +838,7 @@
                     </div>
                     <div class="form-group">
                         <label for="appointmentTime" class="bmd-label-floating">Time</label>
-                        <input type="time" name="appointmentTime" class="form-control"
+                        <input type="text"  name="appointmentTime" class="form-control timePicker"
                                id="appointmentTime">
                     </div>
                     <div class="form-group">
@@ -1007,7 +928,50 @@
         </div>
     </div>
 </div>
-
+<!--Update Proposal Modal -->
+<div class="modal fade" id="updateProposalModal" tabindex="-1" role="dialog" aria-labelledby="updateProposalModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateProposalTitle">Update Proposal Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="updateProposalForm" action="" method="post">
+                    <div class="form-group">
+                        <label for="proposalStatus" class="bmd-label-static">Related Consulting Services</label>
+                        <select class="form-control" name="proposalStatus"
+                                id="proposalStatus">
+                            <option value="<%=Status.PENDING%>">
+                            Pending
+                            </option>
+                            <option value="<%=Status.ACCEPTED%>">
+                            Accepted
+                            </option>
+                            <option value="<%=Status.REJECTED%>">
+                            Refused
+                            </option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="status" value="updateCommercialProposal"/>
+                    <input type="hidden" name="proposalName" value=""/>
+                    <input type="hidden" name="proposalDescription" value=""/>
+                    <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
+                    <input type="hidden" name="commercialProposalId" id="updateCommercialProposalId"
+                           value=""/>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -1022,16 +986,114 @@
         crossorigin="anonymous"></script>
 <%--Multiselect javascript--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.js"></script>
 
 
 <script>
     $(document).ready(function () {
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
+        $('.timePicker').timepicker({
+            'disableTextInput':true,
+            'minTime': "07:00am",
+            'maxTime': "08:00pm"
+        });
+        $('body').bootstrapMaterialDesign();
     });
-    $('body').bootstrapMaterialDesign();
-});</script>
+
+    function deleteNote(id) {
+
+        r = confirm("Are you sure to delete this Note?");
+
+        if (r === true) {
+            document.deleteNoteForm.companyNoteId.value = id;
+
+            document.deleteNoteForm.submit();
+        }
+        else {
+            return;
+        }
+
+    }
+
+    function updateNoteModal(id, conversationId, title, note) {
+        $('#updateNoteModal').modal('show');
+        document.updateNoteForm.companyNoteId.value = id;
+        document.updateNoteForm.conversationId.value = conversationId;
+        document.updateNoteForm.title.value = title;
+        document.updateNoteForm.note.value = note;
+    }
+
+    function updateProposalModal(id, name, description, status) {
+        $('#updateProposalModal').modal('show');
+        document.updateProposalForm.commercialProposalId.value = id;
+        document.updateProposalForm.proposalName.value = name;
+        document.updateProposalForm.proposalDescription.value = description;
+        document.updateProposalForm.proposalStatus.value = status;
+    }
 
 
+    function pastDate(input) {
+        var GivenDate = input.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate > CurrentDate) {
+            input.setCustomValidity("Are you John Titor?");
+            return false;
+        } else {
+            input.setCustomValidity('');
+            return true;
+        }
+    }
+
+    function futureDate(input) {
+        var GivenDate = input.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate < CurrentDate) {
+            input.setCustomValidity("You can't insert past appointments");
+            return false;
+        } else {
+            input.setCustomValidity('');
+            return true;
+        }
+    }
+
+    // function validateAppointmentTime(input) {
+    // //     var time = input.value;
+    // //     givenTime = new Date("01/01/2000"+time);
+    // //     startWorkingTime = new Date("01/01/2000"+"08:00:00");
+    // //     endWorkingTime= new Date("01/01/2000"+"20:00:00");
+    // //
+    // //     if (givenTime > endWorkingTime ) {
+    // //         input.setCustomValidity("Appointments After 20:00 are not accepted");
+    // //         return false;
+    // //     }
+    // //     if (givenTime < startWorkingTime) {
+    // //         input.setCustomValidity("Appointments Before 08:00 are not accepted");
+    // //         return false;
+    // //     } else {
+    // //         input.setCustomValidity('');
+    // //         return true;
+    // //     }
+    // // }
+
+    function deleteTag(id, name) {
+
+        r = confirm("Are you sure you want to delete the " + name + "  Tag?");
+
+        if (r === true) {
+            document.deleteTagForm.tagId.value = id;
+
+            document.deleteTagForm.submit();
+        }
+        else {
+            return;
+        }
+
+    }
+</script>
 </body>
 </html>
