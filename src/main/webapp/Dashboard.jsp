@@ -386,7 +386,8 @@
                                 </thead>
                                 <%for (int k = 0; k < nCompanies; k++) {%>
                                 <tr>
-                                    <td><%=dashboardManager.getUserCompany(k).name%>
+                                    <td><a style="color:green" href="JavaScript: viewCompany('<%=dashboardManager.getUserCompany(k).companyId%>');">
+                                            <%=dashboardManager.getUserCompany(k).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCompany(k).email%>
                                     </td>
@@ -432,7 +433,8 @@
                                 <tr>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).name%>
                                     </td>
-                                    <td><%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id)%>
+                                    <td><a style="color:green" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).companyId%>');">
+                                        <%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).status%>
                                     </td>
