@@ -265,6 +265,7 @@
                 <th scope="col">VAT</th>
                 <th scope="col">Email</th>
                 <th scope="col">Contact Reference</th>
+                <th scope="col">Since</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -292,6 +293,8 @@
                     <br>
                     <%}%>
                     <%}%>
+                </td>
+                <td><%=companyManager.getCompany(k).startDate%>
                 </td>
                 <td>
                     <a style=" color:#34373b" class="edit" title="Edit" data-toggle="tooltip"
@@ -391,6 +394,13 @@
                                 <input type="number" name="vat" class="form-control" id="updateVat"
                                        <%if (message != null)%>value="<%=companyManager.getVat()%>" required
                                        min="11111111111" max="99999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="updateCompanyStartDate" class="bmd-label-floating">Start Date</label>
+                                <input type="date" name="companyStartDate" class="form-control"
+                                       id="updateCompanyStartDate" required oninput="pastDate(this)"
+                                       <%if (message != null)%>value="<%=companyManager.getCompanyStartDate()%>"
+                                       required>
                             </div>
                             <div class="form-group">
                                 <label for="updateCompanyEmail" class="bmd-label-floating">Email</label>
@@ -523,6 +533,13 @@
                                 <input type="number" name="vat" class="form-control" id="vat"
                                        <%if (message != null)%>value="<%=companyManager.getVat()%>" required
                                        min="11111111111" max="99999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="companyStartDate" class="bmd-label-floating">Start Date</label>
+                                <input type="date" name="companyStartDate" class="form-control"
+                                       id="companyStartDate" required oninput="pastDate(this)"
+                                       <%if (message != null)%>value="<%=companyManager.getCompanyStartDate()%>"
+                                       required>
                             </div>
                             <div class="form-group">
                                 <label for="companyEmail" class="bmd-label-floating">Email</label>
@@ -1136,7 +1153,7 @@
     }
 
 
-    function updateCompany(id, name, vat, companyEmail, clientTypeId, productCategoryId, userId, country, state, city, zip, address) {
+    function updateCompany(id, name, vat, companyEmail, clientTypeId, productCategoryId, userId, country, state, city, zip, address, date) {
         $('#updateCompanyModal').modal('show');
         document.updateCompanyForm.companyId.value = id;
         document.updateCompanyForm.name.value = name;
@@ -1149,6 +1166,7 @@
         document.updateCompanyForm.state.value = state;
         document.updateCompanyForm.city.value = city;
         document.updateCompanyForm.zip.value = zip;
+        document.updateCompanyForm.companyStartDate.value = date;
         document.updateCompanyForm.address.value = address;
     }
 

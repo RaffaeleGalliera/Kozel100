@@ -389,6 +389,9 @@
                                 <th>
                                     Country
                                 </th>
+                                <th>
+                                    Client Since
+                                </th>
                                 </thead>
                                 <%for (int k = 0; k < nCompanies; k++) {%>
                                 <tr>
@@ -398,6 +401,8 @@
                                     <td><%=dashboardManager.getUserCompany(k).email%>
                                     </td>
                                     <td><%=dashboardManager.getUserCompany(k).country%>
+                                    </td>
+                                    <td><%=dashboardManager.getUserCompany(k).startDate%>
                                     </td>
                                 </tr>
                                 <%}%>

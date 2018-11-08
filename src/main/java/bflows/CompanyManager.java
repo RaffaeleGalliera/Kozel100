@@ -70,6 +70,7 @@ public class CompanyManager implements java.io.Serializable {
     private ContactPerson[] contactPeople;
     private User[] users;
     private User user;
+    private String companyStartDate;
 
     private Map<Integer, ArrayList<Tag>> tagsByCompany;
 
@@ -103,9 +104,11 @@ public class CompanyManager implements java.io.Serializable {
             database = DBService.getDataBase();
 
             //Insert Company
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed = format.parse(companyStartDate);
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, country, state, zip, companyEmail);
+            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, country, state, zip, companyEmail, parsed);
 
             company.insert(database);
             //Insert Contact_Person
@@ -130,6 +133,8 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Company already exist");
+        } catch (ParseException e) {
+            setResult(EService.UNRECOVERABLE_ERROR);
         } finally {
             try {
                 database.close();
@@ -160,6 +165,9 @@ public class CompanyManager implements java.io.Serializable {
             company.clientTypeId=clientTypeId;
             company.productCategoryId=productCategoryId;
             company.userId=userId;
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed = format.parse(companyStartDate);
+            company.startDate = parsed;
             company.update(database);
 
             getAllCompaniesInfo(database);
@@ -177,6 +185,8 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Company already exist");
+        } catch (ParseException e) {
+            setResult(EService.UNRECOVERABLE_ERROR);
         } finally {
             try {
                 database.close();
@@ -1356,5 +1366,13 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setProposalStatus(Status status) {
         this.proposalStatus = status;
+    }
+
+    public String getCompanyStartDate() {
+        return companyStartDate;
+    }
+
+    public void setCompanyStartDate(String companyStartDate) {
+        this.companyStartDate = companyStartDate;
     }
 }
