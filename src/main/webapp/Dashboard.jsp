@@ -140,7 +140,7 @@
                             <p class="card-category">Appointments</p>
                             <h3 class="card-title"><% int nAppointments = dashboardManager.getUserAppointments().map(t -> t.length).orElse(0);%>
                                 <%=nAppointments%>
-                                <small>To do</small>
+                                <small>Scheduled</small>
                             </h3>
                         </div>
                         <div class="card-footer">
@@ -171,7 +171,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">update</i> Just Updated
                             </div>
                         </div>
                     </div>
@@ -271,7 +270,7 @@
                                         <%for (int k = 0; k < c; k++) {%>
                                         <tr>
 
-                                            <td><%=dashboardManager.getUserNote(k).timestamp%>
+                                            <td><%=dashboardManager.getUserNote(k).createdAt%>
                                             </td>
                                             <td><%=dashboardManager.getUserNote(k).title%>
                                             </td>
@@ -299,7 +298,7 @@
                                         <%for (int k = 0; k < c; k++) {%>
                                         <tr>
 
-                                            <td><%=dashboardManager.getOtherUsersNote(k).timestamp%>
+                                            <td><%=dashboardManager.getOtherUsersNote(k).createdAt%>
                                             </td>
                                             <td><%=dashboardManager.getOtherUsersNote(k).title%>
                                             </td>
@@ -408,7 +407,7 @@
                         </div>
                     </div>
                 </div>
-                <%--USer's commercial proposal--%>
+                <%--User's commercial proposal--%>
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="card-header card-header-tabs card-header-success">
@@ -435,6 +434,9 @@
                                 <th>
                                     Status
                                 </th>
+                                <th>
+                                    Last Update
+                                </th>
                                 </thead>
                                 <%for (int k = 0; k < nCommercialProposals; k++) {%>
                                 <tr>
@@ -444,6 +446,8 @@
                                         <%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).status%>
+                                    </td>
+                                    <td><%=dashboardManager.getUserCommercialProposal(k).updatedAt%>
                                     </td>
                                 </tr>
                                 <%}%>
@@ -507,6 +511,19 @@
 
     }, {
         type: 'danger',
+        timer: 2000,
+        placement: {
+            from: 'bottom',
+            align: 'right'
+        }
+    });
+    <%} else{%>
+    $.notify({
+        icon: "calendar_today",
+        message: " <%=dashboardManager.getUser().firstName%> You have No appointments Today"
+
+    }, {
+        type: 'warning',
         timer: 2000,
         placement: {
             from: 'bottom',

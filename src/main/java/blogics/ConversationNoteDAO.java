@@ -85,10 +85,10 @@ public class ConversationNoteDAO {
         ResultSet rs;
         int i=0;
 
-        sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at " +
+        sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at, CN.updated_at " +
                 "FROM conversation_note AS CN JOIN conversation AS C on CN.conversation_id = C.conversation_id " +
                 "WHERE company_id=" + companyId + " AND active_fl=1 " +
-                "ORDER BY CN.created_at DESC";
+                "ORDER BY CN.updated_at DESC";
 
 
         rs=db.select(sql);
@@ -120,10 +120,10 @@ public class ConversationNoteDAO {
         ResultSet rs;
         int i = 0;
 
-        sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at " +
+        sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at, CN.updated_at " +
                 "FROM conversation_note AS CN JOIN conversation AS C on CN.conversation_id = C.conversation_id JOIN company AS CO ON CO.company_id=C.company_id " +
-                "WHERE C.user_id = " + userId + " AND CN.user_id!=" + userId + "" +
-                "ORDER BY CN.created_at DESC";
+                "WHERE C.user_id = " + userId + " AND CN.user_id!=" + userId + " " +
+                "ORDER BY CN.updated_at DESC";
 
         rs = db.select(sql);
 

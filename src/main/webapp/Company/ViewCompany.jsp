@@ -356,7 +356,8 @@
                             <th>Note</th>
                             <th>Author</th>
                             <th>Conversation Referred</th>
-                            <th>Posted at</th>
+                            <th>Posted</th>
+                            <th>Last Update</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -373,7 +374,9 @@
                             </td>
                             <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
                             </td>
-                            <td><%=companyManager.getCompanyNote(k).timestamp%>
+                            <td><%=companyManager.getCompanyNote(k).createdAt%>
+                            </td>
+                            <td><%=companyManager.getCompanyNote(k).updatedAt%>
                             </td>
                             <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
                             <td><a class="edit" title="Edit" data-toggle="tooltip"
@@ -479,6 +482,7 @@
                             <th>Services</th>
                             <th>User</th>
                             <th>Status</th>
+                            <th>Last Update</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -509,6 +513,8 @@
                             <%}%>
                             <td><%=companyManager.getUserById(companyManager.getCommercialProposal(k).user_id)%>
                             <td><%=companyManager.getCommercialProposal(k).status.name()%>
+                            </td>
+                            <td><%=companyManager.getCommercialProposal(k).updatedAt%>
                             </td>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="tooltip"
