@@ -103,7 +103,7 @@ public class ContactPerson {
         }
 
         sql = " UPDATE contact_person "
-                + " SET email=?, firstName=?, lastName=?, phoneNumber=?"
+                + " SET email=?, first_name=?, last_name=?, phone_number=?"
                 + " WHERE contact_person_id=" + contactPersonId;
 
         parameters.add(firstName);
