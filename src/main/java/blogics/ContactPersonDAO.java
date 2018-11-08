@@ -12,9 +12,9 @@ public class ContactPersonDAO {
         
     }
 
-    public static ContactPerson[] getContactPeople(DataBase db, int companyId) throws NotFoundDBException, ResultSetDBException {
+    public static ContactPerson getContactPerson(DataBase db, int companyId) throws NotFoundDBException, ResultSetDBException {
 
-        ContactPerson[] contactPeople=null;
+        ContactPerson contactPerson = null;
         String sql;
         ResultSet rs;
         int i=0;
@@ -26,22 +26,15 @@ public class ContactPersonDAO {
 
         try{
             if(rs.next()){
-                rs.last();
-                contactPeople= new ContactPerson[rs.getRow()];
-                rs.beforeFirst();
-
-                while(rs.next()){
-                    contactPeople[i]=new ContactPerson(rs);
-                    i++;
-                }
+                contactPerson = new ContactPerson(rs);
             }
             rs.close();
         }
         catch(SQLException ex){
-            throw new ResultSetDBException("ContactPersonDAO.getContactPerson(): Errore nel ResultSet: "+ex.getMessage(),db);
+            throw new ResultSetDBException("ContactPersonDAO.GetContactPerson(): ResultSetDBException: " + ex.getMessage(), db);
         }
 
-        return contactPeople;
+        return contactPerson;
 
     }
 

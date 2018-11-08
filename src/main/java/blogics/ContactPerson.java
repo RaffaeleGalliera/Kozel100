@@ -75,4 +75,41 @@ public class ContactPerson {
         database.modify(query,parameters);
 
     }
+
+    public void update(DataBase db) throws NotFoundDBException, ResultSetDBException, DuplicatedRecordDBException {
+
+        String sql;
+        ArrayList<String> parameters = new ArrayList();
+        ResultSet rs;
+        boolean exist;
+
+
+        /*Controllo che il nome aggiornato che sto per inserire non sia già presente*/
+        sql = "SELECT contact_person_id FROM contact_person WHERE contact_person_id<>" + contactPersonId + " AND email=?";
+
+        parameters.add(email);
+
+        rs = db.select(sql, parameters);
+
+        try {
+            exist = rs.next();
+            rs.close();
+        } catch (SQLException e) {
+            throw new ResultSetDBException("ContactPerson.update(): Errore sul ResultSet.");
+        }
+
+        if (exist) {
+            throw new DuplicatedRecordDBException("ContactPerson.update(): Tentativo di inserimento di una contatto già esistente.");
+        }
+
+        sql = " UPDATE contact_person "
+                + " SET email=?, firstName=?, lastName=?, phoneNumber=?"
+                + " WHERE contact_person_id=" + contactPersonId;
+
+        parameters.add(firstName);
+        parameters.add(lastName);
+        parameters.add(phoneNumber);
+
+        db.modify(sql, parameters);
+    }
 }
