@@ -41,16 +41,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Companies
-                </a>
-                <div class="dropdown-menu" aria-labelledby="companyDropdown">
-                    <a class="dropdown-item" href="/Company/ViewCompanies.jsp">View</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Company/InsertContactPerson.jsp">Insert Contact Person</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="../Company/ViewCompanies.jsp">Companies</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../Agenda.jsp">Agenda</a>
