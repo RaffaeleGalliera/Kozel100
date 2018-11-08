@@ -1,15 +1,29 @@
 package bflows;
 
 import blogics.*;
+import com.itextpdf.*;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.parser.clipper.Path;
 import global.Status;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
 import services.errorservice.*;
+import util.Debug;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.*;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.stream.Stream;
 
 public class CompanyManager implements java.io.Serializable {
   
@@ -90,9 +104,114 @@ public class CompanyManager implements java.io.Serializable {
     private Appointment[] companyAppointments;
     private Appointment companyAppointment;
 
+    private String[] selectedFields;
 
     private int result;
     private String errorMessage;
+
+    private void addRows(PdfPTable table) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+
+        for(Integer selectedCompany: selectedCompanies){
+
+            for(Company company: companies){
+
+                if(company.companyId == selectedCompany){
+
+                    for(String field: selectedFields){
+
+                        Class<?> clazz = Company.class;
+                        Debug.println("Class: " + clazz);
+                        Field attribute = clazz.getDeclaredField(field);
+                        String value = (String) attribute.get(company);
+                        table.addCell(value);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    private void addTableHeader(PdfPTable table) {
+        Stream.of(selectedFields)
+                .forEach(columnTitle -> {
+                    PdfPCell header = new PdfPCell();
+                    header.setBackgroundColor(BaseColor.GREEN);
+                    header.setPhrase(new Phrase(columnTitle));
+                    table.addCell(header);
+                });
+    }
+
+    private void addCustomRows(PdfPTable table) throws URISyntaxException, BadElementException, IOException {
+
+
+
+        PdfPCell horizontalAlignCell = new PdfPCell(new Phrase("row 2, col 2"));
+        horizontalAlignCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(horizontalAlignCell);
+
+        PdfPCell verticalAlignCell = new PdfPCell(new Phrase("row 2, col 3"));
+        verticalAlignCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+        table.addCell(verticalAlignCell);
+    }
+
+    public void exportCompanies() {
+
+        DataBase db = null;
+
+        try {
+            db = DBService.getDataBase();
+            getAllCompaniesInfo(db);
+            db.commit();
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("/tmp/Kozel100/iTextTable.pdf"));
+
+            document.open();
+
+            PdfPTable table = new PdfPTable(selectedFields.length);
+            addTableHeader(table);
+            addRows(table);
+            addCustomRows(table);
+
+            document.add(table);
+            document.close();
+
+
+        }
+        catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        }catch(FileNotFoundException ex){
+
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                db.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
+
+
 
     public void insertCompany() {
 
@@ -1356,5 +1475,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setProposalStatus(Status status) {
         this.proposalStatus = status;
+    }
+
+
+    public String[] getSelectedFields() {
+        return selectedFields;
+    }
+
+    public void setSelectedFields(String[] selectedFields) {
+        this.selectedFields = selectedFields;
     }
 }

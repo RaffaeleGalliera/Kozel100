@@ -51,6 +51,11 @@
     if (status.equals("addTag")) {
         companyManager.addNTagNCompanies();
     }
+
+    if (status.equals("exportCompanies")) {
+        companyManager.exportCompanies();
+    }
+
     if (companyManager.getResult() == -2) {
         message = companyManager.getErrorMessage();
     }
@@ -76,6 +81,8 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 
     <style>
@@ -118,13 +125,13 @@
 
         .highlight a {
 
-            color: #3c6b3d;
+            color: #3c6b3d !important;
 
         }
 
         .highlightField {
 
-            background-color: rgba(220, 20, 60, 0.65) !important;
+            background-color: #ededed !important;
 
         }
 
@@ -138,6 +145,29 @@
 
         }
 
+        .selectable{
+
+            cursor: pointer;
+
+        }
+
+        .selectable:hover{
+
+            color: #54a172;
+
+        }
+
+        .selectableError{
+
+            color: #f44336 !important;
+
+        }
+
+        #exportForm{
+
+            display: none;
+
+        }
 
     </style>
 
@@ -259,12 +289,12 @@
             <thead class="cf">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Country</th>
-                <th scope="col">City</th>
-                <th scope="col">VAT</th>
-                <th scope="col">Email</th>
-                <th scope="col">Contact Reference</th>
+                <th scope="col" class="selectable" value="name">Name</th>
+                <th scope="col" class="selectable" value="country">Country</th>
+                <th scope="col" class="selectable" value="city">City</th>
+                <th scope="col" class="selectable" value="vat">VAT</th>
+                <th scope="col" class="selectable" value="email">Email</th>
+                <th scope="col" class="selectable" value="contactReference">Contact Reference</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -657,6 +687,12 @@
         </div>
     </div>
 </div>
+
+<%--export form--%>
+<form name="exportForm" id="exportForm" action="ViewCompanies.jsp" method="post">
+    <input type="hidden" name="status" value="exportCompanies"/>
+</form>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -770,6 +806,7 @@
         });
 
         let selectedCompanies = []
+        let selectedFields = []
 
         //Metodo chiamato per aggiornare il contenuto della tabella in base ai filtri selezionati
         function refreshTable() {
@@ -1041,9 +1078,19 @@
 
         })
 
-        $("#companiesTable thead tr th").click(function () {
+        $("#companiesTable thead tr .selectable").click(function () {
 
             $(this).toggleClass("highlightField")
+
+            if (!selectedFields.includes($(this).attr("value"))) {
+                selectedFields.push($(this).attr("value"))
+            } else {
+
+                selectedFields.splice(selectedFields.indexOf($(this).attr("value")), 1)
+
+            }
+
+            console.log(selectedFields)
 
         })
 
@@ -1092,6 +1139,53 @@
 
         });
 
+        $('#exportBtn').click(function () {
+
+            console.log(selectedCompanies)
+
+            //error animation for no fields selected
+            if(selectedFields.length==0){
+
+                $('#companiesTable thead tr .selectable').addClass('animated tada selectableError').one('animationend',function(){
+
+                    $(this).removeClass('animated tada selectableError')
+
+                });
+
+                $('#exportBtn').addClass('animated pulse btn-outline-danger').one('animationend',function(){
+
+                    $(this).removeClass('animated pulse btn-outline-danger')
+                    $(this).blur()
+
+                });
+
+            }
+
+            else {
+
+
+                $('#exportForm').append('<select id=\"selectedFields\" name=\"selectedFields\"multiple></select>')
+
+                selectedFields.forEach(c => {
+
+                    $('#selectedFields').append('<option value=\"' + c + '\" selected></option>')
+
+                })
+
+
+                $('#exportForm').append('<select id=\"selectedCompanies\" name=\"selectedCompanies\"multiple></select>')
+
+                selectedCompanies.forEach(c => {
+
+                    $('#selectedCompanies').append('<option value=\"' + c + '\" selected></option>')
+
+                })
+
+                $('#exportForm').submit();
+            }
+
+        });
+
 
     });
 
@@ -1102,11 +1196,7 @@
 
     });
 
-    $('#exportBtn').click(function () {
 
-        console.log("Esporto su file...")
-
-    });
 
 
 </script>
