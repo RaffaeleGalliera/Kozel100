@@ -83,6 +83,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet"/>
+    <link href="/css/common.css" rel="stylesheet"/>
 
 
 </head>
@@ -91,7 +92,6 @@
 <body class="">
 <div class="wrapper-full-page">
     <div class="main-panel">
-        <img src="/resources/logo2.png" class="rounded mx-auto d-none d-lg-block d-lg-none" alt="Responsive image" align="bottom">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
