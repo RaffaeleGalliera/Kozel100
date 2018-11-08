@@ -70,12 +70,13 @@ public class CompanyManager implements java.io.Serializable {
     private ContactPerson[] contactPeople;
     private User[] users;
     private User user;
+    private String companyStartDate;
 
     private Map<Integer, ArrayList<Tag>> tagsByCompany;
 
     private CommercialProposal[] commercialProposals;
     private CommercialProposal commercialProposal;
-    private ConsultingService[] consultingServicesPurchased;
+    private Purchase[] consultingServicesPurchased;
     private ConsultingService[] consultingServices;
     private int[] consultingServiceIds;
     private int purchasedServiceId;
@@ -103,9 +104,11 @@ public class CompanyManager implements java.io.Serializable {
             database = DBService.getDataBase();
 
             //Insert Company
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed = format.parse(companyStartDate);
             this.companyId = CompanyDAO.getNewID(database);
 
-            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, country, state, zip, companyEmail);
+            Company company = new Company(companyId, clientTypeId, productCategoryId, userId, name, vat, address, city, country, state, zip, companyEmail, parsed);
 
             company.insert(database);
             //Insert Contact_Person
@@ -130,6 +133,8 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Company already exist");
+        } catch (ParseException e) {
+            setResult(EService.UNRECOVERABLE_ERROR);
         } finally {
             try {
                 database.close();
@@ -160,6 +165,9 @@ public class CompanyManager implements java.io.Serializable {
             company.clientTypeId=clientTypeId;
             company.productCategoryId=productCategoryId;
             company.userId=userId;
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed = format.parse(companyStartDate);
+            company.startDate = parsed;
             company.update(database);
 
             getAllCompaniesInfo(database);
@@ -177,6 +185,8 @@ public class CompanyManager implements java.io.Serializable {
             EService.logAndRecover(ex);
             setResult(EService.RECOVERABLE_ERROR);
             setErrorMessage("Company already exist");
+        } catch (ParseException e) {
+            setResult(EService.UNRECOVERABLE_ERROR);
         } finally {
             try {
                 database.close();
@@ -437,7 +447,7 @@ public class CompanyManager implements java.io.Serializable {
             CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId, commercialProposalUserId);
             commercialProposal.insert(database);
 
-            if(consultingServices!=null) {
+            if (consultingServiceIds.length != 0) {
                 for (int k = 0; k < consultingServiceIds.length; k++) {
                     ProposalService linkedService = new ProposalService(proposalId, consultingServiceIds[k]);
                     linkedService.insert(database);
@@ -803,7 +813,7 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public Optional<ConsultingService[]> getConsultingServicesPurchased() {
+    public Optional<Purchase[]> getConsultingServicesPurchased() {
         return Optional.ofNullable(consultingServicesPurchased);
     }
 
@@ -811,11 +821,11 @@ public class CompanyManager implements java.io.Serializable {
         return Optional.ofNullable(consultingServices[index]);
     }
 
-    public ConsultingService getConsultingServicePurchased(int index) {
+    public Purchase getConsultingServicePurchased(int index) {
         return consultingServicesPurchased[index];
     }
 
-    public void setConsultingServicesPurchased(ConsultingService[] consultingServicesPurchased) {
+    public void setConsultingServicesPurchased(Purchase[] consultingServicesPurchased) {
         this.consultingServicesPurchased = consultingServicesPurchased;
     }
 
@@ -838,6 +848,16 @@ public class CompanyManager implements java.io.Serializable {
             }
         }
         return user;
+    }
+
+    public ConsultingService getServiceByPurchase(Integer serviceId) {
+        ConsultingService service = null;
+        for (int k = 0; k < (consultingServices.length); k++) {
+            if (consultingServices[k].consulting_service_id == serviceId) {
+                service = consultingServices[k];
+            }
+        }
+        return service;
     }
 
 
@@ -905,6 +925,16 @@ public class CompanyManager implements java.io.Serializable {
             }
         }
         return conversation;
+    }
+
+    public ContactPerson getContactPersonByCompanyId(Integer companyId) {
+        ContactPerson contact = null;
+        for (int k = 0; k < (contactPeople.length); k++) {
+            if (contactPeople[k].companyId == companyId) {
+                contact = contactPeople[k];
+            }
+        }
+        return contact;
     }
 
 
@@ -1356,5 +1386,13 @@ public class CompanyManager implements java.io.Serializable {
 
     public void setProposalStatus(Status status) {
         this.proposalStatus = status;
+    }
+
+    public String getCompanyStartDate() {
+        return companyStartDate;
+    }
+
+    public void setCompanyStartDate(String companyStartDate) {
+        this.companyStartDate = companyStartDate;
     }
 }

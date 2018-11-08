@@ -233,10 +233,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Appointments
-                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                   data-target="#addAppointment"><i
-                                        class="material-icons md-48">add_box</i>
-                                </a>
+                                <button style="float:right" type="submit" data-toggle="modal"
+                                        data-target="#addAppointment"
+                                        class="btn btn-default">
+                                    <i class="material-icons md-36">add</i>
+                                </button>
                             </h2>
                         </div>
                     </div>
@@ -287,10 +288,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Conversations
-                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                   data-target="#addConversation"><i
-                                        class="material-icons md-48">add_box</i>
-                                </a>
+                                <button style="float:right" type="submit" data-toggle="modal"
+                                        data-target="#addConversation"
+                                        class="btn btn-default">
+                                    <i class="material-icons md-36">add</i>
+                                </button>
                             </h2>
 
                         </div>
@@ -335,10 +337,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Customer Notes
-                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                   data-target="#addNote"><i
-                                        class="material-icons md-48">add_box</i>
-                                </a>
+                                <button style="float:right" type="submit" data-toggle="modal"
+                                        data-target="#addNote"
+                                        class="btn btn-default">
+                                    <i class="material-icons md-36">add</i>
+                                </button>
                             </h2>
                         </div>
                     </div>
@@ -356,7 +359,8 @@
                             <th>Note</th>
                             <th>Author</th>
                             <th>Conversation Referred</th>
-                            <th>Posted at</th>
+                            <th>Posted</th>
+                            <th>Last Update</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -373,14 +377,16 @@
                             </td>
                             <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
                             </td>
-                            <td><%=companyManager.getCompanyNote(k).timestamp%>
+                            <td><%=companyManager.getCompanyNote(k).createdAt%>
+                            </td>
+                            <td><%=companyManager.getCompanyNote(k).updatedAt%>
                             </td>
                             <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
-                            <td><a class="edit" title="Edit" data-toggle="tooltip"
+                            <td><a style=" color:#34373b" class="edit" title="Add" data-toggle="tooltip"
                                    href="JavaScript: updateNoteModal('<%=companyManager.getCompanyNote(k).conversationNoteId%>', '<%=companyManager.getCompanyNote(k).conversationId%>', '<%=companyManager.getCompanyNote(k).title%>', '<%=companyManager.getCompanyNote(k).note%>');"><i
                                     class="material-icons md-24">&#xE254;</i>
                             </a>
-                                <a class="delete" title="Delete" data-toggle="tooltip"
+                                <a style=" color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
                                    href="JavaScript:deleteNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
                                         class="material-icons md-24">&#xE872;</i>
                                 </a>
@@ -409,10 +415,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Consulting Services
-                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                   data-target="#addServicePurchase"><i
-                                        class="material-icons md-48">add_box</i>
-                                </a>
+                                <button style="float:right" type="submit" data-toggle="modal"
+                                        data-target="#addServicePurchase"
+                                        class="btn btn-default">
+                                    <i style=" color:#34373b" class="material-icons md-36">add</i>
+                                </button>
                             </h2>
                         </div>
                     </div>
@@ -427,7 +434,8 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Actions</th>
+                            <th>Purchase Date</th>
+                            <th>Service Date</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -435,11 +443,11 @@
                         <tr>
                             <td><%= k + 1 %>
                             </td>
-                            <td><%=companyManager.getConsultingServicePurchased(k).name%>
+                            <td><%=companyManager.getServiceByPurchase(companyManager.getConsultingServicePurchased(k).consultingServiceId).name%>
                             </td>
-                            <td>
-                                <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                        class="material-icons">&#xE254;</i></a>
+                            <td><%=companyManager.getConsultingServicePurchased(k).purchaseDate%>
+                            </td>
+                            <td><%=companyManager.getConsultingServicePurchased(k).startDate%>
                             </td>
                         </tr>
                         <%}%>
@@ -457,9 +465,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Commercial Proposals
-                                <a style="float: right" class="add" title="Edit" data-toggle="modal"
+                                <a style="float: right" class="add" title="Add" data-toggle="modal"
                                    data-target="#addCommercialProposal"><i
-                                        class="material-icons md-48">add_box</i>
+                                        class="material-icons md-36">add</i>
                                 </a>
                             </h2>
                         </div>
@@ -479,6 +487,7 @@
                             <th>Services</th>
                             <th>User</th>
                             <th>Status</th>
+                            <th>Last Update</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -510,9 +519,11 @@
                             <td><%=companyManager.getUserById(companyManager.getCommercialProposal(k).user_id)%>
                             <td><%=companyManager.getCommercialProposal(k).status.name()%>
                             </td>
+                            <td><%=companyManager.getCommercialProposal(k).updatedAt%>
+                            </td>
                             <td>
-                                <a class="edit" title="Edit" data-toggle="tooltip"
-                                        href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>', '<%=companyManager.getCommercialProposal(k).name%>', '<%=companyManager.getCommercialProposal(k).description%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
+                                <a style=" color:#34373b" class="edit" title="Add" data-toggle="tooltip"
+                                   href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>', '<%=companyManager.getCommercialProposal(k).name%>', '<%=companyManager.getCommercialProposal(k).description%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
                                         class="material-icons md-24">&#xE254;</i>
                                 </a>
                             </td>
@@ -531,10 +542,11 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Tags
-                                    <a style="float: right" class="add" title="Edit" data-toggle="modal"
-                                       data-target="#addTag"><i
-                                            class="material-icons md-48">add_box</i>
-                                    </a>
+                                    <button style="float:right" type="submit" data-toggle="modal"
+                                            data-target="#addTag"
+                                            class="btn btn-default">
+                                        <i class="material-icons md-36">add</i>
+                                    </button>
                                 </h2>
                             </div>
                         </div>
@@ -560,7 +572,7 @@
                                 <td><%=companyManager.getCompanyTag(k).name%>
                                 </td>
                                 <td>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"
+                                    <a style="color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
                                        href="JavaScript:deleteTag('<%=companyManager.getCompanyTag(k).tagId%>','<%=companyManager.getCompanyTag(k).name%>');"><i
                                             class="material-icons">&#xE872;</i></a>
                                 </td>
@@ -709,7 +721,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addConversation"/>
-                        <input type="hidden" name="companyId" id="companyId"
+                        <input type="hidden" name="companyId" id="companyIdByConversation"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="conversationUserId" id="conversationUserId"
                                value="<%= userId %>"/>
@@ -807,7 +819,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="updateCompanyNote"/>
-                        <input type="hidden" name="companyId" id="companyId"
+                        <input type="hidden" name="companyId" id="companyIdByNote"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="companyNoteId" id="updateCompanyNoteId"
                                value=""/>
@@ -865,7 +877,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
-                        <input type="hidden" name="companyId" id="companyId"
+                        <input type="hidden" name="companyId" id="companyIdByAppointment"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="appointmentUserId" id="appointmentUserId"
                                value="<%= userId %>"/>

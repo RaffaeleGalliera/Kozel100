@@ -1,7 +1,6 @@
 package blogics;
 
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
@@ -14,7 +13,8 @@ public class ConversationNote {
     public int userId;
     public String note;
     public String title;
-    public Timestamp timestamp;
+    public Timestamp createdAt;
+    public Timestamp updatedAt;
 
     public ConversationNote(ResultSet result){
 
@@ -24,9 +24,11 @@ public class ConversationNote {
         try {note=result.getString("note");} catch(SQLException sqle) {}
         try {title=result.getString("title");} catch(SQLException sqle) {}
         try {
-            timestamp = result.getTimestamp("created_at");
+            createdAt = result.getTimestamp("created_at");
         } catch (SQLException sqle) {
         }
+        try {updatedAt=result.getTimestamp("updated_at");} catch(SQLException sqle) {}
+
     }
 
     public ConversationNote(Integer conversationId,Integer userId, String title, String note){

@@ -52,7 +52,8 @@ public class CommercialProposalDAO {
         int i=0;
 
         sql="SELECT * FROM commercial_proposal " +
-                "WHERE user_id="+userId;
+                "WHERE user_id="+userId+" " +
+                "ORDER BY updated_at DESC";
 
         rs=database.select(sql);
 

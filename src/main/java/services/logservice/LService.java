@@ -31,7 +31,7 @@ public class LService{
    
   /** 
    * Scrive un messaggio in coda ad un file di log aggiungendo
-   * in testa un timestamp.
+   * in testa un createdAt.
    * <p>
    * @param logFile File di log su cui scrivere
    * @param logMessage Messaggio da scrivere sul log file

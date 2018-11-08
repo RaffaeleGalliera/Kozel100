@@ -8,6 +8,7 @@ import services.databaseservice.exception.ResultSetDBException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class CommercialProposal {
     public Status status;
     public int company_id;
     public int user_id;
+    public Timestamp updatedAt;
 
     public CommercialProposal(ResultSet result){
 
@@ -28,6 +30,7 @@ public class CommercialProposal {
         try {description=result.getString("description");} catch(SQLException sqle) {}
         try {company_id=result.getInt("company_id");} catch(SQLException sqle) {}
         try {user_id=result.getInt("user_id");} catch(SQLException sqle) {}
+        try {updatedAt=result.getTimestamp("updated_at");} catch(SQLException sqle) {}
 
         try {
 
