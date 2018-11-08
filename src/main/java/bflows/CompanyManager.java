@@ -927,6 +927,16 @@ public class CompanyManager implements java.io.Serializable {
         return conversation;
     }
 
+    public ContactPerson getContactPersonByCompanyId(Integer companyId) {
+        ContactPerson contact = null;
+        for (int k = 0; k < (contactPeople.length); k++) {
+            if (contactPeople[k].companyId == companyId) {
+                contact = contactPeople[k];
+            }
+        }
+        return contact;
+    }
+
 
     public Optional<CommercialProposal[]> getCommercialProposals() {
         return Optional.ofNullable(commercialProposals);
