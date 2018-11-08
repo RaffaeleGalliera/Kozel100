@@ -179,11 +179,14 @@
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <div class="col"><p class="lead">Contact
-                            References:<%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
+                        <div class="col"><p class="lead">
+                            Contact References:
                             <br>
-                            <%=companyManager.getContactPerson(c).fullName()%>
-                            <%}%>
+                            <%=companyManager.getContactPerson().fullName()%>
+                            <br>
+                            Email: <%=companyManager.getContactPerson().email%>
+                            <br>
+                            Phone Number: <%=companyManager.getContactPerson().phoneNumber%>
                         </p></div>
                         <div class="col"><p class="lead">Responsible User:  <%=companyManager.getUser().fullName()%>
                         </p></div>

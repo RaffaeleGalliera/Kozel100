@@ -68,6 +68,7 @@ public class CompanyManager implements java.io.Serializable {
     private Tag[] companyTags;
     private Integer[] tagIds;
     private ContactPerson[] contactPeople;
+    private ContactPerson contactPerson;
     private User[] users;
     private User user;
     private String companyStartDate;
@@ -153,6 +154,7 @@ public class CompanyManager implements java.io.Serializable {
             database = DBService.getDataBase();
 
             company = CompanyDAO.getCompany(database, companyId);
+            contactPerson = ContactPersonDAO.getContactPerson(database, companyId);
 
             company.name=name;
             company.address=address;
@@ -169,6 +171,13 @@ public class CompanyManager implements java.io.Serializable {
             Date parsed = format.parse(companyStartDate);
             company.startDate = parsed;
             company.update(database);
+
+            contactPerson.firstName = firstName;
+            contactPerson.lastName = lastName;
+            contactPerson.email = contactEmail;
+            contactPerson.phoneNumber = phoneNumber;
+            contactPerson.update(database);
+
 
             getAllCompaniesInfo(database);
 
@@ -731,7 +740,7 @@ public class CompanyManager implements java.io.Serializable {
             user = UserDAO.getUser(database, company.userId);
             clientType = ClientTypeDAO.getClientType(database, company.clientTypeId);
             productCategory = ProductCategoryDAO.getProductCategory(database, company.productCategoryId);
-            contactPeople = ContactPersonDAO.getContactPeople(database, companyId);
+            contactPerson = ContactPersonDAO.getContactPerson(database, companyId);
             conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
 
@@ -1248,6 +1257,10 @@ public class CompanyManager implements java.io.Serializable {
 
     public ContactPerson getContactPerson(int index) {
         return contactPeople[index];
+    }
+
+    public ContactPerson getContactPerson() {
+        return contactPerson;
     }
 
 

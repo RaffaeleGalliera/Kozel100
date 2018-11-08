@@ -333,6 +333,9 @@
                                     Email
                                 </th>
                                 <th>
+                                    Contact Reference
+                                </th>
+                                <th>
                                     Country
                                 </th>
                                 <th>
@@ -345,6 +348,8 @@
                                             <%=dashboardManager.getUserCompany(k).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCompany(k).email%>
+                                    </td>
+                                    <td><%= dashboardManager.getContactPersonByCompanyId(dashboardManager.getUserCompany(k).companyId).fullName()%>
                                     </td>
                                     <td><%=dashboardManager.getUserCompany(k).country%>
                                     </td>
