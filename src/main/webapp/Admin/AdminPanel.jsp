@@ -88,7 +88,7 @@
                                         <h2>Consulting Services
                                             <button style="float:right" type="submit" value="Tag"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -131,7 +131,7 @@
                                         <h2>Users
                                             <button style="float:right" type="submit" value="InsertUser"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -175,7 +175,7 @@
                                         <h2>Work Fields
                                             <button style="float:right" type="submit" value="InsertWorkField"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -219,7 +219,7 @@
                                         <h2>Positions
                                             <button style="float:right" type="submit" value="InsertPosition"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -260,7 +260,7 @@
                                         <h2>Customer Types
                                             <button style="float:right" type="submit" value="InsertClientType"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -301,7 +301,7 @@
                                         <h2>Product Categories
                                             <button style="float:right" type="submit" value="Tag"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -343,7 +343,7 @@
                                         <h2>Tags
                                             <button style="float:right" type="submit" value="InsertTag"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>

@@ -76,7 +76,7 @@ public class CompanyManager implements java.io.Serializable {
 
     private CommercialProposal[] commercialProposals;
     private CommercialProposal commercialProposal;
-    private ConsultingService[] consultingServicesPurchased;
+    private Purchase[] consultingServicesPurchased;
     private ConsultingService[] consultingServices;
     private int[] consultingServiceIds;
     private int purchasedServiceId;
@@ -447,7 +447,7 @@ public class CompanyManager implements java.io.Serializable {
             CommercialProposal commercialProposal = new CommercialProposal(proposalId, proposalName, proposalDescription, companyId, commercialProposalUserId);
             commercialProposal.insert(database);
 
-            if(consultingServices!=null) {
+            if (consultingServiceIds.length != 0) {
                 for (int k = 0; k < consultingServiceIds.length; k++) {
                     ProposalService linkedService = new ProposalService(proposalId, consultingServiceIds[k]);
                     linkedService.insert(database);
@@ -813,7 +813,7 @@ public class CompanyManager implements java.io.Serializable {
     }
 
 
-    public Optional<ConsultingService[]> getConsultingServicesPurchased() {
+    public Optional<Purchase[]> getConsultingServicesPurchased() {
         return Optional.ofNullable(consultingServicesPurchased);
     }
 
@@ -821,11 +821,11 @@ public class CompanyManager implements java.io.Serializable {
         return Optional.ofNullable(consultingServices[index]);
     }
 
-    public ConsultingService getConsultingServicePurchased(int index) {
+    public Purchase getConsultingServicePurchased(int index) {
         return consultingServicesPurchased[index];
     }
 
-    public void setConsultingServicesPurchased(ConsultingService[] consultingServicesPurchased) {
+    public void setConsultingServicesPurchased(Purchase[] consultingServicesPurchased) {
         this.consultingServicesPurchased = consultingServicesPurchased;
     }
 
@@ -848,6 +848,16 @@ public class CompanyManager implements java.io.Serializable {
             }
         }
         return user;
+    }
+
+    public ConsultingService getServiceByPurchase(Integer serviceId) {
+        ConsultingService service = null;
+        for (int k = 0; k < (consultingServices.length); k++) {
+            if (consultingServices[k].consulting_service_id == serviceId) {
+                service = consultingServices[k];
+            }
+        }
+        return service;
     }
 
 

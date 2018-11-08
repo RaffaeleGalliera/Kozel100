@@ -58,7 +58,7 @@
             <%if (isAdmin) {%>
             <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
                                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Admin Panel
+                Admin
             </a>
                 <div class="dropdown-menu" aria-labelledby="adminDropdown">
                     <a class="dropdown-item" href="/Admin/AdminPanel.jsp">Panel</a>
@@ -66,28 +66,7 @@
                     <a class="dropdown-item" href="/Admin/Audit.jsp">Audit Logging</a>
                 </div>
             </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Insert Setup
-                </a>
-                <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                    <a class="dropdown-item" href="/Admin/InsertUser.jsp">User</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Admin/InsertClientType.jsp">Client Type</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Admin/InsertPosition.jsp">Position</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Admin/InsertWorkField.jsp">Work Field</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Admin/InsertProductCategory.jsp">Product Category</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Admin/InsertTag.jsp">Tag</a>
-                </div>
-            </li>
             <%}%>
-
         </ul>
         <%--<form class="form-inline my-2 my-lg-0">--%>
         <%--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--%>
