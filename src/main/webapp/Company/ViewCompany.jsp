@@ -235,7 +235,7 @@
                             <h2>Appointments
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                    data-target="#addAppointment"><i
-                                        class="material-icons md-48">add_box</i>
+                                        class="material-icons md-36">add</i>
                                 </a>
                             </h2>
                         </div>
@@ -289,7 +289,7 @@
                             <h2>Conversations
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                    data-target="#addConversation"><i
-                                        class="material-icons md-48">add_box</i>
+                                        class="material-icons md-36">add</i>
                                 </a>
                             </h2>
 
@@ -337,7 +337,7 @@
                             <h2>Customer Notes
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                    data-target="#addNote"><i
-                                        class="material-icons md-48">add_box</i>
+                                        class="material-icons md-36">add</i>
                                 </a>
                             </h2>
                         </div>
@@ -414,7 +414,7 @@
                             <h2>Consulting Services
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                    data-target="#addServicePurchase"><i
-                                        class="material-icons md-48">add_box</i>
+                                        class="material-icons md-36">add</i>
                                 </a>
                             </h2>
                         </div>
@@ -462,7 +462,7 @@
                             <h2>Commercial Proposals
                                 <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                    data-target="#addCommercialProposal"><i
-                                        class="material-icons md-48">add_box</i>
+                                        class="material-icons md-36">add</i>
                                 </a>
                             </h2>
                         </div>
@@ -539,7 +539,7 @@
                                 <h2>Tags
                                     <a style="float: right" class="add" title="Edit" data-toggle="modal"
                                        data-target="#addTag"><i
-                                            class="material-icons md-48">add_box</i>
+                                            class="material-icons md-36">add</i>
                                     </a>
                                 </h2>
                             </div>
