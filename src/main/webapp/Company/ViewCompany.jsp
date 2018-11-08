@@ -436,7 +436,6 @@
                             <th>Name</th>
                             <th>Purchase Date</th>
                             <th>Service Date</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -449,10 +448,6 @@
                             <td><%=companyManager.getConsultingServicePurchased(k).purchaseDate%>
                             </td>
                             <td><%=companyManager.getConsultingServicePurchased(k).startDate%>
-                            </td>
-                            <td>
-                                <a style=" color:#34373b" class="delete" title="Delete" data-toggle="tooltip"><i
-                                        class="material-icons md-24">&#xE872;</i>
                             </td>
                         </tr>
                         <%}%>
@@ -577,7 +572,7 @@
                                 <td><%=companyManager.getCompanyTag(k).name%>
                                 </td>
                                 <td>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"
+                                    <a style="color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
                                        href="JavaScript:deleteTag('<%=companyManager.getCompanyTag(k).tagId%>','<%=companyManager.getCompanyTag(k).name%>');"><i
                                             class="material-icons">&#xE872;</i></a>
                                 </td>
