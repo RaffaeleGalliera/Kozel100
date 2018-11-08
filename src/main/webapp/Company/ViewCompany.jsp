@@ -715,7 +715,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addConversation"/>
-                        <input type="hidden" name="companyId" id="companyId"
+                        <input type="hidden" name="companyId" id="companyIdByConversation"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="conversationUserId" id="conversationUserId"
                                value="<%= userId %>"/>
@@ -813,7 +813,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="updateCompanyNote"/>
-                        <input type="hidden" name="companyId" id="companyId"
+                        <input type="hidden" name="companyId" id="companyIdByNote"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="companyNoteId" id="updateCompanyNoteId"
                                value=""/>
@@ -871,7 +871,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
-                        <input type="hidden" name="companyId" id="companyId"
+                        <input type="hidden" name="companyId" id="companyIdByAppointment"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="appointmentUserId" id="appointmentUserId"
                                value="<%= userId %>"/>
