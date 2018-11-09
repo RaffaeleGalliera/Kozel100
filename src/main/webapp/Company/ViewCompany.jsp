@@ -180,7 +180,7 @@
                     <hr class="my-4">
                     <div class="row">
                         <div class="col"><p class="lead">
-                            Contact References:
+                            <b>Contact References:</b>
                             <br>
                             <%=companyManager.getContactPerson().fullName()%>
                             <br>
@@ -188,26 +188,29 @@
                             <br>
                             Phone Number: <%=companyManager.getContactPerson().phoneNumber%>
                         </p></div>
-                        <div class="col"><p class="lead">Responsible User:  <%=companyManager.getUser().fullName()%>
+                        <div class="col"><p class="lead">
+                            <b>Responsible User:</b><%=companyManager.getUser().fullName()%>
+                            <br>
+                            <b>Client Since: </b><%=companyManager.getStartDate()%>
                         </p></div>
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%>
+                        <div class="col"><p class="lead"><b>Customer Type:</b> <%=companyManager.getClientType().name%>
                         </p></div>
-                        <div class="col"><p class="lead">Product Category: <%=companyManager.getProductCategory().name%>
-                        </p></div>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <div class="col"><p class="lead">Address: <%=companyManager.getCompany().address%>
-                        </p></div>
-                        <div class="col"><p class="lead">City: <%=companyManager.getCompany().city%>
+                        <div class="col"><p class="lead"><b>Product Category:</b> <%=companyManager.getProductCategory().name%>
                         </p></div>
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <div class="col"><p class="lead">VAT: <%=companyManager.getCompany().vat%>
+                        <div class="col"><p class="lead"><b>Address:</b><%=companyManager.getCompany().address%>
+                        </p></div>
+                        <div class="col"><p class="lead"><b>City:</b> <%=companyManager.getCompany().city%>
+                        </p></div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col"><p class="lead"><b>VAT:</b> <%=companyManager.getCompany().vat%>
                         </p>
                         </div>
                         <div class="col">
