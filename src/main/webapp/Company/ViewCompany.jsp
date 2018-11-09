@@ -107,7 +107,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <%--TimePicker css--%>
     <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.css" rel="stylesheet"/>
-    <%--Common CSS--%>
+<%--Common CSS--%>
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <title>Kozel100 CRM</title>
@@ -1017,7 +1017,12 @@
 <script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.js"></script>
 
 
+
 <script>
+    $('#updateNoteModal').on('shown.bs.modal', function() {
+        $('#updatedTitle').focus();
+    })
+
     $(document).ready(function () {
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
