@@ -387,7 +387,7 @@
                             </td>
                             <td><%=companyManager.getCompanyNote(k).updatedAt%>
                             </td>
-                            <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
+                            <%if ((isAdmin) || (userId == companyManager.getCompanyNote(k).userId)) {%>
                             <td><a style=" color:#34373b" class="edit" title="Add" data-toggle="tooltip"
                                    href="JavaScript: updateNoteModal('<%=companyManager.getCompanyNote(k).conversationNoteId%>', '<%=companyManager.getCompanyNote(k).conversationId%>', '<%=companyManager.getCompanyNote(k).title%>', '<%=companyManager.getCompanyNote(k).note%>');"><i
                                     class="material-icons md-24">&#xE254;</i>
@@ -398,9 +398,11 @@
                                 </a>
                             </td>
                             <%} else {%>
-                            <a class="highlight_off" title="noPermission" data-toggle="tooltip"><i
-                                    class="material-icons">highlight_off</i>
+                            <td>
+                            <a class="highlight_off" title="That's Not your Note" data-toggle="tooltip"><i
+                                    class="material-icons md-24">highlight_off</i>
                             </a>
+                            </td>
                             <%}%>
                         </tr>
                         <%}%>
