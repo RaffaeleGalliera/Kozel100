@@ -1,7 +1,6 @@
 package bflows;
 
 import blogics.*;
-import com.itextpdf.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -26,6 +25,8 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.stream.Stream;
+
+import static global.Constants.LOG_DIR;
 
 public class CompanyManager implements java.io.Serializable {
   
@@ -166,7 +167,7 @@ public class CompanyManager implements java.io.Serializable {
 
         try {
 
-            File pdf = new File("/tmp/Kozel100/companies.pdf");
+            File pdf = new File(LOG_DIR+"companies.pdf");
             Files.deleteIfExists(pdf.toPath());
 
             db = DBService.getDataBase();
@@ -174,7 +175,7 @@ public class CompanyManager implements java.io.Serializable {
             db.commit();
 
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("/tmp/Kozel100/companies.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(LOG_DIR+"companies.pdf"));
 
             document.open();
 

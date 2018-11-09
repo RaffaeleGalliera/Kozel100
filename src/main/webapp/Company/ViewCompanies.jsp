@@ -16,6 +16,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="blogics.Tag" %>
+<%@ page import="static global.Constants.LOG_DIR" %>
 
 
 <%
@@ -57,7 +58,7 @@
         companyManager.exportCompanies();
 
         String filename = "companies.pdf";
-        String filepath = "/tmp/Kozel100/";
+        String filepath = LOG_DIR;
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition","inline; filename=\"" + filename + "\"");
 
