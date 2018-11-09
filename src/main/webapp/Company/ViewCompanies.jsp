@@ -761,7 +761,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
-                                    <input type="tel" maxlength="13" name="phoneNumber" class="form-control"
+                                    <input type="tel" type='tel' pattern='[\+]\d{12}' title='Phone Number (Format: +999999999999)' name="phoneNumber" class="form-control"
                                            id="phoneNumber"
                                            <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>"
                                            required>

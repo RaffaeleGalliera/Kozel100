@@ -682,7 +682,7 @@
 
                     <div class="form-group">
                         <label for="purchaseDate" class="bmd-label-floating">Purchase Date</label>
-                        <input type="date" name="purchaseDate" class="form-control"
+                        <input type="date" placeholder="false" name="purchaseDate" class="form-control"
                                id="purchaseDate" oninput="pastDate(this)" required>
                     </div>
 
