@@ -203,10 +203,18 @@
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <div class="col"><p class="lead"><b>Address:</b><%=companyManager.getCompany().address%>
+                        <div class="col"><p class="lead"><b>Country:</b> <%=companyManager.getCompany().country%>
+                            <br>
+                            <b>State:</b> <%=companyManager.getCompany().state%>
                         </p></div>
-                        <div class="col"><p class="lead"><b>City:</b> <%=companyManager.getCompany().city%>
-                        </p></div>
+                        <div class="col"><p class="lead">
+                            <b>Address:</b><%=companyManager.getCompany().address%>
+                            <br>
+                            <b>City:</b> <%=companyManager.getCompany().city%>
+                            <br>
+                            <b>Zip:</b><%=companyManager.getCompany().zip%>
+                        </p>
+                        </div>
                     </div>
                     <hr class="my-4">
                     <div class="row">
