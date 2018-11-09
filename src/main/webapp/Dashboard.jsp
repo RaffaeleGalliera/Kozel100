@@ -208,7 +208,7 @@
                                         <tbody>
                                         <%if (nUserNotes == 0) {%>
                                         <div class="jumbotron">
-                                            <h4 class="display-4"> No Comments on your Companies yet</h4>
+                                            <h6>You didn't write notes yet</h6>
                                         </div>
                                         <%} else {%>
                                         <%int c = nUserNotes;%>
