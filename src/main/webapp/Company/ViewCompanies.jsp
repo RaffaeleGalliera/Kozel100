@@ -16,7 +16,9 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="blogics.Tag" %>
+<%@ page import="static global.Constants.LOG_DIR" %>
 <%@ page import="blogics.ContactPerson" %>
+
 
 
 <%
@@ -52,6 +54,27 @@
     if (status.equals("addTag")) {
         companyManager.addNTagNCompanies();
     }
+
+    if (status.equals("exportCompanies")) {
+
+        companyManager.exportCompanies();
+
+        String filename = "companies.pdf";
+        String filepath = LOG_DIR;
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition","inline; filename=\"" + filename + "\"");
+
+        java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath + filename);
+
+        int i;
+        byte[] buffer = new byte[1048];
+
+        while ((i=fileInputStream.read(buffer)) != -1) {
+            response.getOutputStream().write(buffer,0,i);
+        }
+        fileInputStream.close();
+    }
+
     if (companyManager.getResult() == -2) {
         message = companyManager.getErrorMessage();
     }
@@ -77,6 +100,8 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 
     <style>
@@ -119,13 +144,13 @@
 
         .highlight a {
 
-            color: #3c6b3d;
+            color: #3c6b3d !important;
 
         }
 
         .highlightField {
 
-            background-color: rgba(220, 20, 60, 0.65) !important;
+            background-color: #ededed !important;
 
         }
 
@@ -139,6 +164,63 @@
 
         }
 
+        .selectable{
+
+            cursor: pointer;
+
+        }
+
+        .selectable:hover{
+
+            color: #54a172;
+
+        }
+
+        .selectableError{
+
+            color: rgba(220, 20, 60, 0.78) !important;
+
+        }
+
+        #exportForm{
+
+            display: none;
+
+        }
+
+        tr{
+
+            cursor: pointer;
+
+        }
+
+        .successSnackbar {
+            min-width: 250px; /* Set a default minimum width */
+            margin-left: -125px; /* Divide value of min-width by 2 */
+            background-color: #54a172;
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 7px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+        }
+
+        .errorSnackbar {
+            min-width: 250px; /* Set a default minimum width */
+            margin-left: -125px; /* Divide value of min-width by 2 */
+            background-color: rgba(220, 20, 60, 0.78);
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 7px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+        }
 
     </style>
 
@@ -152,10 +234,9 @@
 
 <div class="container">
     <%if (complete) {%>
-    <div class="jumbotron">
-        <h2>Company successfully added!</h2>
-    </div>
+    <div id="complete" value="true" style="display: none"><%=complete%></div>
     <%}%>
+
     <div class="row">
         <div class="col-md-12">
 
@@ -260,13 +341,12 @@
             <thead class="cf">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Country</th>
-                <th scope="col">City</th>
-                <th scope="col">VAT</th>
-                <th scope="col">Email</th>
-                <th scope="col">Contact Reference</th>
-                <th scope="col">Since</th>
+                <th scope="col" class="selectable" value="name">Name</th>
+                <th scope="col" class="selectable" value="country">Country</th>
+                <th scope="col" class="selectable" value="city">City</th>
+                <th scope="col" class="selectable" value="vat">VAT</th>
+                <th scope="col" class="selectable" value="email">Email</th>
+                <th scope="col" class="selectable" value="contactReference">Contact Reference</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -707,6 +787,12 @@
         </div>
     </div>
 </div>
+
+<%--export form--%>
+<form name="exportForm" id="exportForm" action="ViewCompanies.jsp" method="post" target="_blank">
+    <input type="hidden" name="status" value="exportCompanies"/>
+</form>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -736,6 +822,12 @@
 
         if ($('#modal').val() == 1) {
             $('#insertCompanyModal').modal('show');
+        }
+
+        if($('#complete').text()){
+
+            snackbar("Compnay successfully added","successSnackbar")
+
         }
 
         //Inserimento delle compagnie in struttura dati JS
@@ -819,18 +911,48 @@
             event.stopPropagation();
         });
 
+        function snackbar(message,type){
+
+            $('body').append('<div id=\"snackbar\">'+message+'</div>')
+            $('#snackbar').addClass(type)
+            $('#snackbar').addClass('animated fadeInUp').one('animationend',function(){
+
+                $(this).removeClass('animated fadeInUp')
+
+                setTimeout(function(){
+
+                    $('#snackbar').addClass('animated fadeOutDown').one('animationend',function(){
+
+                        $(this).removeClass('animated fadeOutDown')
+                        $(this).remove()
+
+                    })
+
+                },2000)
+
+            });
+
+        }
+
         let selectedCompanies = []
+        let selectedFields = []
 
         //Metodo chiamato per aggiornare il contenuto della tabella in base ai filtri selezionati
         function refreshTable() {
 
-            //$.snackbar({content: "This is my awesome snackbar!"});
 
             let filteredCompanies = []
 
             filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)).filter(z => companiesByTag.includes(z))
 
-            // console.log(filteredCompanies)
+            $('#companiesTable thead').show(0)
+
+            if(filteredCompanies.length==0){
+
+                $('#companiesTable thead').hide(0)
+                snackbar("No companies matching the criteria","errorSnackbar")
+
+            }
 
             $("#companiesTable tbody tr").each(function () {
 
@@ -1091,9 +1213,19 @@
 
         })
 
-        $("#companiesTable thead tr th").click(function () {
+        $("#companiesTable thead tr .selectable").click(function () {
 
             $(this).toggleClass("highlightField")
+
+            if (!selectedFields.includes($(this).attr("value"))) {
+                selectedFields.push($(this).attr("value"))
+            } else {
+
+                selectedFields.splice(selectedFields.indexOf($(this).attr("value")), 1)
+
+            }
+
+            console.log(selectedFields)
 
         })
 
@@ -1142,6 +1274,56 @@
 
         });
 
+        $('#exportBtn').click(function () {
+
+            console.log(selectedFields)
+            console.log(selectedCompanies)
+            //error animation for no fields selected
+            if(selectedFields.length==0){
+
+                $('#companiesTable thead tr .selectable').addClass('animated tada selectableError').one('animationend',function(){
+
+                    $(this).removeClass('animated tada selectableError')
+
+                });
+
+                $('#exportBtn').addClass('animated pulse btn-outline-danger').one('animationend',function(){
+
+                    $(this).removeClass('animated pulse btn-outline-danger')
+                    $(this).blur()
+
+                });
+
+                snackbar("Select at least one field","errorSnackbar")
+
+            }
+
+            else {
+
+
+                $('#exportForm').append('<select id=\"selectedFields\" name=\"selectedFields\"multiple></select>')
+
+                selectedFields.forEach(c => {
+
+                    $('#selectedFields').append('<option value=\"' + c + '\" selected></option>')
+
+                })
+
+
+                $('#exportForm').append('<select id=\"selectedCompanies\" name=\"selectedCompanies\"multiple></select>')
+
+                selectedCompanies.forEach(c => {
+
+                    $('#selectedCompanies').append('<option value=\"' + c + '\" selected></option>')
+
+                })
+
+                $('#exportForm').submit();
+                $('#exportForm select').remove()
+            }
+
+        });
+
 
     });
 
@@ -1152,11 +1334,7 @@
 
     });
 
-    $('#exportBtn').click(function () {
 
-        console.log("Esporto su file...")
-
-    });
 
 
 </script>
