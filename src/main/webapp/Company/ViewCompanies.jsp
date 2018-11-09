@@ -17,6 +17,8 @@
 <%@ page import="services.sessionservice.Session" %>
 <%@ page import="blogics.Tag" %>
 <%@ page import="static global.Constants.LOG_DIR" %>
+<%@ page import="blogics.ContactPerson" %>
+
 
 
 <%
@@ -365,17 +367,19 @@
                 </td>
                 <td><%=companyManager.getCompany(k).email%>
                 </td>
-                <td>
-                    <%for (int c = 0; c < companyManager.getContactPeople().length; c++) {%>
-                    <%if ((companyManager.getContactPerson(c).companyId) == (companyManager.getCompany(k).companyId)) {%>
-                    <%=companyManager.getContactPerson(c).fullName()%>
-                    <br>
-                    <%}%>
-                    <%}%>
+                <td><%
+                    ContactPerson person = companyManager.getContactPersonByCompanyId(companyManager.getCompany(k).companyId);%>
+                    <%=person.fullName()%>
+                    <input type="hidden" name="firstName" value="<%=person.firstName%>"/>
+                    <input type="hidden" name="lastName" value="<%=person.lastName%>"/>
+                    <input type="hidden" name="phoneNumber" value="<%=person.phoneNumber%>"/>
+                    <input type="hidden" name="contactEmail" value="<%=person.email%>"/>
+                </td>
+                <td><%=companyManager.getCompany(k).startDate%>
                 </td>
                 <td>
                     <a style=" color:#34373b" class="edit" title="Edit" data-toggle="tooltip"
-                       href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>','<%=companyManager.getCompany(k).vat%>','<%=companyManager.getCompany(k).email%>','<%=companyManager.getCompany(k).clientTypeId%>','<%=companyManager.getCompany(k).productCategoryId%>','<%=companyManager.getCompany(k).userId%>','<%=companyManager.getCompany(k).country%>','<%=companyManager.getCompany(k).state%>','<%=companyManager.getCompany(k).city%>','<%=companyManager.getCompany(k).zip%>','<%=companyManager.getCompany(k).address%>');"><i
+                       href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>','<%=companyManager.getCompany(k).vat%>','<%=companyManager.getCompany(k).email%>','<%=companyManager.getCompany(k).clientTypeId%>','<%=companyManager.getCompany(k).productCategoryId%>','<%=companyManager.getCompany(k).userId%>','<%=companyManager.getCompany(k).country%>','<%=companyManager.getCompany(k).state%>','<%=companyManager.getCompany(k).city%>','<%=companyManager.getCompany(k).zip%>','<%=companyManager.getCompany(k).address%>','<%=companyManager.getCompany(k).startDate%>','<%=person.firstName%>','<%=person.lastName%>','<%=person.email%>','<%=person.phoneNumber%>');"><i
                             class="material-icons">&#xE254;</i></a>
                     <a style=" color:#34373b"  class="delete" title="Delete" data-toggle="tooltip"
                        href="JavaScript:deleteCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>');"><i
@@ -473,6 +477,13 @@
                                        min="11111111111" max="99999999999">
                             </div>
                             <div class="form-group">
+                                <label for="updateCompanyStartDate" class="bmd-label-floating">Start Date</label>
+                                <input type="date" name="companyStartDate" class="form-control"
+                                       id="updateCompanyStartDate" required oninput="pastDate(this)"
+                                       <%if (message != null)%>value="<%=companyManager.getCompanyStartDate()%>"
+                                       required>
+                            </div>
+                            <div class="form-group">
                                 <label for="updateCompanyEmail" class="bmd-label-floating">Email</label>
                                 <input type="email" name="companyEmail" class="form-control" id="updateCompanyEmail"
                                        <%if (message != null)%>value="<%=companyManager.getCompanyEmail()%>" required>
@@ -559,6 +570,38 @@
                                 <input type="text" maxlength="50" name="address" class="form-control" id="updateAddress"
                                        <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
                             </div>
+                            <div class="jumbotron">
+                                <h1>Contact Reference</h1>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="updateFirstName" class="bmd-label-floating">First Name</label>
+                                        <input type="text" maxlength="50" name="firstName" class="form-control"
+                                               id="updateFirstName"
+                                               <%if (message != null)%>value="<%=companyManager.getFirstName()%>"
+                                               required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="updateLastName" class="bmd-label-floating">Last Name</label>
+                                        <input type="text" maxlength="50" name="lastName" class="form-control"
+                                               id="updateLastName"
+                                               <%if (message != null)%>value="<%=companyManager.getLastName()%>"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="updatePhoneNumber" class="bmd-label-floating">Phone Number</label>
+                                    <input type="tel" maxlength="13" name="phoneNumber" class="form-control"
+                                           id="updatePhoneNumber"
+                                           <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateContactEmail" class="bmd-label-floating">Email</label>
+                                    <input type="email" name="contactEmail" class="form-control" id="updateContactEmail"
+                                           <%if (message != null)%>value="<%=companyManager.getcontactEmail()%>"
+                                           required>
+                                </div>
+                            </div>
                             <input type="hidden" name="companyId" value=""/>
                             <div class="modal-footer">
                                 <input type="hidden" name="status" value="updateCompany"/>
@@ -603,6 +646,13 @@
                                 <input type="number" name="vat" class="form-control" id="vat"
                                        <%if (message != null)%>value="<%=companyManager.getVat()%>" required
                                        min="11111111111" max="99999999999">
+                            </div>
+                            <div class="form-group">
+                                <label for="companyStartDate" class="bmd-label-floating">Start Date</label>
+                                <input type="date" name="companyStartDate" class="form-control"
+                                       id="companyStartDate" required oninput="pastDate(this)"
+                                       <%if (message != null)%>value="<%=companyManager.getCompanyStartDate()%>"
+                                       required>
                             </div>
                             <div class="form-group">
                                 <label for="companyEmail" class="bmd-label-floating">Email</label>
@@ -1314,7 +1364,7 @@
     }
 
 
-    function updateCompany(id, name, vat, companyEmail, clientTypeId, productCategoryId, userId, country, state, city, zip, address) {
+    function updateCompany(id, name, vat, companyEmail, clientTypeId, productCategoryId, userId, country, state, city, zip, address, date, firstName, lastName, contactEmail, phoneNumber) {
         $('#updateCompanyModal').modal('show');
         document.updateCompanyForm.companyId.value = id;
         document.updateCompanyForm.name.value = name;
@@ -1327,7 +1377,12 @@
         document.updateCompanyForm.state.value = state;
         document.updateCompanyForm.city.value = city;
         document.updateCompanyForm.zip.value = zip;
+        document.updateCompanyForm.companyStartDate.value = date;
         document.updateCompanyForm.address.value = address;
+        document.updateCompanyForm.firstName.value = firstName;
+        document.updateCompanyForm.lastName.value = lastName;
+        document.updateCompanyForm.contactEmail.value = contactEmail;
+        document.updateCompanyForm.phoneNumber.value = phoneNumber;
     }
 
 

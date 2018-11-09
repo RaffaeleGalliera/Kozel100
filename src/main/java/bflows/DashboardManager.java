@@ -42,6 +42,7 @@ public class DashboardManager {
     private ConversationNote[] userNotes;
     private ConversationNote userNote;
 
+    private ContactPerson[] contactPeople;
     private ConversationNote[] otherUsersNotes;
     private ConversationNote otherUsersNote;
     private int result;
@@ -59,7 +60,7 @@ public class DashboardManager {
             userCompanies = CompanyDAO.getCompaniesByUser(database, userId);
             companies = CompanyDAO.getAllCompanies(database);
             conversations = ConversationDAO.getAllConversations(database);
-
+            contactPeople = ContactPersonDAO.getAllContactPeople(database);
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
             userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
             userNotes = ConversationNoteDAO.getNoteByUser(database, userId);
@@ -136,6 +137,15 @@ public class DashboardManager {
 //        }
 //
 //    }
+public ContactPerson getContactPersonByCompanyId(Integer companyId) {
+    ContactPerson contact = null;
+    for (int k = 0; k < (contactPeople.length); k++) {
+        if (contactPeople[k].companyId == companyId) {
+            contact = contactPeople[k];
+        }
+    }
+    return contact;
+}
 
     public Company getCompanyById(Integer companyId) {
         Company company=null;
@@ -335,5 +345,17 @@ public class DashboardManager {
 
     public void setOtherUsersNotes(ConversationNote[] otherUsersNotes) {
         this.otherUsersNotes = otherUsersNotes;
+    }
+
+    public ContactPerson[] getContactPeople() {
+        return contactPeople;
+    }
+
+    public ContactPerson getContactPerson(int index) {
+        return contactPeople[index];
+    }
+
+    public void setContactPeople(ContactPerson[] contactPeople) {
+        this.contactPeople = contactPeople;
     }
 }

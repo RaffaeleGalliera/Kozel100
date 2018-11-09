@@ -1,6 +1,7 @@
 package blogics;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.*;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
@@ -22,6 +23,7 @@ public class Company {
     public int clientTypeId;
     public int productCategoryId;
     public int userId;
+    public Date startDate;
 
     public Company(ResultSet result){
 
@@ -46,9 +48,13 @@ public class Company {
         } catch (SQLException sqle) {
         }
         try {email=result.getString("email");} catch(SQLException sqle) {}
+        try {
+            startDate = result.getDate("start_date");
+        } catch (SQLException sqle) {
+        }
     }
 
-    public Company(Integer companyId, Integer clientTypeId, Integer productCategoryId, Integer userId, String name, String vat, String address, String city, String country, String state, Integer zip, String email) {
+    public Company(Integer companyId, Integer clientTypeId, Integer productCategoryId, Integer userId, String name, String vat, String address, String city, String country, String state, Integer zip, String email, Date date) {
         this.companyId=companyId;
         this.clientTypeId=clientTypeId;
         this.productCategoryId=productCategoryId;
@@ -61,6 +67,7 @@ public class Company {
         this.zip = zip;
         this.state = state;
         this.email=email;
+        this.startDate = date;
     }
 
     public void insert(DataBase database) throws NotFoundDBException,DuplicatedRecordDBException,ResultSetDBException {
@@ -69,6 +76,9 @@ public class Company {
         ArrayList<String> parameters=new ArrayList();
         ResultSet rs;
         boolean exist;
+
+        //Converto data
+        java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
 
         //Check unicita
         query = "SELECT name FROM company WHERE name=? AND active_fl=1";
@@ -92,8 +102,8 @@ public class Company {
         }
 
 
-        query = "INSERT INTO company(company_id, client_type_id, product_category_id, user_id, name, vat, address, city, country, state, zip_code, email)" +
-                "VALUES(" + companyId + "," + clientTypeId + "," + productCategoryId + "," + userId + ",?,?,?,?,?,?," + zip + ",?)";
+        query = "INSERT INTO company(company_id, client_type_id, product_category_id, user_id, name, vat, address, city, country, state, zip_code, email, start_date)" +
+                "VALUES(" + companyId + "," + clientTypeId + "," + productCategoryId + "," + userId + ",?,?,?,?,?,?," + zip + ",?,?)";
 
 
         parameters.add(vat);
@@ -103,7 +113,7 @@ public class Company {
         parameters.add(state);
         parameters.add(email);
 
-        database.modify(query,parameters);
+        database.modify(query, parameters, sqlDate);
     }
 
     public void update(DataBase db) throws NotFoundDBException,ResultSetDBException,DuplicatedRecordDBException{
@@ -112,6 +122,8 @@ public class Company {
         ArrayList<String> parameters=new ArrayList();
         ResultSet rs;
         boolean exist;
+
+        java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
 
         /*Controllo che il nome aggiornato che sto per inserire non sia già presente*/
         sql="SELECT company_id FROM company WHERE company_id<>"+companyId+" AND name=? AND active_fl=1";
@@ -133,7 +145,7 @@ public class Company {
         }
 
         sql=" UPDATE company "
-                + " SET name=?, client_type_id=" + clientTypeId + ", product_category_id=" + productCategoryId + ", user_id=" + userId + ", vat=?, address=?, city=?, country=?, state=?, zip_code=" + zip + ", email=?"
+                + " SET name=?, client_type_id=" + clientTypeId + ", product_category_id=" + productCategoryId + ", user_id=" + userId + ", vat=?, address=?, city=?, country=?, state=?, zip_code=" + zip + ", email=?, start_date=?"
                 +" WHERE company_id="+companyId;
 
         parameters.add(vat);
@@ -143,7 +155,7 @@ public class Company {
         parameters.add(state);
         parameters.add(email);
 
-        db.modify(sql,parameters);
+        db.modify(sql, parameters, sqlDate);
     }
 
     public void delete(DataBase db) throws NotFoundDBException,ResultSetDBException {

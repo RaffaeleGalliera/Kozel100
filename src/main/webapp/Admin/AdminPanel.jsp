@@ -88,7 +88,7 @@
                                         <h2>Consulting Services
                                             <button style="float:right" type="submit" value="Tag"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -100,7 +100,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -108,10 +107,6 @@
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getConsultingService(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -131,7 +126,7 @@
                                         <h2>Users
                                             <button style="float:right" type="submit" value="InsertUser"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -144,7 +139,6 @@
                                     <th>#</th>
                                     <th>Full Name</th>
                                     <th>Email</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -153,10 +147,6 @@
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getUser(k).fullName()%></td>
                                     <td><%=adminPanelManager.getUser(k).email%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -175,7 +165,7 @@
                                         <h2>Work Fields
                                             <button style="float:right" type="submit" value="InsertWorkField"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -187,7 +177,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
                                 <tbody>
@@ -195,10 +184,6 @@
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getWorkField(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -219,7 +204,7 @@
                                         <h2>Positions
                                             <button style="float:right" type="submit" value="InsertPosition"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -230,7 +215,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -238,10 +222,6 @@
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getPosition(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -260,7 +240,7 @@
                                         <h2>Customer Types
                                             <button style="float:right" type="submit" value="InsertClientType"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -271,7 +251,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -279,10 +258,6 @@
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getClientType(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -301,7 +276,7 @@
                                         <h2>Product Categories
                                             <button style="float:right" type="submit" value="Tag"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -313,7 +288,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -321,10 +295,6 @@
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getProductCategory(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -343,7 +313,7 @@
                                         <h2>Tags
                                             <button style="float:right" type="submit" value="InsertTag"
                                                     class="btn btn-default">
-                                                +
+                                                <i class="material-icons md-36">add</i>
                                             </button>
                                         </h2>
                                     </form>
@@ -354,7 +324,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -362,10 +331,6 @@
                                 <tr>
                                     <td><%= k + 1 %></td>
                                     <td><%=adminPanelManager.getTag(k).name%></td>
-                                    <td>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a>
-                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
