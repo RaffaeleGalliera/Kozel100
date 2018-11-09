@@ -167,6 +167,16 @@ public ContactPerson getContactPersonByCompanyId(Integer companyId) {
         return company;
     }
 
+    public User getUserByNote(Integer userId) {
+            User user = null;
+            for (int k = 0; k < (users.length); k++) {
+                if (users[k].userId== userId) {
+                    user = users[k];
+                }
+            }
+            return user;
+        }
+
     public boolean appointmentToday(Date passedDate) {
         LocalDate date = new java.sql.Date(passedDate.getTime()).toLocalDate();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");

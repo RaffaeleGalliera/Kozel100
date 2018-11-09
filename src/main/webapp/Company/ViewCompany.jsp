@@ -107,7 +107,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <%--TimePicker css--%>
     <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.css" rel="stylesheet"/>
-    <%--Common CSS--%>
+<%--Common CSS--%>
     <link rel="stylesheet" type="text/css" href="/css/common.css">
 
     <title>Kozel100 CRM</title>
@@ -180,7 +180,7 @@
                     <hr class="my-4">
                     <div class="row">
                         <div class="col"><p class="lead">
-                            Contact References:
+                            <b>Contact References:</b>
                             <br>
                             <%=companyManager.getContactPerson().fullName()%>
                             <br>
@@ -188,26 +188,37 @@
                             <br>
                             Phone Number: <%=companyManager.getContactPerson().phoneNumber%>
                         </p></div>
-                        <div class="col"><p class="lead">Responsible User:  <%=companyManager.getUser().fullName()%>
+                        <div class="col"><p class="lead">
+                            <b>Responsible User:</b><%=companyManager.getUser().fullName()%>
+                            <br>
+                            <b>Client Since: </b><%=companyManager.getCompany().startDate%>
                         </p></div>
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <div class="col"><p class="lead">Customer Type: <%=companyManager.getClientType().name%>
+                        <div class="col"><p class="lead"><b>Customer Type:</b> <%=companyManager.getClientType().name%>
                         </p></div>
-                        <div class="col"><p class="lead">Product Category: <%=companyManager.getProductCategory().name%>
-                        </p></div>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <div class="col"><p class="lead">Address: <%=companyManager.getCompany().address%>
-                        </p></div>
-                        <div class="col"><p class="lead">City: <%=companyManager.getCompany().city%>
+                        <div class="col"><p class="lead"><b>Product Category:</b> <%=companyManager.getProductCategory().name%>
                         </p></div>
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <div class="col"><p class="lead">VAT: <%=companyManager.getCompany().vat%>
+                        <div class="col"><p class="lead"><b>Country:</b> <%=companyManager.getCompany().country%>
+                            <br>
+                            <b>State:</b> <%=companyManager.getCompany().state%>
+                        </p></div>
+                        <div class="col"><p class="lead">
+                            <b>Address:</b><%=companyManager.getCompany().address%>
+                            <br>
+                            <b>City:</b> <%=companyManager.getCompany().city%>
+                            <br>
+                            <b>Zip:</b><%=companyManager.getCompany().zip%>
+                        </p>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col"><p class="lead"><b>VAT:</b> <%=companyManager.getCompany().vat%>
                         </p>
                         </div>
                         <div class="col">
@@ -384,7 +395,7 @@
                             </td>
                             <td><%=companyManager.getCompanyNote(k).updatedAt%>
                             </td>
-                            <%if ((isAdmin) && (userId == companyManager.getCompanyNote(k).userId)) {%>
+                            <%if ((isAdmin) || (userId == companyManager.getCompanyNote(k).userId)) {%>
                             <td><a style=" color:#34373b" class="edit" title="Add" data-toggle="tooltip"
                                    href="JavaScript: updateNoteModal('<%=companyManager.getCompanyNote(k).conversationNoteId%>', '<%=companyManager.getCompanyNote(k).conversationId%>', '<%=companyManager.getCompanyNote(k).title%>', '<%=companyManager.getCompanyNote(k).note%>');"><i
                                     class="material-icons md-24">&#xE254;</i>
@@ -395,9 +406,11 @@
                                 </a>
                             </td>
                             <%} else {%>
-                            <a class="highlight_off" title="noPermission" data-toggle="tooltip"><i
-                                    class="material-icons">highlight_off</i>
+                            <td>
+                            <a class="highlight_off" title="That's Not your Note" data-toggle="tooltip"><i
+                                    class="material-icons md-24">highlight_off</i>
                             </a>
+                            </td>
                             <%}%>
                         </tr>
                         <%}%>
@@ -669,7 +682,7 @@
 
                     <div class="form-group">
                         <label for="purchaseDate" class="bmd-label-floating">Purchase Date</label>
-                        <input type="date" name="purchaseDate" class="form-control"
+                        <input type="date" placeholder="false" name="purchaseDate" class="form-control"
                                id="purchaseDate" oninput="pastDate(this)" required>
                     </div>
 
@@ -1004,7 +1017,12 @@
 <script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.js"></script>
 
 
+
 <script>
+    $('#updateNoteModal').on('shown.bs.modal', function() {
+        $('#updatedTitle').focus();
+    })
+
     $(document).ready(function () {
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();

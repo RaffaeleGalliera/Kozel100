@@ -478,7 +478,7 @@
                                        min="11111111111" max="99999999999">
                             </div>
                             <div class="form-group">
-                                <label for="updateCompanyStartDate" class="bmd-label-floating">Start Date</label>
+                                <label for="updateCompanyStartDate" class="bmd-label-floating">Client Since</label>
                                 <input type="date" name="companyStartDate" class="form-control"
                                        id="updateCompanyStartDate" required oninput="pastDate(this)"
                                        <%if (message != null)%>value="<%=companyManager.getCompanyStartDate()%>"
@@ -649,7 +649,7 @@
                                        min="11111111111" max="99999999999">
                             </div>
                             <div class="form-group">
-                                <label for="companyStartDate" class="bmd-label-floating">Start Date</label>
+                                <label for="companyStartDate" class="bmd-label-floating">Client Since</label>
                                 <input type="date" name="companyStartDate" class="form-control"
                                        id="companyStartDate" required oninput="pastDate(this)"
                                        <%if (message != null)%>value="<%=companyManager.getCompanyStartDate()%>"
@@ -761,7 +761,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneNumber" class="bmd-label-floating">Phone Number</label>
-                                    <input type="tel" maxlength="13" name="phoneNumber" class="form-control"
+                                    <input type="tel" type='tel' pattern='[\+]\d{12}' title='Phone Number (Format: +999999999999)' name="phoneNumber" class="form-control"
                                            id="phoneNumber"
                                            <%if (message != null)%>value="<%=companyManager.getPhoneNumber()%>"
                                            required>
@@ -1364,9 +1364,13 @@
 
     }
 
+    $('#updateCompanyModal').on('shown.bs.modal', function() {
+        $('#updateName').focus();
+    })
+
 
     function updateCompany(id, name, vat, companyEmail, clientTypeId, productCategoryId, userId, country, state, city, zip, address, date, firstName, lastName, contactEmail, phoneNumber) {
-        $('#updateCompanyModal').modal('show');
+        $('#updateCompanyModal').modal('show', );
         document.updateCompanyForm.companyId.value = id;
         document.updateCompanyForm.name.value = name;
         document.updateCompanyForm.vat.value = vat;
