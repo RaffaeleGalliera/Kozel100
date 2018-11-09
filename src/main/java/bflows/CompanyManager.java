@@ -1531,6 +1531,8 @@ public class CompanyManager implements java.io.Serializable {
     public void setSelectedFields(String[] selectedFields) {
         this.selectedFields = selectedFields;
 
+    }
+
     public String getCompanyStartDate() {
         return companyStartDate;
     }
