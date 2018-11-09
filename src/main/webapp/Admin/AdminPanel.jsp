@@ -48,28 +48,6 @@
     </div>
     <p>
     <ul class="nav nav-tabs">
-        <%--<li class="nav-item"><a class="nav-link" href="#usersCard" data-toggle="collapse"--%>
-                            <%--data-target="#usersCard"--%>
-                            <%--aria-expanded="false" aria-controls="usersCard">Users</a></li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#workFieldsCard" data-toggle="collapse"--%>
-                                <%--data-target="#workFieldsCard"--%>
-                                <%--aria-expanded="false" aria-controls="workFieldsCard">Work Fields</a></li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#positionCard" data-toggle="collapse" data-target="#positionCard"--%>
-                                <%--aria-expanded="false" aria-controls="positionCard">Position</a></li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#tagsCard" data-toggle="collapse"--%>
-                                <%--data-target="#tagsCard"--%>
-                                <%--aria-expanded="false" aria-controls="tagsCard">Tag</a></li>--%>
-
-        <%--<li class="nav-item"><a class="nav-link" href="#clientTypesCard" data-toggle="collapse"--%>
-                                <%--data-target="#clientTypesCard"--%>
-                                <%--aria-expanded="false" aria-controls="clientTypesCard">Customer Types</a></li>--%>
-        <%--<li class="nav-item"><a class="nav-link" href="#productCategoryCard" data-toggle="collapse"--%>
-                                <%--data-target="#productCategoryCard"--%>
-                                <%--aria-expanded="false" aria-controls="productCategoryCard">Product Categories</a></li>--%>
-    <%--<li class="nav-item"><a class="nav-link" href="#consultingServicesCard" data-toggle="collapse"--%>
-                            <%--data-target="#consultingServicesCard"--%>
-                            <%--aria-expanded="false" aria-controls="consultingServicesCard">Consulting Services</a></li>--%>
-
         <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"
                                 aria-expanded="false"
                                 aria-controls="userCard workFieldsCard positionCard productCategoryCard consultingServicesCard tagsCard clientTypesCard">Show Current Setup</a></li>
@@ -103,12 +81,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getConsultingServices().length; k++) {%>
+                                <% int nConsultingServices = adminPanelManager.getConsultingServices().map(t -> t.length).orElse(0);
+                                    if (nConsultingServices == 0) {%>
+                                <div class="jumbotron">
+                                    <h6> No consulting services yet</h6>
+                                </div>
+                                <%} else {%>
+                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getConsultingService(k).name%></td>
                                 </tr>
                                 <%}%>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>
@@ -180,12 +166,20 @@
                             </tr>
                             </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
+                                <% int nWorkFields = adminPanelManager.getWorkFields().map(t -> t.length).orElse(0);
+                                    if (nWorkFields== 0) {%>
+                                <div class="jumbotron">
+                                    <h6> No work fields yet</h6>
+                                </div>
+                                <%} else {%>
+                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getWorkField(k).name%></td>
                                 </tr>
                                 <%}%>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>
@@ -218,12 +212,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
+                                <% int nPositions = adminPanelManager.getPositions().map(t -> t.length).orElse(0);
+                                    if (nPositions == 0) {%>
+                                <div class="jumbotron">
+                                    <h6> No positions yet</h6>
+                                </div>
+                                <%} else {%>
+                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getPosition(k).name%></td>
                                 </tr>
                                 <%}%>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>
@@ -254,12 +256,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getClientTypes().length; k++) {%>
+                                <% int nCustomerType = adminPanelManager.getClientTypes().map(t -> t.length).orElse(0);
+                                    if (nCustomerType == 0) {%>
+                                <div class="jumbotron">
+                                    <h6> No customer types yet</h6>
+                                </div>
+                                <%} else {%>
+                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getClientType(k).name%></td>
                                 </tr>
                                 <%}%>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>
@@ -291,12 +301,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getProductCategories().length; k++) {%>
-                                <tr>
+                                <% int nProductCategories = adminPanelManager.getProductCategories().map(t -> t.length).orElse(0);
+                                    if (nProductCategories == 0) {%>
+                                <div class="jumbotron">
+                                    <h6> No Product categories yet</h6>
+                                </div>
+                                <%} else {%>
+                                <%for (int k = 0; k < nConsultingServices ; k++) {%>                                <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getProductCategory(k).name%></td>
                                 </tr>
                                 <%}%>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>
@@ -327,12 +344,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%for (int k = 0; k < adminPanelManager.getTags().length; k++) {%>
-                                <tr>
+                                <% int nTags = adminPanelManager.getTags().map(t -> t.length).orElse(0);
+                                    if (nTags == 0) {%>
+                                <div class="jumbotron">
+                                    <h6> No tags yet</h6>
+                                </div>
+                                <%} else {%>
+                                <%for (int k = 0; k < nConsultingServices ; k++) {%>                                <tr>
                                     <td><%= k + 1 %></td>
                                     <td><%=adminPanelManager.getTag(k).name%></td>
                                 </tr>
                                 <%}%>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>

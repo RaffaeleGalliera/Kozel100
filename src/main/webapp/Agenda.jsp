@@ -78,6 +78,8 @@
     <link href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css" rel="stylesheet"/>
     <%--Calendar CSS--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css"/>
+    <%--TimePicker css--%>
+    <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.css" rel="stylesheet"/>
 
     <title>Kozel100 CRM</title>
 </head>
@@ -114,11 +116,11 @@
                     <div class="form-group">
                         <label for="appointmentDate" class="bmd-label-floating">Date</label>
                         <input type="date" name="appointmentDate" class="form-control"
-                               id="appointmentDate">
+                               id="appointmentDate" oninput="futureDate(this)" required>
                     </div>
                     <div class="form-group">
                         <label for="appointmentTime" class="bmd-label-floating">Time</label>
-                        <input type="time" name="appointmentTime" class="form-control"
+                        <input type="text"  name="appointmentTime" class="form-control timePicker"
                                id="appointmentTime">
                     </div>
                     <div class="form-group">
@@ -172,9 +174,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <%--FullCalendar Script--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+<%--Timepicker Script--%>
+<script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.js"></script>
+
 <script>$(document).ready(function () {
     $('.multipleSelect').css('width', '100%');
     $('.multipleSelect').select2();
+    $('.timePicker').timepicker({
+        'disableTextInput':true,
+        'minTime': "07:00am",
+        'maxTime': "08:00pm"
+    });
 
     var curEvents = [];
     <% int nAppointments = agendaManager.getUserAppointments().map(t -> t.length).orElse(0);
@@ -223,8 +233,25 @@
         },
         timeFormat: 'H(:mm)',
     });
+
     $('body').bootstrapMaterialDesign();
-});</script>
+});
+
+function futureDate(input) {
+    var GivenDate = input.value;
+    var CurrentDate = new Date();
+    GivenDate = new Date(GivenDate);
+
+    if (GivenDate < CurrentDate) {
+        input.setCustomValidity("You can't insert past appointments");
+        return false;
+    } else {
+        input.setCustomValidity('');
+        return true;
+    }
+}
+
+</script>
 
 </body>
 </html>

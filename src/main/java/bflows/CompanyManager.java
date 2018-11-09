@@ -29,17 +29,17 @@ import java.util.stream.Stream;
 import static global.Constants.LOG_DIR;
 
 public class CompanyManager implements java.io.Serializable {
-  
-    private int contactPersonId=-1;
-    private Integer companyId=-1;
-    private int clientTypeId=-1;
-    private int productCategoryId=-1;
-    private int userId=-1;
-    private int conversationUserId=-1;
-    private int conversationNoteUserId=-1;
-    private int commercialProposalUserId=-1;
-    private int commercialProposalId=-1;
-    private int tagId=-1;
+
+    private int contactPersonId = -1;
+    private Integer companyId = -1;
+    private int clientTypeId = -1;
+    private int productCategoryId = -1;
+    private int userId = -1;
+    private int conversationUserId = -1;
+    private int conversationNoteUserId = -1;
+    private int commercialProposalUserId = -1;
+    private int commercialProposalId = -1;
+    private int tagId = -1;
     private Integer companyNoteId = -1;
     private int appointmentId = -1;
     private String firstName;
@@ -116,13 +116,13 @@ public class CompanyManager implements java.io.Serializable {
 
     private void addRows(PdfPTable table) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
 
-        for(Integer selectedCompany: selectedCompanies){
+        for (Integer selectedCompany : selectedCompanies) {
 
-            for(Company company: companies){
+            for (Company company : companies) {
 
-                if(company.companyId == selectedCompany){
+                if (company.companyId == selectedCompany) {
 
-                    for(String field: selectedFields){
+                    for (String field : selectedFields) {
 
                         //TODO Fix Contact reference after merging with master
                         Class<?> clazz = Company.class;
@@ -153,7 +153,6 @@ public class CompanyManager implements java.io.Serializable {
     private void addCustomRows(PdfPTable table) throws URISyntaxException, BadElementException, IOException {
 
 
-
         PdfPCell horizontalAlignCell = new PdfPCell(new Phrase("row 2, col 2"));
         horizontalAlignCell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(horizontalAlignCell);
@@ -169,7 +168,7 @@ public class CompanyManager implements java.io.Serializable {
 
         try {
 
-            File pdf = new File(LOG_DIR+"companies.pdf");
+            File pdf = new File(LOG_DIR + "companies.pdf");
             Files.deleteIfExists(pdf.toPath());
 
             db = DBService.getDataBase();
@@ -177,7 +176,7 @@ public class CompanyManager implements java.io.Serializable {
             db.commit();
 
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(LOG_DIR+"companies.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(LOG_DIR + "companies.pdf"));
 
             document.open();
 
@@ -189,11 +188,10 @@ public class CompanyManager implements java.io.Serializable {
             document.close();
 
 
-        }
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        }catch(FileNotFoundException ex){
+        } catch (FileNotFoundException ex) {
 
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
@@ -216,7 +214,6 @@ public class CompanyManager implements java.io.Serializable {
             }
         }
     }
-
 
 
     public void insertCompany() {
@@ -279,17 +276,17 @@ public class CompanyManager implements java.io.Serializable {
             company = CompanyDAO.getCompany(database, companyId);
             contactPerson = ContactPersonDAO.getContactPerson(database, companyId);
 
-            company.name=name;
-            company.address=address;
-            company.email=companyEmail;
-            company.city=city;
+            company.name = name;
+            company.address = address;
+            company.email = companyEmail;
+            company.city = city;
             company.country = country;
             company.state = state;
-            company.vat=vat;
+            company.vat = vat;
             company.zip = zip;
-            company.clientTypeId=clientTypeId;
-            company.productCategoryId=productCategoryId;
-            company.userId=userId;
+            company.clientTypeId = clientTypeId;
+            company.productCategoryId = productCategoryId;
+            company.userId = userId;
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(companyStartDate);
             company.startDate = parsed;
@@ -361,10 +358,10 @@ public class CompanyManager implements java.io.Serializable {
 
             database = DBService.getDataBase();
 
-                for (int k = 0; k < tagIds.length; k++) {
-                    CompanyTag companyTags = new CompanyTag(companyId, tagIds[k]);
-                    companyTags.insert(database);
-                }
+            for (int k = 0; k < tagIds.length; k++) {
+                CompanyTag companyTags = new CompanyTag(companyId, tagIds[k]);
+                companyTags.insert(database);
+            }
 
             getAllCompanyInfos(database);
             database.commit();
@@ -375,9 +372,8 @@ public class CompanyManager implements java.io.Serializable {
         } catch (ResultSetDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
-        }
-        finally {
-          try {
+        } finally {
+            try {
                 database.close();
             } catch (NotFoundDBException e) {
                 EService.logAndRecover(e);
@@ -624,8 +620,7 @@ public class CompanyManager implements java.io.Serializable {
             db.commit();
 
 
-        }
-        catch (NotFoundDBException ex) {
+        } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);
         } finally {
@@ -904,7 +899,7 @@ public class CompanyManager implements java.io.Serializable {
 
     }
 
-    public void getAllCompaniesInfo(DataBase db){
+    public void getAllCompaniesInfo(DataBase db) {
         try {
             companies = CompanyDAO.getAllCompanies(db);
             clientTypes = ClientTypeDAO.getAllClientTypes(db);
@@ -915,26 +910,25 @@ public class CompanyManager implements java.io.Serializable {
 
             tagsByCompany = new HashMap<Integer, ArrayList<Tag>>();
 
-            for (Company company : companies) {
+            if (companies != null) {
+                for (Company company : companies) {
 
-                tagsByCompany.put(company.companyId, new ArrayList<Tag>());
+                    tagsByCompany.put(company.companyId, new ArrayList<Tag>());
 
-                Tag[] tagsOfCompany = TagDAO.getTags(db, company.companyId);
+                    Tag[] tagsOfCompany = TagDAO.getTags(db, company.companyId);
 
-                if (tagsOfCompany != null) {
+                    if (tagsOfCompany != null) {
 
-                    for (Tag tag : tagsOfCompany) {
+                        for (Tag tag : tagsOfCompany) {
 
-                        tagsByCompany.get(company.companyId).add(tag);
+                            tagsByCompany.get(company.companyId).add(tag);
+
+                        }
 
                     }
 
                 }
-
             }
-
-
-            db.commit();
         } catch (NotFoundDBException ex) {
             EService.logAndRecover(ex);
             setResult(EService.UNRECOVERABLE_ERROR);

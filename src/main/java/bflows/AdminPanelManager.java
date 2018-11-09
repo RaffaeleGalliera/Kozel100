@@ -7,7 +7,9 @@ import services.errorservice.*;
 import util.Debug;
 import util.Security;
 
+import javax.swing.text.html.Option;
 import java.util.Date;
+import java.util.Optional;
 //import services.sessionservice.Session;
 
 public class AdminPanelManager implements java.io.Serializable {
@@ -514,8 +516,8 @@ public class AdminPanelManager implements java.io.Serializable {
         return productCategoryName;
     }
 
-    public Position[] getPositions() {
-        return positions;
+    public Optional<Position[]> getPositions() {
+        return Optional.ofNullable(positions);
     }
 
     public Position getPosition(int index) {
@@ -527,10 +529,10 @@ public class AdminPanelManager implements java.io.Serializable {
         return consultingServices[index];
     }
 
-    public ConsultingService[] getConsultingServices(){return consultingServices;}
+    public Optional<ConsultingService[]> getConsultingServices(){return Optional.ofNullable(consultingServices);}
 
-    public WorkField[] getWorkFields() {
-        return workFields;
+    public Optional<WorkField[]> getWorkFields() {
+        return Optional.ofNullable(workFields);
     }
 
     public WorkField getWorkField(int index) {
@@ -538,24 +540,24 @@ public class AdminPanelManager implements java.io.Serializable {
     }
 
 
-    public Tag[] getTags() {
-        return tags;
+    public Optional<Tag[]> getTags() {
+        return Optional.ofNullable(tags);
     }
 
     public Tag getTag(int index) {
         return tags[index];
     }
 
-    public ClientType[] getClientTypes() {
-        return clientTypes;
+    public Optional<ClientType[]> getClientTypes() {
+        return Optional.ofNullable(clientTypes);
     }
 
     public ClientType getClientType(int index) {
         return clientTypes[index];
     }
 
-    public ProductCategory[] getProductCategories() {
-        return productCategories;
+    public Optional<ProductCategory[]> getProductCategories() {
+        return Optional.ofNullable(productCategories);
     }
 
     public ProductCategory getProductCategory(int index) {
