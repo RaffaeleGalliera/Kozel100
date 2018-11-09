@@ -58,6 +58,20 @@
 <!doctype html>
 <html>
 <head>
+
+    <style>
+
+        .alert-info{
+
+            background-color: #c8e6c9 !important;
+            color: #00635a !important;
+        }
+
+
+
+
+    </style>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -185,6 +199,9 @@
         'minTime': "07:00am",
         'maxTime': "08:00pm"
     });
+
+    let today = new Date().toISOString().substr(0, 10);
+    $('#appointmentDate').val(today)
 
     var curEvents = [];
     <% int nAppointments = agendaManager.getUserAppointments().map(t -> t.length).orElse(0);
