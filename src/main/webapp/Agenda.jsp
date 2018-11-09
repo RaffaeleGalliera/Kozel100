@@ -106,7 +106,8 @@
                     <div class="form-group">
                         <label for="companyId" class="bmd-label-floating">Select Company</label>
                         <select class="form-control" name="companyId" id="companyId">
-                            <%for (int k = 0; k < agendaManager.getCompanies().length; k++) {%>
+                            <% int nCompanies = agendaManager.getCompanies().map(t -> t.length).orElse(0);
+                                for (int k = 0; k < nCompanies; k++) {%>
                             <option value="<%=agendaManager.getCompany(k).companyId%>">
                                 <%=agendaManager.getCompany(k).name%>
                             </option>

@@ -20,7 +20,7 @@ public class CompanyDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM company WHERE active_fl=1";
+        sql="SELECT * FROM company ";
 
         rs=db.select(sql);
 
@@ -51,7 +51,7 @@ public class CompanyDAO {
         ResultSet rs;
         int i = 0;
 
-        sql = "SELECT * FROM company WHERE active_fl=1 AND user_id=" + userId + "";
+        sql = "SELECT * FROM company WHERE user_id=" + userId + "";
 
         rs = db.select(sql);
 
@@ -177,7 +177,7 @@ public class CompanyDAO {
         String sql;
         ResultSet rs;
 
-        sql="SELECT * FROM company WHERE company_id ="+companyId+" AND active_fl=1";
+        sql="SELECT * FROM company WHERE company_id ="+companyId+" ";
 
 
         rs=db.select(sql);
@@ -197,12 +197,9 @@ public class CompanyDAO {
     }
 
     public static void deleteCompany(DataBase db, Integer companyId) throws NotFoundDBException{
+        String sql;
 
-        String sql="UPDATE contact_person SET active_fl=0 WHERE company_id="+companyId;
-
-        db.modify(sql);
-
-        sql="UPDATE company SET active_fl=0 WHERE company_id="+companyId;
+        sql=" DELETE FROM company WHERE company_id="+companyId;
 
         db.modify(sql);
 

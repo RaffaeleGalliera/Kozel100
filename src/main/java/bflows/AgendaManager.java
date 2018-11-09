@@ -176,8 +176,8 @@ public class AgendaManager {
         return companies[index];
     }
 
-    public Company[] getCompanies() {
-        return companies;
+    public Optional<Company[]> getCompanies() {
+        return Optional.ofNullable(companies);
     }
 
     public void setCompanies(Company[] companies) {
