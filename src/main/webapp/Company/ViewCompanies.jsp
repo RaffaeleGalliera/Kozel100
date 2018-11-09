@@ -347,6 +347,7 @@
                 <th scope="col" class="selectable" value="vat">VAT</th>
                 <th scope="col" class="selectable" value="email">Email</th>
                 <th scope="col" class="selectable" value="contactReference">Contact Reference</th>
+                <th scope="col" class="selectable" value="startDate">Client Since</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
