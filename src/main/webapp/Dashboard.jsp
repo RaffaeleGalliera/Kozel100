@@ -220,7 +220,8 @@
                                             </td>
                                             <td><%=dashboardManager.getUserNote(k).title%>
                                             </td>
-                                            <td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).companyId%>');">
+                                            <td><a style="font-size:large; color:#45a149"
+                                                   href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).companyId%>');">
                                                 <%=dashboardManager.getCompanyByConversationId(dashboardManager.getUserNote(k).conversationId).name%>
                                             </a></td>
                                         </tr>
@@ -233,12 +234,29 @@
                                 <div class="tab-pane" id="otherUsersNotes">
                                     <table class="table table-striped">
                                         <tbody>
-                                        <% int nOtherUsersNotes = dashboardManager.getOtherUsersNotes().map(t -> t.length).orElse(0);
+                                            <% int nOtherUsersNotes = dashboardManager.getOtherUsersNotes().map(t -> t.length).orElse(0);
                                             if (nOtherUsersNotes == 0) {%>
                                         <div class="jumbotron">
                                             <h6> No Comments on your Companies yet</h6>
                                         </div>
-                                        <%} else {%>
+                                            <%} else {%>
+                                        <thead class="text-gray">
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Time
+                                            </th>
+                                            <th>
+                                                Company
+                                            </th>
+                                            <th>
+                                                Commented by
+                                            </th>
+                                            <th>
+                                                Email
+                                        </th>
+                                        </thead>
                                         <%int c = nOtherUsersNotes;%>
                                         <%if (nOtherUsersNotes > 10) c = 10; %>
                                         <%for (int k = 0; k < c; k++) {%>
@@ -248,18 +266,13 @@
                                             </td>
                                             <td><%=dashboardManager.getOtherUsersNote(k).title%>
                                             </td>
-                                            <td><a style="font-size:large; color:#45a149"  href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).companyId%>');">
+                                            <td><a style="font-size:large; color:#45a149"
+                                                   href="JavaScript: viewCompany('<%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).companyId%>');">
                                                 <%=dashboardManager.getCompanyByConversationId(dashboardManager.getOtherUsersNote(k).conversationId).name%>
                                             </a></td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-primary btn-link btn-sm">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-link btn-sm">
-                                                    <i class="material-icons">close</i>
-                                                </button>
+                                            <td><%=dashboardManager.getUserByNote(dashboardManager.getOtherUsersNote(k).userId).fullName()%>
+                                            </td>
+                                            <td><%=dashboardManager.getUserByNote(dashboardManager.getOtherUsersNote(k).userId).email%>
                                             </td>
                                         </tr>
                                         <%}%>
@@ -283,19 +296,22 @@
                         <div class="card-body">
                             <table class="table table-striped">
                                 <tbody>
-                                <%if (nAppointments == 0) {%>
+                                    <%if (nAppointments == 0) {%>
                                 <div class="jumbotron">
                                     <h6> No scheduled appointments</h6>
                                 </div>
-                                <%} else {%>
+                                    <%} else {%>
+                                </thead>
                                 <%for (int k = 0; k < nAppointments; k++) {%>
                                 <tr>
                                     <td><%=dashboardManager.getUserAppointment(k).date%>
                                     </td>
                                     <td><%=dashboardManager.getUserAppointment(k).time%>
                                     </td>
-                                    <td><td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
-                                        <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
+                                    <td>
+                                    <td><a style="font-size:large; color:#45a149"
+                                           href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
+                                            <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
                                     </td>
                                     <%if (dashboardManager.appointmentToday(dashboardManager.getUserAppointment(k).date)) {%>
                                     <%todayAppointments++;%>
@@ -310,7 +326,7 @@
                 </div>
                 <%--Companies assigned to user--%>
                 <div class="col-lg-6 col-md-12">
-                    <div class="card" >
+                    <div class="card">
                         <div class="card-header card-header-tabs card-header-success">
                             <div class="card-icon">
                                 <i class="material-icons">store</i>
@@ -344,7 +360,8 @@
                                 </thead>
                                 <%for (int k = 0; k < nCompanies; k++) {%>
                                 <tr>
-                                    <td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getUserCompany(k).companyId%>');">
+                                    <td><a style="font-size:large; color:#45a149"
+                                           href="JavaScript: viewCompany('<%=dashboardManager.getUserCompany(k).companyId%>');">
                                             <%=dashboardManager.getUserCompany(k).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCompany(k).email%>
@@ -398,8 +415,9 @@
                                 <tr>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).name%>
                                     </td>
-                                    <td><a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).companyId%>');">
-                                        <%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).name%>
+                                    <td><a style="font-size:large; color:#45a149"
+                                           href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).companyId%>');">
+                                            <%=dashboardManager.getCompanyById(dashboardManager.getUserCommercialProposal(k).company_id).name%>
                                     </td>
                                     <td><%=dashboardManager.getUserCommercialProposal(k).status%>
                                     </td>
@@ -488,6 +506,7 @@
     });
     <%}%>
 });
+
 function viewCompany(id) {
     document.viewCompanyForm.companyId.value = id;
     document.viewCompanyForm.submit();

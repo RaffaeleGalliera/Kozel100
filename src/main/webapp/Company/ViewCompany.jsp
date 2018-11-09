@@ -191,7 +191,7 @@
                         <div class="col"><p class="lead">
                             <b>Responsible User:</b><%=companyManager.getUser().fullName()%>
                             <br>
-                            <b>Client Since: </b><%=companyManager.getStartDate()%>
+                            <b>Client Since: </b><%=companyManager.getCompany().startDate%>
                         </p></div>
                     </div>
                     <hr class="my-4">
