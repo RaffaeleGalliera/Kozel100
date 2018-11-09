@@ -914,6 +914,13 @@
 
         function snackbar(message,type){
 
+            if($('#snackbar').length!=0){
+
+                $('#snackbar').stop()
+                $('#snackbar').remove()
+
+            }
+
             $('body').append('<div id=\"snackbar\">'+message+'</div>')
             $('#snackbar').addClass(type)
             $('#snackbar').addClass('animated fadeInUp').one('animationend',function(){

@@ -2,6 +2,7 @@ package bflows;
 
 import blogics.*;
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfEncodings;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -12,6 +13,7 @@ import services.databaseservice.exception.*;
 import services.errorservice.*;
 import util.Debug;
 
+import javax.swing.text.StyleConstants;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,6 +22,7 @@ import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.util.*;
 import java.sql.Time;
 import java.text.ParseException;
@@ -124,11 +127,32 @@ public class CompanyManager implements java.io.Serializable {
 
                     for (String field : selectedFields) {
 
-                        //TODO Fix Contact reference after merging with master
-                        Class<?> clazz = Company.class;
-                        Field attribute = clazz.getDeclaredField(field);
-                        String value = (String) attribute.get(company);
-                        table.addCell(value);
+
+                        if(field.equals("startDate")){
+
+                            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String currDateString = dateFormat.format(company.startDate);
+                            table.addCell(currDateString);
+
+                        }else if(field.equals("contactReference")){
+
+                            for(ContactPerson contact: contactPeople){
+
+                                if(contact.companyId==company.companyId){
+
+                                    table.addCell(contact.fullName());
+
+                                }
+
+                            }
+
+                        }else {
+
+                            Class<?> clazz = Company.class;
+                            Field attribute = clazz.getDeclaredField(field);
+                            String value = (String) attribute.get(company);
+                            table.addCell(value);
+                        }
 
                     }
 
