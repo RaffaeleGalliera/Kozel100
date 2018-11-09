@@ -13,11 +13,13 @@ import services.databaseservice.exception.*;
 import services.errorservice.*;
 import util.Debug;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.sql.Time;
@@ -119,8 +121,8 @@ public class CompanyManager implements java.io.Serializable {
 
                     for(String field: selectedFields){
 
+                        //TODO Fix Contact reference after merging with master
                         Class<?> clazz = Company.class;
-                        Debug.println("Class: " + clazz);
                         Field attribute = clazz.getDeclaredField(field);
                         String value = (String) attribute.get(company);
                         table.addCell(value);
@@ -163,19 +165,22 @@ public class CompanyManager implements java.io.Serializable {
         DataBase db = null;
 
         try {
+
+            File pdf = new File("/tmp/Kozel100/companies.pdf");
+            Files.deleteIfExists(pdf.toPath());
+
             db = DBService.getDataBase();
             getAllCompaniesInfo(db);
             db.commit();
 
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("/tmp/Kozel100/iTextTable.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("/tmp/Kozel100/companies.pdf"));
 
             document.open();
 
             PdfPTable table = new PdfPTable(selectedFields.length);
             addTableHeader(table);
             addRows(table);
-            addCustomRows(table);
 
             document.add(table);
             document.close();
@@ -193,8 +198,6 @@ public class CompanyManager implements java.io.Serializable {
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();

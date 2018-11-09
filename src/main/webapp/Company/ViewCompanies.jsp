@@ -53,7 +53,23 @@
     }
 
     if (status.equals("exportCompanies")) {
+
         companyManager.exportCompanies();
+
+        String filename = "companies.pdf";
+        String filepath = "/tmp/Kozel100/";
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition","inline; filename=\"" + filename + "\"");
+
+        java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath + filename);
+
+        int i;
+        byte[] buffer = new byte[1048];
+
+        while ((i=fileInputStream.read(buffer)) != -1) {
+            response.getOutputStream().write(buffer,0,i);
+        }
+        fileInputStream.close();
     }
 
     if (companyManager.getResult() == -2) {
@@ -159,7 +175,7 @@
 
         .selectableError{
 
-            color: #f44336 !important;
+            color: rgba(220, 20, 60, 0.78) !important;
 
         }
 
@@ -167,6 +183,40 @@
 
             display: none;
 
+        }
+
+        tr{
+
+            cursor: pointer;
+
+        }
+
+        .successSnackbar {
+            min-width: 250px; /* Set a default minimum width */
+            margin-left: -125px; /* Divide value of min-width by 2 */
+            background-color: #54a172;
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 7px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+        }
+
+        .errorSnackbar {
+            min-width: 250px; /* Set a default minimum width */
+            margin-left: -125px; /* Divide value of min-width by 2 */
+            background-color: rgba(220, 20, 60, 0.78);
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 7px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
         }
 
     </style>
@@ -181,10 +231,9 @@
 
 <div class="container">
     <%if (complete) {%>
-    <div class="jumbotron">
-        <h2>Company successfully added!</h2>
-    </div>
+    <div id="complete" value="true" style="display: none"><%=complete%></div>
     <%}%>
+
     <div class="row">
         <div class="col-md-12">
 
@@ -689,7 +738,7 @@
 </div>
 
 <%--export form--%>
-<form name="exportForm" id="exportForm" action="ViewCompanies.jsp" method="post">
+<form name="exportForm" id="exportForm" action="ViewCompanies.jsp" method="post" target="_blank">
     <input type="hidden" name="status" value="exportCompanies"/>
 </form>
 
@@ -722,6 +771,12 @@
 
         if ($('#modal').val() == 1) {
             $('#insertCompanyModal').modal('show');
+        }
+
+        if($('#complete').text()){
+
+            snackbar("Compnay successfully added","successSnackbar")
+
         }
 
         //Inserimento delle compagnie in struttura dati JS
@@ -805,19 +860,48 @@
             event.stopPropagation();
         });
 
+        function snackbar(message,type){
+
+            $('body').append('<div id=\"snackbar\">'+message+'</div>')
+            $('#snackbar').addClass(type)
+            $('#snackbar').addClass('animated fadeInUp').one('animationend',function(){
+
+                $(this).removeClass('animated fadeInUp')
+
+                setTimeout(function(){
+
+                    $('#snackbar').addClass('animated fadeOutDown').one('animationend',function(){
+
+                        $(this).removeClass('animated fadeOutDown')
+                        $(this).remove()
+
+                    })
+
+                },2000)
+
+            });
+
+        }
+
         let selectedCompanies = []
         let selectedFields = []
 
         //Metodo chiamato per aggiornare il contenuto della tabella in base ai filtri selezionati
         function refreshTable() {
 
-            //$.snackbar({content: "This is my awesome snackbar!"});
 
             let filteredCompanies = []
 
             filteredCompanies = companiesByUser.filter(x => companiesByProduct.includes(x)).filter(y => companiesByType.includes(y)).filter(z => companiesByTag.includes(z))
 
-            // console.log(filteredCompanies)
+            $('#companiesTable thead').show(0)
+
+            if(filteredCompanies.length==0){
+
+                $('#companiesTable thead').hide(0)
+                snackbar("No companies matching the criteria","errorSnackbar")
+
+            }
 
             $("#companiesTable tbody tr").each(function () {
 
@@ -1141,8 +1225,8 @@
 
         $('#exportBtn').click(function () {
 
+            console.log(selectedFields)
             console.log(selectedCompanies)
-
             //error animation for no fields selected
             if(selectedFields.length==0){
 
@@ -1158,6 +1242,8 @@
                     $(this).blur()
 
                 });
+
+                snackbar("Select at least one field","errorSnackbar")
 
             }
 
@@ -1182,6 +1268,7 @@
                 })
 
                 $('#exportForm').submit();
+                $('#exportForm select').remove()
             }
 
         });
