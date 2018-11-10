@@ -27,6 +27,7 @@ import java.util.*;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static global.Constants.LOG_DIR;
@@ -110,6 +111,7 @@ public class CompanyManager implements java.io.Serializable {
 
     private Map<Integer, ArrayList<ConsultingService>> consultingServicesProposed;
     private Appointment[] companyAppointments;
+    private AppointmentUser[] appointmentUsers;
     private Appointment companyAppointment;
 
     private String[] selectedFields;
@@ -886,6 +888,7 @@ public class CompanyManager implements java.io.Serializable {
             contactPerson = ContactPersonDAO.getContactPerson(database, companyId);
             conversations = ConversationDAO.getConversations(database, companyId);
             companyTags = TagDAO.getTags(database, companyId);
+            appointmentUsers = AppointmentDAO.getAppointmentUsersForCompany(database, companyId);
 
             consultingServices = ConsultingServiceDAO.getConsultingServices(database);
             consultingServicesPurchased = ConsultingServiceDAO.getPurchasedConsultingServices(database, companyId);
@@ -932,7 +935,6 @@ public class CompanyManager implements java.io.Serializable {
             tags = TagDAO.getAllTags(db);
             users = UserDAO.getAllUsers(db);
             contactPeople = ContactPersonDAO.getAllContactPeople(db);
-
             tagsByCompany = new HashMap<Integer, ArrayList<Tag>>();
 
             if (companies != null) {
@@ -991,11 +993,11 @@ public class CompanyManager implements java.io.Serializable {
         return Optional.ofNullable(consultingServicesProposed.get(id));
     }
 
-    public String getUserById(Integer userId) {
-        String user = "";
+    public User getUserById(Integer userId) {
+        User user = null;
         for (int k = 0; k < (users.length); k++) {
             if (users[k].userId == userId) {
-                user = users[k].fullName();
+                user = users[k];
             }
         }
         return user;
@@ -1009,6 +1011,17 @@ public class CompanyManager implements java.io.Serializable {
             }
         }
         return service;
+    }
+
+    public List<User> getPartecipatingUsers(Integer appointmentId) {
+        List<User> users = new ArrayList<User>();
+
+        for (int k = 0; k < (appointmentUsers.length); k++) {
+            if (appointmentUsers[k].appointmentId== appointmentId) {
+                users.add(getUserById(appointmentUsers[k].userId));
+            }
+        }
+        return users;
     }
 
 
@@ -1403,6 +1416,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public ContactPerson getContactPerson() {
         return contactPerson;
+    }
+
+    public AppointmentUser getAppointmentUser(int index) {
+        return appointmentUsers[index];
+    }
+
+    public AppointmentUser[] getAppointmentUsers() {
+        return appointmentUsers;
     }
 
 

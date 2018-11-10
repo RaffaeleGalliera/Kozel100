@@ -11,6 +11,7 @@
 <%@ page import="util.Debug" %>
 <%@ page import="blogics.Tag" %>
 <%@ page import="global.Status" %>
+<%@ page import="blogics.User" %>
 <%@ page buffer="30kb" %>
 
 <jsp:useBean id="companyManager" scope="page" class="bflows.CompanyManager"/>
@@ -272,8 +273,8 @@
                         <tr>
                             <th>#</th>
                             <th>Note</th>
-                            <%--<th>User</th>--%>
                             <th>Date</th>
+                            <th>Partecipants</th>
                             <th>At</th>
                         </tr>
                         </thead>
@@ -284,12 +285,15 @@
                             </td>
                             <td><%=companyManager.getCompanyAppointment(k).note%>
                             </td>
-                            <%--<td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId)%></td>--%>
                             <td><%=companyManager.getCompanyAppointment(k).date%>
                             </td>
-                            <td><%=companyManager.getCompanyAppointment(k).time%>
-                            </td>
                             <td>
+                            <%for(User partecipatingUser : companyManager.getPartecipatingUsers(companyManager.getCompanyAppointment(k).appointmentId)){%>
+                            <%=partecipatingUser.fullName()%>
+                                <br>
+                            <%}%>
+                            </td>
+                            <td><%=companyManager.getCompanyAppointment(k).time%>
                             </td>
                         </tr>
                         <%}%>
@@ -341,7 +345,7 @@
                             </td>
                             <td><%=companyManager.getConversation(k).date%>
                             </td>
-                            <td><%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
+                            <td><%=companyManager.getUserById(companyManager.getConversation(k).userId).fullName()%>
                             </td>
                         </tr>
                         <%}%>
@@ -393,7 +397,7 @@
                             </td>
                             <td><%=companyManager.getCompanyNote(k).note%>
                             </td>
-                            <td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId)%>
+                            <td><%=companyManager.getUserById(companyManager.getCompanyNote(k).userId).fullName()%>
                             </td>
                             <td><%=companyManager.getCompanyNoteConversation(companyManager.getCompanyNote(k).conversationId)%>
                             </td>
@@ -538,7 +542,7 @@
                                 <%}%>
                             </td>
                             <%}%>
-                            <td><%=companyManager.getUserById(companyManager.getCommercialProposal(k).user_id)%>
+                            <td><%=companyManager.getUserById(companyManager.getCommercialProposal(k).user_id).fullName()%>
                             <td><%=companyManager.getCommercialProposal(k).status.name()%>
                             </td>
                             <td><%=companyManager.getCommercialProposal(k).updatedAt%>
@@ -777,7 +781,7 @@
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
-                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
+                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId).fullName()%>
                         </option>
                         <% } %>
                     </select>
@@ -824,7 +828,7 @@
                         <option value="<%=companyManager.getConversation(k).conversationId%>">
                             <%=companyManager.getConversation(k).date%>
                             : <%=companyManager.getConversation(k).reason%>
-                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId)%>
+                            : <%=companyManager.getUserById(companyManager.getConversation(k).userId).fullName()%>
                         </option>
                         <% } %>
                     </select>

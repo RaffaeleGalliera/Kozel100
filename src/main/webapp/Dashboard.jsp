@@ -309,7 +309,7 @@
                                     <td><%=dashboardManager.getUserAppointment(k).time%>
                                     </td>
                                     <td>
-                                    <td><a style="font-size:large; color:#45a149"
+                                    <a style="font-size:large; color:#45a149"
                                            href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
                                             <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
                                     </td>
