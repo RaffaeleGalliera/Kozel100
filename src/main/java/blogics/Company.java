@@ -81,7 +81,7 @@ public class Company {
         java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
 
         //Check unicita
-        query = "SELECT name FROM company WHERE name=? AND active_fl=1";
+        query = "SELECT name FROM company WHERE name=? ";
 
         parameters.add(name);
 
@@ -126,7 +126,7 @@ public class Company {
         java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
 
         /*Controllo che il nome aggiornato che sto per inserire non sia già presente*/
-        sql="SELECT company_id FROM company WHERE company_id<>"+companyId+" AND name=? AND active_fl=1";
+        sql="SELECT company_id FROM company WHERE company_id<>"+companyId+" AND name=? ";
 
         parameters.add(name);
 
@@ -156,15 +156,6 @@ public class Company {
         parameters.add(email);
 
         db.modify(sql, parameters, sqlDate);
-    }
-
-    public void delete(DataBase db) throws NotFoundDBException,ResultSetDBException {
-
-        String sql;
-
-        sql=" UPDATE company SET active_fl=0 WHERE company_id="+companyId;
-
-        db.modify(sql);
     }
 }
 

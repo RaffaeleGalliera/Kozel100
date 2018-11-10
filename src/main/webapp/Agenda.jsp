@@ -58,6 +58,14 @@
 <!doctype html>
 <html>
 <head>
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="resources/logoS.png">
+    <link rel="icon" type="image/png" href="resources/logoS.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>
+        Kozel100 CRM
+    </title>
+
 
     <style>
 
@@ -71,11 +79,9 @@
 
 
     </style>
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
     <!-- Material Design for Bootstrap fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Material+Icons" rel="stylesheet">
 
@@ -94,8 +100,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css"/>
     <%--TimePicker css--%>
     <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.css" rel="stylesheet"/>
-
-    <title>Kozel100 CRM</title>
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
@@ -120,7 +124,8 @@
                     <div class="form-group">
                         <label for="companyId" class="bmd-label-floating">Select Company</label>
                         <select class="form-control" name="companyId" id="companyId">
-                            <%for (int k = 0; k < agendaManager.getCompanies().length; k++) {%>
+                            <% int nCompanies = agendaManager.getCompanies().map(t -> t.length).orElse(0);
+                                for (int k = 0; k < nCompanies; k++) {%>
                             <option value="<%=agendaManager.getCompany(k).companyId%>">
                                 <%=agendaManager.getCompany(k).name%>
                             </option>

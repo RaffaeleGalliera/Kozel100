@@ -93,9 +93,17 @@
 <!doctype html>
 <html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="../resources/logoS.png">
+    <link rel="icon" type="image/png" href="../resources/logoS.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>
+        Kozel100 CRM
+    </title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
+
     <!-- Material Design for Bootstrap fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Material+Icons" rel="stylesheet">
     <!-- Material Design for Bootstrap CSS -->
@@ -109,8 +117,6 @@
     <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.css" rel="stylesheet"/>
 <%--Common CSS--%>
     <link rel="stylesheet" type="text/css" href="/css/common.css">
-
-    <title>Kozel100 CRM</title>
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
@@ -160,17 +166,17 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 32%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addNote">
                                 Add Note
                             </button>
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 32%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addAppointment">
                                 Add Appointment
                             </button>
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 32%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addCommercialProposal">
                                 Add Proposal
@@ -258,7 +264,7 @@
                     <% int nAppointments = companyManager.getCompanyAppointments().map(t -> t.length).orElse(0);
                         if (nAppointments == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Appointment Yet</h1>
+                        <h6 class="display-4"> There is no Appointment Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -314,7 +320,7 @@
                     <% int nConversation = companyManager.getConversations().map(t -> t.length).orElse(0);
                         if (nConversation == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Conversation Yet</h1>
+                        <h6 class="display-4"> There is no Conversation Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -362,7 +368,7 @@
                     <% int nNote = companyManager.getCompanyNotes().map(t -> t.length).orElse(0);
                         if (nNote == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Note Yet</h1>
+                        <h6 class="display-4"> There is no Note Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -442,7 +448,7 @@
                     <% int nService = companyManager.getConsultingServicesPurchased().map(t -> t.length).orElse(0);
                         if (nService == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Consulting Service Yet</h1>
+                        <h6 class="display-4"> There is no Consulting Service Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -491,7 +497,7 @@
                     <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
                         if (nProposal == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Commercial Proposal Yet</h1>
+                        <h6 class="display-4"> There is no Commercial Proposal Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -568,7 +574,7 @@
                         </div>
                         <% if (nTag == 0) {%>
                         <div class="jumbotron">
-                            <h1 class="display-4"> There is no Tag Yet</h1>
+                            <h6 class="display-4"> There is no Tag Yet</h6>
                         </div>
                         <%} else {%>
                         <table class="col-md-12 table table-striped">
@@ -761,7 +767,7 @@
             <div class="modal-body">
                 <%if (nConversation == 0) {%>
                 <div class="jumbotron">
-                    <h1 class="display-4"> There is no Conversation Yet</h1>
+                    <h6 class="display-4"> There is no Conversation Yet</h6>
                 </div>
                 <%} else {%>
                 <form name="companyManager" action="" method="post">
