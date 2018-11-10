@@ -1040,6 +1040,10 @@
         $('body').bootstrapMaterialDesign();
     });
 
+
+    let today = new Date().toISOString().substr(0, 10);
+    $('input[type="date"]').val(today)
+
     function deleteNote(id) {
 
         r = confirm("Are you sure to delete this Note?");

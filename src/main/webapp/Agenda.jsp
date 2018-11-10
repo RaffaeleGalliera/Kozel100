@@ -66,6 +66,20 @@
         Kozel100 CRM
     </title>
 
+
+    <style>
+
+        .alert-info{
+
+            background-color: #c8e6c9 !important;
+            color: #00635a !important;
+        }
+
+
+
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!-- Material Design for Bootstrap fonts and icons -->
@@ -190,6 +204,9 @@
         'minTime': "07:00am",
         'maxTime': "08:00pm"
     });
+
+    let today = new Date().toISOString().substr(0, 10);
+    $('#appointmentDate').val(today)
 
     var curEvents = [];
     <% int nAppointments = agendaManager.getUserAppointments().map(t -> t.length).orElse(0);
