@@ -77,11 +77,12 @@ public class AgendaManager {
             AppointmentUser appointmentUser = new AppointmentUser(appointmentUserId, appointmentId);
             appointmentUser.insert(database);
 
-            for (int k = 0; k < userIds.length; k++) {
-                AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
-                otherUser.insert(database);
+            if(userIds!=null) {
+                for (int k = 0; k < userIds.length; k++) {
+                    AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
+                    otherUser.insert(database);
+                }
             }
-
 
             users = UserDAO.getAllUsers(database);
             companies = CompanyDAO.getAllCompanies(database);
