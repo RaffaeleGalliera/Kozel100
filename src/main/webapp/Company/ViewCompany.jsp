@@ -258,7 +258,7 @@
                     <% int nAppointments = companyManager.getCompanyAppointments().map(t -> t.length).orElse(0);
                         if (nAppointments == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Appointment Yet</h1>
+                        <h6 class="display-4"> There is no Appointment Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -314,7 +314,7 @@
                     <% int nConversation = companyManager.getConversations().map(t -> t.length).orElse(0);
                         if (nConversation == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Conversation Yet</h1>
+                        <h6 class="display-4"> There is no Conversation Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -362,7 +362,7 @@
                     <% int nNote = companyManager.getCompanyNotes().map(t -> t.length).orElse(0);
                         if (nNote == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Note Yet</h1>
+                        <h6 class="display-4"> There is no Note Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -442,7 +442,7 @@
                     <% int nService = companyManager.getConsultingServicesPurchased().map(t -> t.length).orElse(0);
                         if (nService == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Consulting Service Yet</h1>
+                        <h6 class="display-4"> There is no Consulting Service Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -491,7 +491,7 @@
                     <% int nProposal = companyManager.getCommercialProposals().map(t -> t.length).orElse(0);
                         if (nProposal == 0) {%>
                     <div class="jumbotron">
-                        <h1 class="display-4"> There is no Commercial Proposal Yet</h1>
+                        <h6 class="display-4"> There is no Commercial Proposal Yet</h6>
                     </div>
                     <%} else {%>
                     <table class="col-md-12 table table-striped">
@@ -568,7 +568,7 @@
                         </div>
                         <% if (nTag == 0) {%>
                         <div class="jumbotron">
-                            <h1 class="display-4"> There is no Tag Yet</h1>
+                            <h6 class="display-4"> There is no Tag Yet</h6>
                         </div>
                         <%} else {%>
                         <table class="col-md-12 table table-striped">
@@ -761,7 +761,7 @@
             <div class="modal-body">
                 <%if (nConversation == 0) {%>
                 <div class="jumbotron">
-                    <h1 class="display-4"> There is no Conversation Yet</h1>
+                    <h6 class="display-4"> There is no Conversation Yet</h6>
                 </div>
                 <%} else {%>
                 <form name="companyManager" action="" method="post">

@@ -40,7 +40,7 @@
 <div class="container">
     <div class="page-header">
         <div class="jumbotron">
-            <h1 class="display-4">Welcome</h1>
+            <h6 class="display-4">Welcome</h6>
             <p class="lead">This is your administration panel. Here you can add new User, Consulting Services and modify the application's Setup state</p>
             <hr class="my-4">
             <p>In case of troubles contact your Webmaster.</p>
