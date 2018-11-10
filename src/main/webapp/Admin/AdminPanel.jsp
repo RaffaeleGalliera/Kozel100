@@ -18,9 +18,16 @@
 
 <html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="../resources/logoS.png">
+    <link rel="icon" type="image/png" href="../resources/logoS.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>
+        Kozel100 CRM
+    </title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
 
     <!-- Material Design for Bootstrap fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Material+Icons" rel="stylesheet">
@@ -32,7 +39,6 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <%--<link rel="stylesheet" type="text/css" href="/css/admin_panel.css">--%>
 
-    <title>Kozel100 CRM</title>
 </head>
 <body>
 <jsp:include page="/Common/Navbar.jsp"/>
