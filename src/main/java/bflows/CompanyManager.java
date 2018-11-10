@@ -485,11 +485,12 @@ public class CompanyManager implements java.io.Serializable {
             AppointmentUser appointmentUser = new AppointmentUser(appointmentUserId, appointmentId);
             appointmentUser.insert(database);
 
-            for (int k = 0; k < userIds.length; k++) {
-                AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
-                otherUser.insert(database);
+            if(userIds!=null) {
+                for (int k = 0; k < userIds.length; k++) {
+                    AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
+                    otherUser.insert(database);
+                }
             }
-
 
             getAllCompanyInfos(database);
 

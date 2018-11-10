@@ -883,8 +883,7 @@
                     <div class="form-group">
                         <label for="userIds" class="bmd-label-floating">Share this Appointment with other
                             Users</label>
-                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple"
-                                required>
+                        <select class="form-control multipleSelect" name="userIds" id="userIds" multiple="multiple">
                             <%for (int k = 0; k < companyManager.getUsers().length; k++) {%>
                             <%if (userId != companyManager.getUser(k).userId) {%>
                             <option value="<%=companyManager.getUser(k).userId%>">
