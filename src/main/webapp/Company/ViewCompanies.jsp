@@ -812,13 +812,10 @@
 
 
     $(document).ready(function () {
-
-
         $('body').bootstrapMaterialDesign();
 
         $('.multipleSelect').css('width', '100%');
         $('.multipleSelect').select2();
-
         populateCountries("country", "state");
 
         if ($('#modal').val() == 1) {
