@@ -166,17 +166,17 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 32%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addNote">
                                 Add Note
                             </button>
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 32%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addAppointment">
                                 Add Appointment
                             </button>
-                            <button style="width: 33%" type="button" class="btn btn-outline-secondary"
+                            <button style="width: 32%" type="button" class="btn btn-outline-secondary"
                                     data-toggle="modal"
                                     data-target="#addCommercialProposal">
                                 Add Proposal
