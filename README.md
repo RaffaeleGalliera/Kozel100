@@ -23,7 +23,7 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 7. Insert tags for each customer, even add them massivly, selecting customers from the customer list. Browse customer lists as point 2.
 
-8. Export customer lists to text files selecting customers by tags and customers type (with the possibility to choose the fields to be exported).
+8. Export customer lists to PDFs selecting customers by tags and customers type (with the possibility to choose the fields to be exported).
 
 9. Personal interactive Dashboard that collects the most important informations for each user: upcoming appointments, opportunities, assigned companies, last notes saved and last notes saved by others on their customers.
 
