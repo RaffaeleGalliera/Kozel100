@@ -1342,6 +1342,20 @@
 
     });
 
+    function pastDate(input) {
+        var GivenDate = input.value;
+        var CurrentDate = new Date();
+        GivenDate = new Date(GivenDate);
+
+        if (GivenDate > CurrentDate) {
+            input.setCustomValidity("Are you John Titor?");
+            return false;
+        } else {
+            input.setCustomValidity('');
+            return true;
+        }
+    }
+
 
 
 
