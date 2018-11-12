@@ -178,7 +178,7 @@
                                     <h6> No work fields yet</h6>
                                 </div>
                                 <%} else {%>
-                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
+                                <%for (int k = 0; k < nWorkFields ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getWorkField(k).name%></td>
@@ -224,7 +224,7 @@
                                     <h6> No positions yet</h6>
                                 </div>
                                 <%} else {%>
-                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
+                                <%for (int k = 0; k < nPositions ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getPosition(k).name%></td>
@@ -268,7 +268,7 @@
                                     <h6> No customer types yet</h6>
                                 </div>
                                 <%} else {%>
-                                <%for (int k = 0; k < nConsultingServices ; k++) {%>
+                                <%for (int k = 0; k < nCustomerType ; k++) {%>
                                 <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getClientType(k).name%></td>
@@ -313,7 +313,7 @@
                                     <h6> No Product categories yet</h6>
                                 </div>
                                 <%} else {%>
-                                <%for (int k = 0; k < nConsultingServices ; k++) {%>                                <tr>
+                                <%for (int k = 0; k < nProductCategories ; k++) {%>                                <tr>
                                     <td><%= k +1 %></td>
                                     <td><%=adminPanelManager.getProductCategory(k).name%></td>
                                 </tr>
@@ -356,7 +356,7 @@
                                     <h6> No tags yet</h6>
                                 </div>
                                 <%} else {%>
-                                <%for (int k = 0; k < nConsultingServices ; k++) {%>                                <tr>
+                                <%for (int k = 0; k < nTags ; k++) {%>                                <tr>
                                     <td><%= k + 1 %></td>
                                     <td><%=adminPanelManager.getTag(k).name%></td>
                                 </tr>
