@@ -111,7 +111,7 @@
             <div class="form-group">
                 <label for="positionId" class="bmd-label-floating">Position</label>
                 <select class="form-control" id="positionId" name="positionId" required>
-                    <%for (int k = 0; k < adminPanelManager.getPositions().length; k++) {%>
+                    <%for (int k = 0; k < adminPanelManager.getPositions().map(t -> t.length).orElse(0); k++) {%>
                         <%if ((message!=null)&&(adminPanelManager.getPosition(k).positionId==adminPanelManager.getPositionId())) {%>
                             <option value="<%=adminPanelManager.getPosition(k).positionId%>" selected>
                                 <%=adminPanelManager.getPosition(k).name%>
@@ -128,7 +128,7 @@
             <div class="form-group">
                 <label for="workFieldId" class="bmd-label-floating">Work Field</label>
                 <select class="form-control" id="workFieldId" name="workFieldId" required>
-                    <%for (int k = 0; k < adminPanelManager.getWorkFields().length; k++) {%>
+                    <%for (int k = 0; k < adminPanelManager.getWorkFields().map(t -> t.length).orElse(0); k++) {%>
                         <%if ((message != null) && (adminPanelManager.getWorkField(k).workFieldId == adminPanelManager.getWorkFieldId())) {%>
                             <option value="<%=adminPanelManager.getWorkField(k).workFieldId%>" selected>
                                 <%=adminPanelManager.getWorkField(k).name%>

@@ -19,9 +19,6 @@ public class User{
     public String password;
     public String firstName;
     public String lastName;
-    public String recruitmentDate;
-    public Date endWorking;
-    public String phoneNumber;
     public int positionId;
     public int workFieldId;
 
@@ -52,18 +49,6 @@ public class User{
         } catch (SQLException sqle) {
         }
         try {
-            recruitmentDate = result.getString("recruitment_date");
-        } catch (SQLException sqle) {
-        }
-        try {
-            endWorking = result.getDate("end_working");
-        } catch (SQLException sqle) {
-        }
-        try {
-            phoneNumber = result.getString("phone_number");
-        } catch (SQLException sqle) {
-        }
-        try {
             positionId = result.getInt("position_id");
         } catch (SQLException sqle) {
         }
@@ -82,9 +67,6 @@ public class User{
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.recruitmentDate = recruitmentDate;
-        this.endWorking = endWorking;
-        this.phoneNumber = phoneNumber;
         this.positionId = positionId;
         this.workFieldId = workFieldId;
 
@@ -122,14 +104,13 @@ public class User{
             throw new DuplicatedRecordDBException("User.insert(): Tentativo di inserimento di un email gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
         }
 
-        query = "INSERT INTO user(user_id,email,is_admin,password,first_name,last_name,recruitment_date,end_working,phone_number,position_id,work_field_id)" +
-                "VALUES("+userId+",?,"+isAdmin+",?,?,?,"+recruitmentDate+","+endWorking+",?,"+positionId+","+workFieldId+")";
+        query = "INSERT INTO user(user_id,email,is_admin,password,first_name,last_name, position_id,work_field_id)" +
+                "VALUES(" + userId + ",?," + isAdmin + ",?,?,?," + positionId + "," + workFieldId + ")";
 
 
         parameters.add(password);
         parameters.add(firstName);
         parameters.add(lastName);
-        parameters.add(phoneNumber);
 
 
         database.modify(query, parameters);
