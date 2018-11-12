@@ -19,7 +19,7 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 5. Appointment Management: Insert an appointment with a note, a date, every partecipating user and the customer which it refers.
 
-6. Every user as his personal agenda  -made with JavaScript FullCalendar plugin https://fullcalendar.io/ - 
+6. Every user has his personal agenda  -made with JavaScript FullCalendar plugin https://fullcalendar.io/ - 
 
 7. Insert tags for each customer, even add them massivly, selecting customers from the customer list. Browse customer lists as point 2.
 
