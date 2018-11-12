@@ -1085,7 +1085,7 @@ public class CompanyManager implements java.io.Serializable {
         String conversation = "";
         for (int k = 0; k < (conversations.length); k++) {
             if (conversations[k].conversationId == conversationId) {
-                conversation = "Reason: " + conversations[k].reason + "<br>Date: " + conversations[k].date + "<br>Created by: " + getUserById(conversations[k].userId);
+                conversation = "Reason: " + conversations[k].reason + "<br>Date: " + conversations[k].date + "<br>Created by: " + getUserById(conversations[k].userId).fullName();
             }
         }
         return conversation;
