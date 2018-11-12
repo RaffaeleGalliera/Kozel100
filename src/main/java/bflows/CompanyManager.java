@@ -1316,8 +1316,8 @@ public class CompanyManager implements java.io.Serializable {
         this.users = users;
     }
 
-    public ContactPerson[] getContactPeople() {
-        return contactPeople;
+    public Optional<ContactPerson[]> getContactPeople() {
+        return Optional.ofNullable(contactPeople);
     }
 
     public void setContactPeople(ContactPerson[] contactPeople) {

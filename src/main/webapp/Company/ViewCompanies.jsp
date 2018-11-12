@@ -827,7 +827,7 @@
 
         if($('#complete').text()){
 
-            snackbar("Compnay successfully added","successSnackbar")
+            snackbar("Company successfully added","successSnackbar")
 
         }
 
@@ -873,7 +873,7 @@
 
         let contactPeople = [];
 
-        <% for(int x=0;x<companyManager.getContactPeople().length;x++){ %>
+        <% for(int x=0;x<companyManager.getCompanies().map(t -> t.length).orElse(0);x++){ %>
 
         contactPeople.push({
 
