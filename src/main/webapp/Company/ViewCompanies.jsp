@@ -1303,6 +1303,8 @@
                 });
 
                 snackbar("Select at least one field","errorSnackbar")
+                $(this).blur()
+
 
             }
 
