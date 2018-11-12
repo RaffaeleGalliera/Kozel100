@@ -1,7 +1,7 @@
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/src/main/webapp/resources/logo.png)
 # Kozel100
 
-Kozel100 is a material designed Customer Relationship Management system for Consulting Firms that want to manage relationships with their clients.
+Kozel100 is a material designed Customer Relationship Management system for Consulting Firms with the purpose to manage company-clients relationships.
 
 Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
 
@@ -9,7 +9,7 @@ Link: http://www.unife.it/ing/informazione
 
 Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
-1. Users are able to perform CRUD actions on customers (company), with all the details and characteristics, the list of customer notes,  consulting services purchased and other details. Each customer is assigned to one application user(employee).
+1. Users are able to perform CRUD actions on customers (company), with all the details and characteristics, listing customer notes,  consulting services purchased and other details. Each customer is assigned to one application user(employee).
 
 2. View of the customers list, browsing by companies' product category, tags, by customer type (prospect, new customer, client at risk of abandonment, etc..) and by assigned user.
 
