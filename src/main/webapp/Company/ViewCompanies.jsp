@@ -340,7 +340,7 @@
             int nCompanies = companyManager.getCompanies().map(companies -> companies.length).orElse(0);
             if (nCompanies > 0) {
         %>
-        <table class="col-md-12 table table-striped" id="companiesTable">
+        <table class="col-md-12 table table-striped table-hover" id="companiesTable">
             <thead class="cf">
             <tr>
                 <th scope="col">#</th>
