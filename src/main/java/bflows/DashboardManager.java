@@ -83,60 +83,42 @@ public class DashboardManager {
         }
     }
 
-//    public void addAppointment() {
-//
-//        DataBase database = null;
-//
-//        try {
-//            database = DBService.getDataBase();
-//            this.appointmentId = AppointmentDAO.getNewID(database);
-//
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            Date date = dateFormat.parse(appointmentDate);
-//            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
-//            Date dateTime = timeFormat.parse(appointmentTime);
-//            Time time = new Time(dateTime.getTime());
-//            Appointment appointment = new Appointment(appointmentId, companyId, appointmentNote, date, time);
-//            appointment.insert(database);
-//
-//            AppointmentUser appointmentUser = new AppointmentUser(appointmentUserId, appointmentId);
-//            appointmentUser.insert(database);
-//
-//            for (int k = 0; k < userIds.length; k++) {
-//                AppointmentUser otherUser = new AppointmentUser(userIds[k], appointmentId);
-//                otherUser.insert(database);
-//            }
-//
-//
-//            users = UserDAO.getAllUsers(database);
-//            companies = CompanyDAO.getAllCompanies(database);
-//            userAppointments = AppointmentDAO.getUserAppointments(database, userId);
-//
-//
-//            database.commit();
-//
-//        } catch (NotFoundDBException ex) {
-//            EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
-//        } catch (ParseException ex) {
-////            EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
-//        } catch (ResultSetDBException ex) {
-//            EService.logAndRecover(ex);
-//            setResult(EService.UNRECOVERABLE_ERROR);
-//        } catch (DuplicatedRecordDBException ex) {
-//            EService.logAndRecover(ex);
-//            setResult((EService.RECOVERABLE_ERROR));
-//            setErrorMessage("Email already taken by another Contact");
-//        } finally {
-//            try {
-//                database.close();
-//            } catch (NotFoundDBException e) {
-//                EService.logAndRecover(e);
-//            }
-//        }
-//
-//    }
+    public void deleteAppointment(int appointmentId) {
+
+        DataBase database = null;
+
+        try {
+            database = DBService.getDataBase();
+            AppointmentDAO.deleteAppointmentForUser(database, appointmentId, userId);
+
+            user = UserDAO.getUser(database, userId);
+            users = UserDAO.getAllUsers(database);
+            userCompanies = CompanyDAO.getCompaniesByUser(database, userId);
+            companies = CompanyDAO.getAllCompanies(database);
+            conversations = ConversationDAO.getAllConversations(database);
+            contactPeople = ContactPersonDAO.getAllContactPeople(database);
+            userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
+            userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
+            userNotes = ConversationNoteDAO.getNoteByUser(database, userId);
+            otherUsersNotes = ConversationNoteDAO.getNotesByOtherUsers(database, userId);
+
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+
+    }
 public ContactPerson getContactPersonByCompanyId(Integer companyId) {
     ContactPerson contact = null;
     for (int k = 0; k < (contactPeople.length); k++) {

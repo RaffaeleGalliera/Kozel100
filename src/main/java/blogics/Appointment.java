@@ -85,4 +85,24 @@ public class Appointment {
         database.modify(query, parameters, sqlDate, sqlTime);
 
     }
+
+    public void update(DataBase db) throws NotFoundDBException, ResultSetDBException, DuplicatedRecordDBException {
+
+        String sql;
+        ArrayList<String> parameters = new ArrayList();
+        ResultSet rs;
+        boolean exist;
+
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        java.sql.Time sqlTime = new java.sql.Time(time.getTime());
+
+        sql = " UPDATE appointment "
+                + " SET appointment_id=" + appointmentId + ", note=?, date=?, time=?"
+                + " WHERE appointment_id=" + appointmentId;
+
+        parameters.add(note);
+
+        db.modify(sql, parameters, sqlDate, sqlTime);
+    }
 }

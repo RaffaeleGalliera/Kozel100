@@ -49,6 +49,10 @@
         dashboardManager.dashView();
     }
 
+    if (status.equals("deleteAppointment")) {
+        dashboardManager.deleteAppointment(Integer.parseInt(request.getParameter("appointmentId")));
+    }
+
 
 %>
 
@@ -313,6 +317,11 @@
                                            href="JavaScript: viewCompany('<%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).companyId%>');">
                                             <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
                                     </td>
+                                    <td>
+                                        <a style=" color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
+                                           href="JavaScript:deleteAppointment('<%=dashboardManager.getUserAppointment(k).appointmentId%>');"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
                                     <%if (dashboardManager.appointmentToday(dashboardManager.getUserAppointment(k).date)) {%>
                                     <%todayAppointments++;%>
                                     <%}%>
@@ -320,6 +329,11 @@
                                 <%}%>
                                 <%}%>
                                 </tbody>
+                                <form name="deleteAppointmentForm" action="Dashboard.jsp" method="post">
+                                    <input type="hidden" name="userId" value="<%=userId%>"/>
+                                    <input type="hidden" name="appointmentId" value=""/>
+                                    <input type="hidden" name="status" value="deleteAppointment"/>
+                                </form>
                             </table>
                         </div>
                     </div>
@@ -510,6 +524,21 @@
 function viewCompany(id) {
     document.viewCompanyForm.companyId.value = id;
     document.viewCompanyForm.submit();
+}
+
+function deleteAppointment(id) {
+
+    r = confirm("Are you sure you want delete this appointment ? ");
+
+    if (r === true) {
+        document.deleteAppointmentForm.appointmentId.value = id;
+
+        document.deleteAppointmentForm.submit();
+    }
+    else {
+        return;
+    }
+
 }
 
 </script>

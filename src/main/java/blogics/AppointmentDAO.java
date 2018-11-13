@@ -41,6 +41,31 @@ public class AppointmentDAO {
 
     }
 
+    public static Appointment getAppointment(DataBase db, int appointmentId) throws NotFoundDBException, ResultSetDBException {
+
+        Appointment appointment = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT * FROM appointment WHERE appointment_id=" + appointmentId + "";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                appointment = new Appointment(rs);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("AppointmentDAO.getAppointment(): ResultSetDBException: " + ex.getMessage(), db);
+        }
+
+        return appointment;
+
+    }
+
     public static Appointment[] getCompanyAppointments(DataBase db, int companyId) throws NotFoundDBException, ResultSetDBException {
 
         Appointment[] appointments = null;
@@ -175,6 +200,16 @@ public class AppointmentDAO {
 
         return appointmentUsers;
 
+    }
+
+    public static void deleteAppointmentForUser(DataBase db, Integer appointmentId, Integer userId) throws NotFoundDBException {
+
+        String sql;
+
+        sql = "DELETE FROM appointment_user"
+                + " WHERE user_id=" + userId + " AND appointment_id=" + appointmentId;
+
+        db.modify(sql);
     }
 
 
