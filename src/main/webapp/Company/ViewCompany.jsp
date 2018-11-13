@@ -911,6 +911,7 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="appointmentUserId" value="<%=userId%>"/>
                         <input type="hidden" name="companyId" id="companyIdByAppointment"
                                value="<%=companyManager.getCompany().companyId%>"/>
                         <input type="hidden" name="appointmentId" id="appointmentId"

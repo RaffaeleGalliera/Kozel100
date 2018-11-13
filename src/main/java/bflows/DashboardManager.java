@@ -16,7 +16,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class DashboardManager {
@@ -33,6 +35,7 @@ public class DashboardManager {
     private Company[] userCompanies;
     private Company[] companies;
     private Appointment[] userAppointments;
+    private AppointmentUser[] appointmentUsers;
     private Appointment userAppointment;
     private CommercialProposal[] userCommercialProposals;
     private CommercialProposal userCommercialProposal;
@@ -64,6 +67,7 @@ public class DashboardManager {
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
             userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
             userNotes = ConversationNoteDAO.getNoteByUser(database, userId);
+            appointmentUsers = AppointmentDAO.getAppointmentUsers(database);
             otherUsersNotes = ConversationNoteDAO.getNotesByOtherUsers(database, userId);
 
             database.commit();
@@ -98,9 +102,14 @@ public class DashboardManager {
             conversations = ConversationDAO.getAllConversations(database);
             contactPeople = ContactPersonDAO.getAllContactPeople(database);
             userAppointments = AppointmentDAO.getIncomingUserAppointments(database, userId);
+            appointmentUsers = AppointmentDAO.getAppointmentUsers(database);
             userCommercialProposals = CommercialProposalDAO.getProposalsByUserId(database, userId);
             userNotes = ConversationNoteDAO.getNoteByUser(database, userId);
             otherUsersNotes = ConversationNoteDAO.getNotesByOtherUsers(database, userId);
+
+            if (getPartecipatingUsers(appointmentId).size() == 0) {
+                Appointment.deleteAppointment(database, appointmentId);
+            }
 
             database.commit();
 
@@ -119,15 +128,16 @@ public class DashboardManager {
         }
 
     }
-public ContactPerson getContactPersonByCompanyId(Integer companyId) {
-    ContactPerson contact = null;
-    for (int k = 0; k < (contactPeople.length); k++) {
-        if (contactPeople[k].companyId == companyId) {
-            contact = contactPeople[k];
+
+    public ContactPerson getContactPersonByCompanyId(Integer companyId) {
+        ContactPerson contact = null;
+        for (int k = 0; k < (contactPeople.length); k++) {
+            if (contactPeople[k].companyId == companyId) {
+                contact = contactPeople[k];
+            }
         }
+        return contact;
     }
-    return contact;
-}
 
     public Company getCompanyById(Integer companyId) {
         Company company=null;
@@ -179,6 +189,27 @@ public ContactPerson getContactPersonByCompanyId(Integer companyId) {
             }
         }
         return c;
+    }
+
+    public List<User> getPartecipatingUsers(Integer appointmentId) {
+        List<User> users = new ArrayList<User>();
+
+        for (int k = 0; k < (appointmentUsers.length); k++) {
+            if (appointmentUsers[k].appointmentId == appointmentId) {
+                users.add(getUserById(appointmentUsers[k].userId));
+            }
+        }
+        return users;
+    }
+
+    public User getUserById(Integer userId) {
+        User user = null;
+        for (int k = 0; k < (users.length); k++) {
+            if (users[k].userId == userId) {
+                user = users[k];
+            }
+        }
+        return user;
     }
 
 
