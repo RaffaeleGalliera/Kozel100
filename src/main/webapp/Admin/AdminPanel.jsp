@@ -332,7 +332,7 @@
                         <div class="table-wrapper">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form action="Setup/InsertTag.jsp">
+                                    <form action="InsertTag.jsp">
                                         <h2>Tags
                                             <button style="float:right" type="submit" value="InsertTag"
                                                     class="btn btn-default">
