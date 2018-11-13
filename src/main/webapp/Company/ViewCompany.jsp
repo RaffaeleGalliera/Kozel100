@@ -90,6 +90,10 @@
         companyManager.updateCommercialProposal();
     }
 
+    if (status.equals("updateAppointment")) {
+        companyManager.updateAppointment();
+    }
+
 %>
 <!doctype html>
 <html>
@@ -276,6 +280,7 @@
                             <th>Date</th>
                             <th>Partecipants</th>
                             <th>At</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -295,6 +300,12 @@
                             </td>
                             <td><%=companyManager.getCompanyAppointment(k).time%>
                             </td>
+                            <td>
+                                <a style=" color:#34373b" class="edit" title="edit" data-toggle="tooltip"
+                                   href="JavaScript: updateAppointmentModal('<%=companyManager.getCompanyAppointment(k).appointmentId%>', '<%=companyManager.getCompanyAppointment(k).date%>', '<%=companyManager.getCompanyAppointment(k).time%>', '<%=companyManager.getCompanyAppointment(k).note%>');"><i
+                                        class="material-icons md-24">&#xE254;</i>
+                                </a>
+                            </td>
                         </tr>
                         <%}%>
                         </tbody>
@@ -306,8 +317,8 @@
             <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
             <input type="hidden" name="status" value="view"/>
 
-            <div class="tab-pane fade" id="conversations" role="tabpanel" aria-labelledby="conversations-tab">
                 <%--Conversations Tab--%>
+            <div class="tab-pane fade" id="conversations" role="tabpanel" aria-labelledby="conversations-tab">
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
@@ -676,8 +687,6 @@
             </div>
             <div class="modal-body">
 
-                <%--TODO i used get() to retrieve Optionals here and there because my balls were exploding--%>
-
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="purchasedServiceId" class="bmd-label-floating">Consulting Service</label>
@@ -876,8 +885,8 @@
                     </div>
                     <div class="form-group">
                         <label for="appointmentTime" class="bmd-label-floating">Time</label>
-                        <input type="text"  name="appointmentTime" class="form-control timePicker"
-                               id="appointmentTime">
+                        <input type="text" name="appointmentTime" class="form-control timePicker"
+                               id="appointmentTime" required>
                     </div>
                     <div class="form-group">
                         <label for="appointmentNote" class="bmd-label-floating">Note</label>
@@ -902,17 +911,60 @@
                             Submit
                         </button>
                         <input type="hidden" name="status" value="addAppointment"/>
+                        <input type="hidden" name="appointmentUserId" value="<%=userId%>"/>
                         <input type="hidden" name="companyId" id="companyIdByAppointment"
                                value="<%=companyManager.getCompany().companyId%>"/>
-                        <input type="hidden" name="appointmentUserId" id="appointmentUserId"
-                               value="<%= userId %>"/>
+                        <input type="hidden" name="appointmentId" id="appointmentId"
+                               value=""/>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!--Update Appointment Modal -->
+<div class="modal fade" id="updateAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="updateAppointmentTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateAppointmentLabel">Update Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="updateAppointmentForm" action="" method="post">
+                    <div class="form-group">
+                        <label for="updateAppointmentDate" class="bmd-label-floating">Date</label>
+                        <input type="date" name="appointmentDate" class="form-control"
+                               id="updateAppointmentDate" oninput="futureDate(this)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateAppointmentTime" class="bmd-label-floating">Time</label>
+                        <input type="text" name="appointmentTime" class="form-control timePicker"
+                               id="updateAppointmentTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateAppointmentNote" class="bmd-label-floating">Note</label>
+                        <textarea class="form-control" rows="5" id="updateAppointmentNote"
+                                  name="appointmentNote" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-raised">
+                            Submit
+                        </button>
+                        <input type="hidden" name="status" value="updateAppointment"/>
+                        <input type="hidden" name="appointmentId" id="appointmentIdByUpdate" value=""/>
+                        <input type="hidden" name="companyId" id="companyIdByUpdateAppointment"
+                               value="<%=companyManager.getCompany().companyId%>"/>
 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!--Commercial Proposal Modal-->
 <div class="modal fade" id="addCommercialProposal" tabindex="-1" role="dialog"
      aria-labelledby="addAppointmentLabel"
@@ -1070,6 +1122,14 @@
         document.updateNoteForm.note.value = note;
     }
 
+    function updateAppointmentModal(id, date, time, note) {
+        $('#updateAppointmentModal').modal('show');
+        document.updateAppointmentForm.appointmentId.value = id;
+        document.updateAppointmentForm.appointmentDate.value = date;
+        document.updateAppointmentForm.appointmentTime.value = time;
+        document.updateAppointmentForm.appointmentNote.value = note;
+    }
+
     function updateProposalModal(id, name, description, status) {
         $('#updateProposalModal').modal('show');
         document.updateProposalForm.commercialProposalId.value = id;
@@ -1106,25 +1166,6 @@
             return true;
         }
     }
-
-    // function validateAppointmentTime(input) {
-    // //     var time = input.value;
-    // //     givenTime = new Date("01/01/2000"+time);
-    // //     startWorkingTime = new Date("01/01/2000"+"08:00:00");
-    // //     endWorkingTime= new Date("01/01/2000"+"20:00:00");
-    // //
-    // //     if (givenTime > endWorkingTime ) {
-    // //         input.setCustomValidity("Appointments After 20:00 are not accepted");
-    // //         return false;
-    // //     }
-    // //     if (givenTime < startWorkingTime) {
-    // //         input.setCustomValidity("Appointments Before 08:00 are not accepted");
-    // //         return false;
-    // //     } else {
-    // //         input.setCustomValidity('');
-    // //         return true;
-    // //     }
-    // // }
 
     function deleteTag(id, name) {
 

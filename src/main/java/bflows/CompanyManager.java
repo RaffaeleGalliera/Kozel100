@@ -810,6 +810,51 @@ public class CompanyManager implements java.io.Serializable {
         }
     }
 
+    public void updateAppointment() {
+
+        DataBase database = null;
+
+        try {
+
+            database = DBService.getDataBase();
+
+            companyAppointment = AppointmentDAO.getAppointment(database, appointmentId);
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = dateFormat.parse(appointmentDate);
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+            Date dateTime = timeFormat.parse(appointmentTime);
+            Time time = new Time(dateTime.getTime());
+            companyAppointment.time = time;
+            companyAppointment.date = date;
+            companyAppointment.note = appointmentNote;
+            companyAppointment.update(database);
+
+            getAllCompanyInfos(database);
+            database.commit();
+
+        } catch (NotFoundDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (ResultSetDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } catch (DuplicatedRecordDBException ex) {
+            EService.logAndRecover(ex);
+            setResult(EService.RECOVERABLE_ERROR);
+            setErrorMessage("Company already exist");
+        } catch (ParseException ex) {
+//            EService.logAndRecover(ex);
+            setResult(EService.UNRECOVERABLE_ERROR);
+        } finally {
+            try {
+                database.close();
+            } catch (NotFoundDBException e) {
+                EService.logAndRecover(e);
+            }
+        }
+    }
+
     public void updateCommercialProposal() {
 
         DataBase database = null;
@@ -1232,6 +1277,14 @@ public class CompanyManager implements java.io.Serializable {
 
     public String getCompanyEmail() {
         return companyEmail;
+    }
+
+    public int getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public void setCompanyEmail(String companyEmail) {

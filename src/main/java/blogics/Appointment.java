@@ -59,23 +59,23 @@ public class Appointment {
 
         java.sql.Time sqlTime = new java.sql.Time(time.getTime());
 
-        //Check unicita
-        query = "SELECT company_id, date FROM appointment WHERE company_id=" + companyId + " AND date=?";
-
-        rs = database.select(query, sqlDate);
-
-        try {
-            exist = rs.next(); //Perchè ResultSet restituisce il puntatore all'elemento prima della 1^riga
-            rs.close();
-        } catch (SQLException e) {
-            throw new ResultSetDBException("Appointment.insert(): Errore sul ResultSet.");
-        }
-
-        if (exist) {
-            //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
-            //sarà poi il Bean che decide come gestire questa situazione.
-            throw new DuplicatedRecordDBException("Appointment.insert(): Tentativo di inserimento di un un appuntamento gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
-        }
+//        //Check unicita
+//        query = "SELECT company_id, date FROM appointment WHERE company_id=" + companyId + " AND date=?";
+//
+//        rs = database.select(query, sqlDate);
+//
+//        try {
+//            exist = rs.next(); //Perchè ResultSet restituisce il puntatore all'elemento prima della 1^riga
+//            rs.close();
+//        } catch (SQLException e) {
+//            throw new ResultSetDBException("Appointment.insert(): Errore sul ResultSet.");
+//        }
+//
+//        if (exist) {
+//            //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
+//            //sarà poi il Bean che decide come gestire questa situazione.
+//            throw new DuplicatedRecordDBException("Appointment.insert(): Tentativo di inserimento di un un appuntamento gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
+//        }
 
         query = "INSERT INTO appointment(appointment_id, company_id, note, date, time)" +
                 "VALUES(" + appointmentId + "," + companyId + ",?,?,?)";
@@ -84,5 +84,35 @@ public class Appointment {
 
         database.modify(query, parameters, sqlDate, sqlTime);
 
+    }
+
+    public void update(DataBase db) throws NotFoundDBException, ResultSetDBException, DuplicatedRecordDBException {
+
+        String sql;
+        ArrayList<String> parameters = new ArrayList();
+        ResultSet rs;
+        boolean exist;
+
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        java.sql.Time sqlTime = new java.sql.Time(time.getTime());
+
+        sql = " UPDATE appointment "
+                + " SET appointment_id=" + appointmentId + ", note=?, date=?, time=?"
+                + " WHERE appointment_id=" + appointmentId;
+
+        parameters.add(note);
+
+        db.modify(sql, parameters, sqlDate, sqlTime);
+    }
+
+    public static void deleteAppointment(DataBase db, Integer appointmentId) throws NotFoundDBException {
+
+        String sql;
+
+        sql = "DELETE FROM appointment"
+                + " WHERE appointment_id=" + appointmentId;
+
+        db.modify(sql);
     }
 }

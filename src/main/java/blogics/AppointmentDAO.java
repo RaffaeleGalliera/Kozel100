@@ -41,6 +41,31 @@ public class AppointmentDAO {
 
     }
 
+    public static Appointment getAppointment(DataBase db, int appointmentId) throws NotFoundDBException, ResultSetDBException {
+
+        Appointment appointment = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT * FROM appointment WHERE appointment_id=" + appointmentId + "";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                appointment = new Appointment(rs);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("AppointmentDAO.getAppointment(): ResultSetDBException: " + ex.getMessage(), db);
+        }
+
+        return appointment;
+
+    }
+
     public static Appointment[] getCompanyAppointments(DataBase db, int companyId) throws NotFoundDBException, ResultSetDBException {
 
         Appointment[] appointments = null;
@@ -175,6 +200,50 @@ public class AppointmentDAO {
 
         return appointmentUsers;
 
+    }
+
+    public static AppointmentUser[] getAppointmentUsers(DataBase db) throws NotFoundDBException, ResultSetDBException {
+
+        AppointmentUser[] appointmentUsers = null;
+        String sql;
+        ResultSet rs;
+        int i = 0;
+
+        sql = "SELECT AU.appointment_id, AU.user_id FROM appointment AS A JOIN appointment_user AS AU "
+                + "ON A.appointment_id=AU.appointment_id "
+                + "ORDER BY A.date ASC";
+
+
+        rs = db.select(sql);
+
+        try {
+            if (rs.next()) {
+                rs.last();
+                appointmentUsers = new AppointmentUser[rs.getRow()];
+                rs.beforeFirst();
+
+                while (rs.next()) {
+                    appointmentUsers[i] = new AppointmentUser(rs);
+                    i++;
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ResultSetDBException("AppointmentDAO.getAppointment(): Errore nel ResultSet: " + ex.getMessage(), db);
+        }
+
+        return appointmentUsers;
+
+    }
+
+    public static void deleteAppointmentForUser(DataBase db, Integer appointmentId, Integer userId) throws NotFoundDBException {
+
+        String sql;
+
+        sql = "DELETE FROM appointment_user"
+                + " WHERE user_id=" + userId + " AND appointment_id=" + appointmentId;
+
+        db.modify(sql);
     }
 
 

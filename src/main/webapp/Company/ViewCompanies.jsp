@@ -1374,7 +1374,7 @@
 
     function deleteCompany(id, name) {
 
-        r = confirm("Are you sure you want to delete : " + name + "? Even all its contacts will be Deleted");
+        r = confirm("Are you sure you want to delete : " + name + "?");
 
         if (r === true) {
             document.deleteCompanyForm.companyId.value = id;
