@@ -11,6 +11,7 @@
 
 <%@ page import="util.Debug" %>
 <%@ page import="global.Status" %>
+<%@ page import="blogics.User" %>
 <%@ page buffer="30kb" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -318,7 +319,14 @@
                                             <%=dashboardManager.getCompanyById(dashboardManager.getUserAppointment(k).companyId).name%>
                                     </td>
                                     <td>
-                                        <a style=" color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
+                                        <%for (User partecipatingUser : dashboardManager.getPartecipatingUsers(dashboardManager.getUserAppointment(k).appointmentId)) {%>
+                                        <%=partecipatingUser.fullName()%>
+                                        <br>
+                                        <%}%>
+                                    </td>
+                                    <td>
+                                        <a style=" color:#34373b" class="delete" title="Delete From You Agenda"
+                                           data-toggle="tooltip"
                                            href="JavaScript:deleteAppointment('<%=dashboardManager.getUserAppointment(k).appointmentId%>');"><i
                                                 class="material-icons">&#xE872;</i></a>
                                     </td>
