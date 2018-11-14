@@ -986,8 +986,8 @@
                     </div>
                     <div class="form-group">
                         <label for="proposalDescription" class="bmd-label-floating">Description</label>
-                        <input type="textarea" name="proposalDescription" class="form-control"
-                               id="proposalDescription" required>
+                        <textarea name="proposalDescription" class="form-control"
+                                  id="proposalDescription">required</textarea>
                     </div>
 
                     <div class="form-group">
