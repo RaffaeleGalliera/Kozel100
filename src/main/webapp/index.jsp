@@ -33,8 +33,9 @@
 
             for(i=0;i<loginManager.getCookies().length;i++){
 
-                response.addCookie(loginManager.getCookies(i)); //Aggiungo i cookies alla response http e quindi al client
-
+                if(loginManager.getCookies(i)!=null) {
+                    response.addCookie(loginManager.getCookies(i)); //Aggiungo i cookies alla response http e quindi al client
+                }
             }
 
             isLogged=true;
