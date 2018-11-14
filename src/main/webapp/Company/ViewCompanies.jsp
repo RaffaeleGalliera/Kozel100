@@ -56,23 +56,9 @@
     }
 
     if (status.equals("exportCompanies")) {
-
         companyManager.exportCompanies();
+        response.addCookie(new Cookie("pdfAvailable","true"));
 
-        String filename = "companies.pdf";
-        String filepath = LOG_DIR;
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition","inline; filename=\"" + filename + "\"");
-
-        java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath + filename);
-
-        int i;
-        byte[] buffer = new byte[1048];
-
-        while ((i=fileInputStream.read(buffer)) != -1) {
-            response.getOutputStream().write(buffer,0,i);
-        }
-        fileInputStream.close();
     }
 
     if (companyManager.getResult() == -2) {
@@ -226,6 +212,20 @@
             position: fixed; /* Sit on top of the screen */
             z-index: 1; /* Add a z-index if needed */
             left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+        }
+
+        .hintSnackbar {
+            min-width: 500px; /* Set a default minimum width */
+            margin-left: -250px; /* Divide value of min-width by 2 */
+            left:50%;
+            background-color: rgba(0, 168, 255, 0.95);
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 7px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
             bottom: 30px; /* 30px from the bottom */
         }
 
@@ -787,7 +787,7 @@
 </div>
 
 <%--export form--%>
-<form name="exportForm" id="exportForm" action="ViewCompanies.jsp" method="post" target="_blank">
+<form name="exportForm" id="exportForm" action="ViewCompanies.jsp" method="post">
     <input type="hidden" name="status" value="exportCompanies"/>
 </form>
 
@@ -823,6 +823,20 @@
 
             snackbar("Company successfully added","successSnackbar")
 
+        }
+
+        //Check del cookie di prima visita
+
+        if (document.cookie.replace(/(?:(?:^|.*;\s*)doSomethingOnlyOnce\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "true") {
+            snackbar("You can select rows to show additional functionalities","hintSnackbar");
+            document.cookie = "doSomethingOnlyOnce=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        }
+
+        //Check del cookie del pdf
+
+        if (document.cookie.replace(/(?:(?:^|.*;\s*)pdfAvailable\s*\=\s*([^;]*).*$)|^.*$/, "$1") == "true") {
+            window.open('/getPdf','_blank')
+            document.cookie = "pdfAvailable=false; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         }
 
         //Inserimento delle compagnie in struttura dati JS
@@ -1323,7 +1337,9 @@
                 })
 
                 $('#exportForm').submit();
+
                 $('#exportForm select').remove()
+                $(this).blur()
             }
 
         });
