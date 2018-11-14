@@ -500,8 +500,7 @@
                                     <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
                                         <%=companyManager.getClientType(k).name%>
                                     </option>
-                                    <% } %>
-                                    <%if (companyManager.getClientType(k).clientTypeId != companyManager.getClientTypeId()) {%>
+                                    <% } else {%>
                                     <option value="<%=companyManager.getClientType(k).clientTypeId%>">
                                         <%=companyManager.getClientType(k).name%>
                                     </option>
@@ -519,8 +518,7 @@
                                             selected>
                                         <%=companyManager.getProductCategory(x).name%>
                                     </option>
-                                    <% } %>
-                                    <%if (companyManager.getProductCategory(x).productCategoryId != companyManager.getProductCategoryId()) {%>
+                                    <% } else {%>
                                     <option value="<%=companyManager.getProductCategory(x).productCategoryId%>">
                                         <%=companyManager.getProductCategory(x).name%>
                                     </option>
@@ -537,8 +535,7 @@
                                     <option value="<%=companyManager.getUser(x).userId%>" selected>
                                         <%=companyManager.getUser(x).fullName()%>
                                     </option>
-                                    <% } %>
-                                    <%if (companyManager.getUser(x).userId != companyManager.getUserId()) {%>
+                                    <% } else {%>
                                     <option value="<%=companyManager.getUser(x).userId%>">
                                         <%=companyManager.getUser(x).fullName()%>
                                     </option>
@@ -671,8 +668,7 @@
                                     <option value="<%=companyManager.getClientType(k).clientTypeId%>" selected>
                                         <%=companyManager.getClientType(k).name%>
                                     </option>
-                                    <% } %>
-                                    <%if (companyManager.getClientType(k).clientTypeId != companyManager.getClientTypeId()) {%>
+                                    <% } else {%>
                                     <option value="<%=companyManager.getClientType(k).clientTypeId%>">
                                         <%=companyManager.getClientType(k).name%>
                                     </option>
@@ -689,8 +685,7 @@
                                             selected>
                                         <%=companyManager.getProductCategory(x).name%>
                                     </option>
-                                    <% } %>
-                                    <%if (companyManager.getProductCategory(x).productCategoryId != companyManager.getProductCategoryId()) {%>
+                                    <% } else {%>
                                     <option value="<%=companyManager.getProductCategory(x).productCategoryId%>">
                                         <%=companyManager.getProductCategory(x).name%>
                                     </option>
@@ -707,8 +702,7 @@
                                     <option value="<%=companyManager.getUser(x).userId%>" selected>
                                         <%=companyManager.getUser(x).fullName()%>
                                     </option>
-                                    <% } %>
-                                    <%if (companyManager.getUser(x).userId != companyManager.getUserId()) {%>
+                                    <% } else { %>
                                     <option value="<%=companyManager.getUser(x).userId%>">
                                         <%=companyManager.getUser(x).fullName()%>
                                     </option>
