@@ -3,11 +3,11 @@
 
 Kozel100 is a material designed Customer Relationship Management web application for Consulting Firms with the purpose to manage company-clients relationships.
 
-#### Primary implementation technologies: JSP, HTML, CSS, Javascript
+#### Primary implementation technologies : JSP, HTML, CSS, Javascript
 
 We also used: 
 - jQuery
-- Bootstrap Material Design: https://fezvrasta.github.io/bootstrap-material-design/
+- Bootstrap Material Design : https://fezvrasta.github.io/bootstrap-material-design/
 - Maven
 - JavaScript FullCandar (6.) : https://fullcalendar.io/
 - Material Dashboard (9.) : https://www.creative-tim.com/product/material-dashboard
