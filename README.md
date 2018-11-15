@@ -36,13 +36,18 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 ## Dashboard
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/dashboard.png)
+_________________________________________________________________________________________________________
 
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/dashboard2.png)
 
 ## Users Agenda
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/agenda.png)
 
+_________________________________________________________________________________________________________
+
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/agendaList.png)
+
+_________________________________________________________________________________________________________
 
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/agendaAppointment.png)
 
@@ -61,7 +66,11 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 ## Single Company Manager
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/overview.png)
 
+_________________________________________________________________________________________________________
+
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/customerNotes.png)
+
+_________________________________________________________________________________________________________
 
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/commercialProposals.png)
 
