@@ -116,8 +116,7 @@
                             <option value="<%=adminPanelManager.getPosition(k).positionId%>" selected>
                                 <%=adminPanelManager.getPosition(k).name%>
                             </option>
-                        <% } %>
-                        <%if (adminPanelManager.getPosition(k).positionId!=adminPanelManager.getPositionId()) {%>
+                    <% } else {%>
                             <option value="<%=adminPanelManager.getPosition(k).positionId%>">
                              <%=adminPanelManager.getPosition(k).name%>
                             </option>

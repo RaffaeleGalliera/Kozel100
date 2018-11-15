@@ -67,31 +67,10 @@ public class CommercialProposal {
         ResultSet rs;
         boolean exist;
 
-        //Check unicita solo su proposte non cancellate
-        query="SELECT name FROM commercial_proposal WHERE name=? AND active_fl=1";
-
-        parameters.add(name);
-
-        rs=database.select(query,parameters);
-
-        try {
-            exist=rs.next(); //Perchè ResultSet restituisce il puntatore all'elemento prima della 1^riga
-            rs.close();
-        }
-        catch (SQLException e) {
-            throw new ResultSetDBException("CommercialProposal.insert(): Errore sul ResultSet.");
-        }
-
-        if (exist) {
-            //Eccezione buona, che mi serve per passare verso l'alto un messaggio, al Bean che ha chiamato questa inserti, per dirgli che non la posso fare
-            //sarà poi il Bean che decide come gestire questa situazione.
-            throw new DuplicatedRecordDBException("CommercialProposal.insert(): Tentativo di inserimento di un nome gia esistente."); //passo l'eccezione verso l'alto al bean che mi ha chiamato l'insert
-        }
-
         query="INSERT INTO commercial_proposal(commercial_proposal_id, name, description, company_id, user_id)" +
                 "VALUES("+commercial_proposal_id+",?,?,"+company_id+","+user_id+")";
 
-
+        parameters.add(name);
         parameters.add(description);
         //parameters.add(status.name()); // the name() method returns the name of the enum value as a String
 
@@ -107,30 +86,11 @@ public class CommercialProposal {
         ResultSet rs;
         boolean exist;
 
-        /*Controllo che il nome aggiornato che sto per inserire non sia già presente*/
-        sql="SELECT commercial_proposal_id FROM commercial_proposal WHERE commercial_proposal_id<>"+commercial_proposal_id+" AND name=? AND active_fl=1";
-
-        parameters.add(name);
-
-        rs=db.select(sql, parameters);
-
-        try{
-            exist=rs.next();
-            rs.close();
-        }
-        catch (SQLException e){
-            throw new ResultSetDBException("CommercialProposal.update(): Errore sul ResultSet.");
-        }
-
-        if (exist){
-            throw new DuplicatedRecordDBException("CommercialProposal.update(): Tentativo di inserimento di una CommercialProposal già esistente.");
-        }
 
         sql=" UPDATE commercial_proposal "
-                +" SET name=?, description=?, status=?"
+                + " SET status=?"
                 +" WHERE commercial_proposal_id="+commercial_proposal_id;
 
-        parameters.add(description);
         parameters.add(status.name()); // the name() method returns the name of the enum value as a String
 
         db.modify(sql,parameters);

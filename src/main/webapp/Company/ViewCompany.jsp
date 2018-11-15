@@ -559,8 +559,8 @@
                             <td><%=companyManager.getCommercialProposal(k).updatedAt%>
                             </td>
                             <td>
-                                <a style=" color:#34373b" class="edit" title="Add" data-toggle="tooltip"
-                                   href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>', '<%=companyManager.getCommercialProposal(k).name%>', '<%=companyManager.getCommercialProposal(k).description%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
+                                <a style=" color:#34373b" class="edit" title="Update Proposal" data-toggle="tooltip"
+                                   href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
                                         class="material-icons md-24">&#xE254;</i>
                                 </a>
                             </td>
@@ -986,7 +986,7 @@
                     </div>
                     <div class="form-group">
                         <label for="proposalDescription" class="bmd-label-floating">Description</label>
-                        <textarea name="proposalDescription" class="form-control" rows="5"
+                        <textarea name="proposalDescription" row="5" class="form-control"
                                   id="proposalDescription" required></textarea>
                     </div>
 
@@ -1046,8 +1046,6 @@
                         </select>
                     </div>
                     <input type="hidden" name="status" value="updateCommercialProposal"/>
-                    <input type="hidden" name="proposalName" value=""/>
-                    <input type="hidden" name="proposalDescription" value=""/>
                     <input type="hidden" name="companyId" value="<%=companyManager.getCompany().companyId%>"/>
                     <input type="hidden" name="commercialProposalId" id="updateCommercialProposalId"
                            value=""/>
@@ -1130,11 +1128,9 @@
         document.updateAppointmentForm.appointmentNote.value = note;
     }
 
-       function updateProposalModal(id, name, description, status) {
+    function updateProposalModal(id, status) {
         $('#updateProposalModal').modal('show');
         document.updateProposalForm.commercialProposalId.value = id;
-        document.updateProposalForm.proposalName.value = name;
-        document.updateProposalForm.proposalDescription.value = description;
         document.updateProposalForm.proposalStatus.value = status;
     }
 

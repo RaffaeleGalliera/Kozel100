@@ -23,14 +23,15 @@ public class Session {
 
   public static Cookie[] createUserCookies(DataBase db, String mail) throws NotFoundDBException,ResultSetDBException {
 
-    Cookie cookies[]=new Cookie[1];
+    Cookie cookies[]=new Cookie[2];
 
     User user=UserDAO.getUser(db, mail);
 
     String token = JWTService.createJWT(Integer.toString(user.userId),"Kozel100",user.firstName+" "+user.lastName,user.email,user.isAdmin,-1);
     cookies[0]=new Cookie("jwt_auth_token",token);
     cookies[0].setPath("/"); //Così i cookie valgono per tutto il sito e non solo per le pagine sotto alla cartella in cui la jsp che li ha creati risiede
-
+    cookies[1]=new Cookie("doSomethingOnlyOnce","false");
+    cookies[1].setPath("/Company");
     return cookies;
   }
 

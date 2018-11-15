@@ -866,8 +866,6 @@ public class CompanyManager implements java.io.Serializable {
             commercialProposal = CommercialProposalDAO.getProposal(database, commercialProposalId);
 
             commercialProposal.status = proposalStatus;
-            commercialProposal.name = proposalName;
-            commercialProposal.description = proposalDescription;
             commercialProposal.update(database);
 
             getAllCompanyInfos(database);

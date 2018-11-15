@@ -18,8 +18,9 @@ public class CommercialProposalDAO {
         ResultSet rs;
         int i=0;
 
-        sql="SELECT * FROM commercial_proposal AS P " +
-                "WHERE P.company_id="+companyId;
+        sql = "SELECT * FROM commercial_proposal " +
+                "WHERE company_id=" + companyId + " " +
+                "ORDER BY updated_at DESC";
 
         rs=database.select(sql);
 
