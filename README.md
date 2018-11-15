@@ -25,7 +25,7 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 8. Export customer lists to PDFs (choosing the fields to be exported).
 
-9. Personal User's Dashboard that collects the most important informations for each user: upcoming appointments, proposed commercials with their status, assigned companies, last notes saved and last notes written by others on user's assigned customers.
+9. Personal User's Dashboard that collects the most important informations for each user: upcoming appointments, proposed commercials with their status, assigned companies, last notes saved and last notes written by others on user's assigned customers. - Created using https://www.creative-tim.com/product/material-dashboard -
 
 10. Admin Panel for Administrators: including the possibility to add users and other setup entities - like tags, client types, consulting services etc..- and an audit logging feature that collects all the actions carried out on the application. Saving them into the database and logging files. Records are structured by: type of action, user who made it, action timestamp, IP Address and the objects which is operated on with the correspondent parameters.
 
