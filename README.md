@@ -3,7 +3,7 @@
 
 Kozel100 is a material designed Customer Relationship Management web application for Consulting Firms with the purpose to manage company-clients relationships.
 
-Primary implementation technologies: JSP, HTML, CSS, Javascript
+### Primary implementation technologies: JSP, HTML, CSS, Javascript
 
 We also used: 
 - jQuery
@@ -12,7 +12,9 @@ We also used:
 - JavaScript FullCandar (6.) : https://fullcalendar.io/
 - Material Dashboard (9.) : https://www.creative-tim.com/product/material-dashboard
 
-Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
+IDE: IntelliJ IDEA by JetBrains : https://www.jetbrains.com/idea/
+
+### Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
 
 https://github.com/capponMatteo
 
@@ -44,7 +46,9 @@ Exam : http://www.unife.it/ing/informazione/sistemi-web
 
 10. Admin Panel for Administrators: including the possibility to add users and other setup entities - like tags, client types, consulting services etc..- and an audit logging feature that collects all the actions carried out on the application. Saving them into the database and logging files. Records are structured by: type of action, user who made it, action timestamp, IP Address and the objects which is operated on with the correspondent parameters.
 
-## ER Diagram
+# ER Diagram
+### You can find .sql starting Database file, ER schema and relational model on /databaseDocs folder 
+
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/databaseDocs/100sER.png)
 
 # Screenshots
