@@ -83,21 +83,21 @@
         <form name="adminPanelManager" action="" onsubmit="adminCheck()" method="post">
             <div class="form-group">
                 <label for="firstName" class="bmd-label-floating">First Name</label>
-                <input type="text" name="firstName" class="form-control" id="firstName"
+                <input type="text" name="firstName" class="form-control" id="firstName" maxlength="15"
                        <%if (message != null)%>value="<%=adminPanelManager.getFirstName()%>" required>
             </div>
             <div class="form-group">
                 <label for="lastName" class="bmd-label-floating">Last Name</label>
-                <input type="text" name="lastName" class="form-control" id="lastName"
+                <input type="text" name="lastName" class="form-control" id="lastName" maxlength="15"
                        <%if (message != null)%>value="<%=adminPanelManager.getLastName()%>" required>
             </div>
             <div class="form-group">
                 <label for="email" class="bmd-label-floating">Email</label>
                 <%if (message == null) {%>
-                <input type="email" name="email" class="form-control" id="email" required>
+                <input type="email" name="email" class="form-control" id="email" maxlength="50" required>
                 <%}%>
                 <%if (message != null) {%>
-                <input type="email" name="email" class="form-control is-invalid" id="email"
+                <input type="email" name="email" class="form-control is-invalid" id="email" maxlength="50"
                        value="<%=adminPanelManager.getEmail()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>
@@ -106,7 +106,7 @@
             </div>
             <div class="form-group">
                 <label for="password" class="bmd-label-floating">Password</label>
-                <input type="text" name="password" class="form-control" id="password" required>
+                <input type="text" name="password" class="form-control" id="password" maxlength="42" required>
             </div>
             <div class="form-group">
                 <label for="positionId" class="bmd-label-floating">Position</label>

@@ -568,7 +568,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="updateAddress" class="bmd-label-floating">Address</label>
-                                <input type="text" maxlength="50" name="address" class="form-control" id="updateAddress"
+                                <input type="text" maxlength="100" name="address" class="form-control" id="updateAddress"
                                        <%if (message != null)%>value="<%=companyManager.getAddress()%>" required>
                             </div>
                             <div class="jumbotron">

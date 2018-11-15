@@ -84,10 +84,10 @@
             <div class="form-group">
                 <label for="positionName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="positionName" class="form-control" id="positionName" required>
+                <input type="text" name="positionName" class="form-control"  maxlength="50" id="positionName" required>
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="positionName" class="form-control is-invalid" id="positionName"
+                <input type="text" name="positionName"  maxlength="50" class="form-control is-invalid" id="positionName"
                        value="<%=adminPanelManager.getPositionName()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>

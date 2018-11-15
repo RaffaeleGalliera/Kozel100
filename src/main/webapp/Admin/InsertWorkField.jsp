@@ -82,10 +82,10 @@
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
                 <%if(message==null) {%>
-                <input type="text" name="workFieldName" class="form-control" id="workFieldName" required>
+                <input type="text" name="workFieldName"  maxlength="50" class="form-control" id="workFieldName" required>
                 <%}%>
                 <%if(message!=null) {%>
-                <input type="text" name="workFieldName" class="form-control is-invalid" id="workFieldName"
+                <input type="text" name="workFieldName"  maxlength="50" class="form-control is-invalid" id="workFieldName"
                        value="<%=adminPanelManager.getWorkFieldName()%>" required>
                 <div class="invalid-feedback">
                     <%=message%>

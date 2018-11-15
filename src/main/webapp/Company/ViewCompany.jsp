@@ -744,7 +744,7 @@
                 <form name="addConversationForm" action="" method="post">
                     <div class="form-group">
                         <label for="reason" class="bmd-label-floating">Reason</label>
-                        <input type="text" name="reason" class="form-control" id="reason" required>
+                        <textarea name="reason" class="form-control" id="reason" row="5" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="conversationDate" class="bmd-label-floating">Date</label>
@@ -796,7 +796,7 @@
                     </select>
                     <div class="form-group">
                         <label for="Title" class="bmd-label-floating">Title</label>
-                        <input type="text" name="title" class="form-control" id="title" value="" required>
+                        <input type="text" name="title"  maxlength="150" class="form-control" id="title" value="" required>
                     </div>
                     <div class="form-group">
                         <label for="note" class="bmd-label-floating">Note</label>
@@ -843,7 +843,7 @@
                     </select>
                     <div class="form-group">
                         <label for="updatedTitle" class="bmd-label-floating">Title</label>
-                        <input type="text" name="title" class="form-control" id="updatedTitle" required>
+                        <input type="text"  maxlength="150" name="title" class="form-control" id="updatedTitle" required>
                     </div>
                     <div class="form-group">
                         <label for="updatedNote" class="bmd-label-floating">Note</label>
@@ -981,7 +981,7 @@
                 <form name="companyManager" action="" method="post">
                     <div class="form-group">
                         <label for="proposalName" class="bmd-label-floating">Name</label>
-                        <input type="text" name="proposalName" class="form-control"
+                        <input type="text"  maxlength="25" name="proposalName" class="form-control"
                                id="proposalName" required>
                     </div>
                     <div class="form-group">

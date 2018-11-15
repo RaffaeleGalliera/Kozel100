@@ -85,10 +85,10 @@
             <div class="form-group">
             <label for="clientTypeName" class="bmd-label-floating">Name</label>
                 <%if(message==null) {%>
-                <input type="text" name="clientTypeName" class="form-control" id="clientTypeName" required>
+                <input type="text" name="clientTypeName"  maxlength="50" class="form-control" id="clientTypeName" required>
                     <%}%>
                 <%if(message!=null) {%>
-                    <input type="text" name="clientTypeName" class="form-control is-invalid" id="clientTypeName" value="<%=adminPanelManager.getClientTypeName()%>">
+                    <input type="text" name="clientTypeName"  maxlength="50" class="form-control is-invalid" id="clientTypeName" value="<%=adminPanelManager.getClientTypeName()%>">
                     <div class="invalid-feedback">
                     <%=message%>
                     </div>
