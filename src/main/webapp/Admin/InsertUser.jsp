@@ -80,7 +80,7 @@
 
             </h1>
         </form>
-        <form name="adminPanelManager" action="" method="post">
+        <form name="adminPanelManager" action="" onsubmit="adminCheck()" method="post">
             <div class="form-group">
                 <label for="firstName" class="bmd-label-floating">First Name</label>
                 <input type="text" name="firstName" class="form-control" id="firstName"
@@ -143,7 +143,8 @@
             </div>
             <div class="switch">
                 <label>
-                    <input type="checkbox" name="isAdmin" class="form-control" id="isAdmin" value="0">
+                    <input type="checkbox" name="isAdmin" class="form-control" id="isAdmin">
+                    <input type="hidden" name="isAdmin" id="isAdminHidden" value="0"/>
                     Administrator
                 </label>
             </div>
@@ -164,7 +165,14 @@
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
-<script>$(document).ready(function () {
+<script>
+    function adminCheck() {
+        if (document.getElementById("isAdmin").checked) {
+            document.getElementById('isAdminHidden').disabled = true;
+        }
+    }
+
+    $(document).ready(function () {
     $('body').bootstrapMaterialDesign();
 });</script>
 
