@@ -2,11 +2,9 @@ package bflows;
 
 import blogics.*;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfEncodings;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.parser.clipper.Path;
+import com.sun.scenario.effect.ImageData;
 import global.Status;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
@@ -121,6 +119,8 @@ public class CompanyManager implements java.io.Serializable {
 
     private void addRows(PdfPTable table) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
 
+        Font font = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD);
+
         for (Integer selectedCompany : selectedCompanies) {
 
             for (Company company : companies) {
@@ -153,6 +153,8 @@ public class CompanyManager implements java.io.Serializable {
                             Class<?> clazz = Company.class;
                             Field attribute = clazz.getDeclaredField(field);
                             String value = (String) attribute.get(company);
+                            PdfPCell cell = new PdfPCell();
+                            cell.setPhrase(new Phrase(title,font));
                             table.addCell(value);
                         }
 
@@ -164,14 +166,50 @@ public class CompanyManager implements java.io.Serializable {
 
         }
 
+        int rowPointer=0;
+        boolean b = true;
+        for(PdfPRow r: table.getRows()) {
+            if(rowPointer!=0){
+                for(PdfPCell c: r.getCells()) {
+                    c.setBackgroundColor(b ? BaseColor.WHITE : new BaseColor(237,237,237));
+                    c.setBorder(Rectangle.NO_BORDER);
+                }
+            }
+            b = !b;
+            rowPointer++;
+        }
+
     }
 
     private void addTableHeader(PdfPTable table) {
+
+        Font font = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD);
+
         Stream.of(selectedFields)
                 .forEach(columnTitle -> {
+                    String title = "";
                     PdfPCell header = new PdfPCell();
-                    header.setBackgroundColor(BaseColor.GREEN);
-                    header.setPhrase(new Phrase(columnTitle));
+                    header.setBackgroundColor(new BaseColor(200,230,201));
+                    header.setBorder(Rectangle.NO_BORDER);
+                    if(columnTitle.equals("contactReference")){
+
+                        title = "Contact Reference";
+
+
+                    }
+
+                    if(columnTitle.equals("startDate")){
+
+                        title = "Client Since";
+
+                    }
+
+                    if(!columnTitle.equals("contactReference") && !columnTitle.equals("startDate")){
+
+                        title = columnTitle.substring(0,1).toUpperCase() + columnTitle.substring(1).toLowerCase();
+
+                    }
+                    header.setPhrase(new Phrase(title,font));
                     table.addCell(header);
                 });
     }
@@ -211,6 +249,9 @@ public class CompanyManager implements java.io.Serializable {
             addRows(table);
 
             document.add(table);
+
+
+
             document.close();
 
 
