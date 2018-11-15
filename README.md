@@ -30,4 +30,4 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 10. Admin Panel for Administrators: including an audit logging feature that collects all the actions carried out on the application. Saving them into the database and even logging file, the records are structured by: type of action, user who made it, action timestamp, IP Address and the objects which is operated on with the correspondent parameters.
 
 ## ER Diagram
-![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/database/Docs100sER.png)
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/databaseDocs/100sER.png)
