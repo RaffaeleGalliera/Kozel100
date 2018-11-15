@@ -4,7 +4,6 @@ import blogics.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.parser.clipper.Path;
-import com.sun.scenario.effect.ImageData;
 import global.Status;
 import services.databaseservice.*;
 import services.databaseservice.exception.*;
