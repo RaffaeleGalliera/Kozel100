@@ -13,7 +13,7 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 2. View of the customers list, browsing by companies' product category, tags, by customer type (prospect, new customer, client at risk of abandonment, etc..) and by assigned user.
 
-3. Customer Notes Management: every time a customer is contacted it's possible to register / edit / delete one or more notes related to the conversation that occurred and the user who registered it.
+3. Customer Notes Management: every time a customer is engaged in conversations -like emails or calls- it's possible to add / edit / delete one or more notes related to the conversation that occurred and the user who registered it. Only the note writer is able to edit and delete his notes, except for administrator who are able to do these actions for every note. 
 
 4. Commercial Proposals Management: for each client, users are able to insert a new opportunity -commercial proposal- which can be linked to consulting services.
 
@@ -25,9 +25,9 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 8. Export customer lists to PDFs (choosing the fields to be exported).
 
-9. Personal interactive Dashboard that collects the most important informations for each user: upcoming appointments, opportunities, assigned companies, last notes saved and last notes saved by others on their customers.
+9. Personal User's Dashboard that collects the most important informations for each user: upcoming appointments, proposed commercials with their status, assigned companies, last notes saved and last notes written by others on user's assigned customers.
 
-10. Admin Panel for Administrators: including an audit logging feature that collects all the actions carried out on the application. Saving them into the database and even logging file, the records are structured by: type of action, user who made it, action timestamp, IP Address and the objects which is operated on with the correspondent parameters.
+10. Admin Panel for Administrators: including the possibility to add users and other setup entities - like tags, client types, consulting services etc..- and an audit logging feature that collects all the actions carried out on the application. Saving them into the database and logging files. Records are structured by: type of action, user who made it, action timestamp, IP Address and the objects which is operated on with the correspondent parameters.
 
 ## ER Diagram
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/databaseDocs/100sER.png)
