@@ -9,6 +9,17 @@ Link: http://www.unife.it/ing/informazione
 
 Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
+Primary implementation technologies: JSP, HTML, CSS, Javascript
+
+We also used: 
+- jQuery
+- Bootstrap Material Design: https://fezvrasta.github.io/bootstrap-material-design/
+- Maven
+- JavaScript FullCandar (6.) : https://fullcalendar.io/
+- Material Dashboard (9.) : https://www.creative-tim.com/product/material-dashboard
+
+# Features
+
 1. Users are able to perform CRUD actions on customers (company), with all the details and characteristics, listing customer notes,  consulting services purchased and other details. Each customer is assigned to one application user(employee).
 
 2. View of the customers list, browsing by companies' product category, tags, by customer type (prospect, new customer, client at risk of abandonment, etc..) and by assigned user.
@@ -77,4 +88,6 @@ ________________________________________________________________________________
 # Audit Log 
 
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/auditLogging.png)
+
+
 
