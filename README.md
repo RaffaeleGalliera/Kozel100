@@ -31,3 +31,41 @@ Exam Page: http://www.unife.it/ing/informazione/sistemi-web
 
 ## ER Diagram
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/databaseDocs/100sER.png)
+
+# Screenshots
+
+## Dashboard
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/dashboard.png)
+
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/dashboard2.png)
+
+## Users Agenda
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/agenda.png)
+
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/agendaList.png)
+
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/agendaAppointment.png)
+
+## Companies Manager
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/CompaniesList.png)
+
+### Select Companies and tag or export them
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/selectCompanies.png)
+
+### Massive Tag
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/massiveTag.png)
+
+### Export Companies List as PDF
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/pdfExample.png)
+
+## Single Company Manager
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/overview.png)
+
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/customerNotes.png)
+
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/commercialProposals.png)
+
+# Audit Log 
+
+![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/screenshots/auditLogging.png)
+
