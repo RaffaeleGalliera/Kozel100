@@ -141,10 +141,9 @@
                     <% } %>
                 </select>
             </div>
-            <input type="hidden" name="isAdmin" value="0"/>
             <div class="switch">
                 <label>
-                    <input type="checkbox" name="isAdmin" class="form-control" id="isAdmin">
+                    <input type="checkbox" name="isAdmin" class="form-control" id="isAdmin" value="0">
                     Administrator
                 </label>
             </div>

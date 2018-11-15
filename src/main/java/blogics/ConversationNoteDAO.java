@@ -122,7 +122,7 @@ public class ConversationNoteDAO {
 
         sql = "SELECT CN.conversation_note_id, CN.conversation_id, CN.user_id, CN.note, CN.title, CN.created_at, CN.updated_at " +
                 "FROM conversation_note AS CN JOIN conversation AS C on CN.conversation_id = C.conversation_id JOIN company AS CO ON CO.company_id=C.company_id " +
-                "WHERE C.user_id = " + userId + " AND CN.user_id!=" + userId + " AND CN.active_fl=1 " +
+                "WHERE CO.user_id = " + userId + " AND CN.user_id!=" + userId + " AND CN.active_fl=1 " +
                 "ORDER BY CN.updated_at DESC";
 
         rs = db.select(sql);
