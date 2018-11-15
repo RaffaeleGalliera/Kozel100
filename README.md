@@ -3,7 +3,7 @@
 
 Kozel100 is a material designed Customer Relationship Management web application for Consulting Firms with the purpose to manage company-clients relationships.
 
-###### Primary implementation technologies: JSP, HTML, CSS, Javascript
+##### Primary implementation technologies: JSP, HTML, CSS, Javascript
 
 We also used: 
 - jQuery
@@ -14,7 +14,7 @@ We also used:
 
 IDE: IntelliJ IDEA by JetBrains : https://www.jetbrains.com/idea/
 
-###### Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
+##### Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
 
 https://github.com/capponMatteo
 
