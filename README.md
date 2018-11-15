@@ -47,7 +47,7 @@ Exam : http://www.unife.it/ing/informazione/sistemi-web
 10. Admin Panel for Administrators: including the possibility to add users and other setup entities - like tags, client types, consulting services etc..- and an audit logging feature that collects all the actions carried out on the application. Saving them into the database and logging files. Records are structured by: type of action, user who made it, action timestamp, IP Address and the objects which is operated on with the correspondent parameters.
 
 # ER Diagram
-##### You can find .sql starting Database file, ER schema and relational model on /databaseDocs folder 
+##### You can find .sql starting Database file, ER schema and relational model into /databaseDocs folder 
 
 ![Alt Text](https://raw.githubusercontent.com/RaffaeleGalliera/Kozel100/master/databaseDocs/100sER.png)
 
