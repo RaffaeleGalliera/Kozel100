@@ -14,11 +14,11 @@ We also used:
 
 IDE: IntelliJ IDEA by JetBrains : https://www.jetbrains.com/idea/
 
-#### Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
+#### Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy) :
 
-https://github.com/capponMatteo
+Matteo Cappon - https://github.com/capponMatteo -
 
-https://github.com/RaffaeleGalliera
+Raffaele Galliera - https://github.com/RaffaeleGalliera -
 
 UNIFE Link: http://www.unife.it/ing/informazione 
 
