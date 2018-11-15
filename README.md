@@ -18,6 +18,12 @@ We also used:
 - JavaScript FullCandar (6.) : https://fullcalendar.io/
 - Material Dashboard (9.) : https://www.creative-tim.com/product/material-dashboard
 
+Designed by:
+
+https://github.com/capponMatteo
+
+https://github.com/RaffaeleGalliera
+
 # Features
 
 1. Users are able to perform CRUD actions on customers (company), with all the details and characteristics, listing customer notes,  consulting services purchased and other details. Each customer is assigned to one application user(employee).
