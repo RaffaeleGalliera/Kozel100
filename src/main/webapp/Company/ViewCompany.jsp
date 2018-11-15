@@ -1018,7 +1018,7 @@
     </div>
 </div>
 <!--Update Proposal Modal -->
-<div class="modal fade" id="updateProposalModal" tabindex="-1" role="dialog" aria-labelledby="updateProposalModal"
+<div class="modal fade" id="updateProposalModal" tabindex="-1" role="dialog" aria-labelledby="updateProposalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
