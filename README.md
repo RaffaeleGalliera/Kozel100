@@ -3,12 +3,6 @@
 
 Kozel100 is a material designed Customer Relationship Management web application for Consulting Firms with the purpose to manage company-clients relationships.
 
-Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
-
-Link: http://www.unife.it/ing/informazione 
-
-Exam Page: http://www.unife.it/ing/informazione/sistemi-web
-
 Primary implementation technologies: JSP, HTML, CSS, Javascript
 
 We also used: 
@@ -18,11 +12,15 @@ We also used:
 - JavaScript FullCandar (6.) : https://fullcalendar.io/
 - Material Dashboard (9.) : https://www.creative-tim.com/product/material-dashboard
 
-Designed by:
+Made with love by two students for their WEB Engineering University exam in UNIFE (Ferrara, Italy). 
 
 https://github.com/capponMatteo
 
 https://github.com/RaffaeleGalliera
+
+UNIFE Link: http://www.unife.it/ing/informazione 
+
+Exam : http://www.unife.it/ing/informazione/sistemi-web
 
 # Features
 
