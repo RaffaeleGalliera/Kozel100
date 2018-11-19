@@ -27,7 +27,8 @@ ALTER TABLE `work_position` CHANGE `name` `name` VARCHAR(50) CHARACTER SET latin
 
 ALTER TABLE `user`
   DROP `recruitment_date`,
-  DROP `end_working`
+  DROP `end_working`,
+  DROP `phone_number`
 
 
 
