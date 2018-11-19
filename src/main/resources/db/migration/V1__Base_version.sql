@@ -52,7 +52,7 @@ CREATE TABLE `company` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `active_fl` tinyint(1) NOT NULL DEFAULT '1',
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -126,8 +126,8 @@ CREATE TABLE `user` (
   `recruitment_date` date DEFAULT NULL,
   `end_working` date DEFAULT NULL,
   `phone_number` varchar(10) DEFAULT NULL,
-  `position_id` int(11) DEFAULT NULL,
-  `work_field_id` int(11) DEFAULT NULL,
+  `position_id` int(11) NOT NULL,
+  `work_field_id` int(11) NOT NULL,
   `is_admin` tinyint(1) DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

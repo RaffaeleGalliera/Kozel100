@@ -4,172 +4,371 @@ SET FOREIGN_KEY_CHECKS = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
---
--- Dumping data for table `client_type`
---
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: den1.mysql4.gear.host (MySQL 5.7.19-log)
+# Database: kozel100
+# Generation Time: 2018-11-19 10:37:51 +0000
+# ************************************************************
 
-REPLACE INTO `client_type` (`client_type_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Prospect', '2018-09-27 16:06:14', '0000-00-00 00:00:00'),
-(2, 'Ripetuto', '2018-10-07 10:09:27', '0000-00-00 00:00:00'),
-(3, 'Nuovo', '2018-10-07 13:53:37', '0000-00-00 00:00:00'),
-(4, 'Fidelizzato', '2018-10-15 13:42:48', '0000-00-00 00:00:00');
 
---
--- Dumping data for table `commercial_proposal`
---
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-REPLACE INTO `commercial_proposal` (`commercial_proposal_id`, `name`, `description`, `status`, `company_id`, `created_at`, `updated_at`) VALUES
-(1, 'Proposta di prova hehe', '', 'PENDING', 1, '2018-10-24 13:21:19', '2018-10-24 13:21:19');
 
---
--- Dumping data for table `company`
---
+# Dump of table appointment
+# ------------------------------------------------------------
 
-REPLACE INTO `company` (`company_id`, `name`, `client_type_id`, `vat`, `address`, `city`, `email`, `created_at`, `updated_at`, `active_fl`, `user_id`, `product_category_id`) VALUES
-(1, 'Allegra Garcia', 4, '00488410010', 'Via dei cavalli', 'Horseland', 'ruzyvidufab@mailinator.com', '2018-10-04 07:05:19', '2018-10-19 08:14:03', 1, 11, 1),
-(2, 'Martena Savage', 1, '07902440010', 'Via 13 Gennaio', 'Tresigallo', 'rityluvo@mailinator.com', '2018-10-04 07:05:48', '2018-10-19 08:15:14', 0, NULL, 2),
-(3, 'Hamilton Goodman', 1, '14869599219', 'Viale Fantoccio', 'Malalbergo', 'rixujymir@mailinator.net', '2018-10-04 07:06:07', '2018-10-07 10:42:53', 1, NULL, 2),
-(4, 'Sydnee Cannon', 1, '68084061967', 'Via Raffo Gallo', 'Montalbano', 'zyzyxukem@mailinator.net', '2018-10-07 10:26:13', '2018-10-07 10:43:06', 1, NULL, 1),
-(5, 'Abra Petersa', 3, '00488410010', 'Piazzale dei Mille', 'Ferrara', 'binelofumo@mailinator.com', '2018-10-07 10:29:00', '2018-10-18 14:18:04', 1, NULL, 0),
-(6, 'Adele Hancock', 1, '14869599219', 'Via Ludovico Ariosto', 'Argenta', 'pelipyryze@mailinator.net', '2018-10-07 10:35:01', '2018-10-18 14:17:49', 0, NULL, 0),
-(7, 'CacioCavalloSRL', 1, '07902440010', 'Vicolo Stretto', 'Portomaggiore', 'pelipyryze@mailinator.net', '2018-10-07 10:41:19', '2018-10-17 09:41:18', 0, NULL, 0),
-(8, 'Prova', 3, '68084061967', 'Corso della Giovecca', 'Tresigallo', 'raf@gkjg.com', '2018-10-07 13:54:23', '2018-10-17 09:39:23', 0, NULL, 0),
-(9, 'DiMaio', 4, '07902440010', 'Via Manina', 'Pomigliano', 'mykif@mailinator.com', '2018-10-09 10:19:54', '2018-10-23 10:15:26', 1, 11, 0),
-(10, 'Leah Marks', 4, '14869599219', 'Via Rabbiosa', 'Claviere', 'sywas@mailinator.com', '2018-10-19 09:49:26', '2018-10-19 09:49:26', 1, NULL, 0),
-(11, 'Napo Orso Capo', 1, '00488410010', 'Via Canalone', 'Gherardi', 'rrr@ddd.com', '2018-10-19 09:55:42', '2018-10-19 09:55:42', 1, NULL, 0),
-(12, 'Garrison Baird', 3, '68084061967', 'Via Intasata', 'Ferrara', 'qafesibony@mailinator.net', '2018-10-19 09:57:45', '2018-10-19 09:57:45', 1, NULL, 0);
+LOCK TABLES `appointment` WRITE;
+/*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
 
---
--- Dumping data for table `company_tag`
---
+INSERT INTO `appointment` (`appointment_id`, `company_id`, `note`, `date`, `time`, `created_at`, `updated_at`)
+VALUES
+	(1,3,'Test Appointment','2018-11-14','09:00:00','2018-11-13 10:18:23','2018-11-13 10:18:23'),
+	(2,4,'Primary Topic: New Commercial Proposals','2018-11-13','00:30:00','2018-11-13 10:20:02','2018-11-13 10:20:02'),
+	(3,8,'Tyrell?','2018-11-21','09:00:00','2018-11-15 03:34:43','2018-11-15 03:34:43'),
+	(4,8,'I\'ll be alone this time','2018-11-22','10:30:00','2018-11-15 03:35:14','2018-11-15 03:35:14'),
+	(5,9,'We\'ll discuss about security issues','2018-11-15','08:30:00','2018-11-15 03:39:28','2018-11-15 03:39:28'),
+	(6,1,'Discussing why the new iPad pro isn\'t equipped with an oled display','2018-11-15','06:30:00','2018-11-15 06:20:48','2018-11-15 06:20:48');
 
-REPLACE INTO `company_tag` (`company_id`, `tag_id`, `created_at`, `updated_at`) VALUES
-(1, 3, '2018-10-22 16:37:35', '2018-10-22 16:37:35');
+/*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Dumping data for table `consulting_service`
---
 
-REPLACE INTO `consulting_service` (`consulting_service_id`, `name`, `active_fl`, `created_at`, `updated_at`) VALUES
-(1, 'Consulenza a domicilio', 1, '2018-10-19 13:53:28', '2018-10-19 13:53:28'),
-(2, 'Training Agile', 1, '2018-10-19 13:57:33', '2018-10-19 13:57:33');
+# Dump of table appointment_user
+# ------------------------------------------------------------
 
---
--- Dumping data for table `contact_person`
---
+LOCK TABLES `appointment_user` WRITE;
+/*!40000 ALTER TABLE `appointment_user` DISABLE KEYS */;
 
-REPLACE INTO `contact_person` (`contact_person_id`, `first_name`, `last_name`, `email`, `phone_number`, `company_id`, `created_at`, `updated_at`, `active_fl`) VALUES
-(15, 'Iona', 'Daugherty', 'hudyte@mailinator.net', '8168486', 1, '2018-10-04 07:05:19', '2018-10-04 07:05:19', 1),
-(16, 'Hayes', 'Ray', 'fovagiduh@mailinator.net', '1939057', 2, '2018-10-04 07:05:48', '2018-10-19 08:15:14', 0),
-(17, 'Jack', 'Sweet', 'hepe@mailinator.com', '8953734', 3, '2018-10-04 07:06:07', '2018-10-04 07:06:07', 1),
-(18, 'Lilah', 'Oconnor', 'xugamynek@mailinator.com', '7932496', 4, '2018-10-07 10:26:13', '2018-10-07 10:26:13', 1),
-(19, 'Dara', 'Jimenez', 'hohizylu@mailinator.com', '555555', 5, '2018-10-07 10:29:00', '2018-10-07 10:29:00', 1),
-(20, 'Samuel', 'Norton', 'mysas@mailinator.com', '222222', 6, '2018-10-07 10:35:01', '2018-10-18 14:17:49', 0),
-(21, 'Squavallo', 'Sauro', 'fuck@gmail.com', '3333', 7, '2018-10-07 10:41:19', '2018-10-17 09:41:18', 0),
-(22, 'ddfsfs', 'sdffsdf', 'rafffff@raff.it', '3333333', 8, '2018-10-07 13:54:23', '2018-10-17 09:39:23', 0),
-(23, 'Dominic', 'Fowler', 'tose@mailinator.net', '4444444', 9, '2018-10-09 10:19:54', '2018-10-17 09:21:49', 0),
-(24, 'Lisandra', 'Padilla', 'nizaky@mailinator.com', '1476444', 1, '2018-10-19 08:23:37', '2018-10-19 08:23:37', 1),
-(25, 'Gwendolyn', 'Christian', 'rekefukan@mailinator.net', '5699243', 10, '2018-10-19 09:49:26', '2018-10-19 09:49:26', 1),
-(26, 'Nyan', 'Cat', 'eddd@re.er', '33333', 11, '2018-10-19 09:55:42', '2018-10-19 09:55:42', 1),
-(27, 'Nicole', 'Simpson', 'zuhi@mailinator.com', '197375', 12, '2018-10-19 09:57:45', '2018-10-19 09:57:45', 1),
-(28, 'Balto', 'Cappon', 'matssd@gmail.cazzo', '3345678', 13, '2018-10-19 12:50:46', '2018-10-19 12:50:46', 1);
+INSERT INTO `appointment_user` (`appointment_id`, `user_id`, `created_at`, `updated_at`)
+VALUES
+	(1,14,'2018-11-13 10:18:23','2018-11-13 10:18:23'),
+	(1,22,'2018-11-13 10:18:23','2018-11-13 10:18:23'),
+	(1,23,'2018-11-13 10:18:23','2018-11-13 10:18:23'),
+	(1,24,'2018-11-13 10:18:24','2018-11-13 10:18:24'),
+	(1,25,'2018-11-13 10:18:24','2018-11-13 10:18:24'),
+	(2,14,'2018-11-13 10:20:02','2018-11-13 10:20:02'),
+	(2,11,'2018-11-13 10:20:02','2018-11-13 10:20:02'),
+	(2,22,'2018-11-13 10:20:02','2018-11-13 10:20:02'),
+	(2,23,'2018-11-13 10:20:03','2018-11-13 10:20:03'),
+	(3,29,'2018-11-15 03:34:43','2018-11-15 03:34:43'),
+	(3,27,'2018-11-15 03:34:44','2018-11-15 03:34:44'),
+	(3,28,'2018-11-15 03:34:44','2018-11-15 03:34:44'),
+	(4,29,'2018-11-15 03:35:14','2018-11-15 03:35:14'),
+	(5,29,'2018-11-15 03:39:28','2018-11-15 03:39:28'),
+	(6,11,'2018-11-15 06:20:48','2018-11-15 06:20:48'),
+	(6,14,'2018-11-15 06:20:48','2018-11-15 06:20:48');
 
---
--- Dumping data for table `product_category`
---
+/*!40000 ALTER TABLE `appointment_user` ENABLE KEYS */;
+UNLOCK TABLES;
 
-REPLACE INTO `product_category` (`product_category_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Serramenti e infissi', '2018-10-04 09:52:36', '2018-10-04 09:52:36'),
-(2, 'Software', '2018-10-15 10:59:42', '2018-10-15 10:59:42');
 
---
--- Dumping data for table `proposal_service`
---
+# Dump of table client_type
+# ------------------------------------------------------------
 
-REPLACE INTO `proposal_service` (`commercial_proposal_id`, `consulting_service_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2018-10-24 13:21:41', '2018-10-24 13:21:41'),
-(1, 2, '2018-10-24 13:21:50', '2018-10-24 13:21:50');
+LOCK TABLES `client_type` WRITE;
+/*!40000 ALTER TABLE `client_type` DISABLE KEYS */;
 
---
--- Dumping data for table `purchase`
---
+INSERT INTO `client_type` (`client_type_id`, `name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Loyal','2018-11-12 03:05:26','0000-00-00 00:00:00'),
+	(2,'New','2018-11-12 03:05:26','0000-00-00 00:00:00'),
+	(5,'Prospect','2018-11-13 09:17:12','2018-11-13 09:17:12'),
+	(6,'At-Risk','2018-11-13 09:18:11','2018-11-13 09:18:11');
 
-REPLACE INTO `purchase` (`company_id`, `consulting_service_id`, `purchase_date`, `start_date`, `created_at`, `updated_at`) VALUES
-(9, 2, '0000-00-00', '0000-00-00', '2018-10-23 09:52:34', '2018-10-23 09:52:34'),
-(9, 1, '2018-10-03', '2018-10-26', '2018-10-23 09:52:55', '2018-10-23 09:52:55'),
-(1, 2, '2018-10-01', '2018-10-25', '2018-10-23 10:26:16', '2018-10-23 10:26:16');
+/*!40000 ALTER TABLE `client_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Dumping data for table `tag`
---
 
-REPLACE INTO `tag` (`tag_id`, `name`, `created_at`, `updated_at`) VALUES
-(3, 'Vendita al Dettaglio', '2018-10-22 16:37:22', '2018-10-23 07:04:21'),
-(4, 'Hacker', '2018-10-23 07:04:48', '2018-10-23 07:04:48');
+# Dump of table commercial_proposal
+# ------------------------------------------------------------
 
---
--- Dumping data for table `user`
---
+LOCK TABLES `commercial_proposal` WRITE;
+/*!40000 ALTER TABLE `commercial_proposal` DISABLE KEYS */;
 
-REPLACE INTO `user` (`user_id`, `email`, `password`, `first_name`, `last_name`, `recruitment_date`, `end_working`, `phone_number`, `position_id`, `work_field_id`, `is_admin`, `created_at`, `updated_at`) VALUES
-(1, 'cewug@mailinator.net', 'Pa$$w0rd!', 'Ahmed', 'Guzman', NULL, NULL, NULL, 1, 1, 0, '2018-10-03 13:47:32', '2018-10-03 13:47:32'),
-(2, 'silepifoqe@mailinator.com', 'Pa$$w0rd!', 'Abra', 'Rodriguez', NULL, NULL, NULL, 1, 1, 0, '2018-10-03 13:47:42', '2018-10-03 13:47:42'),
-(3, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, 0, '2018-10-03 13:48:15', '2018-10-03 13:48:15'),
-(4, 'tija@mailinator.com', 'Pa$$w0rd!', 'Jayme', 'Ryan', NULL, NULL, NULL, 5, 5, 0, '2018-10-03 13:50:39', '2018-10-03 13:50:39'),
-(5, 'micobaga@mailinator.com', 'Pa$$w0rd!', 'Lev', 'Ayala', NULL, NULL, NULL, 1, 1, 0, '2018-10-03 13:55:44', '2018-10-03 13:55:44'),
-(6, 'rafforx@gmail.com', 'mW/OE3Yu+KcHvJoVCh0Gpw==', 'Raffae;e', 'Galliera', NULL, NULL, NULL, 1, 1, 0, '2018-10-07 20:17:49', '2018-10-07 20:17:49'),
-(10, 'wumazajy@mailinator.net', '6RjA0YeAQRaiZANru36n0Q==', 'Veda', 'Waters', NULL, NULL, NULL, 17, 5, 0, '2018-10-10 11:56:00', '2018-10-10 11:56:00'),
-(11, 'cappun@me.com', 'egXzw2hDiTqHGeIXHQkcpQ==', 'Matteo', 'Cappon', NULL, NULL, NULL, 1, 1, 1, '2018-10-11 15:58:47', '2018-10-23 10:16:07'),
-(12, 'muigi@gov.5s', 'IyDBZt1kNEmzKp51YWKYSQ==', 'Luigi', 'Di Maio', NULL, NULL, NULL, 22, 6, 0, '2018-10-12 07:13:04', '2018-10-12 07:13:04'),
-(13, 'caballo@me.com', '2IUr3i1lOo8KDJZ+ytmUlA==', 'Jonny', 'Prepuzio', NULL, NULL, NULL, 1, 1, 0, '2018-10-15 10:29:48', '2018-10-15 10:29:48');
+INSERT INTO `commercial_proposal` (`commercial_proposal_id`, `name`, `description`, `status`, `company_id`, `user_id`, `created_at`, `updated_at`)
+VALUES
+	(1,'Offert','I\'m gonna make him an offer he can\'t refuse','PENDING',2,14,'2018-11-13 10:22:01','2018-11-13 10:22:01'),
+	(2,'Nice Offer','Very Nice One','PENDING',1,14,'2018-11-13 10:34:00','2018-11-14 03:36:59'),
+	(3,'Bundle','Bundle with two services','ACCEPTED',2,14,'2018-11-13 10:35:24','2018-11-13 10:35:42'),
+	(4,'Bundle','Bundle Proposal','REJECTED',6,14,'2018-11-14 03:31:02','2018-11-14 03:32:12'),
+	(5,'Another Proposal','Nicer','REJECTED',6,14,'2018-11-14 03:31:45','2018-11-14 03:41:15'),
+	(6,'Bundle','Bundle Proposal','PENDING',1,14,'2018-11-14 03:37:37','2018-11-14 03:37:37'),
+	(7,'That\'s a proposal','Services\' bundle','PENDING',8,14,'2018-11-15 03:13:32','2018-11-15 03:13:32'),
+	(8,'Proposal without services','Nice proposal, but this time with no services at all','PENDING',8,11,'2018-11-15 03:22:44','2018-11-15 03:22:44'),
+	(9,'Proposal',':(','REJECTED',8,29,'2018-11-15 03:36:25','2018-11-15 03:36:45'),
+	(10,'Nice Proposal','I can help you guys','PENDING',9,29,'2018-11-15 03:40:30','2018-11-15 03:40:30');
 
---
--- Dumping data for table `work_field`
---
+/*!40000 ALTER TABLE `commercial_proposal` ENABLE KEYS */;
+UNLOCK TABLES;
 
-REPLACE INTO `work_field` (`work_field_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Impiegato', '2018-09-27 15:58:04', '0000-00-00 00:00:00'),
-(2, 'Contabile', '2018-09-27 15:58:04', '0000-00-00 00:00:00'),
-(3, 'Addetto Vendite', '2018-09-27 15:58:04', '0000-00-00 00:00:00'),
-(4, 'Consulente', '2018-09-27 15:58:04', '0000-00-00 00:00:00'),
-(5, 'Leader', '2018-10-05 10:55:33', '2018-10-05 10:55:33'),
-(6, 'Boss', '2018-10-12 07:12:18', '2018-10-12 07:12:18');
 
---
--- Dumping data for table `work_position`
---
+# Dump of table company
+# ------------------------------------------------------------
 
-REPLACE INTO `work_position` (`position_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'gggggg', '2018-09-27 15:57:20', '2018-09-27 15:57:20'),
-(3, 'asdafg', '2018-09-27 15:57:20', '2018-09-27 15:57:20'),
-(5, 'sdasd', '2018-10-10 11:45:21', '2018-10-10 11:45:21'),
-(17, 'aaaaffff', '2018-10-09 10:41:58', '2018-10-09 10:41:58'),
-(21, NULL, '2018-10-12 07:11:51', '2018-10-12 07:11:51'),
-(22, 'Ministro dello sviluppo economico', '2018-10-12 07:12:08', '2018-10-12 07:12:08'),
-(23, NULL, '2018-10-12 10:28:42', '2018-10-12 10:28:42'),
-(24, NULL, '2018-10-15 10:29:06', '2018-10-15 10:29:06'),
-(25, 'Nuovo', '2018-10-15 10:29:17', '2018-10-15 10:29:17');
+LOCK TABLES `company` WRITE;
+/*!40000 ALTER TABLE `company` DISABLE KEYS */;
 
---
--- Dumping data for table `appointment`
---
+INSERT INTO `company` (`company_id`, `name`, `client_type_id`, `vat`, `start_date`, `address`, `city`, `zip_code`, `country`, `state`, `email`, `created_at`, `updated_at`, `user_id`, `product_category_id`)
+VALUES
+	(1,'Apple',1,'27394762010','2018-11-06','Via delle Mele Morsicate','Cupertino',44039,'USA','California','apple@me.com','2018-11-12 09:39:49','2018-11-12 09:39:49',11,1),
+	(2,'Enrian Partners a.s',1,'55512158946','2018-04-18','Street Awesome 7','Praha 2',5458,'Czech Republic','Praha','enrian@enrian.en','2018-11-12 09:42:12','2018-11-12 11:00:08',14,1),
+	(3,'Westworld',1,'56465123189','2017-11-01','Earum culpa aute, 18','Ipsum dolores ',4512,'Benin','Donga','negubow@mailinator.com','2018-11-13 09:11:15','2018-11-13 09:11:15',14,2),
+	(4,'Horsin\' Around',1,'89465133574','2018-11-01','Horse Street, 985','Hollywoo',894517785,'USA','California','bojack@horseman.bo','2018-11-13 09:23:38','2018-11-13 09:23:38',25,2),
+	(5,'Game Of Thrones CORP',6,'89794651225','2017-11-01','White George Street 77','Randomland',897542,'Christmas Island','Christmas Island','john@snow.js','2018-11-13 09:27:43','2018-11-13 09:27:43',22,3),
+	(6,'Californication SA',6,'87021564321','2018-11-01','Donno Street 88','Los Angeles',78942,'USA','California','californicazione@ca.com','2018-11-13 09:30:43','2018-11-13 09:30:43',15,2),
+	(7,'HBO Inc.',5,'89765415156','2018-11-06','Example Street 89','IpsumTown',894561,'USA','Illinois','hbo@hbo.hc','2018-11-13 09:35:50','2018-11-13 09:35:50',24,1),
+	(8,'E Corp',6,'62924638666','2018-11-13','Dolor Square','Amet City',44028,'USA','California','evil@corp.io','2018-11-14 03:46:13','2018-11-15 03:38:07',29,1),
+	(9,'Allsafe',5,'65864769273','2018-11-01','Bar Street','Foo City',33454,'USA','California','all@nearly.safe','2018-11-14 03:51:51','2018-11-15 03:37:48',29,1),
+	(10,'Netflix',1,'89796851321','2018-11-07','Chill Street 90210','Scotts Valley',564565,'USA','California','net@flix.nf','2018-11-14 04:07:33','2018-11-14 04:07:33',21,1);
 
-REPLACE INTO `appointment` (`appointment_id`, `company_id`, `note`, `date`, `time`, `created_at`, `updated_at`) VALUES
-(1, 1, 'al bar hihihi', '2018-10-02', '47:24:17', '2018-10-25 08:33:27', '2018-10-25 08:33:27');
+/*!40000 ALTER TABLE `company` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Dumping data for table `conversation`
---
 
-REPLACE INTO `conversation` (`conversation_id`, `user_id`, `company_id`, `date`, `reason`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, '2018-10-17', 'hahah hihihi lol', '2018-10-25 08:31:54', '2018-10-25 08:31:54');
+# Dump of table company_tag
+# ------------------------------------------------------------
 
---
--- Dumping data for table `conversation_note`
---
+LOCK TABLES `company_tag` WRITE;
+/*!40000 ALTER TABLE `company_tag` DISABLE KEYS */;
 
-REPLACE INTO `conversation_note` (`conversation_note_id`, `user_id`, `title`, `note`, `created_at`, `updated_at`, `conversation_id`) VALUES
-(1, 11, 'HIHIHI??', 'Hahahaa', '2018-10-25 08:32:21', '2018-10-25 08:32:21', 1);
+INSERT INTO `company_tag` (`company_id`, `tag_id`, `created_at`, `updated_at`)
+VALUES
+	(2,6,'2018-11-13 10:36:40','2018-11-13 10:36:40'),
+	(2,7,'2018-11-13 10:36:40','2018-11-13 10:36:40'),
+	(1,5,'2018-11-14 07:46:09','2018-11-14 07:46:09'),
+	(1,6,'2018-11-14 07:46:09','2018-11-14 07:46:09'),
+	(1,7,'2018-11-14 07:46:09','2018-11-14 07:46:09'),
+	(8,5,'2018-11-15 03:47:01','2018-11-15 03:47:01'),
+	(8,7,'2018-11-15 03:47:01','2018-11-15 03:47:01');
+
+/*!40000 ALTER TABLE `company_tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table consulting_service
+# ------------------------------------------------------------
+
+LOCK TABLES `consulting_service` WRITE;
+/*!40000 ALTER TABLE `consulting_service` DISABLE KEYS */;
+
+INSERT INTO `consulting_service` (`consulting_service_id`, `name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Training Agile','2018-11-12 03:07:28','2018-11-12 03:07:28'),
+	(2,'Business Process','2018-11-12 03:08:09','2018-11-12 03:08:09'),
+	(3,'Advisory','2018-11-12 03:08:09','2018-11-12 03:08:09');
+
+/*!40000 ALTER TABLE `consulting_service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table contact_person
+# ------------------------------------------------------------
+
+LOCK TABLES `contact_person` WRITE;
+/*!40000 ALTER TABLE `contact_person` DISABLE KEYS */;
+
+INSERT INTO `contact_person` (`contact_person_id`, `first_name`, `last_name`, `email`, `phone_number`, `company_id`, `created_at`, `updated_at`)
+VALUES
+	(30,'John','Appleseed','johnappleseed@me.com','+393487756409',1,'2018-11-12 09:39:50','2018-11-12 09:39:50'),
+	(31,'Christian','Martin','test@test.te','+392234865455',2,'2018-11-12 09:42:12','2018-11-12 09:42:12'),
+	(33,'Bernard','Lowe','xetu@mailinator.net','+655245456123',3,'2018-11-13 09:11:15','2018-11-13 09:11:15'),
+	(34,'Princess','Caroline','princess@caroline.pc','+897156132155',4,'2018-11-13 09:23:39','2018-11-13 09:23:39'),
+	(35,'Daenerys','Targaryen','tikyjysa@mailinator.net','+986587465422',5,'2018-11-13 09:27:44','2018-11-13 09:27:44'),
+	(36,'Hank','Moody','hank@moody.go','+989851613222',6,'2018-11-13 09:30:43','2018-11-13 09:30:43'),
+	(37,'Kieran','Villarreal','begaqizy@mailinator.net','+897894212225',7,'2018-11-13 09:35:50','2018-11-13 09:35:50'),
+	(38,'Tyrell','Wellick','tyrell@wellick.ec','+989841613222',8,'2018-11-14 03:46:13','2018-11-14 03:46:13'),
+	(39,'Gideon','Goddard','gideon@goddard.as','+989841613111',9,'2018-11-14 03:51:51','2018-11-14 03:51:51'),
+	(40,'Marc ','Randolph','muvokusyca@mailinator.com','+965456545555',10,'2018-11-14 04:07:34','2018-11-14 04:07:34');
+
+/*!40000 ALTER TABLE `contact_person` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table conversation
+# ------------------------------------------------------------
+
+LOCK TABLES `conversation` WRITE;
+/*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
+
+INSERT INTO `conversation` (`conversation_id`, `user_id`, `company_id`, `date`, `reason`, `created_at`, `updated_at`)
+VALUES
+	(6,14,2,'2018-11-15','This is a conversation','2018-11-15 03:08:35','2018-11-15 03:08:35'),
+	(7,14,8,'2018-11-15','Talked about fsociety','2018-11-15 03:11:45','2018-11-15 03:11:45'),
+	(8,29,9,'2018-11-05','Is it all safe?','2018-11-15 03:38:37','2018-11-15 03:38:37'),
+	(9,11,1,'2018-11-15','In the reason','2018-11-15 06:16:04','2018-11-15 06:16:04');
+
+/*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table conversation_note
+# ------------------------------------------------------------
+
+LOCK TABLES `conversation_note` WRITE;
+/*!40000 ALTER TABLE `conversation_note` DISABLE KEYS */;
+
+INSERT INTO `conversation_note` (`conversation_note_id`, `user_id`, `title`, `note`, `created_at`, `updated_at`, `conversation_id`)
+VALUES
+	(8,14,'Nice note title','Nice things about this conversation','2018-11-15 03:09:19','2018-11-15 03:11:05',6),
+	(9,14,'Another nice note title','Not nice things about this conversation','2018-11-15 03:10:43','2018-11-15 03:11:00',6),
+	(10,14,'Nice note title','Nice things about this conversation','2018-11-15 03:12:30','2018-11-15 03:12:30',7),
+	(11,14,'Another nice note title','Not nice things this time','2018-11-15 03:12:52','2018-11-15 03:12:52',7),
+	(12,29,'Bad Things','Not so happy','2018-11-15 03:35:56','2018-11-15 03:35:56',7),
+	(13,29,'Don\'t think so','Not at all','2018-11-15 03:39:03','2018-11-15 03:39:03',8),
+	(14,11,'Sample Title','Lorem Ipsum Amet Dolor','2018-11-15 06:17:01','2018-11-15 06:17:01',9);
+
+/*!40000 ALTER TABLE `conversation_note` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table product_category
+# ------------------------------------------------------------
+
+LOCK TABLES `product_category` WRITE;
+/*!40000 ALTER TABLE `product_category` DISABLE KEYS */;
+
+INSERT INTO `product_category` (`product_category_id`, `name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Software','2018-11-12 03:11:04','2018-11-12 03:11:04'),
+	(2,'Automotive and Transport','2018-11-12 03:11:04','2018-11-12 03:11:04'),
+	(3,'Hardware','2018-11-13 09:18:57','2018-11-13 09:18:57');
+
+/*!40000 ALTER TABLE `product_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table proposal_service
+# ------------------------------------------------------------
+
+LOCK TABLES `proposal_service` WRITE;
+/*!40000 ALTER TABLE `proposal_service` DISABLE KEYS */;
+
+INSERT INTO `proposal_service` (`commercial_proposal_id`, `consulting_service_id`, `created_at`, `updated_at`)
+VALUES
+	(1,1,'2018-11-13 10:22:01','2018-11-13 10:22:01'),
+	(1,2,'2018-11-13 10:22:02','2018-11-13 10:22:02'),
+	(1,3,'2018-11-13 10:22:02','2018-11-13 10:22:02'),
+	(2,2,'2018-11-13 10:34:00','2018-11-13 10:34:00'),
+	(3,1,'2018-11-13 10:35:24','2018-11-13 10:35:24'),
+	(3,3,'2018-11-13 10:35:24','2018-11-13 10:35:24'),
+	(4,1,'2018-11-14 03:31:02','2018-11-14 03:31:02'),
+	(4,2,'2018-11-14 03:31:03','2018-11-14 03:31:03'),
+	(5,2,'2018-11-14 03:31:45','2018-11-14 03:31:45'),
+	(5,3,'2018-11-14 03:31:46','2018-11-14 03:31:46'),
+	(6,1,'2018-11-14 03:37:37','2018-11-14 03:37:37'),
+	(6,3,'2018-11-14 03:37:38','2018-11-14 03:37:38'),
+	(7,2,'2018-11-15 03:13:32','2018-11-15 03:13:32'),
+	(7,3,'2018-11-15 03:13:32','2018-11-15 03:13:32'),
+	(9,2,'2018-11-15 03:36:26','2018-11-15 03:36:26'),
+	(10,1,'2018-11-15 03:40:30','2018-11-15 03:40:30'),
+	(10,2,'2018-11-15 03:40:31','2018-11-15 03:40:31'),
+	(10,3,'2018-11-15 03:40:31','2018-11-15 03:40:31');
+
+/*!40000 ALTER TABLE `proposal_service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table purchase
+# ------------------------------------------------------------
+
+
+
+# Dump of table tag
+# ------------------------------------------------------------
+
+LOCK TABLES `tag` WRITE;
+/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
+
+INSERT INTO `tag` (`tag_id`, `name`, `created_at`, `updated_at`)
+VALUES
+	(5,'Tag1','2018-11-13 10:15:57','2018-11-13 10:15:57'),
+	(6,'Tag2','2018-11-13 10:16:01','2018-11-13 10:16:01'),
+	(7,'Tag3','2018-11-13 10:16:05','2018-11-13 10:16:05');
+
+/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table user
+# ------------------------------------------------------------
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+
+INSERT INTO `user` (`user_id`, `email`, `password`, `first_name`, `last_name`, `position_id`, `work_field_id`, `is_admin`, `created_at`, `updated_at`)
+VALUES
+	(11,'cappun@me.com','egXzw2hDiTqHGeIXHQkcpQ==','Matteo','Cappon',1,1,1,'2018-10-11 09:58:47','2018-10-23 04:16:07'),
+	(14,'gallieraraffaele@gmail.com','qOuYP1hKVuKqw//KGUJp2w==','Raffaele','Galliera',2,2,1,'2018-11-12 09:25:46','2018-11-12 09:25:46'),
+	(15,'inico1@me.com','po259/RH+9jaYIlfAWHwiA==','Niccolò','Fontana',1,2,0,'2018-11-12 09:52:30','2018-11-12 09:52:30'),
+	(21,'edo@geo.com','aFUFcK62IwQJ/oEhkvpTfQ==','Edoardo','Galliera',1,1,0,'2018-11-13 04:00:52','2018-11-13 04:00:52'),
+	(22,'francesca@bonora.fb','1Nt7ljRDrbjyV0fhf5EVFA==','Francesca ','Bonora',1,1,1,'2018-11-13 08:25:54','2018-11-15 03:32:09'),
+	(23,'enrico@scopa.esc','SgkVRAGKRRq1JlKYQd34/w==','Enrico','Scopa',2,2,1,'2018-11-13 08:31:59','2018-11-15 03:32:10'),
+	(24,'pavel@snitil.ps','6BJcaGT3dgScxix12Fx4WA==','Pavel','Snítil ',1,1,1,'2018-11-13 08:34:42','2018-11-15 03:32:10'),
+	(25,'jaromir@cervenka.jc','p4Pq1ukDGTYAlCD45lFxEA==','Jaromír','Cervenka',2,2,1,'2018-11-13 08:36:23','2018-11-15 03:32:11'),
+	(26,'biwycilu@mailinator.net','bi8eo5nyjXUY31e+pd+dGw==','Genevieve','Bell',2,2,0,'2018-11-14 04:18:41','2018-11-14 04:18:41'),
+	(27,'nelajireh@mailinator.com','K5Odfzf83anMqhYgpX8+HA==','Shannon','York',2,2,0,'2018-11-14 04:21:53','2018-11-14 04:21:53'),
+	(28,'nojox@mailinator.net','uWGhDc5TmAgOiN0DKW1Xqg==','Meghan','Fernandez',2,2,0,'2018-11-14 04:28:06','2018-11-14 04:28:06'),
+	(29,'mr@robot.mr','egXzw2hDiTqHGeIXHQkcpQ==','Elliot','Alderson',1,1,1,'2018-11-15 03:29:59','2018-11-15 03:37:17'),
+	(30,'dytu@mailinator.net','FBAND8qIs4ScRHlmvOePBQ==','Ivor','Knox',2,2,0,'2018-11-15 04:07:05','2018-11-15 04:07:05'),
+	(31,'jevudi@mailinator.net','bi8eo5nyjXUY31e+pd+dGw==','Jaden','Todd',2,2,1,'2018-11-15 04:12:54','2018-11-15 04:12:54'),
+	(32,'xerexuhet@mailinator.net','F2QeFKdtx98gPpxCt0eOyg==','Chastity','Berry',2,2,1,'2018-11-15 04:16:23','2018-11-15 04:16:23'),
+	(33,'koqefev@mailinator.com','HKPKxpXBp2bJZdImZKHdog==','Hanae','Witt',2,2,0,'2018-11-15 04:17:58','2018-11-15 04:17:58'),
+	(34,'admin@adminovic.com','PGytuvRI/Jmicfl8uOgxqQ==','Admin','Adminovic',1,1,1,'2018-11-18 14:30:55','2018-11-18 14:30:55');
+
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table work_field
+# ------------------------------------------------------------
+
+LOCK TABLES `work_field` WRITE;
+/*!40000 ALTER TABLE `work_field` DISABLE KEYS */;
+
+INSERT INTO `work_field` (`work_field_id`, `name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Full-Time','2018-11-12 03:13:29','2018-11-12 03:13:29'),
+	(2,'Part-Time','2018-11-12 03:13:29','2018-11-12 03:13:29');
+
+/*!40000 ALTER TABLE `work_field` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table work_position
+# ------------------------------------------------------------
+
+LOCK TABLES `work_position` WRITE;
+/*!40000 ALTER TABLE `work_position` DISABLE KEYS */;
+
+INSERT INTO `work_position` (`position_id`, `name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Business','2018-11-12 03:14:28','2018-11-12 03:14:28'),
+	(2,'Administrative','2018-11-12 03:14:28','2018-11-12 03:14:28');
+
+/*!40000 ALTER TABLE `work_position` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
 
 COMMIT;
 SET FOREIGN_KEY_CHECKS = 1;
