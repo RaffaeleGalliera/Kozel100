@@ -12,6 +12,7 @@ import java.util.Date;
 
 public class Purchase {
 
+    public int purchaseId;
     public int companyId;
     public int consultingServiceId;
     public Date purchaseDate;
@@ -55,8 +56,8 @@ public class Purchase {
         java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
 
 
-        query = "INSERT INTO purchase(company_id, consulting_service_id, purchase_date, start_date)" +
-                "VALUES(" + companyId + "," + consultingServiceId + ",?, ?)";
+        query = "INSERT INTO purchase(purchase_id, company_id, consulting_service_id, purchase_date, start_date)" +
+                "VALUES("+purchaseId+","+ companyId + "," + consultingServiceId + ",?, ?)";
 
 
         database.modify(query, sqlPurchaseDate, sqlStartDate);
