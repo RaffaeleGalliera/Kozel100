@@ -30,7 +30,8 @@ Exam : http://www.unife.it/ing/informazione/sistemi-web
 
 2. View of the customers list, filtering by companies' product category, tags, by customer type (prospect, new customer, client at risk of abandonment, etc..) and by assigned user.
 
-3. Customer Notes Management: every time a customer is engaged in conversations -like emails or calls- it's possible to add / edit / delete one or more notes related to the conversation that occurred and the user who registered it. Only the note writer is able to edit and delete his notes, except for administrator who are able to do these actions for every note. 
+3. Customer Notes Management: Whenever a customer is contacted it must be possible to insert a new "conversation" with its reasons and insert / modify / delete one or more notes related to it.
+Each user has the rights to modify or delete only their own client notes, different from the situation in case the user is an administrator, in this case he has the right to modify and delete all the notes. 
 
 4. Commercial Proposals Management: for each client, users are able to insert a new opportunity -commercial proposal- which can be linked to consulting services.
 
