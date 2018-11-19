@@ -11,10 +11,14 @@ ALTER TABLE `commercial_proposal`
   ADD FOREIGN KEY (`company_id`) REFERENCES `company`(`company_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `kozel100`.`purchase`(
+  `purchase_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` INT NOT NULL ,
   `consulting_service_id` INT NOT NULL ,
   `purchase_date` DATE NOT NULL ,
-  `start_date` DATE NOT NULL)ENGINE = InnoDB;
+  `start_date` DATE NOT NULL,
+   PRIMARY KEY (`purchase_id`)
+
+  )ENGINE = InnoDB;
 
 ALTER TABLE `purchase`
   ADD FOREIGN KEY (`company_id`) REFERENCES `company`(`company_id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -16,19 +16,20 @@ DROP FOREIGN KEY `proposal_service_ibfk_2`;
 ALTER TABLE `proposal_service`
 ADD CONSTRAINT `proposal_service_ibfk_2` FOREIGN KEY (`consulting_service_id`) REFERENCES `consulting_service`(`consulting_service_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `proposal_service`
-DROP FOREIGN KEY `proposal_service_ibfk_1`;
-
-ALTER TABLE `proposal_service`
-ADD CONSTRAINT `proposal_service_ibfk_1` FOREIGN KEY (`commercial_proposal_id`) REFERENCES `commercial_proposal`(`commercial_proposal_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `proposal_service`
-DROP FOREIGN KEY `proposal_service_ibfk_2`;
-
-ALTER TABLE `proposal_service`
-ADD CONSTRAINT `proposal_service_ibfk_2` FOREIGN KEY (`consulting_service_id`) REFERENCES `consulting_service`(`consulting_service_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `company`
 ADD `start_date` DATE NOT NULL AFTER `vat`;
+
+ALTER TABLE `consulting_service`
+DROP active_fl;
+
+ALTER TABLE `contact_person`
+DROP active_fl;
+
+ALTER TABLE `commercial_proposal`
+DROP active_fl;
+
+ALTER TABLE `company`
+DROP active_fl;
 
 
