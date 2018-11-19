@@ -39,7 +39,7 @@ Each user has the rights to modify or delete only their own client notes, differ
 
 6. Every user has his personal agenda  -made with JavaScript FullCalendar plugin https://fullcalendar.io/ - 
 
-7. Insert tags for each customer, even add them massivly, selecting customers from the customer list. Browse customer lists as point 2.
+7. Insert tags for each customer, even add them massivly, selecting customers from the customer list, with the possibility to filter the customer lists as point 2.
 
 8. Export customer lists to PDFs (choosing the fields to be exported).
 
