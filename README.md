@@ -28,7 +28,7 @@ Exam : http://www.unife.it/ing/informazione/sistemi-web
 
 1. Users are able to perform CRUD actions on customers (company), with all the details and characteristics, listing customer notes,  consulting services purchased and other details. Each customer is assigned to one application user(employee).
 
-2. View of the customers list, browsing by companies' product category, tags, by customer type (prospect, new customer, client at risk of abandonment, etc..) and by assigned user.
+2. View of the customers list, filtering by companies' product category, tags, by customer type (prospect, new customer, client at risk of abandonment, etc..) and by assigned user.
 
 3. Customer Notes Management: every time a customer is engaged in conversations -like emails or calls- it's possible to add / edit / delete one or more notes related to the conversation that occurred and the user who registered it. Only the note writer is able to edit and delete his notes, except for administrator who are able to do these actions for every note. 
 
