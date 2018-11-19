@@ -35,7 +35,7 @@ Each user has the rights to modify or delete only their own client notes, differ
 
 4. Commercial Proposals Management: for each client, users are able to insert a new opportunity -commercial proposal- which can be linked to consulting services.
 
-5. Appointment Management: Insert an appointment with a note, a date, every partecipating user and the customer which it refers.
+5. Appointment Management: Insert an appointment with note, date, every partecipating user and the customer which it refers.
 
 6. Every user has his personal agenda  -made with JavaScript FullCalendar plugin https://fullcalendar.io/ - 
 
