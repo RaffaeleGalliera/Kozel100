@@ -78,7 +78,6 @@
                 Back To List
             </button>
 
-            </h1>
         </form>
         <form name="adminPanelManager" action="" onsubmit="adminCheck()" method="post">
             <div class="form-group">
@@ -148,7 +147,6 @@
                     Administrator
                 </label>
             </div>
-            <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised">Submit</button>
             <input type="hidden" name="status" value="insertUser"/>
         </form>

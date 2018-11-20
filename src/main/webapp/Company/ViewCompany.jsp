@@ -258,10 +258,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Appointments
-                                <button style="float:right" type="submit" data-toggle="modal"
+                                <button style="float:right" title="Add" data-toggle="modal"
                                         data-target="#addAppointment"
-                                        class="btn btn-default">
-                                    <i class="material-icons md-36">add</i>
+                                        class="btn btn-outline-secondary">
+                                    Add New
                                 </button>
                             </h2>
                         </div>
@@ -323,10 +323,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Conversations
-                                <button style="float:right" type="submit" data-toggle="modal"
+                                <button style="float:right" title="Add" data-toggle="modal"
                                         data-target="#addConversation"
-                                        class="btn btn-default">
-                                    <i class="material-icons md-36">add</i>
+                                        class="btn btn-outline-secondary">
+                                    Add New
                                 </button>
                             </h2>
 
@@ -372,10 +372,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Customer Notes
-                                <button style="float:right" type="submit" data-toggle="modal"
+                                <button style="float:right" title="Add" data-toggle="modal"
                                         data-target="#addNote"
-                                        class="btn btn-default">
-                                    <i class="material-icons md-36">add</i>
+                                        class="btn btn-outline-secondary">
+                                    Add New
                                 </button>
                             </h2>
                         </div>
@@ -452,10 +452,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>Consulting Services
-                                <button style="float:right" type="submit" data-toggle="modal"
+                                <button style="float:right" title="Add" data-toggle="modal"
                                         data-target="#addServicePurchase"
-                                        class="btn btn-default">
-                                    <i style=" color:#34373b" class="material-icons md-36">add</i>
+                                        class="btn btn-outline-secondary">
+                                    Add New
                                 </button>
                             </h2>
                         </div>
@@ -501,11 +501,12 @@
                 <div class="table-wrapper">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>Commercial Proposals
-                                <a style="float: right" class="add" title="Add" data-toggle="modal"
-                                   data-target="#addCommercialProposal"><i
-                                        class="material-icons md-36">add</i>
-                                </a>
+                            <h2>Commercial Proposal
+                                <button style="float:right" title="Add" data-toggle="modal"
+                                        data-target="#addCommercialProposal"
+                                        class="btn btn-outline-secondary">
+                                    Add New
+                                </button>
                             </h2>
                         </div>
                     </div>
@@ -579,10 +580,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Tags
-                                    <button style="float:right" type="submit" data-toggle="modal"
+                                    <button style="float:right" title="Add" data-toggle="modal"
                                             data-target="#addTag"
-                                            class="btn btn-default">
-                                        <i class="material-icons md-36">add</i>
+                                            class="btn btn-outline-secondary">
+                                        Add New
                                     </button>
                                 </h2>
                             </div>

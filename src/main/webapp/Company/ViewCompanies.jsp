@@ -771,7 +771,6 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-default">Cancel</button>
                                 <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">
                                     Submit
                                 </button>
@@ -838,6 +837,7 @@
             window.open('/getPdf','_blank')
             document.cookie = "pdfAvailable=false; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         }
+
 
         //Inserimento delle compagnie in struttura dati JS
         let companies = [];
@@ -1374,6 +1374,10 @@
 </script>
 
 <script language="JavaScript">
+
+
+    let today = new Date().toISOString().substr(0, 10);
+    $('input[type="date"]').val(today)
 
 
     function redirect() {

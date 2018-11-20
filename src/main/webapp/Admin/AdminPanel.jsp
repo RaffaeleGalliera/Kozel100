@@ -52,17 +52,8 @@
             <p>In case of troubles contact your Webmaster.</p>
         </div>
     </div>
-    <p>
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".multi-collapse"
-                                aria-expanded="false"
-                                aria-controls="userCard workFieldsCard positionCard productCategoryCard consultingServicesCard tagsCard clientTypesCard">Show Current Setup</a></li>
-    </ul>
-    </p>
-
-    <div class="row">
         <div class="col">
-            <div class="collapse multi-collapse" id="consultingServicesCard">
+            <div class="collapse multi-collapse show" id="consultingServicesCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -70,9 +61,9 @@
                                 <div class="col-sm-12">
                                     <form action="InsertConsultingService.jsp">
                                         <h2>Consulting Services
-                                            <button style="float:right" type="submit" value="Tag"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                            <button style="float:right" type="submit" value="ConsultingService"
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -108,7 +99,7 @@
                 </div>
             </div>
 
-            <div class="collapse multi-collapse" id="usersCard">
+            <div class="collapse multi-collapse show" id="usersCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -117,8 +108,8 @@
                                     <form action="InsertUser.jsp">
                                         <h2>Users
                                             <button style="float:right" type="submit" value="InsertUser"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -147,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="workFieldsCard">
+            <div class="collapse multi-collapse show" id="workFieldsCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -156,8 +147,8 @@
                                     <form action="InsertWorkField.jsp">
                                         <h2>Work Fields
                                             <button style="float:right" type="submit" value="InsertWorkField"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -194,7 +185,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="collapse multi-collapse" id="positionCard">
+            <div class="collapse multi-collapse show" id="positionCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -203,8 +194,8 @@
                                     <form action="InsertPosition.jsp">
                                         <h2>Positions
                                             <button style="float:right" type="submit" value="InsertPosition"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -238,7 +229,7 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="clientTypesCard">
+            <div class="collapse multi-collapse show" id="clientTypesCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -247,8 +238,8 @@
                                     <form action="InsertClientType.jsp">
                                         <h2>Customer Types
                                             <button style="float:right" type="submit" value="InsertClientType"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -282,7 +273,7 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="productCategoryCard">
+            <div class="collapse multi-collapse show" id="productCategoryCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -291,8 +282,8 @@
                                     <form action="InsertProductCategory.jsp">
                                         <h2>Product Categories
                                             <button style="float:right" type="submit" value="Tag"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -326,7 +317,7 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse multi-collapse" id="tagsCard">
+            <div class="collapse multi-collapse show" id="tagsCard">
                 <div class="card card-body">
                     <div class="container">
                         <div class="table-wrapper">
@@ -335,8 +326,8 @@
                                     <form action="InsertTag.jsp">
                                         <h2>Tags
                                             <button style="float:right" type="submit" value="InsertTag"
-                                                    class="btn btn-default">
-                                                <i class="material-icons md-36">add</i>
+                                                    class="btn btn-outline-secondary">
+                                                <i class="fa fa-plus"></i>Add New
                                             </button>
                                         </h2>
                                     </form>
@@ -370,8 +361,6 @@
                 </div>
             </div>
         </div>
-
-    </div>
 </div>
 
 <!-- Optional JavaScript -->

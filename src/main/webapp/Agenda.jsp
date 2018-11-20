@@ -225,14 +225,14 @@
         events: curEvents,
         themeSystem: 'bootstrap4',
         eventColor: '#55AE59',
-        themeButtonIcons: {
-            prev: 'circle-triangle-w',
-            next: 'circle-triangle-e',
-            prevYear: 'seek-prev',
-            nextYear: 'seek-next'
+        buttonIcons: {
+            prev: 'left-single-arrow',
+            next: 'right-single-arrow',
+            prevYear: 'left-double-arrow',
+            nextYear: 'right-double-arrow'
         },
         header: {
-            left: 'prev,next today',
+            left: 'prev,next, today',
             center: 'title',
             right: 'agendaWeek,month,listMonth,addAppointment'
         },
@@ -247,11 +247,18 @@
         },
         customButtons: {
             addAppointment: {
-                text: 'ADD',
+                text: 'New Appointment',
                 click: function () {
                     $('#addAppointment').modal('show');
                 }
             }
+        },
+        buttonText: {
+            today: 'today',
+            month: 'month',
+            week: 'week',
+            day: 'day',
+            list: 'overview'
         },
         timeFormat: 'H(:mm)',
     });

@@ -21,6 +21,11 @@ public class Purchase {
     public Purchase(ResultSet result) {
 
         try {
+            purchaseId = result.getInt("purchase_id");
+        } catch (SQLException sqle) {
+        }
+
+        try {
             companyId = result.getInt("company_id");
         } catch (SQLException sqle) {
         }

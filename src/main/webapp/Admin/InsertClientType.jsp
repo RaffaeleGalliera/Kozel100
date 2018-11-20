@@ -75,11 +75,9 @@
             New Client Type
         </h1>
         <form action="AdminPanel.jsp">
-
             <button style="float:right" type="submit" value="InsertClientType" class="btn btn-default">
                 Back To Panel
             </button>
-            </h1>
         </form>
         <form name="adminPanelManager" action="" method="post">
             <div class="form-group">
@@ -94,7 +92,6 @@
                     </div>
                 <%}%>
             </div>
-            <button class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary btn-raised" onclick="insert(this.form)">Submit</button>
             <input type="hidden" name="status" value="insertClientType"/>
         </form>

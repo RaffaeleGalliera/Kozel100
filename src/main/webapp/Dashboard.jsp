@@ -150,7 +150,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">date_range</i> Visit Your Agenda
+                                <i class="material-icons">date_range</i> <a style="text-decoration: none"
+                                                                            href="Agenda.jsp"> Visit Your Agenda</a>
                             </div>
                         </div>
                     </div>
