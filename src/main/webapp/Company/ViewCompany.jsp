@@ -302,7 +302,7 @@
                             </td>
                             <td>
                                 <a style=" color:#34373b" class="edit" title="edit" data-toggle="tooltip"
-                                   href="JavaScript: updateAppointmentModal('<%=companyManager.getCompanyAppointment(k).appointmentId%>', '<%=companyManager.getCompanyAppointment(k).date%>', '<%=companyManager.getCompanyAppointment(k).time%>', '<%=companyManager.getCompanyAppointment(k).note%>');"><i
+                                   href="JavaScript: updateAppointmentModal(`<%=companyManager.getCompanyAppointment(k).appointmentId%>`, `<%=companyManager.getCompanyAppointment(k).date%>`, `<%=companyManager.getCompanyAppointment(k).time%>`, `<%=companyManager.getCompanyAppointment(k).note%>`);"><i
                                         class="material-icons md-24">&#xE254;</i>
                                 </a>
                             </td>
@@ -418,11 +418,11 @@
                             </td>
                             <%if ((isAdmin) || (userId == companyManager.getCompanyNote(k).userId)) {%>
                             <td><a style=" color:#34373b" class="edit" title="Add" data-toggle="tooltip"
-                                   href="JavaScript: updateNoteModal('<%=companyManager.getCompanyNote(k).conversationNoteId%>', '<%=companyManager.getCompanyNote(k).conversationId%>', '<%=companyManager.getCompanyNote(k).title%>', '<%=companyManager.getCompanyNote(k).note%>');"><i
+                                   href="JavaScript: updateNoteModal(`<%=companyManager.getCompanyNote(k).conversationNoteId%>`, `<%=companyManager.getCompanyNote(k).conversationId%>`, `<%=companyManager.getCompanyNote(k).title%>`, `<%=companyManager.getCompanyNote(k).note%>`);"><i
                                     class="material-icons md-24">&#xE254;</i>
                             </a>
                                 <a style=" color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
-                                   href="JavaScript:deleteNote('<%=companyManager.getCompanyNote(k).conversationNoteId%>');"><i
+                                   href="JavaScript:deleteNote(`<%=companyManager.getCompanyNote(k).conversationNoteId%>`);"><i
                                         class="material-icons md-24">&#xE872;</i>
                                 </a>
                             </td>
@@ -561,7 +561,7 @@
                             </td>
                             <td>
                                 <a style=" color:#34373b" class="edit" title="Update Proposal" data-toggle="tooltip"
-                                   href="JavaScript: updateProposalModal('<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>','<%=companyManager.getCommercialProposal(k).status%>');"><i
+                                   href="JavaScript: updateProposalModal(`<%=companyManager.getCommercialProposal(k).commercial_proposal_id%>`,`<%=companyManager.getCommercialProposal(k).status%>`);"><i
                                         class="material-icons md-24">&#xE254;</i>
                                 </a>
                             </td>
@@ -611,7 +611,7 @@
                                 </td>
                                 <td>
                                     <a style="color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
-                                       href="JavaScript:deleteTag('<%=companyManager.getCompanyTag(k).tagId%>','<%=companyManager.getCompanyTag(k).name%>');"><i
+                                       href="JavaScript:deleteTag(`<%=companyManager.getCompanyTag(k).tagId%>`,`<%=companyManager.getCompanyTag(k).name%>`);"><i
                                             class="material-icons">&#xE872;</i></a>
                                 </td>
                             </tr>

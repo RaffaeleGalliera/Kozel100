@@ -361,7 +361,8 @@
                 </th>
 
                 <td>
-                    <a style="font-size:large; color:#45a149" href="JavaScript: viewCompany('<%=companyManager.getCompany(k).companyId%>');"><%=companyManager.getCompany(k).name%>
+                    <a style="font-size:large; color:#45a149"
+                       href="JavaScript: viewCompany(`<%=companyManager.getCompany(k).companyId%>`);"><%=companyManager.getCompany(k).name%>
                     </a></td>
                 <td><%=companyManager.getCompany(k).country%>
                 </td>
@@ -383,10 +384,10 @@
                 </td>
                 <td>
                     <a style=" color:#34373b" class="edit" title="Edit" data-toggle="tooltip"
-                       href="JavaScript: updateCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>','<%=companyManager.getCompany(k).vat%>','<%=companyManager.getCompany(k).email%>','<%=companyManager.getCompany(k).clientTypeId%>','<%=companyManager.getCompany(k).productCategoryId%>','<%=companyManager.getCompany(k).userId%>','<%=companyManager.getCompany(k).country%>','<%=companyManager.getCompany(k).state%>','<%=companyManager.getCompany(k).city%>','<%=companyManager.getCompany(k).zip%>','<%=companyManager.getCompany(k).address%>','<%=companyManager.getCompany(k).startDate%>','<%=person.firstName%>','<%=person.lastName%>','<%=person.email%>','<%=person.phoneNumber%>');"><i
+                       href="JavaScript: updateCompany(`<%=companyManager.getCompany(k).companyId%>`,`<%=companyManager.getCompany(k).name%>`,`<%=companyManager.getCompany(k).vat%>`,`<%=companyManager.getCompany(k).email%>`,`<%=companyManager.getCompany(k).clientTypeId%>`,`<%=companyManager.getCompany(k).productCategoryId%>`,`<%=companyManager.getCompany(k).userId%>`,`<%=companyManager.getCompany(k).country%>`,`<%=companyManager.getCompany(k).state%>`,`<%=companyManager.getCompany(k).city%>`,`<%=companyManager.getCompany(k).zip%>`,`<%=companyManager.getCompany(k).address%>`,`<%=companyManager.getCompany(k).startDate%>`,`<%=person.firstName%>`,`<%=person.lastName%>`,`<%=person.email%>`,`<%=person.phoneNumber%>`);"><i
                             class="material-icons">&#xE254;</i></a>
-                    <a style=" color:#34373b"  class="delete" title="Delete" data-toggle="tooltip"
-                       href="JavaScript:deleteCompany('<%=companyManager.getCompany(k).companyId%>','<%=companyManager.getCompany(k).name%>');"><i
+                    <a style=" color:#34373b" class="delete" title="Delete" data-toggle="tooltip"
+                       href="JavaScript:deleteCompany(`<%=companyManager.getCompany(k).companyId%>`,`<%=companyManager.getCompany(k).name%>`);"><i
                             class="material-icons">&#xE872;</i></a>
                 </td>
             </tr>
